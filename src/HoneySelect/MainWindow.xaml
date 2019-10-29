@@ -1,0 +1,672 @@
+<windows:Window
+	x:Class="InitDialog.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	Title="HoneySelect Launcher"
+	Height="591"
+	Width="871"
+	WindowStartupLocation="CenterScreen"
+	FontFamily="MS Gothic"
+	FontSize="22"
+	Foreground="#FF00E4E3"
+	Visibility="Visible"
+	BorderBrush="#FF00FFFE"
+	OpacityMask="#FFCF00FF"
+	WindowStyle="ToolWindow"
+	ResizeMode="NoResize"
+	Background="#FF000000" xmlns:initdialog="clr-namespace:InitDialog" xmlns:windows="clr-namespace:System.Windows;assembly=PresentationFramework"
+	Closed="MenuCloseButton">
+    <Grid
+		Background="#FFD4D0C8"
+		Margin="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Image 
+            x:Name="appBG"
+            HorizontalAlignment="Left" 
+            Height="563" 
+            VerticalAlignment="Bottom" 
+            Width="865" 
+            Source="images/launcherBG.png"/>
+        <Image 
+            x:Name="PackChara"
+            Source="images/Chara.png" 
+            Margin="607.768,193.042,0,0"/>
+        <Image HorizontalAlignment="Left" Height="7.021" Margin="177.997,169.333,0,0" VerticalAlignment="Top" Width="68.75" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
+        <Image HorizontalAlignment="Left" Height="7.021" Margin="448.997,169.333,0,0" VerticalAlignment="Top" Width="114.917" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
+        <Image HorizontalAlignment="Left" Height="6.1" Margin="11.5,7.375,0,0" VerticalAlignment="Top" Width="47.376" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
+        <Image HorizontalAlignment="Left" Height="7.787" Margin="17,167.067,0,0" VerticalAlignment="Top" Width="108.876" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
+        <Image HorizontalAlignment="Left" Height="6.313" Margin="17,366.374,0,0" VerticalAlignment="Top" Width="69.543" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
+        <Image HorizontalAlignment="Left" Height="7.804" Margin="13,480.801,0,0" VerticalAlignment="Top" Width="154.578" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill" Visibility="Hidden"/>
+        <Image HorizontalAlignment="Left" Height="67.148" Margin="7.786,488.605,0,0" VerticalAlignment="Top" Width="577.134" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill" Visibility="Hidden"/>
+        <Image HorizontalAlignment="Left" Height="149.163" Margin="6.392,13.475,0,0" VerticalAlignment="Top" Width="847.572" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
+        <GroupBox
+            Header="Manuals"
+            HorizontalAlignment="Left"
+            Height="179.626"
+            Margin="10,361.374,0,0"
+            VerticalAlignment="Top"
+            Width="427.434"
+            Foreground="White"
+            FontFamily="Meiryo UI"
+            FontSize="16" Background="#BF000000" />
+        <GroupBox
+			Header="Game Startup"
+			HorizontalAlignment="Left"
+			Height="295.686"
+			Margin="442.434,165.021,0,0"
+			VerticalAlignment="Top"
+			Width="206.606"
+			Foreground="White"
+			FontFamily="Meiryo UI"
+			FontSize="16" Background="#BF000000" />
+        <GroupBox
+			Header="BetterRepack Links"
+			HorizontalAlignment="Left"
+			Height="81.305"
+			Margin="6.207,476.94,0,0"
+			VerticalAlignment="Top"
+			Width="580.893"
+			Foreground="White"
+			FontFamily="Meiryo UI"
+			FontSize="16" Visibility="Hidden" />
+        <GroupBox
+            Header="Game folders"
+            HorizontalAlignment="Left"
+            Height="197.307"
+            Margin="9.92,164.067,0,0"
+            VerticalAlignment="Top"
+            Width="154.191"
+            Foreground="White"
+            FontFamily="Meiryo UI"
+            FontSize="16" Background="#BF000000" />
+        <GroupBox
+            Header="Settings"
+            HorizontalAlignment="Left"
+            Height="196.353"
+            Margin="171.434,165.021,0,0"
+            VerticalAlignment="Top"
+            Width="266"
+            Foreground="White"
+            FontFamily="Meiryo UI"
+            FontSize="16" Background="#BF000000" />
+        <GroupBox
+			Header="Notice!"
+			Height="159.333"
+			Margin="5,5,0,0"
+			VerticalAlignment="Top"
+			Foreground="White"
+			BorderBrush="#FF000000"
+			BorderThickness="2"
+			FontFamily="MS UI Gothic"
+			FontSize="14"
+			RenderTransformOrigin="0.5,0.5"
+			HorizontalAlignment="Left"
+			Width="852.274" />
+        <TextBlock
+			HorizontalAlignment="Left"
+			Margin="16.776,13.475,0,0"
+			VerticalAlignment="Top"
+			Height="146.621"
+			Width="840.498"
+			FontSize="16"
+			Padding="10,15,10,0"
+			RenderTransformOrigin="0.5,0.5"
+			Foreground="White"
+			FontFamily="Arial"
+			TextWrapping="Wrap"
+			TextDecorations="{x:Null}"><Run Text="This game is intended for adult audiences, no person under the age of 18 (or equivalent according to local law) are supposed to play or be in possession of this game."/><LineBreak/><Run/><LineBreak/><Run Text="This game contains content of a sexual nature, and some of the actions depicted within may be illegal to replicate in real life. Aka, it's all fun and games in the game, let's keep it that way shall we? (~.~)v"/></TextBlock>
+        <ComboBox
+			Name="ResolutionBox"
+			Margin="181.434,185.021,0,0"
+			Background="#FFFFFFFF"
+			RenderTransformOrigin="0.5,0.5"
+			FontSize="12"
+			Padding="0,4,5,3"
+			ScrollViewer.CanContentScroll="False"
+			MaxDropDownHeight="240"
+			BorderBrush="#FF000000"
+			FontFamily="MS UI Gothic"
+			TabIndex="0"
+			VerticalContentAlignment="Center"
+			HorizontalContentAlignment="Center"
+			Height="25"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Left"
+			Width="246"
+			SelectionChanged="Resolution_Change" />
+        <CheckBox
+			Name="modeFenetre"
+			Content="Run Game in Fullscreen"
+			VerticalAlignment="Top"
+			Height="26"
+			FontFamily="Arial"
+			FontSize="18"
+			BorderThickness="1"
+			Padding="5,0,0,4"
+			Background="#FFFFFFFF"
+			RenderTransformOrigin="-0.25,6.269"
+			BorderBrush="#FF646464"
+			Foreground="White"
+			Margin="191.434,275.021,0,0"
+			IsHitTestVisible="True"
+			VerticalContentAlignment="Center"
+			TabIndex="1"
+			HorizontalAlignment="Left"
+			Width="236"
+			Unchecked="WindowUnChecked"
+			Checked="windowChecked" />
+        <ComboBox
+			Name="QualityBox"
+			Margin="181.434,215.021,0,0"
+			Background="#FFFFFFFF"
+			FontSize="12"
+			Padding="0,4,5,3"
+			ScrollViewer.CanContentScroll="False"
+			BorderBrush="#FF000000"
+			FontFamily="MS UI Gothic"
+			HorizontalContentAlignment="Center"
+			TabIndex="2"
+			VerticalContentAlignment="Center"
+			Height="25"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Left"
+			Width="246"
+			SelectionChanged="Quality_Change" />
+        <ComboBox
+			Name="DisplayBox"
+			HorizontalAlignment="Left"
+			Margin="181.434,245.021,0,0"
+			VerticalAlignment="Top"
+			Width="246"
+			Height="25"
+			BorderBrush="#FF000000"
+			FontFamily="MS UI Gothic"
+			FontSize="12"
+			ScrollViewer.CanContentScroll="False"
+			HorizontalContentAlignment="Center"
+			Padding="0,4,5,3"
+			VerticalContentAlignment="Center"
+			TabIndex="3"
+			Background="#FFFFFFFF"
+			SelectionChanged="Display_Change" />
+        <Button
+			Name="PLAY"
+			Content="Game"
+			Margin="452.1,192.15,0,0"
+			RenderTransformOrigin="0.5,0.5"
+			FontFamily="MS UI Gothic"
+			FontSize="16"
+			TabIndex="4"
+			Padding="0,0,1,1"
+			Height="41.791"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Left"
+			Width="105"
+			Click="PLAY_Click">
+            <UIElement.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </UIElement.RenderTransform>
+        </Button>
+        <Button
+			Name="SystemInfo"
+			Content="System info"
+			HorizontalAlignment="Left"
+			Margin="181.434,307.271,0,0"
+			VerticalAlignment="Top"
+			Width="110"
+			Height="35"
+			FontFamily="MS UI Gothic"
+			FontSize="16"
+			TabIndex="6"
+			Click="SystemInfo_Open" />
+        <Button
+			Name="EXIT"
+			Content="Exit"
+			Margin="317.434,307.271,0,0"
+			FontFamily="MS UI Gothic"
+			FontSize="16"
+			RenderTransformOrigin="0.5,0.5"
+			TabIndex="8"
+			HorizontalAlignment="Left"
+			Width="110"
+			Height="35"
+			VerticalAlignment="Top"
+			Click="Exit_Click" />
+        <Button
+			Name="KoikatuCharaDirectory"
+			Content="Character Cards"
+			HorizontalAlignment="Left"
+			Margin="20,272.817,0,0"
+			VerticalAlignment="Top"
+			Width="135"
+			Height="35"
+			FontFamily="MS UI Gothic"
+			FontSize="16"
+			RenderTransformOrigin="0.5,0.5"
+			TabIndex="7"
+			Click="KoikatuCharaDir_Open" />
+        <Button
+			Name="KoikatuScreenShotDirectory"
+			Content="ScreenShots"
+			HorizontalAlignment="Left"
+			Margin="20,312.817,0,0"
+			VerticalAlignment="Top"
+			Width="135"
+			Height="35"
+			FontFamily="MS UI Gothic"
+			FontSize="16"
+			RenderTransformOrigin="0.5,0.5"
+			TabIndex="7"
+			Click="KoikatuSSDir_Open" />
+        <Button
+			Name="InstallDirectory"
+			Content="Install Folder"
+			HorizontalAlignment="Left"
+			Margin="20,194.15,0,0"
+			VerticalAlignment="Top"
+			Width="135"
+			Height="35"
+			FontFamily="MS UI Gothic"
+			FontSize="16"
+			TabIndex="6"
+			Click="InstallDir_Open" />
+        <Button
+			Name="SceneDirectory"
+			Content="Scenes"
+			HorizontalAlignment="Left"
+			Margin="20,234.15,0,0"
+			VerticalAlignment="Top"
+			Width="135"
+			Height="35"
+			FontFamily="MS UI Gothic"
+			FontSize="16"
+			TabIndex="6"
+			Click="SceneDir_Open" />
+        <Button
+			Name="Manual_Open"
+			Content="Game"
+			Margin="20,389.814,0,0"
+			RenderTransformOrigin="0.5,0.5"
+			FontFamily="MS UI Gothic"
+			FontSize="16"
+			TabIndex="5"
+			Height="36.791"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Left"
+			Width="118"
+			Click="ManualOpen">
+            <UIElement.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </UIElement.RenderTransform>
+        </Button>
+        <Image 
+            HorizontalAlignment="Left" 
+            Height="33.833" 
+            Margin="20,493.605,0,0" 
+            VerticalAlignment="Top" 
+            Width="40.726" 
+            MouseLeftButtonDown="discord_MouseLeftButtonDown" 
+            Source="images/Discord.png"/>
+        <TextBlock 
+            x:Name="Versioning" 
+            Margin="694.416,0,11.917,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            FontFamily="Arial" 
+            FontSize="12" 
+            TextAlignment="Right" 
+            Foreground="Black" 
+            Text="Unknown Install Method"/>
+        <Button
+            x:Name="PLAY32"
+            Content="32-bit"
+            Margin="572.1,192.15,0,0"
+            RenderTransformOrigin="0.5,0.5"
+            FontFamily="MS UI Gothic"
+            FontSize="16"
+            TabIndex="4"
+            Padding="0,0,1,1"
+            Height="41.791"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Width="64"
+            Click="PLAY32_Click">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button
+            x:Name="PLAYStudio"
+            Content="Studio"
+            Margin="452.1,245.021,0,0"
+            RenderTransformOrigin="0.5,0.5"
+            FontFamily="MS UI Gothic"
+            FontSize="16"
+            TabIndex="4"
+            Padding="0,0,1,1"
+            Height="41.791"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Width="105"
+            Click="PLAYStudio_Click">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button
+            x:Name="PLAYStudio32"
+            Content="32-bit"
+            Margin="572.1,245.021,0,0"
+            RenderTransformOrigin="0.5,0.5"
+            FontFamily="MS UI Gothic"
+            FontSize="16"
+            TabIndex="4"
+            Padding="0,0,1,1"
+            Height="41.791"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Width="64"
+            Click="PLAYStudio32_Click">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button
+            x:Name="Manual_s_Open"
+            Content="Studio"
+            Margin="153.768,389.814,0,0"
+            RenderTransformOrigin="0.5,0.5"
+            FontFamily="MS UI Gothic"
+            FontSize="16"
+            TabIndex="5"
+            Height="36.791"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Width="118"
+            Click="ManualOpenS">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button
+            x:Name="PLAYVR"
+            Content="VR"
+            Margin="452.1,352.472,0,0"
+            RenderTransformOrigin="0.5,0.5"
+            FontFamily="MS UI Gothic"
+            FontSize="16"
+            TabIndex="4"
+            Padding="0,0,1,1"
+            Height="41.791"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Width="105"
+            Click="PLAYVR_Click">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button
+            x:Name="Manual_ad_Open"
+            Content="Additional&#xD;&#xA;    Data"
+            Margin="289.768,389.814,0,0"
+            RenderTransformOrigin="0.5,0.5"
+            FontFamily="MS UI Gothic"
+            FontSize="16"
+            TabIndex="4"
+            Padding="0,0,1,1"
+            Height="36.791"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Width="118"
+            Click="ManualOpenAD">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button
+            x:Name="PLAYVRVive"
+            Content="Vive"
+            Margin="572.1,352.472,0,0"
+            RenderTransformOrigin="0.5,0.5"
+            FontFamily="MS UI Gothic"
+            FontSize="16"
+            TabIndex="4"
+            Padding="0,0,1,1"
+            Height="41.791"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Width="64"
+            Click="PLAYVRVive_Click">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button
+            x:Name="PLAYStudioNeo"
+            Content="StudioNEO"
+            Margin="452.1,297.73,0,0"
+            RenderTransformOrigin="0.5,0.5"
+            FontFamily="MS UI Gothic"
+            FontSize="16"
+            TabIndex="4"
+            Padding="0,0,1,1"
+            Height="41.791"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Width="105"
+            Click="PLAYStudioNeo_Click">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button
+            x:Name="PLAYStudioNeo32"
+            Content="32-bit"
+            Margin="572.1,297.73,0,0"
+            RenderTransformOrigin="0.5,0.5"
+            FontFamily="MS UI Gothic"
+            FontSize="16"
+            TabIndex="4"
+            Padding="0,0,1,1"
+            Height="41.791"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Width="64"
+            Click="PLAYStudioNeo32_Click">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button
+            x:Name="PLAYBattle"
+            Content="Battle"
+            Margin="452.1,405.023,0,0"
+            RenderTransformOrigin="0.5,0.5"
+            FontFamily="MS UI Gothic"
+            FontSize="16"
+            TabIndex="4"
+            Padding="0,0,1,1"
+            Height="41.791"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Width="105"
+            Click="PLAYBattle_Click">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button
+            x:Name="Manual_b_Open"
+            Content="Battle"
+            Margin="20,440.149,0,0"
+            RenderTransformOrigin="0.5,0.5"
+            FontFamily="MS UI Gothic"
+            FontSize="16"
+            TabIndex="5"
+            Height="36.791"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Width="118"
+            Click="ManualOpenB">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button
+            x:Name="Manual_sn_Open"
+            Content="StudioNEO"
+            Margin="153.768,440.149,0,0"
+            RenderTransformOrigin="0.5,0.5"
+            FontFamily="MS UI Gothic"
+            FontSize="16"
+            TabIndex="5"
+            Height="36.791"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Width="118"
+            Click="ManualOpenSN">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button
+            x:Name="Manual_v_Open"
+            Content="VR"
+            Margin="289.768,440.149,0,0"
+            RenderTransformOrigin="0.5,0.5"
+            FontFamily="MS UI Gothic"
+            FontSize="16"
+            TabIndex="4"
+            Padding="0,0,1,1"
+            Height="36.791"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Width="118"
+            Click="ManualOpenV">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button
+            x:Name="Manual_v_vive_Open"
+            Content="VR Vive"
+            Margin="153.768,488.605,0,0"
+            RenderTransformOrigin="0.5,0.5"
+            FontFamily="MS UI Gothic"
+            FontSize="16"
+            TabIndex="5"
+            Height="36.791"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Width="118"
+            Click="ManualOpenV_Vive">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button
+            x:Name="PLAYBattle32"
+            Content="32-bit"
+            Margin="572.1,405.023,0,0"
+            RenderTransformOrigin="0.5,0.5"
+            FontFamily="MS UI Gothic"
+            FontSize="16"
+            TabIndex="4"
+            Padding="0,0,1,1"
+            Height="41.791"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Width="64"
+            Click="PLAYBattle32_Click">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+    </Grid>
+</windows:Window>

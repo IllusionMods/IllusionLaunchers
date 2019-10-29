@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI-Shoujo", "src\AI Shoujo\AI-Shoujo.csproj", "{6F62CF98-EB11-4FF2-8370-0B946CA337E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emotion Creators", "src\Emotion Creators\Emotion Creators.csproj", "{5AF75EC6-4B19-4507-AF25-742AFBCBF45D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoneySelect", "src\HoneySelect\HoneySelect.csproj", "{91F6B54E-6A85-486F-8BF3-5920D838F030}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InitSetting EN", "src\Koikatsu\InitSetting EN.csproj", "{C58FAB18-E861-41CA-873A-37FA261A9306}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6F62CF98-EB11-4FF2-8370-0B946CA337E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F62CF98-EB11-4FF2-8370-0B946CA337E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F62CF98-EB11-4FF2-8370-0B946CA337E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F62CF98-EB11-4FF2-8370-0B946CA337E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AF75EC6-4B19-4507-AF25-742AFBCBF45D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AF75EC6-4B19-4507-AF25-742AFBCBF45D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AF75EC6-4B19-4507-AF25-742AFBCBF45D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AF75EC6-4B19-4507-AF25-742AFBCBF45D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91F6B54E-6A85-486F-8BF3-5920D838F030}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91F6B54E-6A85-486F-8BF3-5920D838F030}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91F6B54E-6A85-486F-8BF3-5920D838F030}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91F6B54E-6A85-486F-8BF3-5920D838F030}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C58FAB18-E861-41CA-873A-37FA261A9306}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C58FAB18-E861-41CA-873A-37FA261A9306}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C58FAB18-E861-41CA-873A-37FA261A9306}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C58FAB18-E861-41CA-873A-37FA261A9306}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {053D8C5C-E4D8-40B5-8463-61C93DEB0517}
+	EndGlobalSection
+EndGlobal

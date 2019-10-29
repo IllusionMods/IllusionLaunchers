@@ -1,0 +1,397 @@
+<windows:Window
+	x:Class="InitDialog.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	Title="Koikatsu Party Launcher"
+	Height="591"
+	Width="871"
+	WindowStartupLocation="CenterScreen"
+	FontFamily="MS Gothic"
+	FontSize="22"
+	Foreground="#FF00E4E3"
+	Visibility="Visible"
+	BorderBrush="#FF00FFFE"
+	OpacityMask="#FFCF00FF"
+	WindowStyle="ToolWindow"
+	ResizeMode="NoResize"
+	Background="#FF000000" xmlns:initdialog="clr-namespace:InitDialog" xmlns:windows="clr-namespace:System.Windows;assembly=PresentationFramework"
+	Closed="MenuCloseButton">
+    <Grid
+		Background="#FFD4D0C8"
+		Margin="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Image 
+            x:Name="appBG"
+            HorizontalAlignment="Left" 
+            Height="563" 
+            VerticalAlignment="Bottom" 
+            Width="865" 
+            Source="images/launcherBG.png"/>
+        <Image 
+            x:Name="PackChara"
+            Source="images/Chara.png" 
+            Margin="584.92,193.042,0,0"/>
+        <Image HorizontalAlignment="Left" Height="95.973" Margin="7.222,275.806,0,0" VerticalAlignment="Top" Width="437.131" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
+        <Image HorizontalAlignment="Left" Height="60.583" Margin="7.753,205.287,0,0" VerticalAlignment="Top" Width="575.497" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
+        <Image HorizontalAlignment="Left" Height="176" Margin="5.92,15,0,0" VerticalAlignment="Top" Width="575.806" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
+        <Image HorizontalAlignment="Left" Height="173.917" Margin="591.167,17.083,0,0" VerticalAlignment="Top" Width="261.916" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
+        <GroupBox
+			Header="Game Startup"
+			HorizontalAlignment="Left"
+			Height="108.669"
+			Margin="5,264.12,0,0"
+			VerticalAlignment="Top"
+			Width="441.564"
+			Foreground="White"
+			FontFamily="Meiryo UI"
+			FontSize="16" />
+        <GroupBox
+            Header="Game folders"
+            HorizontalAlignment="Left"
+            Height="75.002"
+            Margin="5.92,193,0,0"
+            VerticalAlignment="Top"
+            Width="579"
+            Foreground="White"
+            FontFamily="Meiryo UI"
+            FontSize="16" />
+        <GroupBox
+            Header="Settings"
+            HorizontalAlignment="Left"
+            Height="188.042"
+            Margin="589,5,0,0"
+            VerticalAlignment="Top"
+            Width="266"
+            Foreground="White"
+            FontFamily="Meiryo UI"
+            FontSize="16" />
+        <GroupBox
+			Header="Notice!"
+			Height="188"
+			Margin="5,5,0,0"
+			VerticalAlignment="Top"
+			Foreground="White"
+			BorderBrush="#FF000000"
+			BorderThickness="2"
+			FontFamily="MS UI Gothic"
+			FontSize="14"
+			RenderTransformOrigin="0.5,0.5"
+			HorizontalAlignment="Left"
+			Width="579" />
+        <TextBlock
+			HorizontalAlignment="Left"
+			Margin="13,15,0,0"
+			VerticalAlignment="Top"
+			Height="173"
+			Width="571"
+			FontSize="16"
+			Padding="10,15,10,0"
+			RenderTransformOrigin="0.5,0.5"
+			Foreground="White"
+			FontFamily="Arial"
+			TextWrapping="Wrap"
+			TextDecorations="{x:Null}"><Run Text="This game is intended for adult audiences, no person under the age of 18 (or equivalent according to local law) are supposed to play or be in possession of this game."/><LineBreak/><Run/><LineBreak/><Run Text="This game contains content of a sexual nature, and some of the actions depicted within may be illegal to replicate in real life. Aka, it's all fun and games in the game, let's keep it that way shall we? (~.~)v"/></TextBlock>
+        <ComboBox
+			Name="ResolutionBox"
+			Margin="599,25,0,0"
+			Background="#FFFFFFFF"
+			RenderTransformOrigin="0.5,0.5"
+			FontSize="12"
+			Padding="0,4,5,3"
+			ScrollViewer.CanContentScroll="False"
+			MaxDropDownHeight="240"
+			BorderBrush="#FF000000"
+			FontFamily="MS UI Gothic"
+			TabIndex="0"
+			VerticalContentAlignment="Center"
+			HorizontalContentAlignment="Center"
+			Height="25"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Left"
+			Width="246"
+			SelectionChanged="Resolution_Change" />
+        <CheckBox
+			Name="modeFenetre"
+			Content="Run Game in Fullscreen"
+			VerticalAlignment="Top"
+			Height="26"
+			FontFamily="Arial"
+			FontSize="18"
+			BorderThickness="1"
+			Padding="5,0,0,4"
+			Background="#FFFFFFFF"
+			RenderTransformOrigin="-0.25,6.269"
+			BorderBrush="#FF646464"
+			Foreground="White"
+			Margin="609,115,0,0"
+			IsHitTestVisible="True"
+			VerticalContentAlignment="Center"
+			TabIndex="1"
+			HorizontalAlignment="Left"
+			Width="236"
+			Unchecked="windowUnChecked"
+			Checked="windowChecked" />
+        <ComboBox
+			Name="QualityBox"
+			Margin="599,55,0,0"
+			Background="#FFFFFFFF"
+			FontSize="12"
+			Padding="0,4,5,3"
+			ScrollViewer.CanContentScroll="False"
+			BorderBrush="#FF000000"
+			FontFamily="MS UI Gothic"
+			HorizontalContentAlignment="Center"
+			TabIndex="2"
+			VerticalContentAlignment="Center"
+			Height="25"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Left"
+			Width="246"
+			SelectionChanged="Quality_Change" />
+        <ComboBox
+			Name="DisplayBox"
+			HorizontalAlignment="Left"
+			Margin="599,85,0,0"
+			VerticalAlignment="Top"
+			Width="246"
+			Height="25"
+			BorderBrush="#FF000000"
+			FontFamily="MS UI Gothic"
+			FontSize="12"
+			ScrollViewer.CanContentScroll="False"
+			HorizontalContentAlignment="Center"
+			Padding="0,4,5,3"
+			VerticalContentAlignment="Center"
+			TabIndex="3"
+			Background="#FFFFFFFF"
+			SelectionChanged="Display_Change" />
+        <Button
+			Name="PLAY"
+			Content="Start Koikatsu"
+			Margin="19.333,287.214,0,0"
+			RenderTransformOrigin="0.5,0.5"
+			FontFamily="MS UI Gothic"
+			FontSize="16"
+			TabIndex="4"
+			Padding="0,0,1,1"
+			Height="35"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Left"
+			Width="135"
+			Click="PLAY_Click">
+            <UIElement.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </UIElement.RenderTransform>
+        </Button>
+        <Button
+			Name="Manual_Open"
+			Content="Koikatsu Manual"
+			Margin="19.333,327.214,0,0"
+			RenderTransformOrigin="0.5,0.5"
+			FontFamily="MS UI Gothic"
+			FontSize="16"
+			TabIndex="5"
+			Height="35"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Left"
+			Width="135"
+			Click="ManualOpen">
+            <UIElement.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </UIElement.RenderTransform>
+        </Button>
+        <Button
+			Name="SystemInfo"
+			Content="System info"
+			HorizontalAlignment="Left"
+			Margin="599,147.25,0,0"
+			VerticalAlignment="Top"
+			Width="110"
+			Height="35"
+			FontFamily="MS UI Gothic"
+			FontSize="16"
+			TabIndex="6"
+			Click="SystemInfo_Open" />
+        <Button
+			Name="EXIT"
+			Content="Exit"
+			Margin="735,147.25,0,0"
+			FontFamily="MS UI Gothic"
+			FontSize="16"
+			RenderTransformOrigin="0.5,0.5"
+			TabIndex="8"
+			HorizontalAlignment="Left"
+			Width="110"
+			Height="35"
+			VerticalAlignment="Top"
+			Click="Exit_Click" />
+        <Button
+			Name="KoikatuCharaDirectory"
+			Content="Character Cards"
+			HorizontalAlignment="Left"
+			Margin="159.333,218.25,0,0"
+			VerticalAlignment="Top"
+			Width="135"
+			Height="35"
+			FontFamily="MS UI Gothic"
+			FontSize="16"
+			RenderTransformOrigin="0.5,0.5"
+			TabIndex="7"
+			Click="KoikatuCharaDir_Open" />
+        <Button
+			Name="KoikatuScreenShotDirectory"
+			Content="ScreenShots"
+			HorizontalAlignment="Left"
+			Margin="439.333,218.25,0,0"
+			VerticalAlignment="Top"
+			Width="135"
+			Height="35"
+			FontFamily="MS UI Gothic"
+			FontSize="16"
+			RenderTransformOrigin="0.5,0.5"
+			TabIndex="7"
+			Click="KoikatuSSDir_Open" />
+        <Button
+			Name="InstallDirectory"
+			Content="Install"
+			HorizontalAlignment="Left"
+			Margin="19.333,218.25,0,0"
+			VerticalAlignment="Top"
+			Width="135"
+			Height="35"
+			FontFamily="MS UI Gothic"
+			FontSize="16"
+			TabIndex="6"
+			Click="InstallDir_Open" />
+        <Button
+			Name="SceneDirectory"
+			Content="Scenes"
+			HorizontalAlignment="Left"
+			Margin="299.333,218.25,0,0"
+			VerticalAlignment="Top"
+			Width="135"
+			Height="35"
+			FontFamily="MS UI Gothic"
+			FontSize="16"
+			TabIndex="6"
+			Click="SceneDir_Open" />
+        <Button
+			Name="PLAY_Studio"
+			Content="Start Studio"
+			Margin="159.333,288.214,0,0"
+			RenderTransformOrigin="0.5,0.5"
+			FontFamily="MS UI Gothic"
+			FontSize="16"
+			TabIndex="4"
+			Padding="0,0,1,1"
+			Height="34"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Left"
+			Width="135"
+			Click="PLAY_Studio_Click">
+            <UIElement.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </UIElement.RenderTransform>
+        </Button>
+        <Button
+			Name="Manual_s_Open"
+			Content="Studio Manual"
+			Margin="159.333,327.214,0,0"
+			RenderTransformOrigin="0.5,0.5"
+			FontFamily="MS UI Gothic"
+			FontSize="16"
+			TabIndex="5"
+			Height="35"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Left"
+			Width="135"
+			Click="ManualOpenS">
+            <UIElement.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </UIElement.RenderTransform>
+        </Button>
+        <Button
+			Name="PLAY_VR"
+			Content="Start Koikatsu VR"
+			Margin="299.333,288.214,0,0"
+			RenderTransformOrigin="0.5,0.5"
+			FontFamily="MS UI Gothic"
+			FontSize="16"
+			TabIndex="4"
+			Padding="0,0,1,1"
+			Height="34"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Left"
+			Width="135"
+			Click="PLAY_VR_Click">
+            <UIElement.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </UIElement.RenderTransform>
+        </Button>
+        <Button
+			Name="Manual_v_Open"
+			Content="VR Manual"
+			Margin="299.333,327.214,0,0"
+			RenderTransformOrigin="0.5,0.5"
+			FontFamily="MS UI Gothic"
+			FontSize="16"
+			TabIndex="5"
+			Height="35"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Left"
+			Width="135"
+			Click="ManualOpenV">
+            <UIElement.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </UIElement.RenderTransform>
+        </Button>
+        <Image 
+            HorizontalAlignment="Left" 
+            Height="42.833" 
+            Margin="19.333,507.651,0,0" 
+            VerticalAlignment="Top" 
+            Width="40.726" 
+            MouseLeftButtonDown="discord_MouseLeftButtonDown" 
+            Source="images/Discord.png"/>
+        <TextBlock 
+            x:Name="Versioning" 
+            Margin="694.416,0,11.917,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            FontFamily="Arial" 
+            FontSize="12" 
+            TextAlignment="Right" 
+            Foreground="Black" 
+            Text="Unknown Install Method"/>
+    </Grid>
+</windows:Window>
