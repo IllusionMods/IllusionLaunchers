@@ -1,7 +1,7 @@
 <windows:Window
 	x:Class="InitDialog.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     x:Name="mainApp"
-	Title="AI Shoujo Launcher"
+	Title="AI Girl Launcher"
 	Height="591"
 	Width="871"
 	WindowStartupLocation="CenterScreen"
@@ -18,10 +18,6 @@
     <Grid
 		Background="#FFD4D0C8"
 		Margin="0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="315*"/>
-            <RowDefinition Height="248*"/>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
@@ -31,35 +27,35 @@
             Height="563" 
             VerticalAlignment="Bottom" 
             Width="865" 
-            Source="images/launcherBG.png" Grid.RowSpan="2"/>
+            Source="images/launcherBG.png"/>
         <Image 
             x:Name="PackChara"
             Source="images/Chara.png" 
-            Margin="584.92,193.042,0,0" Grid.RowSpan="2"/>
-        <Rectangle Fill="#3F000000" HorizontalAlignment="Left" Height="87.099" Margin="239.333,177.651,0,-16.75" Stroke="#7FE00000" VerticalAlignment="Top" Width="356.92" RadiusX="20" RadiusY="11" Grid.Row="1"/>
-        <Image HorizontalAlignment="Left" Height="100.68" Margin="7.222,275.806,0,0" VerticalAlignment="Top" Width="297.562" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill" Grid.RowSpan="2"/>
-        <Image HorizontalAlignment="Left" Height="60.583" Margin="7.753,205.287,0,0" VerticalAlignment="Top" Width="433.955" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
-        <Image HorizontalAlignment="Left" Height="176" Margin="5.92,15,0,0" VerticalAlignment="Top" Width="575.806" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
-        <Image HorizontalAlignment="Left" Height="173.917" Margin="591.167,17.083,0,0" VerticalAlignment="Top" Width="261.916" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
+            Margin="599,218.25,0,0"/>
+        <Rectangle Fill="#3F000000" HorizontalAlignment="Left" Height="59.999" Margin="281.843,519.751,0,-16.75" Stroke="#7FE00000" VerticalAlignment="Top" Width="268.75" RadiusX="20" RadiusY="11"/>
+        <Image HorizontalAlignment="Left" Height="95.973" Margin="7.42,333.639,0,0" VerticalAlignment="Top" Width="296.906" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
+        <Image HorizontalAlignment="Left" Height="96.333" Margin="7.42,222.287,0,0" VerticalAlignment="Top" Width="437.183" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
+        <Image HorizontalAlignment="Left" Height="191.5" Margin="5.92,15,0,0" VerticalAlignment="Top" Width="575.806" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
+        <Image HorizontalAlignment="Left" Height="189.417" Margin="591.167,17.083,0,0" VerticalAlignment="Top" Width="261.916" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
         <GroupBox
             x:Name="GameSBox"
 			Header="Game Startup"
 			HorizontalAlignment="Left"
-			Height="115.116"
-			Margin="5,264.12,0,0"
+			Height="108.669"
+			Margin="5.198,321.953,0,0"
 			VerticalAlignment="Top"
-			Width="301.784"
+			Width="301.253"
 			Foreground="White"
 			FontFamily="Meiryo UI"
-			FontSize="16" Grid.RowSpan="2" />
+			FontSize="16" />
         <GroupBox
             x:Name="GameFBox"
             Header="Game folders"
             HorizontalAlignment="Left"
-            Height="75.002"
-            Margin="5.92,193,0,0"
+            Height="109.75"
+            Margin="5.587,210,0,0"
             VerticalAlignment="Top"
-            Width="438.413"
+            Width="440.644"
             Foreground="White"
             FontFamily="Meiryo UI"
             FontSize="16" />
@@ -67,7 +63,7 @@
             x:Name="SettingsBox"
             Header="Settings"
             HorizontalAlignment="Left"
-            Height="188.042"
+            Height="202.583"
             Margin="589,5,0,0"
             VerticalAlignment="Top"
             Width="266"
@@ -77,7 +73,7 @@
         <GroupBox
             x:Name="warnBox"
 			Header="Notice!"
-			Height="188"
+			Height="202.583"
 			Margin="5,5,0,0"
 			VerticalAlignment="Top"
 			Foreground="White"
@@ -93,7 +89,7 @@
 			HorizontalAlignment="Left"
 			Margin="13,15,0,0"
 			VerticalAlignment="Top"
-			Height="173"
+			Height="190"
 			Width="571"
 			FontSize="16"
 			Padding="10,15,10,0"
@@ -142,6 +138,27 @@
 			Width="236"
 			Unchecked="windowUnChecked"
 			Checked="windowChecked" />
+        <CheckBox
+			Name="modeDev"
+			Content="Developer Mode"
+			VerticalAlignment="Top"
+			Height="26"
+			FontFamily="Arial"
+			FontSize="18"
+			BorderThickness="1"
+			Padding="5,0,0,4"
+			Background="#FFFFFFFF"
+			RenderTransformOrigin="-0.25,6.269"
+			BorderBrush="#FF646464"
+			Foreground="White"
+			Margin="609,138.25,0,0"
+			IsHitTestVisible="True"
+			VerticalContentAlignment="Center"
+			TabIndex="1"
+			HorizontalAlignment="Left"
+			Width="236"
+			Unchecked="modeDev_Unchecked"
+			Checked="modeDev_Checked" />
         <ComboBox
 			Name="QualityBox"
 			Margin="599,55,0,0"
@@ -178,8 +195,8 @@
 			SelectionChanged="Display_Change" />
         <Button
 			Name="PLAY"
-			Content="Start AI Shoujo"
-			Margin="19.333,292.214,0,0"
+			Content="Start AI Girl"
+			Margin="19,346.047,0,0"
 			RenderTransformOrigin="0.5,0.5"
 			FontFamily="MS UI Gothic"
 			FontSize="16"
@@ -189,7 +206,7 @@
 			VerticalAlignment="Top"
 			HorizontalAlignment="Left"
 			Width="135"
-			Click="PLAY_Click" Grid.RowSpan="2">
+			Click="PLAY_Click">
             <UIElement.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform />
@@ -201,8 +218,8 @@
         </Button>
         <Button
 			Name="Manual_Open"
-			Content="AI Shoujo Manual"
-			Margin="159.333,292.214,0,0"
+			Content="AI Girl Manual"
+			Margin="159,346.047,0,0"
 			RenderTransformOrigin="0.5,0.5"
 			FontFamily="MS UI Gothic"
 			FontSize="16"
@@ -211,52 +228,7 @@
 			VerticalAlignment="Top"
 			HorizontalAlignment="Left"
 			Width="135"
-			Click="ManualOpen" Grid.RowSpan="2">
-            <UIElement.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform />
-                    <SkewTransform />
-                    <RotateTransform />
-                    <TranslateTransform />
-                </TransformGroup>
-            </UIElement.RenderTransform>
-        </Button>
-        <Button
-			Name="PLAY_S"
-			Content="Start Studio Neo"
-			Margin="19.333,17.214,0,0"
-			RenderTransformOrigin="0.5,0.5"
-			FontFamily="MS UI Gothic"
-			FontSize="16"
-			TabIndex="4"
-			Padding="0,0,1,1"
-			Height="35"
-			VerticalAlignment="Top"
-			HorizontalAlignment="Left"
-			Width="135"
-			Click="PLAY_S_Click" Grid.Row="1">
-            <UIElement.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform />
-                    <SkewTransform />
-                    <RotateTransform />
-                    <TranslateTransform />
-                </TransformGroup>
-            </UIElement.RenderTransform>
-        </Button>
-        <Button
-			Name="Manual_S_Open"
-			Content="Studio Neo Manual"
-			Margin="159.333,17.214,0,0"
-			RenderTransformOrigin="0.5,0.5"
-			FontFamily="MS UI Gothic"
-			FontSize="16"
-			TabIndex="5"
-			Height="35"
-			VerticalAlignment="Top"
-			HorizontalAlignment="Left"
-			Width="135"
-			Click="Manual_S_OpenCLICK" Grid.Row="1">
+			Click="ManualOpen">
             <UIElement.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform />
@@ -270,7 +242,7 @@
 			Name="SystemInfo"
 			Content="System info"
 			HorizontalAlignment="Left"
-			Margin="599,147.25,0,0"
+			Margin="599,164.25,0,0"
 			VerticalAlignment="Top"
 			Width="110"
 			Height="35"
@@ -281,7 +253,7 @@
         <Button
 			Name="EXIT"
 			Content="Exit"
-			Margin="735,147.25,0,0"
+			Margin="735,164.25,0,0"
 			FontFamily="MS UI Gothic"
 			FontSize="16"
 			RenderTransformOrigin="0.5,0.5"
@@ -293,10 +265,10 @@
             IsCancel="true"
 			Click="Exit_Click" />
         <Button
-			Name="KoikatuCharaDirectory"
+			Name="AISCharaDirectory"
 			Content="Character Cards"
 			HorizontalAlignment="Left"
-			Margin="159.333,218.25,0,0"
+			Margin="159,235.25,0,0"
 			VerticalAlignment="Top"
 			Width="135"
 			Height="35"
@@ -304,12 +276,12 @@
 			FontSize="16"
 			RenderTransformOrigin="0.5,0.5"
 			TabIndex="7"
-			Click="KoikatuCharaDir_Open" />
+			Click="AISCharaDir_Open" />
         <Button
-			Name="KoikatuScreenShotDirectory"
-			Content="Screenshots"
+			Name="AISScreenShotDirectory"
+			Content="ScreenShots"
 			HorizontalAlignment="Left"
-			Margin="299.333,218.25,0,0"
+			Margin="19,275.25,0,0"
 			VerticalAlignment="Top"
 			Width="135"
 			Height="35"
@@ -317,12 +289,25 @@
 			FontSize="16"
 			RenderTransformOrigin="0.5,0.5"
 			TabIndex="7"
-			Click="KoikatuSSDir_Open" />
+			Click="AISSSDir_Open" />
+        <Button
+			Name="AISHousingDirectory"
+			Content="Houses"
+			HorizontalAlignment="Left"
+			Margin="159,275.25,0,0"
+			VerticalAlignment="Top"
+			Width="135"
+			Height="35"
+			FontFamily="MS UI Gothic"
+			FontSize="16"
+			RenderTransformOrigin="0.5,0.5"
+			TabIndex="7"
+			Click="AIHouseDir_Open" />
         <Button
 			Name="InstallDirectory"
 			Content="Install"
 			HorizontalAlignment="Left"
-			Margin="19.333,218.25,0,0"
+			Margin="19,235.25,0,0"
 			VerticalAlignment="Top"
 			Width="135"
 			Height="35"
@@ -330,23 +315,80 @@
 			FontSize="16"
 			TabIndex="6"
 			Click="InstallDir_Open" />
+        <Button
+			Name="SceneDirectory"
+			Content="Scenes"
+			HorizontalAlignment="Left"
+			Margin="299,235.25,0,0"
+			VerticalAlignment="Top"
+			Width="135"
+			Height="35"
+			FontFamily="MS UI Gothic"
+			FontSize="16"
+			TabIndex="6"
+			Click="SceneDir_Open" />
+        <Button
+			Name="PLAY_Studio"
+			Content="Start Studio Neo"
+			Margin="19,386.047,0,0"
+			RenderTransformOrigin="0.5,0.5"
+			FontFamily="MS UI Gothic"
+			FontSize="16"
+			TabIndex="4"
+			Padding="0,0,1,1"
+			Height="34"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Left"
+			Width="135"
+			Click="PLAY_Studio_Click">
+            <UIElement.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </UIElement.RenderTransform>
+        </Button>
+        <Button
+			Name="Manual_s_Open"
+			Content="Studio Neo Manual"
+			Margin="159,386.047,0,0"
+			RenderTransformOrigin="0.5,0.5"
+			FontFamily="MS UI Gothic"
+			FontSize="16"
+			TabIndex="5"
+			Height="35"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Left"
+			Width="135"
+			Click="ManualOpenS">
+            <UIElement.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </UIElement.RenderTransform>
+        </Button>
         <Image 
             HorizontalAlignment="Left" 
             Height="42.833" 
-            Margin="19.333,192.651,0,0" 
+            Margin="19.333,507.651,0,0" 
             VerticalAlignment="Top" 
             Width="40.726" 
             MouseLeftButtonDown="discord_MouseLeftButtonDown" 
-            Source="images/ModernDiscord_small.png" Grid.Row="1"/>
+            Source="images/ModernDiscord_small.png"/>
         <Image 
             x:Name="PatreonButton"
             HorizontalAlignment="Left" 
             Height="42.833" 
             Width="40.726" 
-            Margin="74.333,195.167,0,0" 
+            Margin="74.333,510.167,0,0" 
             VerticalAlignment="Top" 
             MouseLeftButtonDown="patreon_MouseLeftButtonDown" 
-            Source="images/ModernPatreon_small.png" Grid.Row="1"/>
+            Source="images/ModernPatreon_small.png"/>
         <TextBlock 
             x:Name="Versioning" 
             Margin="10,0,11.917,0" 
@@ -372,110 +414,89 @@
             HorizontalAlignment="Left" 
             Height="23.625" 
             Width="24.059" 
-            Margin="286.725,214.375,0,0" 
+            Margin="286.725,529.375,0,0" 
             VerticalAlignment="Top"
             Source="images/Flags/united-kingdom.png" 
-            MouseLeftButtonDown="langEnglish" Grid.Row="1"/>
+            MouseLeftButtonDown="langEnglish"/>
         <Image 
             x:Name="Japanese" 
             HorizontalAlignment="Left" 
             Height="23.625" 
             Width="24.059" 
-            Margin="315.784,214.375,0,0" 
+            Margin="315.784,529.375,0,0" 
             VerticalAlignment="Top" 
             Source="images/Flags/japan.png" 
             MouseLeftButtonDown="langJapanese" 
-            Stretch="UniformToFill" Grid.Row="1"/>
+            Stretch="UniformToFill"/>
         <Image 
             x:Name="Chinese" 
             HorizontalAlignment="Left" 
             Height="23.625" 
             Width="24.059" 
-            Margin="344.843,214.375,0,0" 
+            Margin="344.843,529.375,0,0" 
             VerticalAlignment="Top" 
             Source="images/Flags/china.png" 
             MouseLeftButtonDown="langChinese" 
-            Stretch="UniformToFill" Grid.Row="1"/>
+            Stretch="UniformToFill"/>
         <Image 
             x:Name="Korean" 
             HorizontalAlignment="Left" 
             Height="23.625" 
             Width="24.059" 
-            Margin="373.902,214.375,0,0" 
+            Margin="373.902,529.375,0,0" 
             VerticalAlignment="Top" 
             Source="images/Flags/south-korea.png" 
             MouseLeftButtonDown="langKorean" 
-            Stretch="UniformToFill" Grid.Row="1"/>
+            Stretch="UniformToFill"/>
         <Image 
             x:Name="Spanish" 
             HorizontalAlignment="Left" 
             Height="23.625" 
             Width="24.059" 
-            Margin="402.961,214.375,0,0" 
+            Margin="402.961,529.375,0,0" 
             VerticalAlignment="Top" 
             Source="images/Flags/spain.png" 
             MouseLeftButtonDown="langSpanish" 
-            Stretch="UniformToFill" Grid.Row="1"/>
+            Stretch="UniformToFill"/>
         <Image 
             x:Name="Brazil" 
             HorizontalAlignment="Left" 
             Height="23.625" 
             Width="24.059" 
-            Margin="432.02,214.375,0,0" 
+            Margin="432.02,529.375,0,0" 
             VerticalAlignment="Top" 
             Source="images/Flags/brazil.png" 
             MouseLeftButtonDown="langBrazil" 
-            Stretch="UniformToFill" Grid.Row="1"/>
+            Stretch="UniformToFill"/>
         <Image 
             x:Name="French" 
             HorizontalAlignment="Left" 
             Height="23.625" 
             Width="24.059" 
-            Margin="462.02,214.375,0,0" 
+            Margin="462.02,529.375,0,0" 
             VerticalAlignment="Top" 
             Source="images/Flags/france.png" 
             MouseLeftButtonDown="langFrench" 
-            Stretch="UniformToFill" Grid.Row="1"/>
+            Stretch="UniformToFill"/>
         <Image 
             x:Name="German" 
             HorizontalAlignment="Left" 
             Height="23.625" 
             Width="24.059" 
-            Margin="491.333,214.375,0,0" 
+            Margin="491.333,529.375,0,0" 
             VerticalAlignment="Top" 
             Source="images/Flags/germany.png" 
             MouseLeftButtonDown="langGerman" 
-            Stretch="UniformToFill" Grid.Row="1"/>
+            Stretch="UniformToFill"/>
         <Image 
             x:Name="Norwegian" 
             HorizontalAlignment="Left" 
             Height="23.625" 
             Width="24.059" 
-            Margin="520.392,214.375,0,0" 
+            Margin="520.392,529.375,0,0" 
             VerticalAlignment="Top" 
             Source="images/Flags/norway.png" 
             MouseLeftButtonDown="langNorwegian" 
-            Stretch="UniformToFill" Grid.Row="1"/>
-        <Rectangle Fill="#3F000000" HorizontalAlignment="Left" Height="30.167" Margin="-48.75,150.151,0,0" Stroke="#7FE00000" VerticalAlignment="Top" Width="301.75" RadiusX="20" RadiusY="11" Grid.Row="1"/>
-        <CheckBox 
-            x:Name="devModeCheckBox" 
-            Content="Developer Mode" 
-            HorizontalAlignment="Left" 
-            Margin="10,153.902,0,0" 
-            VerticalAlignment="Top" 
-            Grid.Row="1" 
-            FontWeight="Bold" 
-            FontFamily="Perpetua Titling MT"
-            Checked="devModeCheckBox_Checked"
-            Unchecked="devModeCheckBox_Unchecked"/>
-        <CheckBox 
-            x:Name="checkBox" 
-            Content="Disable English Translation" 
-            HorizontalAlignment="Left" 
-            Margin="253.926,188.375,0,0" 
-            Grid.Row="1" 
-            VerticalAlignment="Top"
-            Checked="TLModeCheckBox_Checked"
-            Unchecked="TLModeCheckBox_Unchecked"/>
+            Stretch="UniformToFill"/>
     </Grid>
 </windows:Window>
