@@ -150,6 +150,9 @@ namespace InitDialog
             {
                 TransCred.Visibility = Visibility.Visible;
 
+                OfflineManual_Open.FontSize = 11;
+                OnlineManual_Open.FontSize = 11;
+
                 mainApp.Title = "初期設定";
                 warnBox.Header = "はじめに…";
                 warningText.Text = "このゲームは成人向けので、18歳未満（または地域の法律によりと同等の年齢）がこのゲームをプレイまたは所有しているができない。\n\nこのゲームには性的内容の内容が含まれます。内に描かれている行動は、実生活で複製することは違法です。つまり、これは面白いゲームです、そうしましょう？(~.~)v";
@@ -158,10 +161,12 @@ namespace InitDialog
                 CharaDirectory.Content = "キャラカード";
                 SceneDirectory.Content = "シーン";
                 ScreenShotDirectory.Content = "SS";
+                PosesDirectory.Content = "ポーズ";
+                MapsDirectory.Content = "マップ";
                 GameSBox.Header = "起動メニュー";
                 PLAY.Content = "ゲーム開始";
-                OfflineManual_Open.Content = "오프라인 메뉴얼";
-                OnlineManual_Open.Content = "온라인 메뉴얼";
+                OfflineManual_Open.Content = "マニュアル (オフラインシ)";
+                OnlineManual_Open.Content = "マニュアル (オンライン)";
                 SettingsBox.Header = "設定";
                 modeFenetre.Content = "全画面表示";
                 modeDev.Content = "開発者モード";
@@ -179,7 +184,7 @@ namespace InitDialog
             {
                 TransCred.Visibility = Visibility.Visible;
 
-                mainApp.Title = "AI女孩启动器";
+                mainApp.Title = "情感创造者启动器";
                 warnBox.Header = "声明";
                 warningText.Text = "此游戏适用于成人用户，任何未满18岁的人（或根据当地法律规定的同等人）都不得遊玩或拥有此游戏。\n\n这个游戏包含性相关的内容，某些行为在现实生活中可能是非法的。所以，游戏中的所有乐趣请保留在游戏中，让我们保持这种方式吧? (~.~)v";
                 GameFBox.Header = "文件夹";
@@ -187,12 +192,12 @@ namespace InitDialog
                 CharaDirectory.Content = "人物卡";
                 SceneDirectory.Content = "工作室场景";
                 ScreenShotDirectory.Content = "截图";
-                PosesDirectory.Content = "포즈";
-                MapsDirectory.Content = "맵";
+                PosesDirectory.Content = "假充";
+                MapsDirectory.Content = "图";
                 GameSBox.Header = "启动";
-                PLAY.Content = "AI女孩";
-                OfflineManual_Open.Content = "오프라인 메뉴얼";
-                OnlineManual_Open.Content = "온라인 메뉴얼";
+                PLAY.Content = "情感创造者";
+                OfflineManual_Open.Content = "离线手册";
+                OnlineManual_Open.Content = "在线手册";
                 SettingsBox.Header = "设置";
                 modeFenetre.Content = "全屏执行";
                 modeDev.Content = "开发者模式";
@@ -256,12 +261,12 @@ namespace InitDialog
                 CharaDirectory.Content = "Cartas de Personaje";
                 SceneDirectory.Content = "Escenas";
                 ScreenShotDirectory.Content = "Capturas";
-                PosesDirectory.Content = "포즈";
-                MapsDirectory.Content = "맵";
+                PosesDirectory.Content = "la postura";
+                MapsDirectory.Content = "el plano";
                 GameSBox.Header = "Lanzador del Juego";
-                PLAY.Content = "Iniciar Emotion Creators";
-                OfflineManual_Open.Content = "오프라인 메뉴얼";
-                OnlineManual_Open.Content = "온라인 메뉴얼";
+                PLAY.Content = "Iniciar del Juego";
+                OfflineManual_Open.Content = "Manual sin conexión";
+                OnlineManual_Open.Content = "Manual en Linea";
                 SettingsBox.Header = "Configuración";
                 modeFenetre.Content = "Lanzar Juego en Pantalla Completa";
                 modeDev.Content = "Modo desarrollador";
@@ -292,12 +297,12 @@ namespace InitDialog
                 CharaDirectory.Content = "Cards de Personagens";
                 SceneDirectory.Content = "Cenas";
                 ScreenShotDirectory.Content = "Capturas de Tela";
-                PosesDirectory.Content = "포즈";
-                MapsDirectory.Content = "맵";
+                PosesDirectory.Content = "a postura";
+                MapsDirectory.Content = "planejar";
                 GameSBox.Header = "Incialização do Jogo";
                 PLAY.Content = "Iniciar Emotion Creators";
-                OfflineManual_Open.Content = "오프라인 메뉴얼";
-                OnlineManual_Open.Content = "온라인 메뉴얼";
+                OfflineManual_Open.Content = "Manual offline";
+                OnlineManual_Open.Content = "Manual online";
                 SettingsBox.Header = "Configurações";
                 modeFenetre.Content = "Iniciar Jogo em Tela Cheia";
                 modeDev.Content = "Modo de desenvolvedor";
@@ -327,12 +332,12 @@ namespace InitDialog
                 CharaDirectory.Content = "Personnages";
                 SceneDirectory.Content = "Scènes";
                 ScreenShotDirectory.Content = "Captures d'écran";
-                PosesDirectory.Content = "포즈";
-                MapsDirectory.Content = "맵";
+                PosesDirectory.Content = "Pose";
+                MapsDirectory.Content = "Plans";
                 GameSBox.Header = "Lancement du jeu";
                 PLAY.Content = "Démarrer Emotion Creators";
-                OfflineManual_Open.Content = "오프라인 메뉴얼";
-                OnlineManual_Open.Content = "온라인 메뉴얼";
+                OfflineManual_Open.Content = "Manuel hors ligne";
+                OnlineManual_Open.Content = "Manuel en ligne";
                 SettingsBox.Header = "Paramètres";
                 modeFenetre.Content = "Lancer en plein écran";
                 modeDev.Content = "Mode développeur";
@@ -361,12 +366,12 @@ namespace InitDialog
                 CharaDirectory.Content = "Charakter Karten";
                 SceneDirectory.Content = "Scenen";
                 ScreenShotDirectory.Content = "ScreenShots";
-                PosesDirectory.Content = "포즈";
-                MapsDirectory.Content = "맵";
+                PosesDirectory.Content = "Pose";
+                MapsDirectory.Content = "Karten";
                 GameSBox.Header = "Starte Spiel";
                 PLAY.Content = "Starte Emotion Creators";
-                OfflineManual_Open.Content = "오프라인 메뉴얼";
-                OnlineManual_Open.Content = "온라인 메뉴얼";
+                OfflineManual_Open.Content = "Offline-Handbuch";
+                OnlineManual_Open.Content = "Online-Handbuch";
                 SettingsBox.Header = "Einstellungen";
                 modeFenetre.Content = "Starte Spiel in Vollbildmodus";
                 modeDev.Content = "Entwicklermodus";
