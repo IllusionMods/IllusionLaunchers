@@ -1386,36 +1386,39 @@ namespace InitDialog
 
         void helvete(string language)
         {
-            var ud = Path.Combine(m_strCurrentDir, @"BepInEx/Config/AutoTranslatorConfig.ini");
-
-            try
+            if(File.Exists("BepInEx/Config/AutoTranslatorConfig.ini"))
             {
-                var contents = File.ReadAllLines(ud).ToList();
+                var ud = Path.Combine(m_strCurrentDir, @"BepInEx/Config/AutoTranslatorConfig.ini");
 
-                // Fix VMD for darkness
-                var setToLanguage = contents.FindIndex(s => s.ToLower().Contains("[General]".ToLower()));
-                if (setToLanguage >= 0)
+                try
                 {
-                    var i = contents.FindIndex(setToLanguage, s => s.StartsWith("Language"));
-                    if (i > setToLanguage)
-                        contents[i] = $"Language={language}";
+                    var contents = File.ReadAllLines(ud).ToList();
+
+                    // Fix VMD for darkness
+                    var setToLanguage = contents.FindIndex(s => s.ToLower().Contains("[General]".ToLower()));
+                    if (setToLanguage >= 0)
+                    {
+                        var i = contents.FindIndex(setToLanguage, s => s.StartsWith("Language"));
+                        if (i > setToLanguage)
+                            contents[i] = $"Language={language}";
+                        else
+                        {
+                            contents.Insert(setToLanguage + 1, $"Language={language}");
+                        }
+                    }
                     else
                     {
-                        contents.Insert(setToLanguage + 1, $"Language={language}");
+                        contents.Add("");
+                        contents.Add("[General]");
+                        contents.Add($"Language={language}");
                     }
-                }
-                else
-                {
-                    contents.Add("");
-                    contents.Add("[General]");
-                    contents.Add($"Language={language}");
-                }
 
-                File.WriteAllLines(ud, contents.ToArray());
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Something went wrong: " + e);
+                    File.WriteAllLines(ud, contents.ToArray());
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Something went wrong: " + e);
+                }
             }
         }
 
