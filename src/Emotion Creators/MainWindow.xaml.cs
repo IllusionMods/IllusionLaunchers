@@ -565,22 +565,9 @@ namespace InitDialog
             }
         }
 
-        void SaveRegistry()
-        {
-            using (RegistryKey registryKey = Registry.CurrentUser.CreateSubKey(m_strGameRegistry))
-            {
-                registryKey.SetValue("Screenmanager Is Fullscreen mode_h3981298716", m_Setting.m_bFullScreen ? 1 : 0);
-                registryKey.SetValue("Screenmanager Resolution Height_h2627697771", m_Setting.m_nHeightChoose);
-                registryKey.SetValue("Screenmanager Resolution Width_h182942802", m_Setting.m_nWidthChoose);
-                registryKey.SetValue("UnityGraphicsQuality_h1669003810", 2);
-                registryKey.SetValue("UnitySelectMonitor_h17969598", m_Setting.m_nDisplay);
-            }
-        }
-
         void PlayFunc(string strExe)
         {
             saveConfigFile(m_strCurrentDir + m_strSaveDir);
-            SaveRegistry();
             if (!is64bitOS)
             {
                 new MessageWindow().SetupWindow("Warning", "This application requires a x64 version of windows.", new object[0]);
@@ -1079,7 +1066,6 @@ namespace InitDialog
         string[] m_astrQuality;
         string[] s_EnglishTL;
 
-        string m_strGameRegistry = "Software\\illusion\\AIS\\AIS\\";
         string m_strGameExe = "AI-Syoujyo.exe";
         string m_strStudioExe = "StudioNEOV2.exe";
         string m_strVRExe = "AISVR.exe";
