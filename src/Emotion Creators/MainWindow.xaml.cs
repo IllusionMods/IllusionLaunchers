@@ -114,7 +114,7 @@ namespace InitDialog
             // Template for new translations
             //if (lang == "en-US")
             //{
-            //    mainApp.Title = "AI Girl Launcher";
+            //    mainApp.Title = "Emotion Creators Launcher";
             //    warnBox.Header = "Notice!";
             //    warningText.Text = "This game is intended for adult audiences, no person under the age of 18 (or equivalent according to local law) are supposed to play or be in possession of this game.\n\nThis game contains content of a sexual nature, and some of the actions depicted within may be illegal to replicate in real life. Aka, it's all fun and games in the game, let's keep it that way shall we? (~.~)v";
             //    GameFBox.Header = "Game folders";
@@ -124,11 +124,11 @@ namespace InitDialog
             //    ScreenShotDirectory.Content = "ScreenShots";
             //    AISHousingDirectory.Content = "Hus";
             //    GameSBox.Header = "Game Startup";
-            //    PLAY.Content = "Start AI Girl";
-            //    OfflineManual_Open.Content = "AI Girl Manual";
+            //    PLAY.Content = "Start Emotion Creators";
+            //    OfflineManual_Open.Content = "Emotion Creators Manual";
             //    PLAY_Studio.Content = "Start Studio";
             //    Manual_s_Open.Content = "Studio Manual";
-            //    PLAY_VR.Content = "Start AI Girl VR";
+            //    PLAY_VR.Content = "Start Emotion Creators VR";
             //    Manual_v_Open.Content = "VR Manual";
             //    SettingsBox.Header = "Settings";
             //    modeFenetre.Content = "Run Game in Fullscreen";
@@ -160,7 +160,8 @@ namespace InitDialog
                 ScreenShotDirectory.Content = "SS";
                 GameSBox.Header = "起動メニュー";
                 PLAY.Content = "ゲーム開始";
-                // OfflineManual_Open.Content = "マニュアルを読む";
+                OfflineManual_Open.Content = "오프라인 메뉴얼";
+                OnlineManual_Open.Content = "온라인 메뉴얼";
                 SettingsBox.Header = "設定";
                 modeFenetre.Content = "全画面表示";
                 modeDev.Content = "開発者モード";
@@ -186,9 +187,12 @@ namespace InitDialog
                 CharaDirectory.Content = "人物卡";
                 SceneDirectory.Content = "工作室场景";
                 ScreenShotDirectory.Content = "截图";
+                PosesDirectory.Content = "포즈";
+                MapsDirectory.Content = "맵";
                 GameSBox.Header = "启动";
                 PLAY.Content = "AI女孩";
-                // OfflineManual_Open.Content = "说明文件";
+                OfflineManual_Open.Content = "오프라인 메뉴얼";
+                OnlineManual_Open.Content = "온라인 메뉴얼";
                 SettingsBox.Header = "设置";
                 modeFenetre.Content = "全屏执行";
                 modeDev.Content = "开发者模式";
@@ -206,7 +210,9 @@ namespace InitDialog
             {
                 TransCred.Visibility = Visibility.Visible;
 
-                mainApp.Title = "AI 소녀 런쳐";
+                PLAY.FontSize = 12;
+
+                mainApp.Title = "이모션크레이터즈 런쳐";
                 warnBox.Header = "중요사항!";
                 warningText.Text = "이게임은 성인용입니다 18세 미만의 사람(또는 법에따라 동등한사람)은 게임을 하거나 해당게임을 소유하면 안됩니다\n\n이게임에는 성적인 내용이 포함되어있으며 그안에 묘사된 행동중 일부는 실제에서 행동하면 법적인 처벌을 받습니다";
                 GameFBox.Header = "게임 폴더";
@@ -214,9 +220,12 @@ namespace InitDialog
                 CharaDirectory.Content = "캐릭터 카드";
                 SceneDirectory.Content = "장면";
                 ScreenShotDirectory.Content = "스크린샷 폴더";
+                PosesDirectory.Content = "포즈";
+                MapsDirectory.Content = "맵";
                 GameSBox.Header = "실행";
-                PLAY.Content = "AI 소녀 시작";
-                // OfflineManual_Open.Content = "AI 소녀 메뉴얼";
+                PLAY.Content = "이모션크레이터즈 시작";
+                OfflineManual_Open.Content = "오프라인 메뉴얼";
+                OnlineManual_Open.Content = "온라인 메뉴얼";
                 SettingsBox.Header = "설정";
                 modeFenetre.Content = "전체화면으로 시작";
                 modeDev.Content = "개발자 모드";
@@ -239,7 +248,7 @@ namespace InitDialog
                 SystemInfo.FontSize = 10;
                 modeFenetre.FontSize = 13;
 
-                mainApp.Title = "Lanzador AI Girl";
+                mainApp.Title = "Lanzador Emotion Creators";
                 warnBox.Header = "¡Atención!";
                 warningText.Text = "Este juego está dirigido hacia un público adulto, ninguna persona bajo 18 años (o equivalente según las leyes locales) no deberían de jugar o estar en posesión de este juego. \n\nEste juego contiene escenas de carácter sexual, y algunas de las acciones representadas en el mismo pueden ser ilegales de hacerlas en la vida real.  También conocido como, todo es diversión y risas dentro del juego, así que mantengámoslo así, ¿vale? (~.~)v";
                 GameFBox.Header = "Archivos del Juego";
@@ -247,9 +256,12 @@ namespace InitDialog
                 CharaDirectory.Content = "Cartas de Personaje";
                 SceneDirectory.Content = "Escenas";
                 ScreenShotDirectory.Content = "Capturas";
+                PosesDirectory.Content = "포즈";
+                MapsDirectory.Content = "맵";
                 GameSBox.Header = "Lanzador del Juego";
-                PLAY.Content = "Iniciar AI Girl";
-                // OfflineManual_Open.Content = "Manual de AI Girl";
+                PLAY.Content = "Iniciar Emotion Creators";
+                OfflineManual_Open.Content = "오프라인 메뉴얼";
+                OnlineManual_Open.Content = "온라인 메뉴얼";
                 SettingsBox.Header = "Configuración";
                 modeFenetre.Content = "Lanzar Juego en Pantalla Completa";
                 modeDev.Content = "Modo desarrollador";
@@ -272,7 +284,7 @@ namespace InitDialog
                 SystemInfo.FontSize = 10;
                 modeFenetre.FontSize = 13;
 
-                mainApp.Title = "Launcher do AI Girl";
+                mainApp.Title = "Launcher do Emotion Creators";
                 warnBox.Header = "Advertência!";
                 warningText.Text = "Este jogo, por apresentar conteúdo adulto, é voltado para maiores de 18 anos (ou equivalente perante a lei local), menores de idade não devem jogar ou possuí-lo.\n\nAlgumas das ações presentes nessa obra de ficção podem ser ilegais ao serem realizadas no mundo real. Deixe essas coisas somente para o mundo fictício, combinado? (~.~)v";
                 GameFBox.Header = "Pastas do Jogo";
@@ -280,9 +292,12 @@ namespace InitDialog
                 CharaDirectory.Content = "Cards de Personagens";
                 SceneDirectory.Content = "Cenas";
                 ScreenShotDirectory.Content = "Capturas de Tela";
+                PosesDirectory.Content = "포즈";
+                MapsDirectory.Content = "맵";
                 GameSBox.Header = "Incialização do Jogo";
-                PLAY.Content = "Iniciar AI Girl";
-                // OfflineManual_Open.Content = "Manual do AI Girl";
+                PLAY.Content = "Iniciar Emotion Creators";
+                OfflineManual_Open.Content = "오프라인 메뉴얼";
+                OnlineManual_Open.Content = "온라인 메뉴얼";
                 SettingsBox.Header = "Configurações";
                 modeFenetre.Content = "Iniciar Jogo em Tela Cheia";
                 modeDev.Content = "Modo de desenvolvedor";
@@ -304,7 +319,7 @@ namespace InitDialog
                 PLAY.FontSize = 14;
                 SystemInfo.FontSize = 9;
 
-                mainApp.Title = "AI Girl Launcher";
+                mainApp.Title = "Emotion Creators Launcher";
                 warnBox.Header = "Attention!";
                 warningText.Text = "Ce jeu s'adresse aux adultes. Tout mineur de moins de 18 ans (ou plus suivant les lois locales) ne doit pas avoir accès à ce jeu. Selon l’article 227-24 du code Pénal, « le fait soit de fabriquer, de transporter, de diffuser par quelque moyen que ce soit et quel qu’en soit le support, un message à caractère violent ou pornographique ou de nature à porter gravement atteinte à la dignité humaine, soit de faire commerce d’un tel message, est puni de trois ans d’emprisonnement et de 75 000 euros d’amende lorsque ce message est susceptible d’être vu ou perçu par un mineur. »";
                 GameFBox.Header = "Répertoires du jeu";
@@ -312,9 +327,12 @@ namespace InitDialog
                 CharaDirectory.Content = "Personnages";
                 SceneDirectory.Content = "Scènes";
                 ScreenShotDirectory.Content = "Captures d'écran";
+                PosesDirectory.Content = "포즈";
+                MapsDirectory.Content = "맵";
                 GameSBox.Header = "Lancement du jeu";
-                PLAY.Content = "Démarrer AI Girl";
-                // OfflineManual_Open.Content = "Manuel de AI Girl";
+                PLAY.Content = "Démarrer Emotion Creators";
+                OfflineManual_Open.Content = "오프라인 메뉴얼";
+                OnlineManual_Open.Content = "온라인 메뉴얼";
                 SettingsBox.Header = "Paramètres";
                 modeFenetre.Content = "Lancer en plein écran";
                 modeDev.Content = "Mode développeur";
@@ -335,7 +353,7 @@ namespace InitDialog
                 OfflineManual_Open.FontSize = 10;
                 SystemInfo.FontSize = 12;
 
-                mainApp.Title = "AI Girl Launcher";
+                mainApp.Title = "Emotion Creators Launcher";
                 warnBox.Header = "Achtung!";
                 warningText.Text = "Dieses Spiel ist ausschließlich für erwachsenes Publikum vorgesehen. Niemand unter 18 Jahren ( Oder entsprechend deiner örtlichen Gesetze ) ist vorgesehen dieses Spiel zu spielen, oder es zu besitzen.\n\nDieses Spiel enthällt sexuelle Inhalte welche bei Ausführung im realen Leben strafbar sein könnten. Dinge die im Spiel geschehen sollten also auch im Spiel bleiben in Ordnung? (~.~)v";
                 GameFBox.Header = "Spiel Ordner";
@@ -343,9 +361,12 @@ namespace InitDialog
                 CharaDirectory.Content = "Charakter Karten";
                 SceneDirectory.Content = "Scenen";
                 ScreenShotDirectory.Content = "ScreenShots";
+                PosesDirectory.Content = "포즈";
+                MapsDirectory.Content = "맵";
                 GameSBox.Header = "Starte Spiel";
-                PLAY.Content = "Starte AI Girl";
-                // OfflineManual_Open.Content = "AI Girl Bedienungsanleitung";
+                PLAY.Content = "Starte Emotion Creators";
+                OfflineManual_Open.Content = "오프라인 메뉴얼";
+                OnlineManual_Open.Content = "온라인 메뉴얼";
                 SettingsBox.Header = "Einstellungen";
                 modeFenetre.Content = "Starte Spiel in Vollbildmodus";
                 modeDev.Content = "Entwicklermodus";
@@ -361,7 +382,7 @@ namespace InitDialog
             }
             else if (lang == "no") // By @SmokeOfC|女神様の兄様#1984
             {
-                mainApp.Title = "AI Girl Oppstart";
+                mainApp.Title = "Emotion Creators Oppstart";
                 warnBox.Header = "Advarsel!";
                 warningText.Text = "Dette spillet er ment for voksne spillere, og ingen person under 18 år (Eller tilsvarende iht lokal lov) er tiltenkt å være i besittelse av dette spillet.\n\nDette spillet inneholder innhold av en seksuell natur, og noen av handlingene avbildet i dette spillet kan være ulovlig å replikere i virkeligheten. Altså, det er lek og artig i spillet, la oss holde det slik, eller hva? (~.~)v";
                 GameFBox.Header = "Spillmapper";
@@ -369,9 +390,12 @@ namespace InitDialog
                 CharaDirectory.Content = "Kort";
                 SceneDirectory.Content = "Scener";
                 ScreenShotDirectory.Content = "Skjermbilder";
+                PosesDirectory.Content = "Poseringer";
+                MapsDirectory.Content = "Scenekort";
                 GameSBox.Header = "Start spill";
-                PLAY.Content = "Start AI Girl";
-                // OfflineManual_Open.Content = "AI Girl Manual";
+                PLAY.Content = "Start spillet";
+                OfflineManual_Open.Content = "Offline Manual";
+                OnlineManual_Open.Content = "Online Manual";
                 SettingsBox.Header = "Instillinger";
                 modeFenetre.Content = "Bruk fullskjerm";
                 modeDev.Content = "Utviklermodus";
@@ -395,7 +419,6 @@ namespace InitDialog
             // Do checks
 
             is64bitOS = Is64BitOS();
-            isStudio = File.Exists(m_strCurrentDir + m_strStudioExe);
             isMainGame = File.Exists(m_strCurrentDir + m_strGameExe);
 
             // Customization options
@@ -586,16 +609,6 @@ namespace InitDialog
         void PLAY_Click(object sender, RoutedEventArgs e)
         {
             PlayFunc(m_strGameExe);
-        }
-
-        void PLAY_Studio_Click(object sender, RoutedEventArgs e)
-        {
-            PlayFunc(m_strStudioExe);
-        }
-
-        void PLAY_VR_Click(object sender, RoutedEventArgs e)
-        {
-            PlayFunc(m_strVRExe);
         }
 
         void Exit_Click(object sender, RoutedEventArgs e)
@@ -1066,9 +1079,7 @@ namespace InitDialog
         string[] m_astrQuality;
         string[] s_EnglishTL;
 
-        string m_strGameExe = "AI-Syoujyo.exe";
-        string m_strStudioExe = "StudioNEOV2.exe";
-        string m_strVRExe = "AISVR.exe";
+        string m_strGameExe = "EmotionCreators.exe";
         string m_strManualDir = "/manual/お読み下さい.html";
         string m_strStudioManualDir = "/manual_s/お読み下さい.html";
         string m_strVRManualDir = "/manual_v/お読み下さい.html";
@@ -1088,7 +1099,6 @@ namespace InitDialog
 
         bool is64bitOS;
 
-        bool isStudio;
         bool isMainGame;
 
         string lang = "en";

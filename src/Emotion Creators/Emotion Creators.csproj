@@ -125,6 +125,15 @@
     <Resource Include="images\Chara.png" />
     <Resource Include="images\ModernDiscord_small.png" />
     <Resource Include="images\ModernPatreon_small.png" />
+    <Resource Include="images\Flags\brazil.png" />
+    <Resource Include="images\Flags\china.png" />
+    <Resource Include="images\Flags\france.png" />
+    <Resource Include="images\Flags\germany.png" />
+    <Resource Include="images\Flags\japan.png" />
+    <Resource Include="images\Flags\norway.png" />
+    <Resource Include="images\Flags\south-korea.png" />
+    <Resource Include="images\Flags\spain.png" />
+    <Resource Include="images\Flags\united-kingdom.png" />
     <Content Include="InitSetting.ico" />
   </ItemGroup>
   <ItemGroup>
