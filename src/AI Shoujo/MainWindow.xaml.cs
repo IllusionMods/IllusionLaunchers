@@ -221,9 +221,9 @@ namespace InitDialog
                 GameFBox.Header = "게임 폴더";
                 InstallDirectory.Content = "설치된폴더";
                 AISCharaDirectory.Content = "캐릭터 카드";
-                SceneDirectory.Content = "씬";
+                SceneDirectory.Content = "장면";
                 AISScreenShotDirectory.Content = "스크린샷 폴더";
-                AISHousingDirectory.Content = "집";
+                AISHousingDirectory.Content = "첫화면";
                 GameSBox.Header = "실행";
                 PLAY.Content = "AI 소녀 시작";
                 Manual_Open.Content = "AI 소녀 메뉴얼";
