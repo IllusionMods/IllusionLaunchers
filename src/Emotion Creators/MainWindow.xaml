@@ -28,15 +28,12 @@
             VerticalAlignment="Bottom" 
             Width="865" 
             Source="images/launcherBG.png"/>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="637.25" Margin="-63.08,-57.5,-16.231,-16.75" VerticalAlignment="Top" Width="944.311" Source="images/transBG.png" Stretch="Fill" Opacity="0.4"/>
         <Image 
             x:Name="PackChara"
             Source="images/Chara.png" 
             Margin="599,218.25,0,0"/>
         <Rectangle Fill="#3F000000" HorizontalAlignment="Left" Height="59.999" Margin="281.843,519.751,0,-16.75" Stroke="#7FE00000" VerticalAlignment="Top" Width="268.75" RadiusX="20" RadiusY="11"/>
-        <Image HorizontalAlignment="Left" Height="56.108" Margin="7.42,333.639,0,0" VerticalAlignment="Top" Width="437.183" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
-        <Image HorizontalAlignment="Left" Height="96.333" Margin="7.42,222.287,0,0" VerticalAlignment="Top" Width="437.183" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
-        <Image HorizontalAlignment="Left" Height="191.5" Margin="5.92,15,0,0" VerticalAlignment="Top" Width="575.806" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
-        <Image HorizontalAlignment="Left" Height="189.417" Margin="591.167,17.083,0,0" VerticalAlignment="Top" Width="261.916" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
         <GroupBox
             x:Name="GameSBox"
 			Header="Game Startup"
@@ -69,7 +66,7 @@
             Width="266"
             Foreground="White"
             FontFamily="Meiryo UI"
-            FontSize="16" />
+            FontSize="16" Background="#FFB38F5E" />
         <GroupBox
             x:Name="warnBox"
 			Header="Notice!"
@@ -83,7 +80,7 @@
 			FontSize="14"
 			RenderTransformOrigin="0.5,0.5"
 			HorizontalAlignment="Left"
-			Width="579" />
+			Width="579" Background="#FFB38F5E" />
         <TextBlock
             x:Name="warningText"
 			HorizontalAlignment="Left"
@@ -387,7 +384,7 @@
             FontFamily="Arial" 
             FontSize="12" 
             TextAlignment="Right" 
-            Foreground="Black" 
+            Foreground="White" 
             Text="Unknown Install Method"/>
         <TextBlock 
             x:Name="TransCred" 
@@ -397,7 +394,7 @@
             FontFamily="Arial" 
             FontSize="12" 
             TextAlignment="Left" 
-            Foreground="Black" 
+            Foreground="White" 
             ><Run Text="Launcher translated by"/><Run Text="...."/></TextBlock>
         <Image 
             x:Name="English" 

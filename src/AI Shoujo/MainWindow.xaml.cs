@@ -1312,7 +1312,7 @@ namespace InitDialog
 
         void discord_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            Process.Start("https://universalhentai.com/KoiLauncher");
+            Process.Start("https://discord.gg/F3bDEFE");
         }
         void patreon_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
