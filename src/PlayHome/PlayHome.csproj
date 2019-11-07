@@ -68,19 +68,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ComboBoxCustomItem.cs" />
-    <Compile Include="ConfigSetting.cs" />
-    <Compile Include="DEVMODE.cs" />
-    <Compile Include="DevmodeFields.cs" />
-    <Compile Include="DisplayDeviceStateFlags.cs" />
-    <Compile Include="DISPLAY_DEVICE.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MessageWindow.xaml.cs">
       <DependentUpon>MessageWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="POINTL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -137,5 +130,6 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <Import Project="..\SharedCode\SharedCode.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

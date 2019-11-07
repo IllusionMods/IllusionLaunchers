@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>8bf2798d-fd00-4483-95ee-dc37a599e6fd</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>SharedCode</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ComboBoxCustomItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ConfigSetting.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DEVMODE.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DevmodeFields.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DisplayDeviceStateFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DISPLAY_DEVICE.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)POINTL.cs" />
+  </ItemGroup>
+</Project>
