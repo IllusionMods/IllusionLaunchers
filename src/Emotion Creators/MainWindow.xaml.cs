@@ -669,9 +669,9 @@ namespace InitDialog
             setFullScreenDevice();
         }
 
-        void ManualOpen(object sender, RoutedEventArgs e)
+        void ManualOpenOffline(object sender, RoutedEventArgs e)
         {
-            string text = m_strCurrentDir + m_strManualDir;
+            string text = m_strCurrentDir + m_strOfflineManualDir;
             if (File.Exists(text))
             {
                 Process.Start(text);
@@ -680,26 +680,10 @@ namespace InitDialog
             new MessageWindow().SetupWindow("Warning", "\nThe manual could not be found.", new object[0]);
         }
 
-        void ManualOpenS(object sender, RoutedEventArgs e)
+        void ManualOpenOnline(object sender, RoutedEventArgs e)
         {
-            string text = m_strCurrentDir + m_strStudioManualDir;
-            if (File.Exists(text))
-            {
-                Process.Start(text);
-                return;
-            }
-            new MessageWindow().SetupWindow("Warning", "\nThe manual could not be found.", new object[0]);
-        }
-
-        void ManualOpenV(object sender, RoutedEventArgs e)
-        {
-            string text = m_strCurrentDir + m_strVRManualDir;
-            if (File.Exists(text))
-            {
-                Process.Start(text);
-                return;
-            }
-            new MessageWindow().SetupWindow("Warning", "\nThe manual could not be found.", new object[0]);
+            string text = m_strOnlineManualDir;
+            Process.Start(text);
         }
 
         void Display_Change(object sender, SelectionChangedEventArgs e)
@@ -747,7 +731,7 @@ namespace InitDialog
                 '\\'
             };
             string text = m_strCurrentDir.TrimEnd(trimChars);
-            text = text.TrimEnd(trimChars2) + "\\UserData\\Studio\\scene";
+            text = text.TrimEnd(trimChars2) + "\\UserData\\edit\\scene";
             if (Directory.Exists(text))
             {
                 Process.Start("explorer.exe", text);
@@ -776,7 +760,7 @@ namespace InitDialog
             new MessageWindow().SetupWindow("Warning", "\nCan't find the folder, please launch the game once.", new object[0]);
         }
 
-        void AIHouseDir_Open(object sender, RoutedEventArgs e)
+        void Poses_Open(object sender, RoutedEventArgs e)
         {
             char[] trimChars = new char[]
             {
@@ -787,7 +771,27 @@ namespace InitDialog
                 '\\'
             };
             string text = m_strCurrentDir.TrimEnd(trimChars);
-            text = text.TrimEnd(trimChars2) + "\\UserData\\cap";
+            text = text.TrimEnd(trimChars2) + "\\UserData\\pose\\data";
+            if (Directory.Exists(text))
+            {
+                Process.Start("explorer.exe", text);
+                return;
+            }
+            new MessageWindow().SetupWindow("Warning", "\nCan't find the folder, please launch the game once.", new object[0]);
+        }
+
+        void Maps_Open(object sender, RoutedEventArgs e)
+        {
+            char[] trimChars = new char[]
+            {
+                '/'
+            };
+            char[] trimChars2 = new char[]
+            {
+                '\\'
+            };
+            string text = m_strCurrentDir.TrimEnd(trimChars);
+            text = text.TrimEnd(trimChars2) + "\\UserData\\map\\data";
             if (Directory.Exists(text))
             {
                 Process.Start("explorer.exe", text);
@@ -1085,8 +1089,8 @@ namespace InitDialog
         string[] s_EnglishTL;
 
         string m_strGameExe = "EmotionCreators.exe";
-        string m_strManualDir = "/manual/お読み下さい.html";
-        string m_strStudioManualDir = "/manual_s/お読み下さい.html";
+        string m_strOnlineManualDir = "http://www.illusion.jp/preview/emocre/manual/index.html";
+        string m_strOfflineManualDir = "/manual/index.html";
         string m_strVRManualDir = "/manual_v/お読み下さい.html";
 
         const string m_strSaveDir = "/UserData/setup.xml";

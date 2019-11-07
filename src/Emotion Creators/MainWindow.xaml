@@ -225,7 +225,7 @@
 			VerticalAlignment="Top"
 			HorizontalAlignment="Left"
 			Width="135"
-			Click="ManualOpen">
+			Click="ManualOpenOffline">
             <UIElement.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform />
@@ -299,7 +299,7 @@
 			FontSize="16"
 			RenderTransformOrigin="0.5,0.5"
 			TabIndex="7"
-			Click="AIHouseDir_Open" />
+			Click="Poses_Open" />
         <Button
 			Name="MapsDirectory"
 			Content="Maps"
@@ -312,7 +312,7 @@
 			FontSize="16"
 			RenderTransformOrigin="0.5,0.5"
 			TabIndex="7"
-			Click="AIHouseDir_Open" />
+			Click="Maps_Open" />
         <Button
 			Name="InstallDirectory"
 			Content="Install"
@@ -349,7 +349,7 @@
 			VerticalAlignment="Top"
 			HorizontalAlignment="Left"
 			Width="135"
-			Click="ManualOpenS">
+			Click="ManualOpenOnline">
             <UIElement.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform />
