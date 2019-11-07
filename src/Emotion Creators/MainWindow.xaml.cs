@@ -300,7 +300,7 @@ namespace InitDialog
                 PosesDirectory.Content = "a postura";
                 MapsDirectory.Content = "planejar";
                 GameSBox.Header = "Incialização do Jogo";
-                PLAY.Content = "Iniciar Emotion Creators";
+                PLAY.Content = "Iniciar EC";
                 OfflineManual_Open.Content = "Manual offline";
                 OnlineManual_Open.Content = "Manual online";
                 SettingsBox.Header = "Configurações";
@@ -335,7 +335,7 @@ namespace InitDialog
                 PosesDirectory.Content = "Pose";
                 MapsDirectory.Content = "Plans";
                 GameSBox.Header = "Lancement du jeu";
-                PLAY.Content = "Démarrer Emotion Creators";
+                PLAY.Content = "Démarrer EC";
                 OfflineManual_Open.Content = "Manuel hors ligne";
                 OnlineManual_Open.Content = "Manuel en ligne";
                 SettingsBox.Header = "Paramètres";
@@ -369,7 +369,7 @@ namespace InitDialog
                 PosesDirectory.Content = "Pose";
                 MapsDirectory.Content = "Karten";
                 GameSBox.Header = "Starte Spiel";
-                PLAY.Content = "Starte Emotion Creators";
+                PLAY.Content = "Starte EC";
                 OfflineManual_Open.Content = "Offline-Handbuch";
                 OnlineManual_Open.Content = "Online-Handbuch";
                 SettingsBox.Header = "Einstellungen";
