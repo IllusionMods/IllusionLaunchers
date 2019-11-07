@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C58FAB18-E861-41CA-873A-37FA261A9306}</ProjectGuid>
+    <ProjectGuid>{6F62CF98-EB11-4FF2-8370-0B946CA337E5}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>InitDialogEN</RootNamespace>
-    <AssemblyName>InitSetting EN</AssemblyName>
-    <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
+    <AssemblyName>InitSetting</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60DC8134-EBA5-43B8-BCC9-BB4BC16C2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -29,6 +29,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -50,6 +51,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="INIFileParser, Version=2.5.2.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
+      <HintPath>packages\ini-parser.2.5.2\lib\net20\INIFileParser.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -71,6 +75,7 @@
     <Compile Include="DevmodeFields.cs" />
     <Compile Include="DisplayDeviceStateFlags.cs" />
     <Compile Include="DISPLAY_DEVICE.cs" />
+    <Compile Include="JunctionPoint.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -90,9 +95,11 @@
     <EmbeddedResource Include="Properties\Resources.resources" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="app.manifest">
       <SubType>Designer</SubType>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -119,9 +126,20 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\transBG.png" />
-    <Resource Include="images\Discord.png" />
     <Resource Include="images\LauncherBG.png" />
     <Resource Include="images\Chara.png" />
+    <Resource Include="images\ModernDiscord_small.png" />
+    <Resource Include="images\ModernPatreon_small.png" />
+    <Resource Include="images\BadAss.png" />
+    <Resource Include="images\Flags\china.png" />
+    <Resource Include="images\Flags\norway.png" />
+    <Resource Include="images\Flags\south-korea.png" />
+    <Resource Include="images\Flags\spain.png" />
+    <Resource Include="images\Flags\united-kingdom.png" />
+    <Resource Include="images\Flags\japan.png" />
+    <Resource Include="images\Flags\germany.png" />
+    <Resource Include="images\Flags\brazil.png" />
+    <Resource Include="images\Flags\france.png" />
     <Content Include="InitSetting.ico" />
   </ItemGroup>
   <ItemGroup>
