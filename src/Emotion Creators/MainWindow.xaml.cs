@@ -44,6 +44,12 @@ namespace InitDialog
         [DllImport("User32.dll")]
         static extern bool GetMonitorInfo(IntPtr hMonitor, ref MainWindow.MonitorInfoEx info);
 
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern bool DeviceIoControl(IntPtr hDevice, uint dwIoControlCode,
+        IntPtr InBuffer, int nInBufferSize,
+        IntPtr OutBuffer, int nOutBufferSize,
+        out int pBytesReturned, IntPtr lpOverlapped);
+
         public MainWindow()
         {
             InitializeComponent();
@@ -52,6 +58,8 @@ namespace InitDialog
             //    System.Windows.Application.Current.MainWindow.Close();
             //    return;
             //}
+
+            // Check for duplicate launches
 
             Process process = Process.GetCurrentProcess();
             var dupl = (Process.GetProcessesByName(process.ProcessName));
@@ -64,31 +72,331 @@ namespace InitDialog
                 }
             }
 
+            startup = true;
+
+            Directory.CreateDirectory(m_strCurrentDir + m_customDir);
+
+            // Check if dev mode is active
+
+            if (!File.Exists(m_strCurrentDir + "/Bepinex/config/BepInEx.cfg"))
+            {
+                modeDev.IsEnabled = false;
+                File.Delete(m_strCurrentDir + m_customDir + "/devMode");
+            }
+
+            DevExists = File.Exists(m_strCurrentDir + m_customDir + "/devMode");
+            if (DevExists)
+            {
+                modeDev.IsChecked = true;
+            }
+
+            startup = false;
+
+            LangExists = File.Exists(m_strCurrentDir + m_customDir + decideLang);
+            if (LangExists)
+            {
+                var verFileStream = new FileStream(m_strCurrentDir + m_customDir + decideLang, FileMode.Open, FileAccess.Read);
+                using (var streamReader = new StreamReader(verFileStream, Encoding.UTF8))
+                {
+                    string line;
+                    while ((line = streamReader.ReadLine()) != null)
+                    {
+                        lang = line;
+                    }
+                }
+                verFileStream.Close();
+            }
+
+            TransCred.Visibility = Visibility.Hidden;
+
+            // MessageBox.Show($"Chinese is {chnActive}", "Debug");
+
+            // Template for new translations
+            //if (lang == "en-US")
+            //{
+            //    mainApp.Title = "AI Girl Launcher";
+            //    warnBox.Header = "Notice!";
+            //    warningText.Text = "This game is intended for adult audiences, no person under the age of 18 (or equivalent according to local law) are supposed to play or be in possession of this game.\n\nThis game contains content of a sexual nature, and some of the actions depicted within may be illegal to replicate in real life. Aka, it's all fun and games in the game, let's keep it that way shall we? (~.~)v";
+            //    GameFBox.Header = "Game folders";
+            //    InstallDirectory.Content = "Install";
+            //    CharaDirectory.Content = "Character Cards";
+            //    SceneDirectory.Content = "Scenes";
+            //    ScreenShotDirectory.Content = "ScreenShots";
+            //    AISHousingDirectory.Content = "Hus";
+            //    GameSBox.Header = "Game Startup";
+            //    PLAY.Content = "Start AI Girl";
+            //    OfflineManual_Open.Content = "AI Girl Manual";
+            //    PLAY_Studio.Content = "Start Studio";
+            //    Manual_s_Open.Content = "Studio Manual";
+            //    PLAY_VR.Content = "Start AI Girl VR";
+            //    Manual_v_Open.Content = "VR Manual";
+            //    SettingsBox.Header = "Settings";
+            //    modeFenetre.Content = "Run Game in Fullscreen";
+            //    modeDev.Content = "Developer Mode";
+            //    SystemInfo.Content = "System Info";
+            //    EXIT.Content = "Exit";
+            //    Versioning.Text = "Unknown Install Method";
+            //    TransCred.Text = "Launcher translated by: <Insert Name>";
+            //    translationString = "Do you want to restore Japanese language in-game?";
+            //    q_performance = "Performance";
+            //    q_normal = "Normal";
+            //    q_quality = "Quality";
+            //    s_primarydisplay = "PrimaryDisplay";
+            //    s_subdisplay = "SubDisplay";
+            //}
+
+            // Translations
+            if (lang == "ja")
+            {
+                TransCred.Visibility = Visibility.Visible;
+
+                mainApp.Title = "初期設定";
+                warnBox.Header = "はじめに…";
+                warningText.Text = "このゲームは成人向けので、18歳未満（または地域の法律によりと同等の年齢）がこのゲームをプレイまたは所有しているができない。\n\nこのゲームには性的内容の内容が含まれます。内に描かれている行動は、実生活で複製することは違法です。つまり、これは面白いゲームです、そうしましょう？(~.~)v";
+                GameFBox.Header = "ゲームフォルダ";
+                InstallDirectory.Content = "インストール先を開く";
+                CharaDirectory.Content = "キャラカード";
+                SceneDirectory.Content = "シーン";
+                ScreenShotDirectory.Content = "SS";
+                GameSBox.Header = "起動メニュー";
+                PLAY.Content = "ゲーム開始";
+                // OfflineManual_Open.Content = "マニュアルを読む";
+                SettingsBox.Header = "設定";
+                modeFenetre.Content = "全画面表示";
+                modeDev.Content = "開発者モード";
+                SystemInfo.Content = "システム情報";
+                EXIT.Content = "終了";
+                Versioning.Text = "不明バージョン";
+                TransCred.Text = "初期設定翻訳者: Earthship";
+                q_performance = "パフォーマンス";
+                q_normal = "ノーマル";
+                q_quality = "クオリティ";
+                s_primarydisplay = "メインディスプレイ";
+                s_subdisplay = "サブディスプレイ";
+            }
+            else if (lang == "zh-CN") // By @Madevil#1103 & @𝐄𝐀𝐑𝐓𝐇𝐒𝐇𝐈𝐏 💖#4313 
+            {
+                TransCred.Visibility = Visibility.Visible;
+
+                mainApp.Title = "AI女孩启动器";
+                warnBox.Header = "声明";
+                warningText.Text = "此游戏适用于成人用户，任何未满18岁的人（或根据当地法律规定的同等人）都不得遊玩或拥有此游戏。\n\n这个游戏包含性相关的内容，某些行为在现实生活中可能是非法的。所以，游戏中的所有乐趣请保留在游戏中，让我们保持这种方式吧? (~.~)v";
+                GameFBox.Header = "文件夹";
+                InstallDirectory.Content = "游戏主目录";
+                CharaDirectory.Content = "人物卡";
+                SceneDirectory.Content = "工作室场景";
+                ScreenShotDirectory.Content = "截图";
+                GameSBox.Header = "启动";
+                PLAY.Content = "AI女孩";
+                // OfflineManual_Open.Content = "说明文件";
+                SettingsBox.Header = "设置";
+                modeFenetre.Content = "全屏执行";
+                modeDev.Content = "开发者模式";
+                SystemInfo.Content = "系统资讯";
+                EXIT.Content = "关闭";
+                Versioning.Text = "未知版本";
+                TransCred.Text = "Launcher translated by: Madevil & Earthship";
+                q_performance = "性能";
+                q_normal = "标准";
+                q_quality = "高画质";
+                s_primarydisplay = "主显示器";
+                s_subdisplay = "次显示器";
+            }
+            else if (lang == "ko") // By @Keris-#1903 
+            {
+                TransCred.Visibility = Visibility.Visible;
+
+                mainApp.Title = "AI 소녀 런쳐";
+                warnBox.Header = "중요사항!";
+                warningText.Text = "이게임은 성인용입니다 18세 미만의 사람(또는 법에따라 동등한사람)은 게임을 하거나 해당게임을 소유하면 안됩니다\n\n이게임에는 성적인 내용이 포함되어있으며 그안에 묘사된 행동중 일부는 실제에서 행동하면 법적인 처벌을 받습니다";
+                GameFBox.Header = "게임 폴더";
+                InstallDirectory.Content = "설치된폴더";
+                CharaDirectory.Content = "캐릭터 카드";
+                SceneDirectory.Content = "장면";
+                ScreenShotDirectory.Content = "스크린샷 폴더";
+                GameSBox.Header = "실행";
+                PLAY.Content = "AI 소녀 시작";
+                // OfflineManual_Open.Content = "AI 소녀 메뉴얼";
+                SettingsBox.Header = "설정";
+                modeFenetre.Content = "전체화면으로 시작";
+                modeDev.Content = "개발자 모드";
+                SystemInfo.Content = "시스템 정보";
+                EXIT.Content = "나가기";
+                Versioning.Text = "알수 없는 설치 메소드";
+                TransCred.Text = "런쳐 번역 by: Keris";
+                q_performance = "퍼포먼스";
+                q_normal = "일반";
+                q_quality = "퀄리티";
+                s_primarydisplay = "주 디스플레이";
+                s_subdisplay = "서브 디스플레이";
+            }
+            else if (lang == "es") // By @Heroine Nisa#3207
+            {
+                TransCred.Visibility = Visibility.Visible;
+
+                CharaDirectory.FontSize = 13;
+                OfflineManual_Open.FontSize = 15;
+                SystemInfo.FontSize = 10;
+                modeFenetre.FontSize = 13;
+
+                mainApp.Title = "Lanzador AI Girl";
+                warnBox.Header = "¡Atención!";
+                warningText.Text = "Este juego está dirigido hacia un público adulto, ninguna persona bajo 18 años (o equivalente según las leyes locales) no deberían de jugar o estar en posesión de este juego. \n\nEste juego contiene escenas de carácter sexual, y algunas de las acciones representadas en el mismo pueden ser ilegales de hacerlas en la vida real.  También conocido como, todo es diversión y risas dentro del juego, así que mantengámoslo así, ¿vale? (~.~)v";
+                GameFBox.Header = "Archivos del Juego";
+                InstallDirectory.Content = "Instalar";
+                CharaDirectory.Content = "Cartas de Personaje";
+                SceneDirectory.Content = "Escenas";
+                ScreenShotDirectory.Content = "Capturas";
+                GameSBox.Header = "Lanzador del Juego";
+                PLAY.Content = "Iniciar AI Girl";
+                // OfflineManual_Open.Content = "Manual de AI Girl";
+                SettingsBox.Header = "Configuración";
+                modeFenetre.Content = "Lanzar Juego en Pantalla Completa";
+                modeDev.Content = "Modo desarrollador";
+                SystemInfo.Content = "Información de Sistema";
+                EXIT.Content = "Salir";
+                Versioning.Text = " Método de Instalación Desconocido";
+                TransCred.Text = "Launcher translated by: Heroine Nisa";
+                q_performance = "Rendimiento";
+                q_normal = "Normal";
+                q_quality = "Calidad";
+                s_primarydisplay = "Pantalla Primaria";
+                s_subdisplay = "Pantalla Secundaria";
+            }
+            else if (lang == "pt") // By @Neptune#1989 
+            {
+                TransCred.Visibility = Visibility.Visible;
+
+                CharaDirectory.FontSize = 13;
+                OfflineManual_Open.FontSize = 15;
+                SystemInfo.FontSize = 10;
+                modeFenetre.FontSize = 13;
+
+                mainApp.Title = "Launcher do AI Girl";
+                warnBox.Header = "Advertência!";
+                warningText.Text = "Este jogo, por apresentar conteúdo adulto, é voltado para maiores de 18 anos (ou equivalente perante a lei local), menores de idade não devem jogar ou possuí-lo.\n\nAlgumas das ações presentes nessa obra de ficção podem ser ilegais ao serem realizadas no mundo real. Deixe essas coisas somente para o mundo fictício, combinado? (~.~)v";
+                GameFBox.Header = "Pastas do Jogo";
+                InstallDirectory.Content = "Instalar";
+                CharaDirectory.Content = "Cards de Personagens";
+                SceneDirectory.Content = "Cenas";
+                ScreenShotDirectory.Content = "Capturas de Tela";
+                GameSBox.Header = "Incialização do Jogo";
+                PLAY.Content = "Iniciar AI Girl";
+                // OfflineManual_Open.Content = "Manual do AI Girl";
+                SettingsBox.Header = "Configurações";
+                modeFenetre.Content = "Iniciar Jogo em Tela Cheia";
+                modeDev.Content = "Modo de desenvolvedor";
+                SystemInfo.Content = "Info. de Sistema";
+                EXIT.Content = "Sair";
+                Versioning.Text = "Método de Instalação Desconhecido";
+                TransCred.Text = "Launcher traduzido por: Neptune";
+                q_performance = "Baixo";
+                q_normal = "Normal";
+                q_quality = "Alto";
+                s_primarydisplay = "Display Primário";
+                s_subdisplay = "Display Secundário";
+            }
+            else if (lang == "fr") // By @Punky  (°TotalDecay78°)#0001 
+            {
+                TransCred.Visibility = Visibility.Visible;
+
+                CharaDirectory.FontSize = 14;
+                PLAY.FontSize = 14;
+                SystemInfo.FontSize = 9;
+
+                mainApp.Title = "AI Girl Launcher";
+                warnBox.Header = "Attention!";
+                warningText.Text = "Ce jeu s'adresse aux adultes. Tout mineur de moins de 18 ans (ou plus suivant les lois locales) ne doit pas avoir accès à ce jeu. Selon l’article 227-24 du code Pénal, « le fait soit de fabriquer, de transporter, de diffuser par quelque moyen que ce soit et quel qu’en soit le support, un message à caractère violent ou pornographique ou de nature à porter gravement atteinte à la dignité humaine, soit de faire commerce d’un tel message, est puni de trois ans d’emprisonnement et de 75 000 euros d’amende lorsque ce message est susceptible d’être vu ou perçu par un mineur. »";
+                GameFBox.Header = "Répertoires du jeu";
+                InstallDirectory.Content = "Installation";
+                CharaDirectory.Content = "Personnages";
+                SceneDirectory.Content = "Scènes";
+                ScreenShotDirectory.Content = "Captures d'écran";
+                GameSBox.Header = "Lancement du jeu";
+                PLAY.Content = "Démarrer AI Girl";
+                // OfflineManual_Open.Content = "Manuel de AI Girl";
+                SettingsBox.Header = "Paramètres";
+                modeFenetre.Content = "Lancer en plein écran";
+                modeDev.Content = "Mode développeur";
+                SystemInfo.Content = "Informations sur le système";
+                EXIT.Content = "Quitter";
+                Versioning.Text = "Unknown Install Method";
+                TransCred.Text = "Launcher translated by: TotalDecay78";
+                q_performance = "Minimum";
+                q_normal = "Normal";
+                q_quality = "Haut";
+                s_primarydisplay = "Ecran principal";
+                s_subdisplay = "Ecran secondaire";
+            }
+            else if (lang == "de") // By @DONTFORGETME#6198 
+            {
+                modeFenetre.FontSize = 13;
+                modeDev.FontSize = 13;
+                OfflineManual_Open.FontSize = 10;
+                SystemInfo.FontSize = 12;
+
+                mainApp.Title = "AI Girl Launcher";
+                warnBox.Header = "Achtung!";
+                warningText.Text = "Dieses Spiel ist ausschließlich für erwachsenes Publikum vorgesehen. Niemand unter 18 Jahren ( Oder entsprechend deiner örtlichen Gesetze ) ist vorgesehen dieses Spiel zu spielen, oder es zu besitzen.\n\nDieses Spiel enthällt sexuelle Inhalte welche bei Ausführung im realen Leben strafbar sein könnten. Dinge die im Spiel geschehen sollten also auch im Spiel bleiben in Ordnung? (~.~)v";
+                GameFBox.Header = "Spiel Ordner";
+                InstallDirectory.Content = "Installieren";
+                CharaDirectory.Content = "Charakter Karten";
+                SceneDirectory.Content = "Scenen";
+                ScreenShotDirectory.Content = "ScreenShots";
+                GameSBox.Header = "Starte Spiel";
+                PLAY.Content = "Starte AI Girl";
+                // OfflineManual_Open.Content = "AI Girl Bedienungsanleitung";
+                SettingsBox.Header = "Einstellungen";
+                modeFenetre.Content = "Starte Spiel in Vollbildmodus";
+                modeDev.Content = "Entwicklermodus";
+                SystemInfo.Content = "System Information";
+                EXIT.Content = "Exit";
+                Versioning.Text = "Unknown Install Method";
+                TransCred.Text = "Launcher translated by: <HyD>";
+                q_performance = "Leistung";
+                q_normal = "Normal";
+                q_quality = "Qualität";
+                s_primarydisplay = "Primär Bildschirm";
+                s_subdisplay = "Neben Bildschrim";
+            }
+            else if (lang == "no") // By @SmokeOfC|女神様の兄様#1984
+            {
+                mainApp.Title = "AI Girl Oppstart";
+                warnBox.Header = "Advarsel!";
+                warningText.Text = "Dette spillet er ment for voksne spillere, og ingen person under 18 år (Eller tilsvarende iht lokal lov) er tiltenkt å være i besittelse av dette spillet.\n\nDette spillet inneholder innhold av en seksuell natur, og noen av handlingene avbildet i dette spillet kan være ulovlig å replikere i virkeligheten. Altså, det er lek og artig i spillet, la oss holde det slik, eller hva? (~.~)v";
+                GameFBox.Header = "Spillmapper";
+                InstallDirectory.Content = "Installasjon";
+                CharaDirectory.Content = "Kort";
+                SceneDirectory.Content = "Scener";
+                ScreenShotDirectory.Content = "Skjermbilder";
+                GameSBox.Header = "Start spill";
+                PLAY.Content = "Start AI Girl";
+                // OfflineManual_Open.Content = "AI Girl Manual";
+                SettingsBox.Header = "Instillinger";
+                modeFenetre.Content = "Bruk fullskjerm";
+                modeDev.Content = "Utviklermodus";
+                SystemInfo.Content = "Systeminfo";
+                EXIT.Content = "Avslutt";
+                Versioning.Text = "Ingen kjent installasjonsmetode";
+                q_performance = "Ytelse";
+                q_normal = "Normal";
+                q_quality = "Kvalitet";
+                s_primarydisplay = "Hovedskjerm";
+                s_subdisplay = "SubSkjerm";
+            }
+
+            m_astrQuality = new string[]
+            {
+                q_performance,
+                q_normal,
+                q_quality
+            };
+
             // Do checks
 
             is64bitOS = Is64BitOS();
             isStudio = File.Exists(m_strCurrentDir + m_strStudioExe);
-            isVR = File.Exists(m_strCurrentDir + m_strVRExe);
             isMainGame = File.Exists(m_strCurrentDir + m_strGameExe);
-            isParty = File.Exists(m_strCurrentDir + m_strPartyExe);
-
-            // Party Launcher
-
-            if (isParty)
-            {
-                m_strMutexName = "Koikatu Party";
-                m_strGameRegistry = "Software\\illusion\\Koikatsu\\Koikatsu Party\\";
-                m_strStudioRegistry = "Software\\illusion\\Koikatu\\CharaStudio\\";
-                m_strVRRegistry = "Software\\illusion\\Koikatu\\KoikatuVR\\";
-                m_strGameExe = "Koikatsu Party.exe";
-                m_strStudioExe = "CharaStudio.exe";
-                m_strVRExe = "KoikatuVR.exe";
-                m_strManualDir = "/manual/English/README.html";
-                m_strStudioManualDir = "/manual_s/お読み下さい.html";
-                m_strVRManualDir = "/manual_v/お読み下さい.html";
-
-                mainApp.Title = "Koikatsu Party Launcher";
-            }
 
             // Customization options
 
@@ -171,14 +479,14 @@ namespace InitDialog
             m_Setting.m_bFullScreen = false;
             if (num == 2)
             {
-                DisplayBox.Items.Add("PrimaryDisplay");
-                DisplayBox.Items.Add("SubDisplay : 1");
+                DisplayBox.Items.Add(s_primarydisplay);
+                DisplayBox.Items.Add($"{s_subdisplay} : 1");
             }
             else
             {
                 for (int i = 0; i < num; i++)
                 {
-                    string newItem = (i == 0) ? "PrimaryDisplay" : ("SubDisplay : " + i);
+                    string newItem = (i == 0) ? s_primarydisplay : ($"{s_subdisplay} : " + i);
                     DisplayBox.Items.Add(newItem);
                 }
             }
@@ -212,20 +520,20 @@ namespace InitDialog
                     ResolutionBox.Text = flag ? m_Setting.m_strSizeChoose : "1280 x 720 (16 : 9)";
                     modeFenetre.IsChecked = m_Setting.m_bFullScreen;
                     QualityBox.Text = m_astrQuality[m_Setting.m_nQualityChoose];
-                    string text = m_Setting.m_nDisplay == 0 ? "PrimaryDisplay" : "SubDisplay : " + m_Setting.m_nDisplay;
+                    string text = m_Setting.m_nDisplay == 0 ? s_primarydisplay : $"{s_subdisplay} : " + m_Setting.m_nDisplay;
                     if (num == 2)
                     {
                         text = new[]
                         {
-                        "PrimaryDisplay",
-                        "SubDisplay : 1"
+                        s_primarydisplay,
+                        $"{s_subdisplay} : 1"
                         }[m_Setting.m_nDisplay];
                     }
                     if (DisplayBox.Items.Contains(text))
                         DisplayBox.Text = text;
                     else
                     {
-                        DisplayBox.Text = "PrimaryDisplay";
+                        DisplayBox.Text = s_primarydisplay;
                         m_Setting.m_nDisplay = 0;
                     }
                 }
@@ -241,25 +549,19 @@ namespace InitDialog
                 setDisplayComboBox(false);
                 ResolutionBox.Text = m_Setting.m_strSizeChoose;
                 QualityBox.Text = m_astrQuality[m_Setting.m_nQualityChoose];
-                DisplayBox.Text = "PrimaryDisplay";
+                DisplayBox.Text = s_primarydisplay;
             }
         }
 
         void SetEnableAndVisible()
         {
-            if (!isMainGame && !isParty)
+            if (!isMainGame)
             {
                 PLAY.IsEnabled = false;
-                InstallDirectory.IsEnabled = false;
-                KoikatuCharaDirectory.IsEnabled = false;
-                KoikatuScreenShotDirectory.IsEnabled = false;
-                SceneDirectory.IsEnabled = false;
-                KoikatuPoseDirectory.IsEnabled = false;
-                KoikatuMapDirectory.IsEnabled = false;
-            }
-            if (!File.Exists(m_strCurrentDir + m_strManualDir))
-            {
                 OfflineManual_Open.IsEnabled = false;
+                InstallDirectory.IsEnabled = false;
+                CharaDirectory.IsEnabled = false;
+                ScreenShotDirectory.IsEnabled = false;
             }
         }
 
@@ -272,28 +574,6 @@ namespace InitDialog
                 registryKey.SetValue("Screenmanager Resolution Width_h182942802", m_Setting.m_nWidthChoose);
                 registryKey.SetValue("UnityGraphicsQuality_h1669003810", 2);
                 registryKey.SetValue("UnitySelectMonitor_h17969598", m_Setting.m_nDisplay);
-            }
-            if (isStudio)
-            {
-                using (RegistryKey registryKey2 = Registry.CurrentUser.CreateSubKey(m_strStudioRegistry))
-                {
-                    registryKey2.SetValue("Screenmanager Is Fullscreen mode_h3981298716", m_Setting.m_bFullScreen ? 1 : 0);
-                    registryKey2.SetValue("Screenmanager Resolution Height_h2627697771", m_Setting.m_nHeightChoose);
-                    registryKey2.SetValue("Screenmanager Resolution Width_h182942802", m_Setting.m_nWidthChoose);
-                    registryKey2.SetValue("UnityGraphicsQuality_h1669003810", 2);
-                    registryKey2.SetValue("UnitySelectMonitor_h17969598", m_Setting.m_nDisplay);
-                }
-            }
-            if (isVR)
-            {
-                using (RegistryKey registryKey3 = Registry.CurrentUser.CreateSubKey(m_strVRRegistry))
-                {
-                    registryKey3.SetValue("Screenmanager Is Fullscreen mode_h3981298716", m_Setting.m_bFullScreen ? 1 : 0);
-                    registryKey3.SetValue("Screenmanager Resolution Height_h2627697771", m_Setting.m_nHeightChoose);
-                    registryKey3.SetValue("Screenmanager Resolution Width_h182942802", m_Setting.m_nWidthChoose);
-                    registryKey3.SetValue("UnityGraphicsQuality_h1669003810", 2);
-                    registryKey3.SetValue("UnitySelectMonitor_h17969598", m_Setting.m_nDisplay);
-                }
             }
         }
 
@@ -353,17 +633,17 @@ namespace InitDialog
         void Quality_Change(object sender, SelectionChangedEventArgs e)
         {
             string a = QualityBox.SelectedItem.ToString();
-            if (a == "Performance")
+            if (a == q_performance)
             {
                 m_Setting.m_nQualityChoose = 0;
                 return;
             }
-            if (a == "Normal")
+            if (a == q_normal)
             {
                 m_Setting.m_nQualityChoose = 1;
                 return;
             }
-            if (!(a == "Quality"))
+            if (!(a == q_quality))
             {
                 return;
             }
@@ -384,7 +664,7 @@ namespace InitDialog
             setFullScreenDevice();
         }
 
-        void OfflineManualOpen(object sender, RoutedEventArgs e)
+        void ManualOpen(object sender, RoutedEventArgs e)
         {
             string text = m_strCurrentDir + m_strManualDir;
             if (File.Exists(text))
@@ -395,9 +675,15 @@ namespace InitDialog
             new MessageWindow().SetupWindow("Warning", "\nThe manual could not be found.", new object[0]);
         }
 
-        void OnlineManualOpen(object sender, RoutedEventArgs e)
+        void ManualOpenS(object sender, RoutedEventArgs e)
         {
-            Process.Start("http://www.illusion.jp/preview/emocre/manual/index.html");
+            string text = m_strCurrentDir + m_strStudioManualDir;
+            if (File.Exists(text))
+            {
+                Process.Start(text);
+                return;
+            }
+            new MessageWindow().SetupWindow("Warning", "\nThe manual could not be found.", new object[0]);
         }
 
         void ManualOpenV(object sender, RoutedEventArgs e)
@@ -456,7 +742,7 @@ namespace InitDialog
                 '\\'
             };
             string text = m_strCurrentDir.TrimEnd(trimChars);
-            text = text.TrimEnd(trimChars2) + "\\UserData\\edit\\scene";
+            text = text.TrimEnd(trimChars2) + "\\UserData\\Studio\\scene";
             if (Directory.Exists(text))
             {
                 Process.Start("explorer.exe", text);
@@ -465,47 +751,7 @@ namespace InitDialog
             new MessageWindow().SetupWindow("Warning", "\nCan't find the folder, please launch the game once.", new object[0]);
         }
 
-        void KoikatuPoseDir_Open(object sender, RoutedEventArgs e)
-        {
-            char[] trimChars = new char[]
-            {
-                '/'
-            };
-            char[] trimChars2 = new char[]
-            {
-                '\\'
-            };
-            string text = m_strCurrentDir.TrimEnd(trimChars);
-            text = text.TrimEnd(trimChars2) + "\\UserData\\pose\\data";
-            if (Directory.Exists(text))
-            {
-                Process.Start("explorer.exe", text);
-                return;
-            }
-            new MessageWindow().SetupWindow("Warning", "\nCan't find the folder, please launch the game once.", new object[0]);
-        }
-
-        void KoikatuMapDir_Open(object sender, RoutedEventArgs e)
-        {
-            char[] trimChars = new char[]
-            {
-                '/'
-            };
-            char[] trimChars2 = new char[]
-            {
-                '\\'
-            };
-            string text = m_strCurrentDir.TrimEnd(trimChars);
-            text = text.TrimEnd(trimChars2) + "\\UserData\\map\\data";
-            if (Directory.Exists(text))
-            {
-                Process.Start("explorer.exe", text);
-                return;
-            }
-            new MessageWindow().SetupWindow("Warning", "\nCan't find the folder, please launch the game once.", new object[0]);
-        }
-
-        void KoikatuSSDir_Open(object sender, RoutedEventArgs e)
+        void AISSSDir_Open(object sender, RoutedEventArgs e)
         {
             char[] trimChars = new char[]
             {
@@ -525,7 +771,27 @@ namespace InitDialog
             new MessageWindow().SetupWindow("Warning", "\nCan't find the folder, please launch the game once.", new object[0]);
         }
 
-        void KoikatuCharaDir_Open(object sender, RoutedEventArgs e)
+        void AIHouseDir_Open(object sender, RoutedEventArgs e)
+        {
+            char[] trimChars = new char[]
+            {
+                '/'
+            };
+            char[] trimChars2 = new char[]
+            {
+                '\\'
+            };
+            string text = m_strCurrentDir.TrimEnd(trimChars);
+            text = text.TrimEnd(trimChars2) + "\\UserData\\cap";
+            if (Directory.Exists(text))
+            {
+                Process.Start("explorer.exe", text);
+                return;
+            }
+            new MessageWindow().SetupWindow("Warning", "\nCan't find the folder, please launch the game once.", new object[0]);
+        }
+
+        void AISCharaDir_Open(object sender, RoutedEventArgs e)
         {
             char[] trimChars = new char[]
             {
@@ -559,7 +825,7 @@ namespace InitDialog
         bool DoubleStartCheck()
         {
             bool flag;
-            mutex = new Mutex(true, "Koikatu", out flag);
+            mutex = new Mutex(true, "AIS", out flag);
             bool v = !flag;
             if (v)
             {
@@ -810,18 +1076,17 @@ namespace InitDialog
 
         const int MONITORINFOF_PRIMARY = 1;
 
-        string m_strMutexName = "Koikatu";
-        string m_strGameRegistry = "Software\\illusion\\Koikatu\\Koikatu\\";
-        string m_strStudioRegistry = "Software\\illusion\\Koikatu\\CharaStudio\\";
-        string m_strVRRegistry = "Software\\illusion\\Koikatu\\KoikatuVR\\";
-        string m_strGameExe = "EmotionCreators.exe";
-        string m_strStudioExe = "CharaStudio.exe";
-        string m_strVRExe = "KoikatuVR.exe";
-        string m_strManualDir = "/manual/index.html";
+        string[] m_astrQuality;
+        string[] s_EnglishTL;
+
+        string m_strGameRegistry = "Software\\illusion\\AIS\\AIS\\";
+        string m_strStudioRegistry = "Software\\illusion\\AIS\\CharaStudio\\";
+        string m_strGameExe = "AI-Syoujyo.exe";
+        string m_strStudioExe = "StudioNEOV2.exe";
+        string m_strVRExe = "AISVR.exe";
+        string m_strManualDir = "/manual/お読み下さい.html";
         string m_strStudioManualDir = "/manual_s/お読み下さい.html";
         string m_strVRManualDir = "/manual_v/お読み下さい.html";
-
-        string m_strPartyExe = "Koikatsu Party.exe";
 
         const string m_strSaveDir = "/UserData/setup.xml";
         const string m_customDir = "/UserData/LauncherEN";
@@ -839,16 +1104,27 @@ namespace InitDialog
         bool is64bitOS;
 
         bool isStudio;
-        bool isVR;
         bool isMainGame;
-        bool isParty;
+
+        string lang = "en";
+        bool noTL = false;
+        bool startup;
 
         bool versionAvail;
         bool WarningExists;
         bool CharExists;
         bool BackgExists;
         bool PatreonExists;
+        bool LangExists;
+        bool DevExists;
 
+        string q_performance = "Performance";
+        string q_normal = "Normal";
+        string q_quality = "Quality";
+        string s_primarydisplay = "PrimaryDisplay";
+        string s_subdisplay = "SubDisplay";
+
+        const string decideLang = "/lang";
         const string versioningLoc = "/version";
         const string warningLoc = "/warning.txt";
         const string charLoc = "/Chara.png";
@@ -937,12 +1213,9 @@ namespace InitDialog
 
         const int m_nQualityCount = 3;
 
-        string[] m_astrQuality = new string[]
-       {
-            "Performance",
-            "Normal",
-            "Quality"
-       };
+
+
+
 
         Mutex mutex;
 
@@ -998,6 +1271,229 @@ namespace InitDialog
         void patreon_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             Process.Start(patreonURL);
+        }
+
+        void langEnglish(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            PartyFilter("en");
+        }
+        void langJapanese(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            PartyFilter("ja");
+        }
+        void langChinese(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            PartyFilter("zh-CN");
+        }
+        void langKorean(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            PartyFilter("ko");
+        }
+        void langSpanish(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            PartyFilter("es");
+        }
+        void langBrazil(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            PartyFilter("pt");
+        }
+        void langFrench(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            PartyFilter("fr");
+        }
+        void langGerman(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            PartyFilter("de");
+        }
+        void langNorwegian(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            PartyFilter("no");
+        }
+
+        void PartyFilter(string language)
+        {
+            if (!noTL)
+                ChangeTL(language);
+            else
+                SetupLang(language);
+        }
+
+        void ChangeTL(string language)
+        {
+            deactivateTL(1);
+            WriteLangIni(language);
+            SetupLang(language);
+        }
+
+        void WriteLangIni(string language)
+        {
+            if (File.Exists(m_strCurrentDir + "BepInEx/Config/AutoTranslatorConfig.ini"))
+            {
+                if (System.Windows.MessageBox.Show("Do you want the ingame language to reflect this language choice?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    helvete(language);
+                }
+                // Borrowed from Marco
+            }
+            //MessageBox.Show($"{curAutoTLOut}", "Debug");
+        }
+
+        void helvete(string language)
+        {
+            var ud = Path.Combine(m_strCurrentDir, @"BepInEx/Config/AutoTranslatorConfig.ini");
+
+            try
+            {
+                var contents = File.ReadAllLines(ud).ToList();
+
+                // Fix VMD for darkness
+                var setToLanguage = contents.FindIndex(s => s.ToLower().Contains("[General]".ToLower()));
+                if (setToLanguage >= 0)
+                {
+                    var i = contents.FindIndex(setToLanguage, s => s.StartsWith("Language"));
+                    if (i > setToLanguage)
+                        contents[i] = $"Language={language}";
+                    else
+                    {
+                        contents.Insert(setToLanguage + 1, $"Language={language}");
+                    }
+                }
+                else
+                {
+                    contents.Add("");
+                    contents.Add("[General]");
+                    contents.Add($"Language={language}");
+                }
+
+                File.WriteAllLines(ud, contents.ToArray());
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong: " + e);
+            }
+        }
+
+        void deactivateTL(int i)
+        {
+            s_EnglishTL = new string[]
+            {
+                "BepInEx/XUnity.AutoTranslator.Plugin.BepIn",
+                "BepInEx/XUnity.AutoTranslator.Plugin.Core",
+                "BepInEx/XUnity.AutoTranslator.Plugin.ExtProtocol",
+                "BepInEx/XUnity.RuntimeHooker.Core",
+                "BepInEx/XUnity.RuntimeHooker",
+                "BepInEx/KK_Subtitles",
+                "BepInEx/ExIni"
+            };
+
+            if (i == 0)
+            {
+                foreach (var file in s_EnglishTL)
+                {
+                    if (File.Exists(m_strCurrentDir + file + ".dll"))
+                    {
+                        File.Move(m_strCurrentDir + file + ".dll", m_strCurrentDir + file + "._ll");
+                    }
+                }
+            }
+            else
+            {
+                foreach (var file in s_EnglishTL)
+                {
+                    if (File.Exists(m_strCurrentDir + file + "._ll"))
+                    {
+                        File.Move(m_strCurrentDir + file + "._ll", m_strCurrentDir + file + ".dll");
+                    }
+                    helvete("en");
+                }
+            }
+        }
+
+        void SetupLang(string langstring)
+        {
+            if (File.Exists(m_strCurrentDir + m_customDir + decideLang))
+            {
+                File.Delete(m_strCurrentDir + m_customDir + decideLang);
+            }
+            using (StreamWriter writetext = new StreamWriter(m_strCurrentDir + m_customDir + decideLang))
+            {
+                writetext.WriteLine(langstring);
+            }
+            System.Windows.Forms.Application.Restart();
+        }
+
+        private void EnglishForce_Checked(object sender, RoutedEventArgs e)
+        {
+            WriteLangIni("en");
+            deactivateTL(1);
+            using (StreamWriter writetext = new StreamWriter(m_strCurrentDir + m_customDir + "/ForceEnglish"))
+            {
+                writetext.WriteLine("/ForceEnglish");
+            }
+        }
+
+        private void EnglishForce_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists(m_strCurrentDir + m_customDir + "/ForceEnglish"))
+            {
+                File.Delete(m_strCurrentDir + m_customDir + "/ForceEnglish");
+            }
+            PartyFilter(lang);
+        }
+
+        private void modeDev_Checked(object sender, RoutedEventArgs e)
+        {
+            using (StreamWriter writetext = new StreamWriter(m_strCurrentDir + m_customDir + "/devMode"))
+            {
+                writetext.WriteLine("devmode: True");
+            }
+            if (!startup)
+            {
+                devMode(true);
+            }
+        }
+
+        private void modeDev_Unchecked(object sender, RoutedEventArgs e)
+        {
+            devMode(false);
+            if (DevExists)
+            {
+                File.Delete(m_strCurrentDir + m_customDir + "/devMode");
+            }
+            if (!startup)
+            {
+                devMode(false);
+            }
+        }
+
+        void devMode(bool setDev)
+        {
+            var ud = Path.Combine(m_strCurrentDir, @"BepInEx\config\BepInEx.cfg");
+
+            try
+            {
+                var contents = File.ReadAllLines(ud).ToList();
+
+                var setToLanguage = contents.FindIndex(s => s.ToLower().Contains("[Logging.Console]".ToLower()));
+                if (setToLanguage >= 0 && setDev)
+                {
+                    var i = contents.FindIndex(setToLanguage, s => s.StartsWith("Enabled"));
+                    if (i > setToLanguage)
+                        contents[i] = $"Enabled = true";
+                }
+                else
+                {
+                    var i = contents.FindIndex(setToLanguage, s => s.StartsWith("Enabled"));
+                    if (i > setToLanguage)
+                        contents[i] = $"Enabled = false";
+                }
+
+                File.WriteAllLines(ud, contents.ToArray());
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong: " + e);
+            }
         }
     }
 }

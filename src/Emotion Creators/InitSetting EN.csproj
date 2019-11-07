@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>InitDialogEN</RootNamespace>
     <AssemblyName>InitSetting EN</AssemblyName>
-    <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60DC8134-EBA5-43B8-BCC9-BB4BC16C2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -29,6 +29,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -90,6 +91,7 @@
     <EmbeddedResource Include="Properties\Resources.resources" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="app.manifest">
       <SubType>Designer</SubType>
     </None>
@@ -119,9 +121,19 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\transBG.png" />
-    <Resource Include="images\Discord.png" />
     <Resource Include="images\LauncherBG.png" />
     <Resource Include="images\Chara.png" />
+    <Resource Include="images\Flags\brazil.png" />
+    <Resource Include="images\Flags\china.png" />
+    <Resource Include="images\Flags\france.png" />
+    <Resource Include="images\Flags\germany.png" />
+    <Resource Include="images\Flags\japan.png" />
+    <Resource Include="images\Flags\norway.png" />
+    <Resource Include="images\Flags\south-korea.png" />
+    <Resource Include="images\Flags\spain.png" />
+    <Resource Include="images\Flags\united-kingdom.png" />
+    <Resource Include="images\ModernDiscord_small.png" />
+    <Resource Include="images\ModernPatreon_small.png" />
     <Content Include="InitSetting.ico" />
   </ItemGroup>
   <ItemGroup>
