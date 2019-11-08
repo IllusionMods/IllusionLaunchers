@@ -828,7 +828,7 @@ namespace InitDialog
                 '\\'
             };
             string text = m_strCurrentDir.TrimEnd(trimChars);
-            text = text.TrimEnd(trimChars2) + "\\UserData\\cap";
+            text = text.TrimEnd(trimChars2) + "\\UserData\\housing";
             if (Directory.Exists(text))
             {
                 Process.Start("explorer.exe", text);
