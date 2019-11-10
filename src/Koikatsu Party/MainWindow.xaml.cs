@@ -76,9 +76,28 @@ namespace InitDialog
 
             Directory.CreateDirectory(m_strCurrentDir + m_customDir);
 
-            // Check if dev mode is active
+            // Check if Party fonts are present
 
-            if (!File.Exists(m_strCurrentDir + "/Bepinex/config/BepInEx.cfg"))
+            bool lang1en = File.Exists(m_strCurrentDir + "abdata\\localize\\translate\\1\\font.unit-y3d");
+            bool lang1di = File.Exists(m_strCurrentDir + "abdata\\localize\\translate\\1\\font.unity3d");
+            bool lang2en = File.Exists(m_strCurrentDir + "abdata\\localize\\translate\\2\\font.unit-y3d");
+            bool lang2di = File.Exists(m_strCurrentDir + "abdata\\localize\\translate\\2\\font.unity3d");
+            bool lang3en = File.Exists(m_strCurrentDir + "abdata\\localize\\translate\\3\\font.unit-y3d");
+            bool lang3di = File.Exists(m_strCurrentDir + "abdata\\localize\\translate\\3\\font.unity3d");
+
+            if (!lang1en && !lang1di && !lang2en && !lang2di && !lang3en && !lang3di)
+            {
+                FontBG.Visibility = Visibility.Hidden;
+                font.Visibility = Visibility.Hidden;
+            }
+            else if (lang1en || lang2en || lang3en)
+            {
+                font.IsChecked = true;
+            }
+
+                // Check if dev mode is active
+
+                if (!File.Exists(m_strCurrentDir + "/Bepinex/config/BepInEx.cfg"))
             {
                 modeDev.IsEnabled = false;
                 File.Delete(m_strCurrentDir + m_customDir + "/devMode");
@@ -1237,6 +1256,38 @@ namespace InitDialog
             if (!startup)
             {
                 devMode(false);
+            }
+        }
+
+        private void font_Checked(object sender, RoutedEventArgs e)
+        {
+            if(File.Exists(m_strCurrentDir + "abdata\\localize\\translate\\1\\font.unity3d"))
+            {
+                File.Move(m_strCurrentDir + "abdata\\localize\\translate\\1\\font.unity3d", m_strCurrentDir + "abdata\\localize\\translate\\1\\font.unit-y3d");
+            }
+            if (File.Exists(m_strCurrentDir + "abdata\\localize\\translate\\2\\font.unity3d"))
+            {
+                File.Move(m_strCurrentDir + "abdata\\localize\\translate\\2\\font.unity3d", m_strCurrentDir + "abdata\\localize\\translate\\2\\font.unit-y3d");
+            }
+            if (File.Exists(m_strCurrentDir + "abdata\\localize\\translate\\3\\font.unity3d"))
+            {
+                File.Move(m_strCurrentDir + "abdata\\localize\\translate\\3\\font.unity3d", m_strCurrentDir + "abdata\\localize\\translate\\3\\font.unit-y3d");
+            }
+        }
+
+        private void font_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists(m_strCurrentDir + "abdata\\localize\\translate\\1\\font.unit-y3d"))
+            {
+                File.Move(m_strCurrentDir + "abdata\\localize\\translate\\1\\font.unity3d", m_strCurrentDir + "abdata\\localize\\translate\\1\\font.unity3d");
+            }
+            if (File.Exists(m_strCurrentDir + "abdata\\localize\\translate\\2\\font.unit-y3d"))
+            {
+                File.Move(m_strCurrentDir + "abdata\\localize\\translate\\2\\font.unity3d", m_strCurrentDir + "abdata\\localize\\translate\\2\\font.unity3d");
+            }
+            if (File.Exists(m_strCurrentDir + "abdata\\localize\\translate\\3\\font.unit-y3d"))
+            {
+                File.Move(m_strCurrentDir + "abdata\\localize\\translate\\3\\font.unity3d", m_strCurrentDir + "abdata\\localize\\translate\\3\\font.unity3d");
             }
         }
 

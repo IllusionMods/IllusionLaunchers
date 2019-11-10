@@ -159,6 +159,38 @@
 			Width="236"
 			Unchecked="modeDev_Unchecked"
 			Checked="modeDev_Checked" />
+
+        <Image 
+            x:Name="FontBG"
+            HorizontalAlignment="Left" 
+            Height="25.51" 
+            Margin="6.451,391.487,0,0" 
+            VerticalAlignment="Top" 
+            Width="262.333" 
+            Source="images/transBG.png" 
+            StretchDirection="UpOnly" 
+            Stretch="Fill"/>
+        <CheckBox
+			Name="font"
+			Content="Enable font from JP Koikatsu"
+			VerticalAlignment="Top"
+			Height="26"
+			FontFamily="Arial"
+			FontSize="18"
+			BorderThickness="1"
+			Padding="5,0,0,4"
+			Background="#FFFFFFFF"
+			RenderTransformOrigin="-0.25,6.269"
+			BorderBrush="#FF646464"
+			Foreground="White"
+			Margin="10,392.497,0,0"
+			IsHitTestVisible="True"
+			VerticalContentAlignment="Center"
+			TabIndex="1"
+			HorizontalAlignment="Left"
+			Width="291.451"
+			Unchecked="modeDev_Unchecked"
+			Checked="font_Checked" />
         <ComboBox
 			Name="QualityBox"
 			Margin="599,55,0,0"
