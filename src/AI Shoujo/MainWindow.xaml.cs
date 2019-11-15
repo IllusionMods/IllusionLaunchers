@@ -212,8 +212,8 @@ namespace InitDialog
             {
                 TransCred.Visibility = Visibility.Visible;
 
-                PLAY_Studio.FontSize = 13;
-                Manual_s_Open.FontSize = 13;
+                //PLAY_Studio.FontSize = 11;
+                //Manual_s_Open.FontSize = 11;
 
                 mainApp.Title = "AI 소녀 런쳐";
                 warnBox.Header = "중요사항!";
@@ -223,12 +223,12 @@ namespace InitDialog
                 AISCharaDirectory.Content = "캐릭터 카드";
                 SceneDirectory.Content = "장면";
                 AISScreenShotDirectory.Content = "스크린샷 폴더";
-                AISHousingDirectory.Content = "첫화면";
+                AISHousingDirectory.Content = "하우징 폴더";
                 GameSBox.Header = "실행";
                 PLAY.Content = "AI 소녀 시작";
                 Manual_Open.Content = "AI 소녀 메뉴얼";
-                PLAY_Studio.Content = "스튜디오 네오 시작";
-                Manual_s_Open.Content = "스튜디오 네오 메뉴얼";
+                PLAY_Studio.Content = "스튜디오 시작";
+                Manual_s_Open.Content = "스튜디오 메뉴얼";
                 SettingsBox.Header = "설정";
                 modeFenetre.Content = "전체화면으로 시작";
                 modeDev.Content = "개발자 모드";
