@@ -1,21 +1,19 @@
-﻿using System;
-using System.CodeDom.Compiler;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Management;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
-using System.Windows.Markup;
 using System.Windows.Media.Imaging;
 using System.Xml.Serialization;
-using System.Linq;
-using Microsoft.Win32;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace InitDialog
@@ -78,7 +76,7 @@ namespace InitDialog
 
             // Check if dev mode is active
 
-            if(!File.Exists(m_strCurrentDir + "/Bepinex/config/BepInEx.cfg"))
+            if (!File.Exists(m_strCurrentDir + "/Bepinex/config/BepInEx.cfg"))
             {
                 modeDev.IsEnabled = false;
                 File.Delete(m_strCurrentDir + m_customDir + "/devMode");
@@ -88,6 +86,48 @@ namespace InitDialog
             if (DevExists)
             {
                 modeDev.IsChecked = true;
+            }
+
+            // Updater stuffs
+
+            if (File.Exists(m_strCurrentDir + m_customDir + "/enableUpdate") && File.Exists(m_strCurrentDir + m_customDir + "/updateURL.txt"))
+            {
+                //Getting download URL
+                var dlFileStream = new FileStream(m_strCurrentDir + m_customDir + "/updateURL.txt", FileMode.Open, FileAccess.Read);
+                using (var streamReader = new StreamReader(dlFileStream, Encoding.UTF8))
+                {
+                    string line;
+                    while ((line = streamReader.ReadLine()) != null)
+                    {
+                        updateURL = line;
+                    }
+                }
+                dlFileStream.Close();
+
+                //Grabbing existing version
+                var verFileStream = new FileStream(m_strCurrentDir + m_customDir + "/enableUpdate", FileMode.Open, FileAccess.Read);
+                using (var streamReader = new StreamReader(verFileStream, Encoding.UTF8))
+                {
+                    string line;
+                    while ((line = streamReader.ReadLine()) != null)
+                    {
+                        packVersion = line;
+                    }
+                }
+                verFileStream.Close();
+
+                //Grabbing new version string
+                try
+                {
+                    newPackVersion = (new WebClient()).DownloadString(updateURL).ToString();
+                }
+                catch { }
+
+                //Enables update button if new version is found
+                if (packVersion != newPackVersion && newPackVersion != null)
+                {
+                    updateBtn.Visibility = Visibility.Visible;
+                }
             }
 
             startup = false;
@@ -1176,6 +1216,9 @@ namespace InitDialog
         const string charLoc = "/Chara.png";
         const string backgLoc = "/LauncherBG.png";
         const string patreonLoc = "/patreon.txt";
+        string updateURL;
+        string packVersion;
+        string newPackVersion;
 
         string patreonURL;
 
@@ -1259,7 +1302,7 @@ namespace InitDialog
 
         const int m_nQualityCount = 3;
 
-        
+
 
 
 
@@ -1386,7 +1429,7 @@ namespace InitDialog
 
         void helvete(string language)
         {
-            if(File.Exists("BepInEx/Config/AutoTranslatorConfig.ini"))
+            if (File.Exists("BepInEx/Config/AutoTranslatorConfig.ini"))
             {
                 var ud = Path.Combine(m_strCurrentDir, @"BepInEx/Config/AutoTranslatorConfig.ini");
 
@@ -1542,6 +1585,18 @@ namespace InitDialog
             catch (Exception e)
             {
                 MessageBox.Show("Something went wrong: " + e);
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (PatreonExists)
+            {
+                Process.Start(patreonURL);
+            }
+            else
+            {
+                MessageBox.Show("There is an update available for your game, please visit the download location for the game for more info.");
             }
         }
     }

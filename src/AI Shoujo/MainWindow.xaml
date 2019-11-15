@@ -498,5 +498,6 @@
             Source="images/Flags/norway.png" 
             MouseLeftButtonDown="langNorwegian" 
             Stretch="UniformToFill"/>
+        <Button x:Name="updateBtn" Content="Update available" HorizontalAlignment="Left" Margin="312.392,471.251,0,0" VerticalAlignment="Top" Width="208" Click="Button_Click" Height="43.5" Background="#4C000000" BorderBrush="#FFD61010" Foreground="White" Visibility="Hidden"/>
     </Grid>
 </windows:Window>
