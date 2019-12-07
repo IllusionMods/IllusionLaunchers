@@ -1425,12 +1425,10 @@ namespace InitDialog
             if (!File.Exists($@"{kkman}\StandaloneUpdater.exe"))
             {
                 finaldir = $@"{m_strCurrentDir}{kkman}";
-                MessageBox.Show($@"{finaldir} (1)");
             }
             else
             {
                 finaldir = kkman;
-                MessageBox.Show($@"{finaldir} (2)");
             }
 
             string text = $@"{finaldir}\StandaloneUpdater.exe";
