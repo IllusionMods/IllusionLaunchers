@@ -74,6 +74,50 @@ namespace InitDialog
 
             Directory.CreateDirectory(m_strCurrentDir + m_customDir);
 
+            // Updater stuffs
+
+            kkmanExist = File.Exists(m_strCurrentDir + m_customDir + kkmdir);
+            updatelocExists = File.Exists(m_strCurrentDir + m_customDir + updateLoc);
+            if (kkmanExist)
+            {
+                var kkmanFileStream = new FileStream(m_strCurrentDir + m_customDir + kkmdir, FileMode.Open, FileAccess.Read);
+                using (var streamReader = new StreamReader(kkmanFileStream, Encoding.UTF8))
+                {
+                    string line;
+                    while ((line = streamReader.ReadLine()) != null)
+                    {
+                        kkman = line;
+                    }
+                }
+                kkmanFileStream.Close();
+                if (updatelocExists)
+                {
+                    var updFileStream = new FileStream(m_strCurrentDir + m_customDir + updateLoc, FileMode.Open, FileAccess.Read);
+                    using (var streamReader = new StreamReader(updFileStream, Encoding.UTF8))
+                    {
+                        string line;
+                        while ((line = streamReader.ReadLine()) != null)
+                        {
+                            updated = line;
+                        }
+                    }
+                    updFileStream.Close();
+                }
+                else
+                {
+                    updated = "https://mega.nz/#F!LH5iwKxR!d_ztxVonEesY-ckOI_bfSw";
+                }
+            }
+            else
+            {
+                UpdateButton.Visibility = Visibility.Hidden;
+            }
+
+            if (!File.Exists(m_strCurrentDir + m_customDir + kkmdir))
+            {
+
+            }
+
             // Check if dev mode is active
 
             if (!File.Exists(m_strCurrentDir + "/Bepinex/config/BepInEx.cfg"))
@@ -90,45 +134,45 @@ namespace InitDialog
 
             // Updater stuffs
 
-            if (File.Exists(m_strCurrentDir + m_customDir + "/enableUpdate") && File.Exists(m_strCurrentDir + m_customDir + "/updateURL.txt"))
-            {
-                //Getting download URL
-                var dlFileStream = new FileStream(m_strCurrentDir + m_customDir + "/updateURL.txt", FileMode.Open, FileAccess.Read);
-                using (var streamReader = new StreamReader(dlFileStream, Encoding.UTF8))
-                {
-                    string line;
-                    while ((line = streamReader.ReadLine()) != null)
-                    {
-                        updateURL = line;
-                    }
-                }
-                dlFileStream.Close();
+            //if (File.Exists(m_strCurrentDir + m_customDir + "/enableUpdate") && File.Exists(m_strCurrentDir + m_customDir + "/updateURL.txt"))
+            //{
+            //    //Getting download URL
+            //    var dlFileStream = new FileStream(m_strCurrentDir + m_customDir + "/updateURL.txt", FileMode.Open, FileAccess.Read);
+            //    using (var streamReader = new StreamReader(dlFileStream, Encoding.UTF8))
+            //    {
+            //        string line;
+            //        while ((line = streamReader.ReadLine()) != null)
+            //        {
+            //            updateURL = line;
+            //        }
+            //    }
+            //    dlFileStream.Close();
 
-                //Grabbing existing version
-                var verFileStream = new FileStream(m_strCurrentDir + m_customDir + "/enableUpdate", FileMode.Open, FileAccess.Read);
-                using (var streamReader = new StreamReader(verFileStream, Encoding.UTF8))
-                {
-                    string line;
-                    while ((line = streamReader.ReadLine()) != null)
-                    {
-                        packVersion = line;
-                    }
-                }
-                verFileStream.Close();
+            //    //Grabbing existing version
+            //    var verFileStream = new FileStream(m_strCurrentDir + m_customDir + "/enableUpdate", FileMode.Open, FileAccess.Read);
+            //    using (var streamReader = new StreamReader(verFileStream, Encoding.UTF8))
+            //    {
+            //        string line;
+            //        while ((line = streamReader.ReadLine()) != null)
+            //        {
+            //            packVersion = line;
+            //        }
+            //    }
+            //    verFileStream.Close();
 
-                //Grabbing new version string
-                try
-                {
-                    newPackVersion = (new WebClient()).DownloadString(updateURL).ToString();
-                }
-                catch { }
+            //    //Grabbing new version string
+            //    try
+            //    {
+            //        newPackVersion = (new WebClient()).DownloadString(updateURL).ToString();
+            //    }
+            //    catch { }
 
-                //Enables update button if new version is found
-                if (packVersion != newPackVersion && newPackVersion != null)
-                {
-                    updateBtn.Visibility = Visibility.Visible;
-                }
-            }
+            //    //Enables update button if new version is found
+            //    if (packVersion != newPackVersion && newPackVersion != null)
+            //    {
+            //        updateBtn.Visibility = Visibility.Visible;
+            //    }
+            //}
 
             startup = false;
 
@@ -1203,6 +1247,11 @@ namespace InitDialog
         bool PatreonExists;
         bool LangExists;
         bool DevExists;
+        bool kkmanExist;
+        bool updatelocExists;
+
+        string kkman;
+        string updated;
 
         string q_performance = "Performance";
         string q_normal = "Normal";
@@ -1216,9 +1265,11 @@ namespace InitDialog
         const string charLoc = "/Chara.png";
         const string backgLoc = "/LauncherBG.png";
         const string patreonLoc = "/patreon.txt";
-        string updateURL;
-        string packVersion;
-        string newPackVersion;
+        const string kkmdir = "/kkman.txt";
+        const string updateLoc = "/updater.txt";
+        //string updateURL;
+        //string packVersion;
+        //string newPackVersion;
 
         string patreonURL;
 
@@ -1360,6 +1411,39 @@ namespace InitDialog
         void patreon_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             Process.Start(patreonURL);
+        }
+
+        void update_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            saveConfigFile(m_strCurrentDir + m_strSaveDir);
+            SaveRegistry();
+
+            string marcofix = m_strCurrentDir.TrimEnd('\\', '/', ' ');
+            kkman = kkman.TrimEnd('\\', '/', ' ');
+            string finaldir;
+
+            if (!File.Exists($@"{kkman}\StandaloneUpdater.exe"))
+            {
+                finaldir = $@"{m_strCurrentDir}{kkman}";
+                MessageBox.Show($@"{finaldir} (1)");
+            }
+            else
+            {
+                finaldir = kkman;
+                MessageBox.Show($@"{finaldir} (2)");
+            }
+
+            string text = $@"{finaldir}\StandaloneUpdater.exe";
+
+            string argdir = $"\u0022{marcofix}\u0022";
+            string argloc = updated;
+            string args = $"{argdir} {argloc}";
+
+            if (File.Exists(text))
+            {
+                Process.Start(new ProcessStartInfo(text) { WorkingDirectory = $@"{finaldir}", Arguments = args });
+                return;
+            }
         }
 
         void langEnglish(object sender, System.Windows.Input.MouseButtonEventArgs e)
