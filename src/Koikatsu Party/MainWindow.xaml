@@ -449,10 +449,27 @@
             HorizontalAlignment="Left" 
             Height="42.833" 
             Width="40.726" 
-            Margin="74.333,510.167,0,0" 
+            Margin="110.785,507.651,0,0" 
             VerticalAlignment="Top" 
             MouseLeftButtonDown="patreon_MouseLeftButtonDown" 
-            Source="images/ModernPatreon_small.png"/>
+            Source="images/ModernPatreon_small.png">
+            <Image.ToolTip>
+                <ToolTip Content="Visit patreon"></ToolTip>
+            </Image.ToolTip>
+        </Image>
+        <Image
+            x:Name="UpdateButton"
+            HorizontalAlignment="Left" 
+            Height="42.833" 
+            Width="40.726" 
+            Margin="65.059,507.651,0,0" 
+            VerticalAlignment="Top" 
+            MouseLeftButtonDown="update_MouseLeftButtonDown" 
+            Source="images/ModernDL_small.png">
+            <Image.ToolTip>
+                <ToolTip Content="Update Sideloader Modpack"></ToolTip>
+            </Image.ToolTip>
+        </Image>
         <TextBlock 
             x:Name="Versioning" 
             Margin="10,0,11.917,0" 

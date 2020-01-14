@@ -127,6 +127,7 @@
     <Resource Include="images\Flags\germany.png" />
     <Resource Include="images\Flags\brazil.png" />
     <Resource Include="images\Flags\france.png" />
+    <Resource Include="images\ModernDL_small.png" />
     <Content Include="InitSetting.ico" />
   </ItemGroup>
   <ItemGroup>

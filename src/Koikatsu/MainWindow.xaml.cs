@@ -61,20 +61,50 @@ namespace InitDialog
 
             // Check for duplicate launches
 
-            Process process = Process.GetCurrentProcess();
-            var dupl = (Process.GetProcessesByName(process.ProcessName));
-            if (true)
-            {
-                foreach (var p in dupl)
-                {
-                    if (p.Id != process.Id)
-                        p.Kill();
-                }
-            }
 
             startup = true;
 
             Directory.CreateDirectory(m_strCurrentDir + m_customDir);
+
+            // Updater stuffs
+
+            kkmanExist = File.Exists(m_strCurrentDir + m_customDir + kkmdir);
+            updatelocExists = File.Exists(m_strCurrentDir + m_customDir + updateLoc);
+            if (kkmanExist)
+            {
+                var kkmanFileStream = new FileStream(m_strCurrentDir + m_customDir + kkmdir, FileMode.Open, FileAccess.Read);
+                using (var streamReader = new StreamReader(kkmanFileStream, Encoding.UTF8))
+                {
+                    string line;
+                    while ((line = streamReader.ReadLine()) != null)
+                    {
+                        kkman = line;
+                    }
+                    //UpdateButton.Visibility = Visibility.Visible;
+                }
+                kkmanFileStream.Close();
+                if (updatelocExists)
+                {
+                    var updFileStream = new FileStream(m_strCurrentDir + m_customDir + updateLoc, FileMode.Open, FileAccess.Read);
+                    using (var streamReader = new StreamReader(updFileStream, Encoding.UTF8))
+                    {
+                        string line;
+                        while ((line = streamReader.ReadLine()) != null)
+                        {
+                            updated = line;
+                        }
+                    }
+                    updFileStream.Close();
+                }
+                else
+                {
+                    updated = "";
+                }
+            }
+            else
+            {
+                UpdateButton.Visibility = Visibility.Hidden;
+            }
 
             // Check if dev mode is active
 
@@ -1185,6 +1215,11 @@ namespace InitDialog
         bool PatreonExists;
         bool LangExists;
         bool DevExists;
+        bool kkmanExist;
+        bool updatelocExists;
+
+        string kkman;
+        string updated;
 
         string q_performance = "Performance";
         string q_normal = "Normal";
@@ -1201,6 +1236,8 @@ namespace InitDialog
         const string charLoc = "/Chara.png";
         const string backgLoc = "/LauncherBG.png";
         const string patreonLoc = "/patreon.txt";
+        const string kkmdir = "/kkman.txt";
+        const string updateLoc = "/updater.txt";
 
         string patreonURL;
 
@@ -1342,6 +1379,37 @@ namespace InitDialog
         void patreon_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             Process.Start(patreonURL);
+        }
+
+        void update_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            saveConfigFile(m_strCurrentDir + m_strSaveDir);
+            SaveRegistry();
+
+            string marcofix = m_strCurrentDir.TrimEnd('\\', '/', ' ');
+            kkman = kkman.TrimEnd('\\', '/', ' ');
+            string finaldir;
+
+            if (!File.Exists($@"{kkman}\StandaloneUpdater.exe"))
+            {
+                finaldir = $@"{m_strCurrentDir}{kkman}";
+            }
+            else
+            {
+                finaldir = kkman;
+            }
+
+            string text = $@"{finaldir}\StandaloneUpdater.exe";
+
+            string argdir = $"\u0022{marcofix}\u0022";
+            string argloc = updated;
+            string args = $"{argdir} {argloc}";
+
+            if (File.Exists(text))
+            {
+                Process.Start(new ProcessStartInfo(text) { WorkingDirectory = $@"{finaldir}", Arguments = args });
+                return;
+            }
         }
 
         void langEnglish(object sender, System.Windows.Input.MouseButtonEventArgs e)
