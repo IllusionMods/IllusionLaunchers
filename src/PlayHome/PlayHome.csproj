@@ -29,7 +29,8 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -120,6 +121,18 @@
     <Resource Include="images\Chara.png" />
     <Resource Include="images\Patreon.png" />
     <Resource Include="images\EC_Logo.png" />
+    <Resource Include="images\Flags\brazil.png" />
+    <Resource Include="images\Flags\china.png" />
+    <Resource Include="images\Flags\france.png" />
+    <Resource Include="images\Flags\germany.png" />
+    <Resource Include="images\Flags\japan.png" />
+    <Resource Include="images\Flags\norway.png" />
+    <Resource Include="images\Flags\south-korea.png" />
+    <Resource Include="images\Flags\spain.png" />
+    <Resource Include="images\Flags\united-kingdom.png" />
+    <Resource Include="images\ModernDiscord_small.png" />
+    <Resource Include="images\ModernDL_small.png" />
+    <Resource Include="images\ModernPatreon_small.png" />
     <Content Include="InitSetting.ico" />
   </ItemGroup>
   <ItemGroup>
