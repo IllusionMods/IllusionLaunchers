@@ -398,17 +398,18 @@ namespace InitDialog
                 s_primarydisplay = "Display Primário";
                 s_subdisplay = "Display Secundário";
             }
-            else if (lang == "fr") // By @Punky  (°TotalDecay78°)#0001 
+            else if (lang == "fr") // By VaizravaNa#2315
             {
                 TransCred.Visibility = Visibility.Visible;
 
                 AISCharaDirectory.FontSize = 14;
                 PLAY.FontSize = 14;
                 SystemInfo.FontSize = 9;
+                modeFenetre.FontSize = 15;
 
-                mainApp.Title = "AI Girl Launcher";
+                mainApp.Title = "AI Girl Lanceur";
                 warnBox.Header = "Attention!";
-                warningText.Text = "Ce jeu s'adresse aux adultes. Tout mineur de moins de 18 ans (ou plus suivant les lois locales) ne doit pas avoir accès à ce jeu. Selon l’article 227-24 du code Pénal, « le fait soit de fabriquer, de transporter, de diffuser par quelque moyen que ce soit et quel qu’en soit le support, un message à caractère violent ou pornographique ou de nature à porter gravement atteinte à la dignité humaine, soit de faire commerce d’un tel message, est puni de trois ans d’emprisonnement et de 75 000 euros d’amende lorsque ce message est susceptible d’être vu ou perçu par un mineur. »";
+                warningText.Text = "Ce jeu est destiné à un public adulte, aucun mineur en dessous de 18 ans (ou l'équivalent selon les lois locales) ne doit pas jouer ou posséder ce jeu. \n\nCe jeu contient des scènes matures, et certaines actions du jeu peuvent être considéré comme illégales, à ne pas reproduire dans la vraie vie. Ce n'est que de la fiction, du moment que cela reste dans le jeu. Amusez-vous bien!»";
                 GameFBox.Header = "Répertoires du jeu";
                 InstallDirectory.Content = "Installation";
                 AISCharaDirectory.Content = "Personnages";
@@ -416,20 +417,20 @@ namespace InitDialog
                 AISScreenShotDirectory.Content = "Captures d'écran";
                 AISHousingDirectory.Content = "Plans des maisons";
                 GameSBox.Header = "Lancement du jeu";
-                PLAY.Content = "Démarrer AI Girl";
+                PLAY.Content = "Lancer AI Girl";
                 Manual_Open.Content = "Manuel de AI Girl";
-                PLAY_Studio.Content = "Démarrer le Studio";
+                PLAY_Studio.Content = "Lancer le Studio";
                 Manual_s_Open.Content = "Manuel du Studio";
-                SettingsBox.Header = "Paramètres";
-                modeFenetre.Content = "Lancer en plein écran";
-                modeDev.Content = "Mode développeur";
-                SystemInfo.Content = "Informations sur le système";
+                SettingsBox.Header = "Options";
+                modeFenetre.Content = "Lancer le jeu en pleins écran";
+                modeDev.Content = "Mode Développeur";
+                SystemInfo.Content = "Information système";
                 EXIT.Content = "Quitter";
-                Versioning.Text = "Unknown Install Method";
-                TransCred.Text = "Launcher translated by: TotalDecay78";
-                q_performance = "Minimum";
+                Versioning.Text = "Méthode d'installation inconnue";
+                TransCred.Text = "Lanceur traduit par: VaizravaNa";
+                q_performance = "Performance";
                 q_normal = "Normal";
-                q_quality = "Haut";
+                q_quality = "Qualité";
                 s_primarydisplay = "Ecran principal";
                 s_subdisplay = "Ecran secondaire";
             }
