@@ -93,6 +93,7 @@ namespace InitDialog
                 toggleConsole.IsChecked = true;
             }
 
+
             // Updater stuffs
 
             //if (File.Exists(m_strCurrentDir + m_customDir + "/enableUpdate") && File.Exists(m_strCurrentDir + m_customDir + "/updateURL.txt"))
@@ -134,6 +135,36 @@ namespace InitDialog
             //        updateBtn.Visibility = Visibility.Visible;
             //    }
             //}
+
+            // Mod settings
+
+            if (File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dll"))
+            {
+                HoneyPot_Activate.IsChecked = true;
+            }
+            if (File.Exists($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll"))
+            {
+                DHH_Activate.IsChecked = true;
+            }
+            if (!File.Exists($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_") && !File.Exists($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll"))
+            {
+                DHH_Activate.IsEnabled = false;
+            }
+            if (!File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_") && !File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dll"))
+            {
+                HoneyPot_Activate.IsEnabled = false;
+            }
+            if (File.Exists($"{m_strCurrentDir}{m_customDir}/architecture.txt"))
+            {
+                architecture.IsChecked = true;
+                x86 = true;
+            }
+            if (!File.Exists($"{m_strCurrentDir}\\PlayHome32bit.exe"))
+            {
+                architecture.IsEnabled = false;
+                x86 = false;
+            }
+
 
             startup = false;
 
@@ -705,12 +736,18 @@ namespace InitDialog
 
         void PLAY_Click(object sender, RoutedEventArgs e)
         {
-            PlayFunc(m_strGameExe);
+            if(x86 == true)
+                PlayFunc(m_strGameExe32);
+            else
+                PlayFunc(m_strGameExe);
         }
 
         void PLAY_Studio_Click(object sender, RoutedEventArgs e)
         {
-            PlayFunc(m_strStudioExe);
+            if (x86 == true)
+                PlayFunc(m_strStudioExe32);
+            else
+                PlayFunc(m_strStudioExe);
         }
 
         void PLAY_VR_Click(object sender, RoutedEventArgs e)
@@ -773,34 +810,61 @@ namespace InitDialog
 
         void ManualOpen(object sender, RoutedEventArgs e)
         {
-            string text = m_strCurrentDir + m_strManualDir;
-            if (File.Exists(text))
+            string manualEN = $"{m_strCurrentDir}\\manual\\manual_en.html";
+            string manualLANG = $"{m_strCurrentDir}\\manual\\manual_{lang}.html";
+            string manualJA = m_strCurrentDir + m_strManualDir;
+
+            if(File.Exists(manualEN) || File.Exists(manualLANG) || File.Exists(manualJA))
             {
-                Process.Start(text);
+                if (File.Exists(manualLANG))
+                    Process.Start(manualLANG);
+                else if (File.Exists(manualEN))
+                    Process.Start(manualEN);
+                else
+                    Process.Start(manualJA);
                 return;
             }
+
             new MessageWindow().SetupWindow("Warning", "\nThe manual could not be found.", new object[0]);
         }
 
         void ManualOpenS(object sender, RoutedEventArgs e)
         {
-            string text = m_strCurrentDir + m_strStudioManualDir;
-            if (File.Exists(text))
+            string manualEN = $"{m_strCurrentDir}\\manual_s\\manual_en.html";
+            string manualLANG = $"{m_strCurrentDir}\\manual_s\\manual_{lang}.html";
+            string manualJA = m_strCurrentDir + m_strStudioManualDir;
+
+            if (File.Exists(manualEN) || File.Exists(manualLANG) || File.Exists(manualJA))
             {
-                Process.Start(text);
+                if (File.Exists(manualLANG))
+                    Process.Start(manualLANG);
+                else if (File.Exists(manualEN))
+                    Process.Start(manualEN);
+                else
+                    Process.Start(manualJA);
                 return;
             }
+
             new MessageWindow().SetupWindow("Warning", "\nThe manual could not be found.", new object[0]);
         }
 
         void ManualOpenV(object sender, RoutedEventArgs e)
         {
-            string text = m_strCurrentDir + m_strVRManualDir;
-            if (File.Exists(text))
+            string manualEN = $"{m_strCurrentDir}\\manual_vr\\manual_en.html";
+            string manualLANG = $"{m_strCurrentDir}\\manual_vr\\manual_{lang}.html";
+            string manualJA = m_strCurrentDir + m_strVRManualDir;
+
+            if (File.Exists(manualEN) || File.Exists(manualLANG) || File.Exists(manualJA))
             {
-                Process.Start(text);
+                if (File.Exists(manualLANG))
+                    Process.Start(manualLANG);
+                else if (File.Exists(manualEN))
+                    Process.Start(manualEN);
+                else
+                    Process.Start(manualJA);
                 return;
             }
+
             new MessageWindow().SetupWindow("Warning", "\nThe manual could not be found.", new object[0]);
         }
 
@@ -1206,6 +1270,7 @@ namespace InitDialog
         bool PatreonExists;
         bool LangExists;
         bool DevExists;
+        bool x86;
 
         string kkman;
         string updated;
@@ -1553,25 +1618,6 @@ namespace InitDialog
             System.Windows.Forms.Application.Restart();
         }
 
-        private void EnglishForce_Checked(object sender, RoutedEventArgs e)
-        {
-            WriteLangIni("en");
-            deactivateTL(1);
-            using (StreamWriter writetext = new StreamWriter(m_strCurrentDir + m_customDir + "/ForceEnglish"))
-            {
-                writetext.WriteLine("/ForceEnglish");
-            }
-        }
-
-        private void EnglishForce_Unchecked(object sender, RoutedEventArgs e)
-        {
-            if (File.Exists(m_strCurrentDir + m_customDir + "/ForceEnglish"))
-            {
-                File.Delete(m_strCurrentDir + m_customDir + "/ForceEnglish");
-            }
-            PartyFilter(lang);
-        }
-
         private void modeDev_Checked(object sender, RoutedEventArgs e)
         {
             using (StreamWriter writetext = new StreamWriter(m_strCurrentDir + m_customDir + "/devMode"))
@@ -1627,26 +1673,93 @@ namespace InitDialog
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (PatreonExists)
-            {
-                Process.Start(patreonURL);
-            }
-            else
-            {
-                MessageBox.Show("There is an update available for your game, please visit the download location for the game for more info.");
-            }
-        }
-
         private void checkBox_Checked(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void HoneyPotInspector_Run(object sender, RoutedEventArgs e)
+        private void HoneyPotInspector_Run(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            if(File.Exists($"{m_strCurrentDir}\\HoneyPot\\HoneyPotInspector.exe"))
+            {
+                Process.Start($"{m_strCurrentDir}\\HoneyPot\\HoneyPotInspector.exe");
+            }
+            else
+            {
+                MessageBox.Show("HoneyPot doesn't seem to be applied to this installation.");
+            }
+        }
 
+        private void dhh_Checked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll"))
+                {
+                    File.Delete($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll");
+                }
+                File.Move($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_", $"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll");
+            }
+        }
+
+        private void dhh_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if(File.Exists($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_"))
+                {
+                    File.Delete($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_");
+                }
+                File.Move($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll", $"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_");
+            }
+        }
+
+        private void hp_Checked(object sender, RoutedEventArgs e)
+        {
+            if(File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_"))
+                MessageBox.Show("When HoneyPot is enabled, the game will use a bit longer to load in some scenes due to checking for HoneySelect assets, making it appear to be freezing for a few seconds. This is completely normal.\n\nJust disable this option again if you would rather not have that freeze.", "Information");
+            if (File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dll"))
+                {
+                    File.Delete($"{m_strCurrentDir}\\Plugins\\HoneyPot.dll");
+                }
+                File.Move($"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_", $"{m_strCurrentDir}\\Plugins\\HoneyPot.dll");
+            }
+            
+        }
+
+        private void hp_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dll"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_"))
+                {
+                    File.Delete($"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_");
+                }
+                File.Move($"{m_strCurrentDir}\\Plugins\\HoneyPot.dll", $"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_");
+            }
+        }
+
+        private void architecture_Checked(object sender, RoutedEventArgs e)
+        {
+            x86 = true;
+            if (!File.Exists($"{m_customDir}{m_customDir}/architecture.txt"))
+            {
+                using (StreamWriter writetext = new StreamWriter($"{m_strCurrentDir}{m_customDir}/architecture.txt"))
+                {
+                    writetext.WriteLine("x86");
+                }
+            }
+        }
+
+        private void architecture_Unchecked(object sender, RoutedEventArgs e)
+        {
+            x86 = false;
+            if (File.Exists($"{m_strCurrentDir}{m_customDir}/architecture.txt"))
+            {
+                File.Delete($"{m_strCurrentDir}{m_customDir}/architecture.txt");
+            }
         }
     }
 }

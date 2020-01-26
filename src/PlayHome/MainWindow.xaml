@@ -62,7 +62,16 @@
 			Foreground="White"
 			FontFamily="Meiryo UI"
 			FontSize="16" Background="#BF000000" >
-            <CheckBox x:Name="checkBox" Content="32bit" HorizontalAlignment="Left" Margin="63.667,10,0,0" VerticalAlignment="Top" Checked="checkBox_Checked" Foreground="White" Width="65.333"/>
+            <CheckBox 
+                x:Name="architecture" 
+                Content="32bit" 
+                HorizontalAlignment="Left" 
+                Margin="63.667,10,0,0" 
+                VerticalAlignment="Top" 
+                Foreground="White" 
+                Width="65.333"
+			    Unchecked="architecture_Unchecked"
+			    Checked="architecture_Checked"/>
         </GroupBox>
         <GroupBox
 			Header="BetterRepack Links"
@@ -233,9 +242,36 @@
 
 
 
-        <CheckBox x:Name="HoneyPot_Activate" Content="Activate HoneyPot" HorizontalAlignment="Left" Margin="183.434,386.92,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
-        <CheckBox x:Name="DHH_Activate" Content="Activate DHH" HorizontalAlignment="Left" Margin="183.434,406.92,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
-        <CheckBox x:Name="toggleConsole" Content="Activate Console" HorizontalAlignment="Left" Margin="183.434,426.92,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
+        <CheckBox 
+            x:Name="HoneyPot_Activate" 
+            Content="Activate HoneyPot" 
+            HorizontalAlignment="Left" 
+            Margin="183.434,386.92,0,0" 
+            VerticalAlignment="Top" 
+            Foreground="White" 
+            FontSize="16"
+			Unchecked="hp_Unchecked"
+			Checked="hp_Checked"/>
+        <CheckBox 
+            x:Name="DHH_Activate" 
+            Content="Activate DHH" 
+            HorizontalAlignment="Left" 
+            Margin="183.434,406.92,0,0" 
+            VerticalAlignment="Top" 
+            Foreground="White" 
+            FontSize="16"
+			Unchecked="dhh_Unchecked"
+			Checked="dhh_Checked"/>
+        <CheckBox 
+            x:Name="toggleConsole" 
+            Content="Activate Console" 
+            HorizontalAlignment="Left" 
+            Margin="183.434,426.92,0,0" 
+            VerticalAlignment="Top" 
+            Foreground="White" 
+            FontSize="16"
+			Unchecked="modeDev_Unchecked"
+			Checked="modeDev_Checked"/>
         <Rectangle 
             HorizontalAlignment="Left" 
             Height="34" 
