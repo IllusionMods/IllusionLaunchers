@@ -1,672 +1,248 @@
-<windows:Window
-	x:Class="InitDialog.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    x:Name="mainApp"
-	Title="PlayHome Launcher"
-	Height="591"
-	Width="871"
-	WindowStartupLocation="CenterScreen"
-	FontFamily="MS Gothic"
-	FontSize="22"
-	Foreground="#FF00E4E3"
-	Visibility="Visible"
-	BorderBrush="#FF00FFFE"
-	OpacityMask="#FFCF00FF"
-	WindowStyle="ToolWindow"
-	ResizeMode="NoResize"
-	Background="#FF000000" xmlns:initdialog="clr-namespace:InitDialog" xmlns:windows="clr-namespace:System.Windows;assembly=PresentationFramework"
-	Closed="MenuCloseButton">
+﻿<Window x:Class="InitSetting.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InitSetting"
+        mc:Ignorable="d"
+        Title="Koikatsu Launcher"
+	    Height="600"
+	    Width="900"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        MouseLeftButtonDown="Window_MouseDown"
+        BorderBrush="Black"
+        BorderThickness="1">
+    <Window.Resources>
+        <Style x:Key="buttonHover" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="3"/>
+            <Setter Property="BorderBrush" Value="#FF510E0E"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" Background="{TemplateBinding Background}" BorderThickness="2" BorderBrush="#FF510E0E" CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsPressed" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#33FF0000" />
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#33FF0000"/>
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="GameButtonsLabel" TargetType="Label">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Images/LauncherBG.png"/>
+        </Grid.Background>
 
+        <Grid HorizontalAlignment="Left" Height="102" VerticalAlignment="Top" Width="898">
 
-    <Grid
-		Background="#FFD4D0C8"
-		Margin="0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <Image 
-            x:Name="appBG"
-            HorizontalAlignment="Left" 
-            Height="563" 
-            VerticalAlignment="Bottom" 
-            Width="865" 
-            Source="images/launcherBG.png"/>
-        <Image 
-            x:Name="PackChara"
-            Source="images/Chara.png" 
-            Margin="616.1,193.042,-31.18,0"/>
-        <TextBlock 
-            x:Name="TransCred" 
-            Margin="106.543,0,11.917,0" 
-            TextWrapping="Wrap" 
-            VerticalAlignment="Top" 
-            FontFamily="Arial" 
-            FontSize="12" 
-            TextAlignment="Left" 
-            Foreground="White" 
-            ><Run Text="Launcher translated by"/><Run Text="...."/></TextBlock>
-        <Image HorizontalAlignment="Left" Height="7.021" Margin="177.997,169.333,0,0" VerticalAlignment="Top" Width="68.75" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
-        <Image HorizontalAlignment="Left" Height="6.1" Margin="11.5,7.375,0,0" VerticalAlignment="Top" Width="47.376" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
-        <Image HorizontalAlignment="Left" Height="9.287" Margin="17,167.067,0,0" VerticalAlignment="Top" Width="108.876" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
-        <Image HorizontalAlignment="Left" Height="7.804" Margin="13,480.801,0,0" VerticalAlignment="Top" Width="154.578" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill" Visibility="Hidden"/>
-        <Image HorizontalAlignment="Left" Height="67.148" Margin="7.786,488.605,0,0" VerticalAlignment="Top" Width="577.134" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill" Visibility="Hidden"/>
-        <Image HorizontalAlignment="Left" Height="265.514" Margin="11.786,176.354,0,0" VerticalAlignment="Top" Width="149.425" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
-        <Image HorizontalAlignment="Left" Height="149.163" Margin="6.392,13.475,0,0" VerticalAlignment="Top" Width="847.572" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
-        <GroupBox
-            x:Name="GameSBox"
-			Header="Game Startup"
-			HorizontalAlignment="Left"
-			Height="196.353"
-			Margin="442.434,165.021,0,0"
-			VerticalAlignment="Top"
-			Width="206.606"
-			Foreground="White"
-			FontFamily="Meiryo UI"
-			FontSize="16" Background="#BF000000" >
             <CheckBox 
-                x:Name="architecture" 
-                Content="32bit" 
-                HorizontalAlignment="Left" 
-                Margin="63.667,10,0,0" 
-                VerticalAlignment="Top" 
-                Foreground="White" 
-                Width="65.333"
-			    Unchecked="architecture_Unchecked"
-			    Checked="architecture_Checked"/>
-        </GroupBox>
-        <GroupBox
-			Header="BetterRepack Links"
-			HorizontalAlignment="Left"
-			Height="81.305"
-			Margin="6.207,476.94,0,0"
-			VerticalAlignment="Top"
-			Width="580.893"
-			Foreground="White"
-			FontFamily="Meiryo UI"
-			FontSize="16" Visibility="Hidden" />
-        <GroupBox
-            x:Name="GameFBox"
-            Header="Game folders"
-            HorizontalAlignment="Left"
-            Height="197.307"
-            Margin="9.92,164.067,0,0"
-            VerticalAlignment="Top"
-            Width="154.191"
-            Foreground="White"
-            FontFamily="Meiryo UI"
-            FontSize="16" />
-        <GroupBox
-            x:Name="SettingsBox"
-            Header="Settings"
-            HorizontalAlignment="Left"
-            Height="196.353"
-            Margin="171.434,165.021,0,0"
-            VerticalAlignment="Top"
-            Width="266"
-            Foreground="White"
-            FontFamily="Meiryo UI"
-            FontSize="16" Background="#BF000000" />
-        <GroupBox
-            x:Name="warnBox"
-			Header="Notice!"
-			Height="159.333"
-			Margin="5,5,0,0"
-			VerticalAlignment="Top"
-			Foreground="White"
-			BorderBrush="#FF000000"
-			BorderThickness="2"
-			FontFamily="MS UI Gothic"
-			FontSize="14"
-			RenderTransformOrigin="0.5,0.5"
-			HorizontalAlignment="Left"
-			Width="852.274" />
-        <TextBlock
-            x:Name="warningText"
-			HorizontalAlignment="Left"
-			Margin="10,13.475,0,0"
-			VerticalAlignment="Top"
-			Height="146.621"
-			Width="847.274"
-			FontSize="16"
-			Padding="10,15,10,0"
-			RenderTransformOrigin="0.5,0.5"
-			Foreground="White"
-			FontFamily="Arial"
-			TextWrapping="Wrap"
-			TextDecorations="{x:Null}"><Run Text="This game is intended for adult audiences, no person under the age of 18 (or equivalent according to local law) are supposed to play or be in possession of this game."/><LineBreak/><Run/><LineBreak/><Run Text="This game contains content of a sexual nature, and some of the actions depicted within may be illegal to replicate in real life. Aka, it's all fun and games in the game, let's keep it that way shall we? (~.~)v"/></TextBlock>
-        <ComboBox
-			Name="ResolutionBox"
-			Margin="181.434,185.021,0,0"
-			Background="#FFFFFFFF"
-			RenderTransformOrigin="0.5,0.5"
-			FontSize="12"
-			Padding="0,4,5,3"
-			ScrollViewer.CanContentScroll="False"
-			MaxDropDownHeight="240"
-			BorderBrush="#FF000000"
-			FontFamily="MS UI Gothic"
-			TabIndex="0"
-			VerticalContentAlignment="Center"
-			HorizontalContentAlignment="Center"
-			Height="25"
-			VerticalAlignment="Top"
-			HorizontalAlignment="Left"
-			Width="246"
-			SelectionChanged="Resolution_Change" />
-        <CheckBox
-			Name="modeFenetre"
-			Content="Run Game in Fullscreen"
-			VerticalAlignment="Top"
-			Height="26"
-			FontFamily="Arial"
-			FontSize="16"
-			BorderThickness="1"
-			Padding="5,0,0,4"
-			Background="#FFFFFFFF"
-			RenderTransformOrigin="-0.25,6.269"
-			BorderBrush="#FF646464"
-			Foreground="White"
-			Margin="181.434,276.271,0,0"
-			IsHitTestVisible="True"
-			VerticalContentAlignment="Center"
-			TabIndex="1"
-			HorizontalAlignment="Left"
-			Width="245.586"
-			Unchecked="windowUnChecked"
-			Checked="windowChecked" />
-        <ComboBox
-			Name="QualityBox"
-			Margin="181.434,215.021,0,0"
-			Background="#FFFFFFFF"
-			FontSize="12"
-			Padding="0,4,5,3"
-			ScrollViewer.CanContentScroll="False"
-			BorderBrush="#FF000000"
-			FontFamily="MS UI Gothic"
-			HorizontalContentAlignment="Center"
-			TabIndex="2"
-			VerticalContentAlignment="Center"
-			Height="25"
-			VerticalAlignment="Top"
-			HorizontalAlignment="Left"
-			Width="246"
-			SelectionChanged="Quality_Change" />
-        <ComboBox
-			Name="DisplayBox"
-			HorizontalAlignment="Left"
-			Margin="181.434,245.021,0,0"
-			VerticalAlignment="Top"
-			Width="246"
-			Height="25"
-			BorderBrush="#FF000000"
-			FontFamily="MS UI Gothic"
-			FontSize="12"
-			ScrollViewer.CanContentScroll="False"
-			HorizontalContentAlignment="Center"
-			Padding="0,4,5,3"
-			VerticalContentAlignment="Center"
-			TabIndex="3"
-			Background="#FFFFFFFF"
-			SelectionChanged="Display_Change" />
-        <GroupBox
-            x:Name="ManualBox"
-            Header="Manuals"
-            HorizontalAlignment="Left"
-            Height="124.205"
-            Margin="10,359.4,0,0"
-            VerticalAlignment="Top"
-            Width="154.111"
-            Foreground="White"
-            FontFamily="Meiryo UI"
-            FontSize="16" Background="#BF000000" />
-        <GroupBox
-            x:Name="optionsBox"
-            Header="Options"
-            HorizontalAlignment="Left"
-            Height="124.205"
-            Margin="171.434,359.4,0,0"
-            VerticalAlignment="Top"
-            Width="477.606"
-            Foreground="White"
-            FontFamily="Meiryo UI"
-            FontSize="16" Background="#BF000000" />
-        <TextBlock 
-            x:Name="Versioning" 
-            Margin="402.961,0,11.917,0" 
-            TextWrapping="Wrap" 
+            x:Name="toggle32" 
+            Content="32bit" 
+            HorizontalAlignment="Left" 
+            Margin="5,4,0,0" 
             VerticalAlignment="Top" 
-            FontFamily="Arial" 
-            FontSize="12" 
-            TextAlignment="Right" 
-            Foreground="White" 
-            Text="Unknown Install Method"/>
+            FontSize="18" 
+            VerticalContentAlignment="Center" Width="88" Foreground="White"/>
+            <Border HorizontalAlignment="Left" Height="34" Margin="123,24,0,0" VerticalAlignment="Top" Width="222" ClipToBounds="True" Background="Black">
+                <Border.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="-40"/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Border.RenderTransform>
+                <Image x:Name="image" Source="Images/ButtonBG/startGame.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Stretch="None">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleX="40"/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </Border>
+            <Border HorizontalAlignment="Left" Height="34" Margin="351,23,0,0" VerticalAlignment="Top" Width="220" ClipToBounds="True" Background="Black">
+                <Border.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="-40"/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Border.RenderTransform>
+                <Image x:Name="idmage" Source="Images/ButtonBG/startStudio.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Margin="-3,0,0,-1">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleX="40"/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </Border>
+            <Border HorizontalAlignment="Left" Height="34" Margin="578,24,0,0" VerticalAlignment="Top" Width="220" ClipToBounds="True" Background="Black">
+                <Border.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="-40"/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Border.RenderTransform>
+                <Image x:Name="idmsage" Source="Images/ButtonBG/startVR.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Margin="-3,0,0,-1">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleX="40"/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </Border>
 
+            <Label Style="{StaticResource GameButtonsLabel}" x:Name="label" Content="Start Game" HorizontalAlignment="Left" Margin="125,24,0,0" VerticalAlignment="Top" Width="190" Height="34"/>
+            <Label Style="{StaticResource ResourceKey=GameButtonsLabel}" x:Name="label_Copy" Content="Start Studio" HorizontalAlignment="Left" Margin="352,24,0,0" VerticalAlignment="Top" Width="190" Height="34"/>
+            <Label Style="{StaticResource ResourceKey=GameButtonsLabel}" x:Name="label_Copy1" Content="Start VR" HorizontalAlignment="Left" Margin="579,24,0,0" VerticalAlignment="Top" Width="190" Height="34"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonStart" Content="" HorizontalAlignment="Left" Height="36" Margin="124,23,0,0" VerticalAlignment="Top" Width="223">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="-40"/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonStartS" Content="" HorizontalAlignment="Left" Height="36" Margin="351,23,0,0" VerticalAlignment="Top" Width="223">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="-40"/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonStartV" Content="" HorizontalAlignment="Left" Height="36" Margin="578,23,0,0" VerticalAlignment="Top" Width="223">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="-40"/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
+            <Border  HorizontalAlignment="Left" Height="24" Margin="579,63,0,0" VerticalAlignment="Top" Width="174" Background="Black">
+                <Image x:Name="idmssage" Source="Images/ButtonBG/manual.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right"/>
+            </Border>
+            <Label x:Name="label1" Foreground="White" VerticalContentAlignment="Center" Content="VR Manual" HorizontalAlignment="Left" Margin="583,63,0,0" VerticalAlignment="Top" Height="24" Width="98"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonManualV" Content="" HorizontalAlignment="Left" Height="24" Margin="579,63,0,0" VerticalAlignment="Top" Width="174"/>
+            <Border  HorizontalAlignment="Left" Height="24" Margin="358,63,0,0" VerticalAlignment="Top" Width="174" Background="Black">
+                <Image x:Name="idmssage1" Source="Images/ButtonBG/manual.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right"/>
+            </Border>
+            <Label x:Name="labesl1" Foreground="White" VerticalContentAlignment="Center" Content="Studio Manual" HorizontalAlignment="Left" Margin="364,63,0,0" VerticalAlignment="Top" Height="24" Width="98"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonManualS" Content="" HorizontalAlignment="Left" Height="24" Margin="358,63,0,0" VerticalAlignment="Top" Width="174"/>
+            <Border  HorizontalAlignment="Left" Height="24" Margin="131,63,0,0" VerticalAlignment="Top" Width="174" Background="Black">
+                <Image x:Name="idmssage2" Source="Images/ButtonBG/manual.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right"/>
+            </Border>
+            <Label x:Name="lasbesl1" Foreground="White" VerticalContentAlignment="Center" Content="Game Manual" HorizontalAlignment="Left" Margin="137,63,0,0" VerticalAlignment="Top" Height="24" Width="98"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonManual" Content="" HorizontalAlignment="Left" Height="24" Margin="131,63,0,0" VerticalAlignment="Top" Width="174"/>
+        </Grid>
+        <Image x:Name="image1" HorizontalAlignment="Left" Height="378" Margin="322,220,0,0" VerticalAlignment="Top" Width="255" Source="Images/Chara.png"/>
+        <Grid HorizontalAlignment="Left" Height="491" Margin="0,107,0,0" VerticalAlignment="Top" Width="322">
+            <Border BorderBrush="#FF510E0E" Background="Black" BorderThickness="2" HorizontalAlignment="Left" Height="37" Margin="-41,444,0,0" VerticalAlignment="Top" Width="190" CornerRadius="20">
+                <Label x:Name="label2" Content="Visit Discord" Foreground="White" VerticalContentAlignment="Center" Padding="50,0,0,0"/>
+            </Border>
+            <Image x:Name="images3" HorizontalAlignment="Left" Height="25" Margin="110,450,0,0" VerticalAlignment="Top" Width="24" Source="Images/ModernDiscord_small.png"/>
+            <Border BorderBrush="#FF510E0E" Background="Black" BorderThickness="2" HorizontalAlignment="Left" Height="37" Margin="-41,402,0,0" VerticalAlignment="Top" Width="190" CornerRadius="20">
+                <Label x:Name="lasbel2" Content="Visit Patreon" Foreground="White" VerticalContentAlignment="Center" Padding="50,0,0,0" Margin="-2"/>
+            </Border>
+            <Image x:Name="image3" HorizontalAlignment="Left" Height="28" Margin="110,408,0,0" VerticalAlignment="Top" Width="24" Source="Images/ModernPatreon_small.png"/>
+            <Border BorderBrush="#FF510E0E" Background="Black" BorderThickness="2" HorizontalAlignment="Left" Height="37" Margin="-41,360,0,0" VerticalAlignment="Top" Width="190" CornerRadius="20">
+                <Label x:Name="lassbel2" Content="Update" Foreground="White" VerticalContentAlignment="Center" Padding="50,0,0,0" Margin="-2,1,-2,-5"/>
+            </Border>
+            <Image x:Name="imasge3" HorizontalAlignment="Left" Height="28" Margin="110,365,0,0" VerticalAlignment="Top" Width="24" Source="Images/ModernDL_small.png"/>
+            <Rectangle x:Name="linkUpdate" Fill="Transparent" HorizontalAlignment="Left" Height="37" Margin="-41,360,0,0" VerticalAlignment="Top" Width="190"/>
+            <Rectangle x:Name="linkDiscord" Fill="Transparent" HorizontalAlignment="Left" Height="37" Margin="-41,444,0,0" VerticalAlignment="Top" Width="190"/>
+            <Rectangle x:Name="linkPatreon" Fill="Transparent" HorizontalAlignment="Left" Height="37" Margin="-41,402,0,0" VerticalAlignment="Top" Width="190"/>
+            <Border BorderBrush="#FF510E0E" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left" Height="276" Margin="-41,48,0,0" VerticalAlignment="Top" Width="84" CornerRadius="3"/>
+            <Image x:Name="flagEN" HorizontalAlignment="Left" Height="22" Margin="10,60,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/united-kingdom.png"/>
+            <Image x:Name="flagJA" HorizontalAlignment="Left" Height="24" Margin="10,88,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/japan.png"/>
+            <Image x:Name="flagCH" HorizontalAlignment="Left" Height="22" Margin="10,118,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/china.png"/>
+            <Image x:Name="flagKO" HorizontalAlignment="Left" Height="24" Margin="10,146,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/south-korea.png"/>
+            <Image x:Name="flagSP" HorizontalAlignment="Left" Height="24" Margin="10,176,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/spain.png"/>
+            <Image x:Name="flagBR" HorizontalAlignment="Left" Height="24" Margin="10,204,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/brazil.png"/>
+            <Image x:Name="flagFR" HorizontalAlignment="Left" Height="24" Margin="10,234,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/france.png"/>
+            <Image x:Name="flagGE" HorizontalAlignment="Left" Height="24" Margin="10,262,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/germany.png"/>
+            <Image x:Name="flagNO" HorizontalAlignment="Left" Height="24" Margin="10,292,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/norway.png"/>
+            <Border BorderBrush="#FF510E0E" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left" Height="167" Margin="52,169,0,0" VerticalAlignment="Top" Width="247" CornerRadius="3">
+            </Border>
+            <CheckBox x:Name="toggleFullscreen" Content="Run Game in fullscreen" Foreground="White" VerticalContentAlignment="Center" Margin="56,173,28,302"/>
+            <CheckBox x:Name="toggleConsole" Content="Activate Console" Foreground="White" VerticalContentAlignment="Center" Margin="56,189,28,286"/>
+            <CheckBox x:Name="toggleHoneyPot" Content="Activate HoneyPot" Foreground="White" VerticalContentAlignment="Center" Margin="56,205,28,270"/>
+            <CheckBox x:Name="toggleDHH" Content="Activate DHH" Foreground="White" VerticalContentAlignment="Center" Margin="56,221,28,254"/>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="491" Margin="576,107,0,0" VerticalAlignment="Top" Width="322">
+            <Grid HorizontalAlignment="Left" Height="156" Margin="-533,19,0,0" VerticalAlignment="Top" Width="265">
+                <Border BorderBrush="#FF510E0E" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left" Height="136" Margin="10,10,0,0" VerticalAlignment="Top" Width="246" CornerRadius="3"/>
+                <ComboBox x:Name="dropQual" HorizontalAlignment="Left" Margin="23,23,0,0" VerticalAlignment="Top" Width="217"/>
+                <ComboBox x:Name="dropDisplay" HorizontalAlignment="Left" Margin="23,50,0,0" VerticalAlignment="Top" Width="217"/>
+                <ComboBox x:Name="dropRes" HorizontalAlignment="Left" Margin="23,77,0,0" VerticalAlignment="Top" Width="217"/>
+                <TextBox x:Name="textBox" IsEnabled="False" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="23" Margin="23,104,0,0" TextWrapping="Wrap" Text="Height" VerticalAlignment="Top" Width="92"/>
+                <TextBox x:Name="textBox_Copy" IsEnabled="False" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="23" Margin="149,104,0,0" TextWrapping="Wrap" Text="Width" VerticalAlignment="Top" Width="91"/>
+                <Label x:Name="label3" Foreground="#FF510E0E" Content="X" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="121,104,0,0" VerticalAlignment="Top" Height="23" Width="22"/>
+            </Grid>
+            <Grid HorizontalAlignment="Left" Height="329" Margin="10,19,0,0" VerticalAlignment="Top" Width="302">
+                <Border BorderBrush="#FF510E0E" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left" Height="197" Margin="10,10,0,0" VerticalAlignment="Top" Width="282" CornerRadius="3">
+                    <TextBlock Foreground="White" x:Name="textBlock" TextWrapping="Wrap" Margin="8"><Run Text="This game is intended for adult audiences, no person under the age of 18 (or equivalent according to local law) are supposed to play or be in possession of this game."/><LineBreak/><Run/><LineBreak/><Run Text="This game contains content of a sexual nature, and some of the actions depicted within may be illegal to replicate in real life. Aka, it's all fun and games in the game, let's keep it that way shall we? (~.~)v"/></TextBlock>
+                </Border>
+            </Grid>
+            <Grid Margin="-431,446,19,10">
+                <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Right" VerticalAlignment="Top" MaxWidth="600" Margin="0,5,5,0" CornerRadius="5" Background="#BF000002">
+                    <Label x:Name="labelDist" Content="Unknown dist" Foreground="White"/>
+                </Border>
+            </Grid>
+            <Grid Margin="-431,411,19,45">
+                <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Right" VerticalAlignment="Top" MaxWidth="600" Margin="0,5,5,0" CornerRadius="5" Background="#BF000002">
+                    <Label x:Name="labelTranslated" Content="Launcher translated by: Username" Foreground="White"/>
+                </Border>
+            </Grid>
+            <Border BorderBrush="#FF510E0E" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left" Height="117" Margin="21,231,0,0" VerticalAlignment="Top" Width="282" CornerRadius="3">
+            </Border>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonInst" FontSize="10" Content="Install folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="125" Margin="35,249,0,0"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonUserData" FontSize="10" Content="UserData folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="125" Margin="166,249,0,0"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonScenes" FontSize="10" Content="Scenes folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="125" Margin="35,278,0,0"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonScreenshot" FontSize="10" Content="Screenshot folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="125" Margin="166,278,0,0"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonFemaleCard" FontSize="10" Content="Female Card folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="125" Margin="35,307,0,0"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonMaleCard" FontSize="10" Content="Male Card folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="125" Margin="166,307,0,0"/>
+        </Grid>
+        <Image x:Name="image2" HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="262" Source="Images/PHLogo.png" Margin="0,102,0,0"/>
+        <Button Style="{StaticResource buttonHover}" x:Name="buttonClose" Content="X" HorizontalAlignment="Left" Margin="856,10,0,0" VerticalAlignment="Top" Width="32" Height="28" Click="butExit" IsCancel="true"/>
 
-
-        <CheckBox 
-            x:Name="HoneyPot_Activate" 
-            Content="Activate HoneyPot" 
-            HorizontalAlignment="Left" 
-            Margin="183.434,386.92,0,0" 
-            VerticalAlignment="Top" 
-            Foreground="White" 
-            FontSize="16"
-			Unchecked="hp_Unchecked"
-			Checked="hp_Checked"/>
-        <CheckBox 
-            x:Name="DHH_Activate" 
-            Content="Activate DHH" 
-            HorizontalAlignment="Left" 
-            Margin="183.434,406.92,0,0" 
-            VerticalAlignment="Top" 
-            Foreground="White" 
-            FontSize="16"
-			Unchecked="dhh_Unchecked"
-			Checked="dhh_Checked"/>
-        <CheckBox 
-            x:Name="toggleConsole" 
-            Content="Activate Console" 
-            HorizontalAlignment="Left" 
-            Margin="183.434,426.92,0,0" 
-            VerticalAlignment="Top" 
-            Foreground="White" 
-            FontSize="16"
-			Unchecked="modeDev_Unchecked"
-			Checked="modeDev_Checked"/>
-        <Rectangle 
-            HorizontalAlignment="Left" 
-            Height="34" 
-            Margin="452.1,228.021,0,0" 
-            Stroke="White" 
-            VerticalAlignment="Top" 
-            Width="184"
-            />
-        <TextBlock 
-            x:Name="PLAY" 
-            MouseLeftButtonDown="PLAY_Click"
-            Margin="452.1,228.021,228.9,300.979" 
-            TextWrapping="Wrap" 
-            Text="Game" 
-            TextAlignment="Center" 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center" 
-            Height="34" 
-            Width="184" 
-            Padding="10" 
-            Foreground="White" FontSize="14"/>
-        <Rectangle 
-            HorizontalAlignment="Left" 
-            Height="34" 
-            Margin="452.1,267.021,0,0" 
-            Stroke="White" 
-            VerticalAlignment="Top" 
-            Width="184"
-            />
-        <TextBlock 
-            x:Name="PLAY_Studio" 
-            MouseLeftButtonDown="PLAY_Studio_Click"
-            Margin="452.1,267.021,228.9,261.979" 
-            TextWrapping="Wrap" 
-            Text="Studio" 
-            TextAlignment="Center" 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center" 
-            Height="34" 
-            Width="184" 
-            Padding="10" 
-            Foreground="White" FontSize="14"/>
-        <Rectangle 
-            HorizontalAlignment="Left" 
-            Height="34" 
-            Margin="452.1,307.271,0,0" 
-            Stroke="White" 
-            VerticalAlignment="Top" 
-            Width="184"
-            />
-        <TextBlock 
-            x:Name="PLAY_VR" 
-            MouseLeftButtonDown="PLAY_VR_Click"
-            Margin="452.1,307.271,228.9,221.729" 
-            TextWrapping="Wrap" 
-            Text="VR" 
-            TextAlignment="Center" 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center" 
-            Height="34" 
-            Width="184" 
-            Padding="10" 
-            Foreground="White" FontSize="14"/>
-        <Rectangle 
-            HorizontalAlignment="Left" 
-            Height="34" 
-			Width="110"
-            Margin="317.434,307.271,0,0" 
-            Stroke="White" 
-            VerticalAlignment="Top" 
-            />
-        <TextBlock 
-            x:Name="EXIT" 
-            MouseLeftButtonDown="Exit_Click"
-            Margin="317.434,307.271,437.566,221.729" 
-            TextWrapping="Wrap" 
-            Text="Exit" 
-            TextAlignment="Center" 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center" 
-			Width="110"
-			Height="34"
-            Padding="10" 
-            Foreground="White"
-            FontSize="14"/>
-        <Rectangle 
-            HorizontalAlignment="Left" 
-			Width="124.667"
-			Height="34"
-			Margin="181.434,307.271,0,0"
-            Stroke="White" 
-            VerticalAlignment="Top" 
-            />
-        <TextBlock 
-            x:Name="SystemInfo" 
-            MouseLeftButtonDown="SystemInfo_Open"
-			Margin="183.434,307.271,558.899,221.729"
-            TextWrapping="Wrap" 
-            Text="System info" 
-            TextAlignment="Center" 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center" 
-			Width="122.667"
-			Height="34"
-            Padding="10" 
-            Foreground="White" FontSize="14"/>
-        <Rectangle 
-            HorizontalAlignment="Left" 
-			Width="135"
-			Height="35"
-			Margin="20,194.15,0,0"
-            Stroke="White" 
-            VerticalAlignment="Top" 
-            />
-        <TextBlock 
-            x:Name="InstallDirectory" 
-            MouseLeftButtonDown="InstallDir_Open"
-			Margin="20,194.15,710,333.85"
-            TextWrapping="Wrap" 
-            TextAlignment="Center" 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center" 
-			Width="135"
-			Height="35"
-            Padding="10" 
-            Foreground="White" FontSize="14" Text="Install"/>
-        <Rectangle 
-            HorizontalAlignment="Left" 
-			Width="135"
-			Height="35"
-			Margin="20,234.15,0,0"
-            Stroke="White" 
-            VerticalAlignment="Top" 
-            />
-        <TextBlock 
-            x:Name="SceneDirectory" 
-            MouseLeftButtonDown="SceneDir_Open"
-			Margin="20,235.021,710,292.979"
-            TextWrapping="Wrap" 
-            Text="Scenes" 
-            TextAlignment="Center" 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center"
-			Width="135"
-			Height="35"
-            Padding="10" 
-            Foreground="White"
-			FontSize="14"/>
-        <Rectangle 
-            HorizontalAlignment="Left" 
-			Width="135"
-			Height="35"
-			Margin="20,272.817,0,0"
-            Stroke="White" 
-            VerticalAlignment="Top" 
-            />
-        <TextBlock 
-            x:Name="CharaDirectory" 
-            MouseLeftButtonDown="CharaDir_Open"
-			Margin="20,274.15,710,253.85"
-            TextWrapping="Wrap" 
-            Text="Cards" 
-            TextAlignment="Center" 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center"
-			Width="135"
-			Height="35"
-            Padding="10" 
-            Foreground="White"
-			FontSize="14"/>
-        <Rectangle 
-            HorizontalAlignment="Left" 
-			Width="135"
-			Height="35"
-			Margin="20,312.817,0,0"
-            Stroke="White" 
-            VerticalAlignment="Top" 
-            />
-        <TextBlock 
-            x:Name="ScreenShotDirectory" 
-            MouseLeftButtonDown="SSDir_Open"
-			Margin="20,312.817,710,215.183"
-            TextWrapping="Wrap" 
-            Text="ScreenShots" 
-            TextAlignment="Center" 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center"
-			Width="135"
-			Height="35"
-            Padding="10" 
-            Foreground="White"
-			FontSize="14"/>
-        <Rectangle 
-            HorizontalAlignment="Left" 
-			Width="135"
-			Height="25.791"
-			Margin="20,386.077,0,0"
-            Stroke="White" 
-            VerticalAlignment="Top" 
-            />
-        <TextBlock 
-            x:Name="Manual_Open" 
-            MouseLeftButtonDown="ManualOpen"
-			Margin="20,384.89,710,152.319"
-            TextWrapping="Wrap" 
-            Text="Game" 
-            TextAlignment="Center" 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center"
-			Width="135"
-			Height="25.791"
-            Padding="7" 
-            Foreground="White"
-			FontSize="14"/>
-        <Rectangle 
-            HorizontalAlignment="Left" 
-			Width="135"
-			Height="25.791"
-            Margin="20,416.077,0,0"
-            Stroke="White" 
-            VerticalAlignment="Top" 
-            />
-        <TextBlock 
-            x:Name="Manual_s_Open" 
-            MouseLeftButtonDown="ManualOpenS"
-            Margin="20,416.077,710,121.132"
-            TextWrapping="Wrap" 
-            Text="Studio" 
-            TextAlignment="Center" 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center"
-			Width="135"
-			Height="25.791"
-            Padding="7" 
-            Foreground="White"
-			FontSize="14"/>
-        <Rectangle 
-            HorizontalAlignment="Left" 
-			Width="135"
-			Height="25.791"
-            Margin="20,446.149,0,0"
-            Stroke="White" 
-            VerticalAlignment="Top" 
-            />
-        <TextBlock 
-            x:Name="Manual_v_Open" 
-            MouseLeftButtonDown="ManualOpenV"
-            Margin="20,446.149,710,91.06"
-            TextWrapping="Wrap" 
-            Text="VR" 
-            TextAlignment="Center" 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center"
-			Width="135"
-			Height="25.791"
-            Padding="7" 
-            Foreground="White"
-			FontSize="14"/>
-        <Rectangle 
-            HorizontalAlignment="Left" 
-			Width="135"
-			Height="45.02"
-            Margin="501.1,426.92,0,0"
-            Stroke="White" 
-            VerticalAlignment="Top" 
-            />
-        <TextBlock 
-            x:Name="HoneyPotInspector" 
-            MouseLeftButtonDown="HoneyPotInspector_Run"
-            Margin="501.1,426.92,228.9,91.06"
-            TextWrapping="Wrap" 
-            Text="Run HoneyPot Inspector" 
-            TextAlignment="Center" 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center"
-			Width="135"
-			Height="45.02"
-            Padding="7" 
-            Foreground="White"
-			FontSize="14"/>
-        <Rectangle Fill="#3F000000" HorizontalAlignment="Left" Height="59.999" Margin="281.843,519.751,0,-16.75" Stroke="#7FE00000" VerticalAlignment="Top" Width="268.75" RadiusX="20" RadiusY="11"/>
-        <Image 
-            x:Name="English" 
-            HorizontalAlignment="Left" 
-            Height="23.625" 
-            Width="24.059" 
-            Margin="286.725,529.375,0,0" 
-            VerticalAlignment="Top"
-            Source="images/Flags/united-kingdom.png" 
-            MouseLeftButtonDown="langEnglish"/>
-        <Image 
-            x:Name="Japanese" 
-            HorizontalAlignment="Left" 
-            Height="23.625" 
-            Width="24.059" 
-            Margin="315.784,529.375,0,0" 
-            VerticalAlignment="Top" 
-            Source="images/Flags/japan.png" 
-            MouseLeftButtonDown="langJapanese" 
-            Stretch="UniformToFill"/>
-        <Image 
-            x:Name="Chinese" 
-            HorizontalAlignment="Left" 
-            Height="23.625" 
-            Width="24.059" 
-            Margin="344.843,529.375,0,0" 
-            VerticalAlignment="Top" 
-            Source="images/Flags/china.png" 
-            MouseLeftButtonDown="langChinese" 
-            Stretch="UniformToFill"/>
-        <Image 
-            x:Name="Korean" 
-            HorizontalAlignment="Left" 
-            Height="23.625" 
-            Width="24.059" 
-            Margin="373.902,529.375,0,0" 
-            VerticalAlignment="Top" 
-            Source="images/Flags/south-korea.png" 
-            MouseLeftButtonDown="langKorean" 
-            Stretch="UniformToFill"/>
-        <Image 
-            x:Name="Spanish" 
-            HorizontalAlignment="Left" 
-            Height="23.625" 
-            Width="24.059" 
-            Margin="402.961,529.375,0,0" 
-            VerticalAlignment="Top" 
-            Source="images/Flags/spain.png" 
-            MouseLeftButtonDown="langSpanish" 
-            Stretch="UniformToFill"/>
-        <Image 
-            x:Name="Brazil" 
-            HorizontalAlignment="Left" 
-            Height="23.625" 
-            Width="24.059" 
-            Margin="432.02,529.375,0,0" 
-            VerticalAlignment="Top" 
-            Source="images/Flags/brazil.png" 
-            MouseLeftButtonDown="langBrazil" 
-            Stretch="UniformToFill"/>
-        <Image 
-            x:Name="French" 
-            HorizontalAlignment="Left" 
-            Height="23.625" 
-            Width="24.059" 
-            Margin="462.02,529.375,0,0" 
-            VerticalAlignment="Top" 
-            Source="images/Flags/france.png" 
-            MouseLeftButtonDown="langFrench" 
-            Stretch="UniformToFill"/>
-        <Image 
-            x:Name="German" 
-            HorizontalAlignment="Left" 
-            Height="23.625" 
-            Width="24.059" 
-            Margin="491.333,529.375,0,0" 
-            VerticalAlignment="Top" 
-            Source="images/Flags/germany.png" 
-            MouseLeftButtonDown="langGerman" 
-            Stretch="UniformToFill"/>
-        <Image 
-            x:Name="Norwegian" 
-            HorizontalAlignment="Left" 
-            Height="23.625" 
-            Width="24.059" 
-            Margin="520.392,529.375,0,0" 
-            VerticalAlignment="Top" 
-            Source="images/Flags/norway.png" 
-            MouseLeftButtonDown="langNorwegian" 
-            Stretch="UniformToFill"/>
-        <Image 
-            HorizontalAlignment="Left" 
-            Height="42.833" 
-            Margin="19.333,507.651,0,0" 
-            VerticalAlignment="Top" 
-            Width="40.726" 
-            MouseLeftButtonDown="discord_MouseLeftButtonDown" 
-            Source="images/ModernDiscord_small.png">
-            <Image.ToolTip>
-                <ToolTip Content="Visit the IllusionSoft Discord"></ToolTip>
-            </Image.ToolTip>
-        </Image>
-        <Image 
-            x:Name="PatreonButton"
-            HorizontalAlignment="Left" 
-            Height="42.833" 
-            Width="40.726" 
-            Margin="65.059,507.651,0,0" 
-            VerticalAlignment="Top" 
-            MouseLeftButtonDown="patreon_MouseLeftButtonDown" 
-            Source="images/ModernPatreon_small.png">
-            <Image.ToolTip>
-                <ToolTip Content="Visit patreon"></ToolTip>
-            </Image.ToolTip>
-        </Image>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="381.079,584.75,0,-47.75" VerticalAlignment="Top" Width="75" Click="Exit_Click" IsCancel="true"/>
     </Grid>
-</windows:Window>
+</Window>
