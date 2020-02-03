@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+using System.CodeDom.Compiler;
+using System.Diagnostics;
 using System.Windows;
 
-namespace IllusionLaunchers
+namespace InitDialog
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
-    {
-    }
+	// Token: 0x02000007 RID: 7
+	public partial class App : Application
+	{
+	}
 }
