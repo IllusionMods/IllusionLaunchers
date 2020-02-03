@@ -51,12 +51,6 @@ namespace InitDialog
         public MainWindow()
         {
             InitializeComponent();
-<<<<<<< HEAD
-<<<<<<< HEAD
-            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
-=======
-=======
->>>>>>> parent of c9e246a... New UI for PlayHome
             //if (!DoubleStartCheck())
             //{
             //    System.Windows.Application.Current.MainWindow.Close();
@@ -99,10 +93,7 @@ namespace InitDialog
                 toggleConsole.IsChecked = true;
             }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> parent of c9e246a... New UI for PlayHome
             // Updater stuffs
 
             //if (File.Exists(m_strCurrentDir + m_customDir + "/enableUpdate") && File.Exists(m_strCurrentDir + m_customDir + "/updateURL.txt"))
@@ -145,8 +136,6 @@ namespace InitDialog
             //    }
             //}
 
-<<<<<<< HEAD
-=======
             // Mod settings
 
             if (File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dll"))
@@ -177,7 +166,6 @@ namespace InitDialog
             }
 
 
->>>>>>> parent of c9e246a... New UI for PlayHome
             startup = false;
 
             LangExists = File.Exists(m_strCurrentDir + m_customDir + decideLang);
@@ -744,43 +732,22 @@ namespace InitDialog
                 return;
             }
             new MessageWindow().SetupWindow("Warning", "\nCould not find the executable.", new object[0]);
-<<<<<<< HEAD
->>>>>>> parent of 941156a... Fixed PlayHome Launcher functionality
-=======
->>>>>>> parent of c9e246a... New UI for PlayHome
         }
 
         void PLAY_Click(object sender, RoutedEventArgs e)
         {
-<<<<<<< HEAD
-<<<<<<< HEAD
-            if (e.ChangedButton == MouseButton.Left)
-                this.DragMove();
-=======
-            PlayFunc(m_strGameExe);
->>>>>>> parent of 941156a... Fixed PlayHome Launcher functionality
-=======
             if(x86 == true)
                 PlayFunc(m_strGameExe32);
             else
                 PlayFunc(m_strGameExe);
->>>>>>> parent of c9e246a... New UI for PlayHome
         }
 
         void PLAY_Studio_Click(object sender, RoutedEventArgs e)
         {
-<<<<<<< HEAD
-<<<<<<< HEAD
-            System.Windows.Application.Current.MainWindow.Close();
-        }
-=======
-            PlayFunc(m_strStudioExe);
-=======
             if (x86 == true)
                 PlayFunc(m_strStudioExe32);
             else
                 PlayFunc(m_strStudioExe);
->>>>>>> parent of c9e246a... New UI for PlayHome
         }
 
         void PLAY_VR_Click(object sender, RoutedEventArgs e)
@@ -843,14 +810,6 @@ namespace InitDialog
 
         void ManualOpen(object sender, RoutedEventArgs e)
         {
-<<<<<<< HEAD
-            string text = m_strCurrentDir + m_strManualDir;
-            if (File.Exists(text))
-            {
-                Process.Start(text);
-                return;
-            }
-=======
             string manualEN = $"{m_strCurrentDir}\\manual\\manual_en.html";
             string manualLANG = $"{m_strCurrentDir}\\manual\\manual_{lang}.html";
             string manualJA = m_strCurrentDir + m_strManualDir;
@@ -866,20 +825,11 @@ namespace InitDialog
                 return;
             }
 
->>>>>>> parent of c9e246a... New UI for PlayHome
             new MessageWindow().SetupWindow("Warning", "\nThe manual could not be found.", new object[0]);
         }
 
         void ManualOpenS(object sender, RoutedEventArgs e)
         {
-<<<<<<< HEAD
-            string text = m_strCurrentDir + m_strStudioManualDir;
-            if (File.Exists(text))
-            {
-                Process.Start(text);
-                return;
-            }
-=======
             string manualEN = $"{m_strCurrentDir}\\manual_s\\manual_en.html";
             string manualLANG = $"{m_strCurrentDir}\\manual_s\\manual_{lang}.html";
             string manualJA = m_strCurrentDir + m_strStudioManualDir;
@@ -895,20 +845,11 @@ namespace InitDialog
                 return;
             }
 
->>>>>>> parent of c9e246a... New UI for PlayHome
             new MessageWindow().SetupWindow("Warning", "\nThe manual could not be found.", new object[0]);
         }
 
         void ManualOpenV(object sender, RoutedEventArgs e)
         {
-<<<<<<< HEAD
-            string text = m_strCurrentDir + m_strVRManualDir;
-            if (File.Exists(text))
-            {
-                Process.Start(text);
-                return;
-            }
-=======
             string manualEN = $"{m_strCurrentDir}\\manual_vr\\manual_en.html";
             string manualLANG = $"{m_strCurrentDir}\\manual_vr\\manual_{lang}.html";
             string manualJA = m_strCurrentDir + m_strVRManualDir;
@@ -924,7 +865,6 @@ namespace InitDialog
                 return;
             }
 
->>>>>>> parent of c9e246a... New UI for PlayHome
             new MessageWindow().SetupWindow("Warning", "\nThe manual could not be found.", new object[0]);
         }
 
@@ -1330,10 +1270,7 @@ namespace InitDialog
         bool PatreonExists;
         bool LangExists;
         bool DevExists;
-<<<<<<< HEAD
-=======
         bool x86;
->>>>>>> parent of c9e246a... New UI for PlayHome
 
         string kkman;
         string updated;
@@ -1681,28 +1618,6 @@ namespace InitDialog
             System.Windows.Forms.Application.Restart();
         }
 
-<<<<<<< HEAD
-        private void EnglishForce_Checked(object sender, RoutedEventArgs e)
-        {
-            WriteLangIni("en");
-            deactivateTL(1);
-            using (StreamWriter writetext = new StreamWriter(m_strCurrentDir + m_customDir + "/ForceEnglish"))
-            {
-                writetext.WriteLine("/ForceEnglish");
-            }
-        }
-
-        private void EnglishForce_Unchecked(object sender, RoutedEventArgs e)
-        {
-            if (File.Exists(m_strCurrentDir + m_customDir + "/ForceEnglish"))
-            {
-                File.Delete(m_strCurrentDir + m_customDir + "/ForceEnglish");
-            }
-            PartyFilter(lang);
-        }
-
-=======
->>>>>>> parent of c9e246a... New UI for PlayHome
         private void modeDev_Checked(object sender, RoutedEventArgs e)
         {
             using (StreamWriter writetext = new StreamWriter(m_strCurrentDir + m_customDir + "/devMode"))
@@ -1758,30 +1673,6 @@ namespace InitDialog
             }
         }
 
-<<<<<<< HEAD
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (PatreonExists)
-            {
-                Process.Start(patreonURL);
-            }
-            else
-            {
-                MessageBox.Show("There is an update available for your game, please visit the download location for the game for more info.");
-            }
-        }
-
-        private void checkBox_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void HoneyPotInspector_Run(object sender, RoutedEventArgs e)
-        {
-
-        }
->>>>>>> parent of 941156a... Fixed PlayHome Launcher functionality
-=======
         private void checkBox_Checked(object sender, RoutedEventArgs e)
         {
 
@@ -1870,6 +1761,5 @@ namespace InitDialog
                 File.Delete($"{m_strCurrentDir}{m_customDir}/architecture.txt");
             }
         }
->>>>>>> parent of c9e246a... New UI for PlayHome
     }
 }

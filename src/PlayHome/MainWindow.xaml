@@ -17,124 +17,6 @@
 	Closed="MenuCloseButton">
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <CheckBox 
-            x:Name="toggle32" 
-            Content="32bit" 
-            HorizontalAlignment="Left" 
-            Margin="5,4,0,0" 
-            VerticalAlignment="Top" 
-            FontSize="18" 
-            VerticalContentAlignment="Center" Width="88" Foreground="White"/>
-            <Border HorizontalAlignment="Left" Height="34" Margin="123,24,0,0" VerticalAlignment="Top" Width="222" ClipToBounds="True" Background="Black">
-                <Border.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform AngleX="-40"/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Border.RenderTransform>
-                <Image x:Name="image" Source="Images/ButtonBG/startGame.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Stretch="None">
-                    <Image.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform AngleX="40"/>
-                            <RotateTransform/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </Image.RenderTransform>
-                </Image>
-            </Border>
-            <Border HorizontalAlignment="Left" Height="34" Margin="351,23,0,0" VerticalAlignment="Top" Width="220" ClipToBounds="True" Background="Black">
-                <Border.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform AngleX="-40"/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Border.RenderTransform>
-                <Image x:Name="idmage" Source="Images/ButtonBG/startStudio.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Margin="-3,0,0,-1">
-                    <Image.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform AngleX="40"/>
-                            <RotateTransform/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </Image.RenderTransform>
-                </Image>
-            </Border>
-            <Border HorizontalAlignment="Left" Height="34" Margin="578,24,0,0" VerticalAlignment="Top" Width="220" ClipToBounds="True" Background="Black">
-                <Border.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform AngleX="-40"/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Border.RenderTransform>
-                <Image x:Name="idmsage" Source="Images/ButtonBG/startVR.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Margin="-3,0,0,-1">
-                    <Image.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform AngleX="40"/>
-                            <RotateTransform/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </Image.RenderTransform>
-                </Image>
-            </Border>
-=======
-    <Grid
-		Background="#FFD4D0C8"
-		Margin="0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <Image 
-            x:Name="appBG"
-            HorizontalAlignment="Left" 
-            Height="563" 
-            VerticalAlignment="Bottom" 
-            Width="865" 
-            Source="images/launcherBG.png"/>
-        <Image 
-            x:Name="PackChara"
-            Source="images/Chara.png" 
-            Margin="616.1,193.042,-31.18,0"/>
-        <TextBlock 
-            x:Name="TransCred" 
-            Margin="106.543,0,11.917,0" 
-            TextWrapping="Wrap" 
-            VerticalAlignment="Top" 
-            FontFamily="Arial" 
-            FontSize="12" 
-            TextAlignment="Left" 
-            Foreground="White" 
-            ><Run Text="Launcher translated by"/><Run Text="...."/></TextBlock>
-        <Image HorizontalAlignment="Left" Height="7.021" Margin="177.997,169.333,0,0" VerticalAlignment="Top" Width="68.75" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
-        <Image HorizontalAlignment="Left" Height="6.1" Margin="11.5,7.375,0,0" VerticalAlignment="Top" Width="47.376" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
-        <Image HorizontalAlignment="Left" Height="9.287" Margin="17,167.067,0,0" VerticalAlignment="Top" Width="108.876" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
-        <Image HorizontalAlignment="Left" Height="7.804" Margin="13,480.801,0,0" VerticalAlignment="Top" Width="154.578" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill" Visibility="Hidden"/>
-        <Image HorizontalAlignment="Left" Height="67.148" Margin="7.786,488.605,0,0" VerticalAlignment="Top" Width="577.134" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill" Visibility="Hidden"/>
-        <Image HorizontalAlignment="Left" Height="265.514" Margin="11.786,176.354,0,0" VerticalAlignment="Top" Width="149.425" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
-        <Image HorizontalAlignment="Left" Height="149.163" Margin="6.392,13.475,0,0" VerticalAlignment="Top" Width="847.572" Source="images/transBG.png" StretchDirection="UpOnly" Stretch="Fill"/>
-        <GroupBox
-            x:Name="GameSBox"
-			Header="Game Startup"
-			HorizontalAlignment="Left"
-			Height="196.353"
-			Margin="442.434,165.021,0,0"
-			VerticalAlignment="Top"
-			Width="206.606"
-			Foreground="White"
-			FontFamily="Meiryo UI"
-			FontSize="16" Background="#BF000000" >
-            <CheckBox x:Name="checkBox" Content="32bit" HorizontalAlignment="Left" Margin="63.667,10,0,0" VerticalAlignment="Top" Checked="checkBox_Checked" Foreground="White" Width="65.333"/>
-=======
     <Grid
 		Background="#FFD4D0C8"
 		Margin="0">
@@ -190,7 +72,6 @@
                 Width="65.333"
 			    Unchecked="architecture_Unchecked"
 			    Checked="architecture_Checked"/>
->>>>>>> parent of c9e246a... New UI for PlayHome
         </GroupBox>
         <GroupBox
 			Header="BetterRepack Links"
@@ -359,19 +240,8 @@
             Foreground="White" 
             Text="Unknown Install Method"/>
 
-<<<<<<< HEAD
->>>>>>> parent of 941156a... Fixed PlayHome Launcher functionality
-=======
->>>>>>> parent of c9e246a... New UI for PlayHome
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-        <CheckBox x:Name="HoneyPot_Activate" Content="Activate HoneyPot" HorizontalAlignment="Left" Margin="183.434,386.92,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
-        <CheckBox x:Name="DHH_Activate" Content="Activate DHH" HorizontalAlignment="Left" Margin="183.434,406.92,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
-        <CheckBox x:Name="toggleConsole" Content="Activate Console" HorizontalAlignment="Left" Margin="183.434,426.92,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
-=======
         <CheckBox 
             x:Name="HoneyPot_Activate" 
             Content="Activate HoneyPot" 
@@ -402,7 +272,6 @@
             FontSize="16"
 			Unchecked="modeDev_Unchecked"
 			Checked="modeDev_Checked"/>
->>>>>>> parent of c9e246a... New UI for PlayHome
         <Rectangle 
             HorizontalAlignment="Left" 
             Height="34" 
@@ -799,9 +668,5 @@
             </Image.ToolTip>
         </Image>
         <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="381.079,584.75,0,-47.75" VerticalAlignment="Top" Width="75" Click="Exit_Click" IsCancel="true"/>
-<<<<<<< HEAD
->>>>>>> parent of 941156a... Fixed PlayHome Launcher functionality
-=======
->>>>>>> parent of c9e246a... New UI for PlayHome
     </Grid>
 </windows:Window>
