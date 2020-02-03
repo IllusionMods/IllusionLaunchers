@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace InitDialog
+namespace InitSetting
 {
 	public class ComboBoxCustomItem
 	{

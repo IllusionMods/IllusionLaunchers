@@ -120,7 +120,6 @@
     <Resource Include="images\LauncherBG.png" />
     <Resource Include="images\Chara.png" />
     <Resource Include="images\Patreon.png" />
-    <Resource Include="images\EC_Logo.png" />
     <Resource Include="images\Flags\brazil.png" />
     <Resource Include="images\Flags\china.png" />
     <Resource Include="images\Flags\france.png" />
@@ -133,6 +132,11 @@
     <Resource Include="images\ModernDiscord_small.png" />
     <Resource Include="images\ModernDL_small.png" />
     <Resource Include="images\ModernPatreon_small.png" />
+    <Resource Include="images\ButtonBG\manual.png" />
+    <Resource Include="images\ButtonBG\startGame.png" />
+    <Resource Include="images\ButtonBG\startStudio.png" />
+    <Resource Include="images\ButtonBG\startVR.png" />
+    <Resource Include="images\PHLogo.png" />
     <Content Include="InitSetting.ico" />
   </ItemGroup>
   <ItemGroup>

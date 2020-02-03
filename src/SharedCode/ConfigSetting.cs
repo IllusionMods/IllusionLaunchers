@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace InitDialog
+namespace InitSetting
 {
 	[XmlRoot("Setting")]
 	public class ConfigSetting
