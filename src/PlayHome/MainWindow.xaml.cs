@@ -1,30 +1,62 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Management;
+using System.Net;
+using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
+using System.Windows.Forms;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Xml.Serialization;
+using MessageBox = System.Windows.Forms.MessageBox;
 
-namespace InitSetting
+namespace InitDialog
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+        static extern IntPtr GetModuleHandle(string lpModuleName);
+
+        [DllImport("kernel32", CharSet = CharSet.Ansi, ExactSpelling = true)]
+        static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
+
+        [DllImport("kernel32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool IsWow64Process([In] IntPtr hProcess, out bool lpSystemInfo);
+
+        [DllImport("user32.dll")]
+        static extern bool EnumDisplaySettings(string deviceName, int modeNum, ref DEVMODE devMode);
+
+        [DllImport("user32.dll")]
+        static extern bool EnumDisplayDevices(string lpDevice, uint iDevNum, ref DISPLAY_DEVICE lpDisplayDevice, uint dwFlags);
+
+        [DllImport("User32.dll")]
+        static extern bool EnumDisplayMonitors(IntPtr hdc, IntPtr rect, MainWindow.EnumDisplayMonitorsCallback callback, IntPtr dwData);
+
+        [DllImport("User32.dll")]
+        static extern bool GetMonitorInfo(IntPtr hMonitor, ref MainWindow.MonitorInfoEx info);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern bool DeviceIoControl(IntPtr hDevice, uint dwIoControlCode,
+        IntPtr InBuffer, int nInBufferSize,
+        IntPtr OutBuffer, int nOutBufferSize,
+        out int pBytesReturned, IntPtr lpOverlapped);
+
         public MainWindow()
         {
             InitializeComponent();
 <<<<<<< HEAD
+<<<<<<< HEAD
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 =======
+=======
+>>>>>>> parent of c9e246a... New UI for PlayHome
             //if (!DoubleStartCheck())
             //{
             //    System.Windows.Application.Current.MainWindow.Close();
@@ -67,6 +99,10 @@ namespace InitSetting
                 toggleConsole.IsChecked = true;
             }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of c9e246a... New UI for PlayHome
             // Updater stuffs
 
             //if (File.Exists(m_strCurrentDir + m_customDir + "/enableUpdate") && File.Exists(m_strCurrentDir + m_customDir + "/updateURL.txt"))
@@ -109,6 +145,39 @@ namespace InitSetting
             //    }
             //}
 
+<<<<<<< HEAD
+=======
+            // Mod settings
+
+            if (File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dll"))
+            {
+                HoneyPot_Activate.IsChecked = true;
+            }
+            if (File.Exists($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll"))
+            {
+                DHH_Activate.IsChecked = true;
+            }
+            if (!File.Exists($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_") && !File.Exists($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll"))
+            {
+                DHH_Activate.IsEnabled = false;
+            }
+            if (!File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_") && !File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dll"))
+            {
+                HoneyPot_Activate.IsEnabled = false;
+            }
+            if (File.Exists($"{m_strCurrentDir}{m_customDir}/architecture.txt"))
+            {
+                architecture.IsChecked = true;
+                x86 = true;
+            }
+            if (!File.Exists($"{m_strCurrentDir}\\PlayHome32bit.exe"))
+            {
+                architecture.IsEnabled = false;
+                x86 = false;
+            }
+
+
+>>>>>>> parent of c9e246a... New UI for PlayHome
             startup = false;
 
             LangExists = File.Exists(m_strCurrentDir + m_customDir + decideLang);
@@ -675,26 +744,43 @@ namespace InitSetting
                 return;
             }
             new MessageWindow().SetupWindow("Warning", "\nCould not find the executable.", new object[0]);
+<<<<<<< HEAD
 >>>>>>> parent of 941156a... Fixed PlayHome Launcher functionality
+=======
+>>>>>>> parent of c9e246a... New UI for PlayHome
         }
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        void PLAY_Click(object sender, RoutedEventArgs e)
         {
+<<<<<<< HEAD
 <<<<<<< HEAD
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
 =======
             PlayFunc(m_strGameExe);
 >>>>>>> parent of 941156a... Fixed PlayHome Launcher functionality
+=======
+            if(x86 == true)
+                PlayFunc(m_strGameExe32);
+            else
+                PlayFunc(m_strGameExe);
+>>>>>>> parent of c9e246a... New UI for PlayHome
         }
 
-        private void butExit(object sender, RoutedEventArgs e)
+        void PLAY_Studio_Click(object sender, RoutedEventArgs e)
         {
+<<<<<<< HEAD
 <<<<<<< HEAD
             System.Windows.Application.Current.MainWindow.Close();
         }
 =======
             PlayFunc(m_strStudioExe);
+=======
+            if (x86 == true)
+                PlayFunc(m_strStudioExe32);
+            else
+                PlayFunc(m_strStudioExe);
+>>>>>>> parent of c9e246a... New UI for PlayHome
         }
 
         void PLAY_VR_Click(object sender, RoutedEventArgs e)
@@ -757,34 +843,88 @@ namespace InitSetting
 
         void ManualOpen(object sender, RoutedEventArgs e)
         {
+<<<<<<< HEAD
             string text = m_strCurrentDir + m_strManualDir;
             if (File.Exists(text))
             {
                 Process.Start(text);
                 return;
             }
+=======
+            string manualEN = $"{m_strCurrentDir}\\manual\\manual_en.html";
+            string manualLANG = $"{m_strCurrentDir}\\manual\\manual_{lang}.html";
+            string manualJA = m_strCurrentDir + m_strManualDir;
+
+            if(File.Exists(manualEN) || File.Exists(manualLANG) || File.Exists(manualJA))
+            {
+                if (File.Exists(manualLANG))
+                    Process.Start(manualLANG);
+                else if (File.Exists(manualEN))
+                    Process.Start(manualEN);
+                else
+                    Process.Start(manualJA);
+                return;
+            }
+
+>>>>>>> parent of c9e246a... New UI for PlayHome
             new MessageWindow().SetupWindow("Warning", "\nThe manual could not be found.", new object[0]);
         }
 
         void ManualOpenS(object sender, RoutedEventArgs e)
         {
+<<<<<<< HEAD
             string text = m_strCurrentDir + m_strStudioManualDir;
             if (File.Exists(text))
             {
                 Process.Start(text);
                 return;
             }
+=======
+            string manualEN = $"{m_strCurrentDir}\\manual_s\\manual_en.html";
+            string manualLANG = $"{m_strCurrentDir}\\manual_s\\manual_{lang}.html";
+            string manualJA = m_strCurrentDir + m_strStudioManualDir;
+
+            if (File.Exists(manualEN) || File.Exists(manualLANG) || File.Exists(manualJA))
+            {
+                if (File.Exists(manualLANG))
+                    Process.Start(manualLANG);
+                else if (File.Exists(manualEN))
+                    Process.Start(manualEN);
+                else
+                    Process.Start(manualJA);
+                return;
+            }
+
+>>>>>>> parent of c9e246a... New UI for PlayHome
             new MessageWindow().SetupWindow("Warning", "\nThe manual could not be found.", new object[0]);
         }
 
         void ManualOpenV(object sender, RoutedEventArgs e)
         {
+<<<<<<< HEAD
             string text = m_strCurrentDir + m_strVRManualDir;
             if (File.Exists(text))
             {
                 Process.Start(text);
                 return;
             }
+=======
+            string manualEN = $"{m_strCurrentDir}\\manual_vr\\manual_en.html";
+            string manualLANG = $"{m_strCurrentDir}\\manual_vr\\manual_{lang}.html";
+            string manualJA = m_strCurrentDir + m_strVRManualDir;
+
+            if (File.Exists(manualEN) || File.Exists(manualLANG) || File.Exists(manualJA))
+            {
+                if (File.Exists(manualLANG))
+                    Process.Start(manualLANG);
+                else if (File.Exists(manualEN))
+                    Process.Start(manualEN);
+                else
+                    Process.Start(manualJA);
+                return;
+            }
+
+>>>>>>> parent of c9e246a... New UI for PlayHome
             new MessageWindow().SetupWindow("Warning", "\nThe manual could not be found.", new object[0]);
         }
 
@@ -1190,6 +1330,10 @@ namespace InitSetting
         bool PatreonExists;
         bool LangExists;
         bool DevExists;
+<<<<<<< HEAD
+=======
+        bool x86;
+>>>>>>> parent of c9e246a... New UI for PlayHome
 
         string kkman;
         string updated;
@@ -1537,6 +1681,7 @@ namespace InitSetting
             System.Windows.Forms.Application.Restart();
         }
 
+<<<<<<< HEAD
         private void EnglishForce_Checked(object sender, RoutedEventArgs e)
         {
             WriteLangIni("en");
@@ -1556,6 +1701,8 @@ namespace InitSetting
             PartyFilter(lang);
         }
 
+=======
+>>>>>>> parent of c9e246a... New UI for PlayHome
         private void modeDev_Checked(object sender, RoutedEventArgs e)
         {
             using (StreamWriter writetext = new StreamWriter(m_strCurrentDir + m_customDir + "/devMode"))
@@ -1611,6 +1758,7 @@ namespace InitSetting
             }
         }
 
+<<<<<<< HEAD
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (PatreonExists)
@@ -1633,5 +1781,95 @@ namespace InitSetting
 
         }
 >>>>>>> parent of 941156a... Fixed PlayHome Launcher functionality
+=======
+        private void checkBox_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void HoneyPotInspector_Run(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if(File.Exists($"{m_strCurrentDir}\\HoneyPot\\HoneyPotInspector.exe"))
+            {
+                Process.Start($"{m_strCurrentDir}\\HoneyPot\\HoneyPotInspector.exe");
+            }
+            else
+            {
+                MessageBox.Show("HoneyPot doesn't seem to be applied to this installation.");
+            }
+        }
+
+        private void dhh_Checked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll"))
+                {
+                    File.Delete($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll");
+                }
+                File.Move($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_", $"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll");
+            }
+        }
+
+        private void dhh_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if(File.Exists($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_"))
+                {
+                    File.Delete($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_");
+                }
+                File.Move($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll", $"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_");
+            }
+        }
+
+        private void hp_Checked(object sender, RoutedEventArgs e)
+        {
+            if(File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_"))
+                MessageBox.Show("When HoneyPot is enabled, the game will use a bit longer to load in some scenes due to checking for HoneySelect assets, making it appear to be freezing for a few seconds. This is completely normal.\n\nJust disable this option again if you would rather not have that freeze.", "Information");
+            if (File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dll"))
+                {
+                    File.Delete($"{m_strCurrentDir}\\Plugins\\HoneyPot.dll");
+                }
+                File.Move($"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_", $"{m_strCurrentDir}\\Plugins\\HoneyPot.dll");
+            }
+            
+        }
+
+        private void hp_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dll"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_"))
+                {
+                    File.Delete($"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_");
+                }
+                File.Move($"{m_strCurrentDir}\\Plugins\\HoneyPot.dll", $"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_");
+            }
+        }
+
+        private void architecture_Checked(object sender, RoutedEventArgs e)
+        {
+            x86 = true;
+            if (!File.Exists($"{m_customDir}{m_customDir}/architecture.txt"))
+            {
+                using (StreamWriter writetext = new StreamWriter($"{m_strCurrentDir}{m_customDir}/architecture.txt"))
+                {
+                    writetext.WriteLine("x86");
+                }
+            }
+        }
+
+        private void architecture_Unchecked(object sender, RoutedEventArgs e)
+        {
+            x86 = false;
+            if (File.Exists($"{m_strCurrentDir}{m_customDir}/architecture.txt"))
+            {
+                File.Delete($"{m_strCurrentDir}{m_customDir}/architecture.txt");
+            }
+        }
+>>>>>>> parent of c9e246a... New UI for PlayHome
     }
 }
