@@ -637,20 +637,7 @@ namespace InitSetting
 
         void SetEnableAndVisible()
         {
-            if (!isMainGame)
-            {
-                labelStart.IsEnabled = false;
-                buttonManual.IsEnabled = false;
-                buttonInst.IsEnabled = false;
-                buttonFemaleCard.IsEnabled = false;
-                buttonScreenshot.IsEnabled = false;
-            }
-            if (!isStudio)
-            {
-                labelStartS.IsEnabled = false;
-                buttonManualS.IsEnabled = false;
-                buttonScenes.IsEnabled = false;
-            }
+            
         }
 
         void SaveRegistry()
@@ -1223,8 +1210,8 @@ namespace InitSetting
         string[] m_astrQuality;
         string[] s_EnglishTL;
 
-        string m_strGameRegistry = "Software\\illusion\\AIS\\AIS\\";
-        string m_strStudioRegistry = "Software\\illusion\\AIS\\CharaStudio\\";
+        string m_strGameRegistry = "Software\\illusion\\PlayHome\\";
+        string m_strStudioRegistry = "Software\\illusion\\PlayHomeStudio\\";
         string m_strGameExe = "PlayHome64bit.exe";
         string m_strStudioExe = "PlayHomeStudio64bit.exe";
         string m_strGameExe32 = "PlayHome32bit.exe";
