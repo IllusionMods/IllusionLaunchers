@@ -86,6 +86,13 @@ namespace InitSetting
 
             }
 
+            // Framework test
+            isIPA = File.Exists($"{m_strCurrentDir}\\IPA.exe");
+            isBepIn = Directory.Exists($"{m_strCurrentDir}\\BepInEx");
+
+            if (isIPA && isBepIn)
+                MessageBox.Show("Both BepInEx and IPA is detected in the game folder!\n\nApplying both frameworks may lead to problems when running the game!", "Warning!");
+
             // Check if dev mode is active
 
             if (!File.Exists(m_strCurrentDir + "/Bepinex/config/BepInEx.cfg"))
@@ -668,7 +675,15 @@ namespace InitSetting
             saveConfigFile(m_strCurrentDir + m_strSaveDir);
             SaveRegistry();
             string text = m_strCurrentDir + strExe;
-            if (File.Exists(text))
+            string ipa = "\u0022" + m_strCurrentDir + "IPA.exe" + "\u0022";
+            string ipaArgs = "\u0022" + text + "\u0022" + " --launch";
+            if (File.Exists(text) && isIPA)
+            {
+                Process.Start(new ProcessStartInfo(ipa) { WorkingDirectory = m_strCurrentDir, Arguments = ipaArgs });
+                System.Windows.Application.Current.MainWindow.Close();
+                return;
+            }
+            else if (File.Exists(text))
             {
                 Process.Start(new ProcessStartInfo(text) { WorkingDirectory = m_strCurrentDir });
                 System.Windows.Application.Current.MainWindow.Close();
@@ -1252,8 +1267,11 @@ namespace InitSetting
         bool DevExists;
         bool x86;
 
+        bool isIPA;
+        bool isBepIn;
+
         string kkman;
-        string updated;
+        string updated = "placeholder";
 
         string q_performance = "Performance";
         string q_normal = "Normal";

@@ -6,7 +6,6 @@ namespace InitSetting
 	[XmlRoot("Setting")]
 	public class ConfigSetting
 	{
-        internal bool m_nFullscreenChoose;
 
         [XmlElement("Size")]
 		public string m_strSizeChoose { get; set; }

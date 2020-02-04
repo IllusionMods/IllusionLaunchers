@@ -252,14 +252,14 @@
                 <Label x:Name="label2" Content="Visit Discord" Foreground="White" VerticalContentAlignment="Center" Padding="50,0,0,0"/>
             </Border>
             <Image x:Name="images3" HorizontalAlignment="Left" Height="25" Margin="151,6,0,0" VerticalAlignment="Top" Width="24" Source="images/ModernDiscord_small.png"/>
-            <Rectangle x:Name="linkDiscord" Fill="Transparent" HorizontalAlignment="Left" Height="37" Margin="0,0,-0.083,0" VerticalAlignment="Top" Width="190"/>
+            <Rectangle x:Name="linkDiscord" Fill="Transparent" HorizontalAlignment="Left" Height="37" Margin="0,0,-0.083,0" VerticalAlignment="Top" Width="190" MouseLeftButtonDown="discord_MouseLeftButtonDown"/>
         </Grid>
         <Grid x:Name="gridPatreon" HorizontalAlignment="Left" Height="36.333" Margin="-40.667,510.334,0,0" VerticalAlignment="Top" Width="189.917">
             <Border x:Name="patreonBorder" BorderBrush="#FF510E0E" Background="Black" BorderThickness="2" HorizontalAlignment="Left" Height="37" Margin="-0.083,0,0,-0.667" VerticalAlignment="Top" Width="190" CornerRadius="20">
                 <Label x:Name="lasbel2" Content="Visit Patreon" Foreground="White" VerticalContentAlignment="Center" Padding="50,0,0,0" Margin="-2"/>
             </Border>
             <Image x:Name="patreonIMG" HorizontalAlignment="Left" Height="28" Margin="150.917,6,0,0" VerticalAlignment="Top" Width="24" Source="images/ModernPatreon_small.png"/>
-            <Rectangle x:Name="linkPatreon" Fill="Transparent" HorizontalAlignment="Left" Height="37" Margin="-0.083,0,0,-0.667" VerticalAlignment="Top" Width="190"/>
+            <Rectangle x:Name="linkPatreon" Fill="Transparent" HorizontalAlignment="Left" Height="37" Margin="-0.083,0,0,-0.667" VerticalAlignment="Top" Width="190" MouseLeftButtonDown="patreon_MouseLeftButtonDown"/>
         </Grid>
         <Grid x:Name="gridUpdate" HorizontalAlignment="Left" Height="36.333" Margin="-40.667,469.001,0,0" VerticalAlignment="Top" Width="189.917">
             <Border BorderBrush="#FF510E0E" Background="Black" BorderThickness="2" HorizontalAlignment="Left" Height="37" Margin="-0.083,0,0,-0.667" VerticalAlignment="Top" Width="190" CornerRadius="20">
