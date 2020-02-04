@@ -6,14 +6,17 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{91F6B54E-6A85-486F-8BF3-5920D838F030}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>InitDialogEN</RootNamespace>
-    <AssemblyName>InitSetting EN</AssemblyName>
+    <RootNamespace>InitDialog</RootNamespace>
+    <AssemblyName>InitSetting</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60DC8134-EBA5-43B8-BCC9-BB4BC16C2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <ApplicationIcon>InitSetting.ico</ApplicationIcon>
+    <ApplicationIcon>images\icon.ico</ApplicationIcon>
     <StartupObject>InitDialog.App</StartupObject>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,10 +29,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -74,7 +75,6 @@
     <Compile Include="MessageWindow.xaml.cs">
       <DependentUpon>MessageWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\SharedCode\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <DependentUpon>Settings.settings</DependentUpon>
@@ -120,8 +120,23 @@
     <Resource Include="images\LauncherBG.png" />
     <Resource Include="images\Chara.png" />
     <Resource Include="images\Patreon.png" />
-    <Resource Include="images\EC_Logo.png" />
-    <Content Include="InitSetting.ico" />
+    <Resource Include="images\Flags\brazil.png" />
+    <Resource Include="images\Flags\china.png" />
+    <Resource Include="images\Flags\france.png" />
+    <Resource Include="images\Flags\germany.png" />
+    <Resource Include="images\Flags\japan.png" />
+    <Resource Include="images\Flags\norway.png" />
+    <Resource Include="images\Flags\south-korea.png" />
+    <Resource Include="images\Flags\spain.png" />
+    <Resource Include="images\Flags\united-kingdom.png" />
+    <Resource Include="images\ModernDiscord_small.png" />
+    <Resource Include="images\ModernDL_small.png" />
+    <Resource Include="images\ModernPatreon_small.png" />
+    <Resource Include="images\ButtonBG\manual.png" />
+    <Resource Include="images\ButtonBG\startGame.png" />
+    <Resource Include="images\ButtonBG\startStudio.png" />
+    <Resource Include="images\ButtonBG\startVR.png" />
+    <Resource Include="images\PHLogo.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
@@ -129,6 +144,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\HSLogo.png" />
   </ItemGroup>
   <Import Project="..\SharedCode\SharedCode.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

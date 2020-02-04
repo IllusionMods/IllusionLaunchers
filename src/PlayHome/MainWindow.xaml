@@ -75,7 +75,7 @@
             VerticalAlignment="Top" 
             FontSize="18" 
             VerticalContentAlignment="Center" Width="88" Foreground="White" Checked="toggle32_Checked" Unchecked="toggle32_Unchecked"/>
-            <Border HorizontalAlignment="Left" Height="34" Margin="123,24,0,0" VerticalAlignment="Top" Width="222" ClipToBounds="True" Background="Black">
+            <Border HorizontalAlignment="Left" Height="34" Margin="125.161,24,0,0" VerticalAlignment="Top" Width="219.839" ClipToBounds="True" Background="Black">
                 <Border.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -95,7 +95,7 @@
                     </Image.RenderTransform>
                 </Image>
             </Border>
-            <Border HorizontalAlignment="Left" Height="34" Margin="351,23,0,0" VerticalAlignment="Top" Width="220" ClipToBounds="True" Background="Black">
+            <Border HorizontalAlignment="Left" Height="32.25" Margin="351.322,24.75,0,0" VerticalAlignment="Top" Width="219.866" ClipToBounds="True" Background="Black">
                 <Border.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -104,7 +104,7 @@
                         <TranslateTransform/>
                     </TransformGroup>
                 </Border.RenderTransform>
-                <Image x:Name="idmage" Source="Images/ButtonBG/startStudio.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Margin="-3,0,0,-1">
+                <Image x:Name="idmage" Source="Images/ButtonBG/startStudio.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Margin="0,-0.75,0.689,-1" Width="210.625">
                     <Image.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -115,7 +115,7 @@
                     </Image.RenderTransform>
                 </Image>
             </Border>
-            <Border HorizontalAlignment="Left" Height="34" Margin="578,24,0,0" VerticalAlignment="Top" Width="220" ClipToBounds="True" Background="Black">
+            <Border HorizontalAlignment="Left" Height="34" Margin="579.125,24,0,0" VerticalAlignment="Top" Width="218.875" ClipToBounds="True" Background="Black">
                 <Border.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -169,17 +169,17 @@
                     </TransformGroup>
                 </Button.RenderTransform>
             </Button>
-            <Border  HorizontalAlignment="Left" Height="24" Margin="579,63,0,0" VerticalAlignment="Top" Width="174" Background="Black">
+            <Border  HorizontalAlignment="Left" Height="20.333" Margin="581.167,64.75,0,0" VerticalAlignment="Top" Width="170.083" Background="Black">
                 <Image x:Name="idmssage" Source="Images/ButtonBG/manual.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right"/>
             </Border>
             <Label x:Name="labelMV" Foreground="White" VerticalContentAlignment="Center" Content="VR Manual" HorizontalAlignment="Left" Margin="583,63,0,0" VerticalAlignment="Top" Height="24" Width="98"/>
             <Button Style="{StaticResource buttonHover}" x:Name="buttonManualV" Content="" HorizontalAlignment="Left" Height="24" Margin="579,63,0,0" VerticalAlignment="Top" Width="174" Click="buttonManualV_Click"/>
-            <Border  HorizontalAlignment="Left" Height="24" Margin="358,63,0,0" VerticalAlignment="Top" Width="174" Background="Black">
+            <Border  HorizontalAlignment="Left" Height="20.333" Margin="360.083,64.75,0,0" VerticalAlignment="Top" Width="169.917" Background="Black">
                 <Image x:Name="idmssage1" Source="Images/ButtonBG/manual.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right"/>
             </Border>
             <Label x:Name="labelMS" Foreground="White" VerticalContentAlignment="Center" Content="Studio Manual" HorizontalAlignment="Left" Margin="364,63,0,0" VerticalAlignment="Top" Height="24" Width="98"/>
             <Button Style="{StaticResource buttonHover}" x:Name="buttonManualS" Content="" HorizontalAlignment="Left" Height="24" Margin="358,63,0,0" VerticalAlignment="Top" Width="174" Click="buttonManualS_Click"/>
-            <Border  HorizontalAlignment="Left" Height="24" Margin="131,63,0,0" VerticalAlignment="Top" Width="174" Background="Black">
+            <Border  HorizontalAlignment="Left" Height="20.333" Margin="132.833,64.75,0,0" VerticalAlignment="Top" Width="170.417" Background="Black">
                 <Image x:Name="idmssage2" Source="Images/ButtonBG/manual.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right"/>
             </Border>
             <Label x:Name="labelM" Foreground="White" VerticalContentAlignment="Center" Content="Game Manual" HorizontalAlignment="Left" Margin="137,63,0,0" VerticalAlignment="Top" Height="24" Width="98"/>
