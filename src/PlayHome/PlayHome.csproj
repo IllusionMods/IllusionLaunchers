@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{561F2722-A3EA-40ED-A5D0-982ED26118B9}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>InitDialogEN</RootNamespace>
-    <AssemblyName>InitSetting EN</AssemblyName>
+    <RootNamespace>InitDialog</RootNamespace>
+    <AssemblyName>InitSetting</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60DC8134-EBA5-43B8-BCC9-BB4BC16C2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

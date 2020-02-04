@@ -75,6 +75,10 @@ namespace InitSetting
 
             startup = true;
 
+            //temp hide unimplemented stuffs
+            CustomRes.Visibility = Visibility.Hidden;
+            gridUpdate.Visibility = Visibility.Hidden;
+
             Directory.CreateDirectory(m_strCurrentDir + m_customDir);
 
             if (!File.Exists(m_strCurrentDir + m_customDir + kkmdir))
@@ -1667,7 +1671,7 @@ namespace InitSetting
 
         }
 
-        private void HoneyPotInspector_Run(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void HoneyPotInspector_Run(object sender, RoutedEventArgs e)
         {
             if(File.Exists($"{m_strCurrentDir}\\HoneyPot\\HoneyPotInspector.exe"))
             {

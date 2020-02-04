@@ -187,21 +187,6 @@
         </Grid>
         <Image x:Name="PackChara" HorizontalAlignment="Left" Height="378" Margin="322,220,0,0" VerticalAlignment="Top" Width="255" Source="Images/Chara.png"/>
         <Grid HorizontalAlignment="Left" Height="491" Margin="0,107,0,0" VerticalAlignment="Top" Width="322">
-            <Border BorderBrush="#FF510E0E" Background="Black" BorderThickness="2" HorizontalAlignment="Left" Height="37" Margin="-41,444,0,0" VerticalAlignment="Top" Width="190" CornerRadius="20">
-                <Label x:Name="label2" Content="Visit Discord" Foreground="White" VerticalContentAlignment="Center" Padding="50,0,0,0"/>
-            </Border>
-            <Image x:Name="images3" HorizontalAlignment="Left" Height="25" Margin="110,450,0,0" VerticalAlignment="Top" Width="24" Source="Images/ModernDiscord_small.png"/>
-            <Border x:Name="patreonBorder" BorderBrush="#FF510E0E" Background="Black" BorderThickness="2" HorizontalAlignment="Left" Height="37" Margin="-41,402,0,0" VerticalAlignment="Top" Width="190" CornerRadius="20">
-                <Label x:Name="lasbel2" Content="Visit Patreon" Foreground="White" VerticalContentAlignment="Center" Padding="50,0,0,0" Margin="-2"/>
-            </Border>
-            <Image x:Name="patreonIMG" HorizontalAlignment="Left" Height="28" Margin="110,408,0,0" VerticalAlignment="Top" Width="24" Source="Images/ModernPatreon_small.png"/>
-            <Border BorderBrush="#FF510E0E" Background="Black" BorderThickness="2" HorizontalAlignment="Left" Height="37" Margin="-41,360,0,0" VerticalAlignment="Top" Width="190" CornerRadius="20">
-                <Label x:Name="lassbel2" Content="Update" Foreground="White" VerticalContentAlignment="Center" Padding="50,0,0,0" Margin="-2"/>
-            </Border>
-            <Image x:Name="imasge3" HorizontalAlignment="Left" Height="28" Margin="110,365,0,0" VerticalAlignment="Top" Width="24" Source="Images/ModernDL_small.png"/>
-            <Rectangle x:Name="linkUpdate" Fill="Transparent" HorizontalAlignment="Left" Height="37" Margin="-41,360,0,0" VerticalAlignment="Top" Width="190"/>
-            <Rectangle x:Name="linkDiscord" Fill="Transparent" HorizontalAlignment="Left" Height="37" Margin="-41,444,0,0" VerticalAlignment="Top" Width="190"/>
-            <Rectangle x:Name="linkPatreon" Fill="Transparent" HorizontalAlignment="Left" Height="37" Margin="-41,402,0,0" VerticalAlignment="Top" Width="190"/>
             <Border BorderBrush="#FF510E0E" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left" Height="276" Margin="-41,48,0,0" VerticalAlignment="Top" Width="84" CornerRadius="3"/>
             <Image x:Name="flagEN" HorizontalAlignment="Left" Height="22" Margin="10,60,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/united-kingdom.png" MouseLeftButtonDown="langEnglish"/>
             <Image x:Name="flagJA" HorizontalAlignment="Left" Height="24" Margin="10,88,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/japan.png" MouseLeftButtonDown="langJapanese"/>
@@ -214,23 +199,27 @@
             <Image x:Name="flagNO" HorizontalAlignment="Left" Height="24" Margin="10,292,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/norway.png" MouseLeftButtonDown="langNorwegian"/>
             <Border BorderBrush="#FF510E0E" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left" Height="167" Margin="52,169,0,0" VerticalAlignment="Top" Width="247" CornerRadius="3">
             </Border>
-            <CheckBox x:Name="toggleFullscreen" Content="Play game in fullscreen" Foreground="White" VerticalContentAlignment="Center" Margin="56,173,28,302"/>
-            <CheckBox x:Name="toggleConsole" Content="Activate Console" Foreground="White" VerticalContentAlignment="Center" Margin="56,189,28,286"/>
-            <CheckBox x:Name="toggleHoneyPot" Content="Activate HoneyPot" Foreground="White" VerticalContentAlignment="Center" Margin="56,205,28,270"/>
-            <CheckBox x:Name="toggleDHH" Content="Activate DHH" Foreground="White" VerticalContentAlignment="Center" Margin="56,221,28,254"/>
-            <Button Style="{StaticResource buttonHover}" MaxWidth="900" FontSize="10" Height="39.21" VerticalAlignment="Top" Margin="0,292,34,0" Click="buttonScenes_Click" HorizontalAlignment="Right" Width="104.333">
+            <CheckBox x:Name="toggleFullscreen" Content="Play game in fullscreen" Foreground="White" VerticalContentAlignment="Center" Margin="58,176.333,30,298.667" Checked="windowChecked" Unchecked="windowUnChecked"/>
+            <CheckBox x:Name="toggleConsole" Content="Activate Console" Foreground="White" VerticalContentAlignment="Center" Margin="58,192.333,30,282.667" Checked="modeDev_Checked" Unchecked="modeDev_Unchecked"/>
+            <CheckBox x:Name="toggleHoneyPot" Content="Activate HoneyPot" Foreground="White" VerticalContentAlignment="Center" Margin="58,208.333,30,266.667" Checked="hp_Checked" Unchecked="hp_Unchecked"/>
+            <CheckBox x:Name="toggleDHH" Content="Activate DHH" Foreground="White" VerticalContentAlignment="Center" Margin="58,224.333,30,250.667" Checked="dhh_Checked" Unchecked="dhh_Unchecked"/>
+            <Button Style="{StaticResource buttonHover}" MaxWidth="900" FontSize="10" Height="39.21" VerticalAlignment="Top" Margin="0,287.333,34,0" Click="HoneyPotInspector_Run" HorizontalAlignment="Right" Width="104.333">
                 <TextBlock x:Name="HoneyPotInspector" Text="Run HoneyPot inspector" TextWrapping="Wrap" TextAlignment="Center"/>
             </Button>
         </Grid>
         <Grid HorizontalAlignment="Left" Height="491" Margin="576,107,0,0" VerticalAlignment="Top" Width="322">
             <Grid HorizontalAlignment="Left" Height="156" Margin="-533,19,0,0" VerticalAlignment="Top" Width="265">
-                <Border BorderBrush="#FF510E0E" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left" Height="136" Margin="10,10,0,0" VerticalAlignment="Top" Width="246" CornerRadius="3"/>
-                <ComboBox x:Name="dropQual" HorizontalAlignment="Left" Margin="23,23,0,0" VerticalAlignment="Top" Width="217"/>
-                <ComboBox x:Name="dropDisplay" HorizontalAlignment="Left" Margin="23,50,0,0" VerticalAlignment="Top" Width="217"/>
+                <Border BorderBrush="#FF510E0E" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left" Height="136" Margin="10,10,0,0" VerticalAlignment="Top" Width="246" CornerRadius="3">
+                    <Grid x:Name="CustomRes" Margin="0,88,0,8">
+                        <TextBox x:Name="boxHeight" IsEnabled="False" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="23" Margin="10.667,4.501,0,0" TextWrapping="Wrap" Text="Height" VerticalAlignment="Top" Width="92"/>
+                        <TextBox x:Name="boxWidth" IsEnabled="False" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="23" Margin="136.667,4.501,0,0" TextWrapping="Wrap" Text="Width" VerticalAlignment="Top" Width="91"/>
+                        <Label x:Name="labelCustRes" Foreground="#FF510E0E" Content="X" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="108.667,4.501,0,0" VerticalAlignment="Top" Height="23" Width="22"/>
+                    </Grid>
+                </Border>
+                <ComboBox x:Name="dropQual" HorizontalAlignment="Left" Margin="23,23,0,0" VerticalAlignment="Top" Width="217" SelectionChanged="Quality_Change"/>
+                <ComboBox x:Name="dropDisplay" HorizontalAlignment="Left" Margin="23,50,0,0" VerticalAlignment="Top" Width="217" SelectionChanged="Display_Change"/>
                 <ComboBox x:Name="dropRes" HorizontalAlignment="Left" Margin="23,77,0,0" VerticalAlignment="Top" Width="217" SelectionChanged="Resolution_Change"/>
-                <TextBox x:Name="textBox" IsEnabled="False" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="23" Margin="23,104,0,0" TextWrapping="Wrap" Text="Height" VerticalAlignment="Top" Width="92"/>
-                <TextBox x:Name="textBox_Copy" IsEnabled="False" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="23" Margin="149,104,0,0" TextWrapping="Wrap" Text="Width" VerticalAlignment="Top" Width="91"/>
-                <Label x:Name="label3" Foreground="#FF510E0E" Content="X" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="121,104,0,0" VerticalAlignment="Top" Height="23" Width="22"/>
+
             </Grid>
             <Grid HorizontalAlignment="Left" Height="329" Margin="10,19,0,0" VerticalAlignment="Top" Width="302">
                 <Border BorderBrush="#FF510E0E" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left" Height="197" Margin="10,10,0,0" VerticalAlignment="Top" Width="282" CornerRadius="3">
@@ -258,6 +247,27 @@
         </Grid>
         <Image x:Name="image2" HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="262" Source="images/PHLogo.png" Margin="0,102,0,0"/>
         <Button Style="{StaticResource buttonHover}" x:Name="buttonClose" Content="X" HorizontalAlignment="Left" Margin="856,10,0,0" VerticalAlignment="Top" Width="32" Height="28" Click="buttonClose_Click" IsCancel="true"/>
+        <Grid x:Name="gridDiscord" HorizontalAlignment="Left" Height="36.333" Margin="-40.667,551.667,0,0" VerticalAlignment="Top" Width="189.917">
+            <Border BorderBrush="#FF510E0E" Background="Black" BorderThickness="2" HorizontalAlignment="Left" Height="37" Margin="0,0,-0.083,0" VerticalAlignment="Top" Width="190" CornerRadius="20">
+                <Label x:Name="label2" Content="Visit Discord" Foreground="White" VerticalContentAlignment="Center" Padding="50,0,0,0"/>
+            </Border>
+            <Image x:Name="images3" HorizontalAlignment="Left" Height="25" Margin="151,6,0,0" VerticalAlignment="Top" Width="24" Source="images/ModernDiscord_small.png"/>
+            <Rectangle x:Name="linkDiscord" Fill="Transparent" HorizontalAlignment="Left" Height="37" Margin="0,0,-0.083,0" VerticalAlignment="Top" Width="190"/>
+        </Grid>
+        <Grid x:Name="gridPatreon" HorizontalAlignment="Left" Height="36.333" Margin="-40.667,510.334,0,0" VerticalAlignment="Top" Width="189.917">
+            <Border x:Name="patreonBorder" BorderBrush="#FF510E0E" Background="Black" BorderThickness="2" HorizontalAlignment="Left" Height="37" Margin="-0.083,0,0,-0.667" VerticalAlignment="Top" Width="190" CornerRadius="20">
+                <Label x:Name="lasbel2" Content="Visit Patreon" Foreground="White" VerticalContentAlignment="Center" Padding="50,0,0,0" Margin="-2"/>
+            </Border>
+            <Image x:Name="patreonIMG" HorizontalAlignment="Left" Height="28" Margin="150.917,6,0,0" VerticalAlignment="Top" Width="24" Source="images/ModernPatreon_small.png"/>
+            <Rectangle x:Name="linkPatreon" Fill="Transparent" HorizontalAlignment="Left" Height="37" Margin="-0.083,0,0,-0.667" VerticalAlignment="Top" Width="190"/>
+        </Grid>
+        <Grid x:Name="gridUpdate" HorizontalAlignment="Left" Height="36.333" Margin="-40.667,469.001,0,0" VerticalAlignment="Top" Width="189.917">
+            <Border BorderBrush="#FF510E0E" Background="Black" BorderThickness="2" HorizontalAlignment="Left" Height="37" Margin="-0.083,0,0,-0.667" VerticalAlignment="Top" Width="190" CornerRadius="20">
+                <Label x:Name="lassbel2" Content="Update" Foreground="White" VerticalContentAlignment="Center" Padding="50,0,0,0" Margin="-2"/>
+            </Border>
+            <Image x:Name="imasge3" HorizontalAlignment="Left" Height="28" Margin="150.917,5,0,0" VerticalAlignment="Top" Width="24" Source="images/ModernDL_small.png"/>
+            <Rectangle x:Name="linkUpdate" Fill="Transparent" HorizontalAlignment="Left" Height="37" Margin="-0.083,0,0,-0.667" VerticalAlignment="Top" Width="190"/>
+        </Grid>
 
     </Grid>
 </Window>
