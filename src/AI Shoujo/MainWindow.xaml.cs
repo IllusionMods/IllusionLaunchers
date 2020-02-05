@@ -694,11 +694,6 @@ namespace InitSetting
             PlayFunc(m_strStudioExe);
         }
 
-        void buttonStartV_Click(object sender, RoutedEventArgs e)
-        {
-            PlayFunc(m_strVRExe);
-        }
-
         void buttonClose_Click(object sender, RoutedEventArgs e)
         {
             saveConfigFile(m_strCurrentDir + m_strSaveDir);
@@ -1231,11 +1226,10 @@ namespace InitSetting
         string[] m_astrQuality;
         string[] s_EnglishTL;
 
-        string m_strGameRegistry = "Software\\illusion\\PlayHome\\";
-        string m_strStudioRegistry = "Software\\illusion\\PlayHomeStudio\\";
-        string m_strGameExe = "PlayHome64bit.exe";
-        string m_strStudioExe = "PlayHomeStudio64bit.exe";
-        string m_strVRExe = "VR GEDOU.exe";
+        string m_strGameRegistry = "Software\\illusion\\AI-Syoujyo\\AI-Syoujyo\\";
+        string m_strStudioRegistry = "Software\\illusion\\AI-Syoujyo\\StudioNEOV2";
+        string m_strGameExe = "AI-Syoujyo.exe";
+        string m_strStudioExe = "StudioNEOV2.exe";
         string m_strManualDir = "/manual/お読み下さい.html";
         string m_strStudioManualDir = "/manual_s/お読み下さい.html";
         string m_strVRManualDir = "/manual_vr/お読み下さい.html";
