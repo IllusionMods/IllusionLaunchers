@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{6F62CF98-EB11-4FF2-8370-0B946CA337E5}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>InitDialogEN</RootNamespace>
+    <RootNamespace>InitDialog</RootNamespace>
     <AssemblyName>InitSetting</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -29,7 +29,8 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -40,6 +41,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -49,6 +51,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -113,20 +116,27 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\transBG.png" />
+    <Resource Include="images\Discord.png" />
     <Resource Include="images\LauncherBG.png" />
     <Resource Include="images\Chara.png" />
-    <Resource Include="images\ModernDiscord_small.png" />
-    <Resource Include="images\ModernPatreon_small.png" />
+    <Resource Include="images\Patreon.png" />
+    <Resource Include="images\Flags\brazil.png" />
     <Resource Include="images\Flags\china.png" />
+    <Resource Include="images\Flags\france.png" />
+    <Resource Include="images\Flags\germany.png" />
+    <Resource Include="images\Flags\japan.png" />
     <Resource Include="images\Flags\norway.png" />
     <Resource Include="images\Flags\south-korea.png" />
     <Resource Include="images\Flags\spain.png" />
     <Resource Include="images\Flags\united-kingdom.png" />
-    <Resource Include="images\Flags\japan.png" />
-    <Resource Include="images\Flags\germany.png" />
-    <Resource Include="images\Flags\brazil.png" />
-    <Resource Include="images\Flags\france.png" />
+    <Resource Include="images\ModernDiscord_small.png" />
     <Resource Include="images\ModernDL_small.png" />
+    <Resource Include="images\ModernPatreon_small.png" />
+    <Resource Include="images\ButtonBG\manual.png" />
+    <Resource Include="images\ButtonBG\startGame.png" />
+    <Resource Include="images\ButtonBG\startStudio.png" />
+    <Resource Include="images\ButtonBG\startVR.png" />
+    <Resource Include="images\PHLogo.png" />
     <Content Include="InitSetting.ico" />
   </ItemGroup>
   <ItemGroup>
