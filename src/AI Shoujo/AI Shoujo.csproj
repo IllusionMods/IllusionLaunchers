@@ -12,7 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60DC8134-EBA5-43B8-BCC9-BB4BC16C2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <ApplicationIcon>InitSetting.ico</ApplicationIcon>
+    <ApplicationIcon>images\icon.ico</ApplicationIcon>
     <StartupObject>InitDialog.App</StartupObject>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -135,9 +135,7 @@
     <Resource Include="images\ButtonBG\manual.png" />
     <Resource Include="images\ButtonBG\startGame.png" />
     <Resource Include="images\ButtonBG\startStudio.png" />
-    <Resource Include="images\ButtonBG\startVR.png" />
     <Resource Include="images\PHLogo.png" />
-    <Content Include="InitSetting.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
@@ -145,6 +143,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\AILogo.png" />
   </ItemGroup>
   <Import Project="..\SharedCode\SharedCode.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

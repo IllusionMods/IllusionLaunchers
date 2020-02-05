@@ -77,7 +77,6 @@ namespace InitSetting
 
             //temp hide unimplemented stuffs
             CustomRes.Visibility = Visibility.Hidden;
-            gridUpdate.Visibility = Visibility.Hidden;
 
             Directory.CreateDirectory(m_strCurrentDir + m_customDir);
 
@@ -110,73 +109,57 @@ namespace InitSetting
 
             // Updater stuffs
 
-            //if (File.Exists(m_strCurrentDir + m_customDir + "/enableUpdate") && File.Exists(m_strCurrentDir + m_customDir + "/updateURL.txt"))
-            //{
-            //    //Getting download URL
-            //    var dlFileStream = new FileStream(m_strCurrentDir + m_customDir + "/updateURL.txt", FileMode.Open, FileAccess.Read);
-            //    using (var streamReader = new StreamReader(dlFileStream, Encoding.UTF8))
-            //    {
-            //        string line;
-            //        while ((line = streamReader.ReadLine()) != null)
-            //        {
-            //            updateURL = line;
-            //        }
-            //    }
-            //    dlFileStream.Close();
+            kkmanExist = File.Exists(m_strCurrentDir + m_customDir + kkmdir);
+            updatelocExists = File.Exists(m_strCurrentDir + m_customDir + updateLoc);
+            if (kkmanExist)
+            {
+                var kkmanFileStream = new FileStream(m_strCurrentDir + m_customDir + kkmdir, FileMode.Open, FileAccess.Read);
+                using (var streamReader = new StreamReader(kkmanFileStream, Encoding.UTF8))
+                {
+                    string line;
+                    while ((line = streamReader.ReadLine()) != null)
+                    {
+                        kkman = line;
+                    }
+                }
+                kkmanFileStream.Close();
+                if (updatelocExists)
+                {
+                    var updFileStream = new FileStream(m_strCurrentDir + m_customDir + updateLoc, FileMode.Open, FileAccess.Read);
+                    using (var streamReader = new StreamReader(updFileStream, Encoding.UTF8))
+                    {
+                        string line;
+                        while ((line = streamReader.ReadLine()) != null)
+                        {
+                            updated = line;
+                        }
+                    }
+                    updFileStream.Close();
+                }
+                else
+                {
+                    updated = "https://mega.nz/#F!LH5iwKxR!d_ztxVonEesY-ckOI_bfSw";
+                }
+            }
+            else
+            {
+                gridUpdate.Visibility = Visibility.Hidden;
+            }
 
-            //    //Grabbing existing version
-            //    var verFileStream = new FileStream(m_strCurrentDir + m_customDir + "/enableUpdate", FileMode.Open, FileAccess.Read);
-            //    using (var streamReader = new StreamReader(verFileStream, Encoding.UTF8))
-            //    {
-            //        string line;
-            //        while ((line = streamReader.ReadLine()) != null)
-            //        {
-            //            packVersion = line;
-            //        }
-            //    }
-            //    verFileStream.Close();
+            if (!File.Exists(m_strCurrentDir + m_customDir + kkmdir))
+            {
 
-            //    //Grabbing new version string
-            //    try
-            //    {
-            //        newPackVersion = (new WebClient()).DownloadString(updateURL).ToString();
-            //    }
-            //    catch { }
-
-            //    //Enables update button if new version is found
-            //    if (packVersion != newPackVersion && newPackVersion != null)
-            //    {
-            //        updateBtn.Visibility = Visibility.Visible;
-            //    }
-            //}
+            }
 
             // Mod settings
 
-            if (File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dll"))
-            {
-                toggleHoneyPot.IsChecked = true;
-            }
-            if (File.Exists($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll"))
+            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll"))
             {
                 toggleDHH.IsChecked = true;
             }
-            if (!File.Exists($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_") && !File.Exists($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll"))
+            if (!File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_") && !File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll"))
             {
                 toggleDHH.IsEnabled = false;
-            }
-            if (!File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_") && !File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dll"))
-            {
-                toggleHoneyPot.IsEnabled = false;
-            }
-            if (File.Exists($"{m_strCurrentDir}{m_customDir}/toggle32.txt"))
-            {
-                toggle32.IsChecked = true;
-                x86 = true;
-            }
-            if (!File.Exists($"{m_strCurrentDir}\\PlayHome32bit.exe"))
-            {
-                toggle32.IsEnabled = false;
-                x86 = false;
             }
 
 
@@ -250,13 +233,9 @@ namespace InitSetting
                 buttonScreenshot.Content = "SS"; buttonUserData.Content = "UserData";
                 labelStart.Content = "ゲーム開始";
                 labelStartS.Content = "スタジオ開始";
-                labelStartVR.Content = "VR開始";
                 labelM.Content = "ゲーム";
                 labelMS.Content = "スタジオ";
-                labelMV.Content = "VR";
-                HoneyPotInspector.Text = "HoneyPot Inspectorを実行する";
                 toggleFullscreen.Content = "全画面表示";
-                toggleHoneyPot.Content = "HoneyPotを有効にする";
                 toggleDHH.Content = "DHHを有効にする";
                 toggleConsole.Content = "コンソールを有効にする";
                 labelDist.Content = "不明バージョン";
@@ -284,13 +263,9 @@ namespace InitSetting
                 buttonUserData.Content = "UserData";
                 labelStart.Content = "开始游戏";
                 labelStartS.Content = "开始工作室";
-                labelStartVR.Content = "开始VR";
                 labelM.Content = "游戏手册";
                 labelMS.Content = "工作室手册";
-                labelMV.Content = "VR手册";
-                HoneyPotInspector.Text = "运行 HoneyPot Inspector";
                 toggleFullscreen.Content = "全屏执行";
-                toggleHoneyPot.Content = "激活HoneyPot";
                 toggleDHH.Content = "激活DHH";
                 toggleConsole.Content = "激活控制台";
                 labelDist.Content = "未知版本";
@@ -318,13 +293,9 @@ namespace InitSetting
                 buttonUserData.Content = "UserData";
                 labelStart.Content = "플레이 시작";
                 labelStartS.Content = "스튜디오 시작";
-                labelStartVR.Content = "코이카츠 VR 시작";
                 labelM.Content = "플레이 메뉴얼";
                 labelMS.Content = "스튜디오 메뉴얼";
-                labelMV.Content = "VR 메뉴얼";
-                HoneyPotInspector.Text = "HoneyPot Inspector 시작";
                 toggleFullscreen.Content = "전체화면으로 시작";
-                toggleHoneyPot.Content = "HoneyPot 활성화";
                 toggleDHH.Content = "DHH 활성화";
                 toggleConsole.Content = "콘솔 활성화";
                 labelDist.Content = "알수 없는 설치 메소드";
@@ -352,13 +323,9 @@ namespace InitSetting
                 buttonUserData.Content = "UserData";
                 labelStart.Content = "Iniciar juego";
                 labelStartS.Content = "Iniciar Studio";
-                labelStartVR.Content = "Iniciar VR";
                 labelM.Content = "Manual de juego";
                 labelMS.Content = "Manual de studio";
-                labelMV.Content = "Manual de VR";
-                HoneyPotInspector.Text = "Ejecutar la\nHoneyPot Inspector";
                 toggleFullscreen.Content = "Lanzar Juego en Pantalla Completa";
-                toggleHoneyPot.Content = "Activar HoneyPot";
                 toggleDHH.Content = "Activar DHH";
                 toggleConsole.Content = "Activar consola";
                 labelDist.Content = "Método de Instalación Desconocido";
@@ -386,13 +353,9 @@ namespace InitSetting
                 buttonUserData.Content = "UserData";
                 labelStart.Content = "Iniciar Jogo";
                 labelStartS.Content = "Iniciar Studio";
-                labelStartVR.Content = "Iniciar VR";
                 labelM.Content = "Manual do Jogo";
                 labelMS.Content = "Manual do Studio";
-                labelMV.Content = "Manual do VR";
-                HoneyPotInspector.Text = "Executar HoneyPot Inspector";
                 toggleFullscreen.Content = "Iniciar Jogo em Tela Cheia";
-                toggleHoneyPot.Content = "Ativar HoneyPot";
                 toggleDHH.Content = "Ativar DHH";
                 toggleConsole.Content = "Ativar console";
                 labelDist.Content = "Método de Instalação Desconhecido";
@@ -420,13 +383,9 @@ namespace InitSetting
                 buttonUserData.Content = "UserData";
                 labelStart.Content = "Lancer le jeu";
                 labelStartS.Content = "Lancer le Studio";
-                labelStartVR.Content = "Lancer la VR";
                 labelM.Content = "Manuel de jeu";
                 labelMS.Content = "Manuel du Studio";
-                labelMV.Content = "Manuel de VR";
-                HoneyPotInspector.Text = "Lancer HoneyPot Inspector";
                 toggleFullscreen.Content = "Lancer le jeu en pleins écran";
-                toggleHoneyPot.Content = "Activer HoneyPot";
                 toggleDHH.Content = "Activer DHH";
                 toggleConsole.Content = "Activer la console";
                 labelDist.Content = "Méthode d'installation inconnue";
@@ -454,13 +413,9 @@ namespace InitSetting
                 buttonUserData.Content = "UserData";
                 labelStart.Content = "Starte Spiel";
                 labelStartS.Content = "Starte Studio";
-                labelStartVR.Content = "Starte VR";
                 labelM.Content = "Spiel Bedienungsanleitung";
                 labelMS.Content = "Studio Bedienungsanleitung";
-                labelMV.Content = "VR Bedienungsanleitung";
-                HoneyPotInspector.Text = "";
                 toggleFullscreen.Content = "Starte Spiel in Vollbildmodus";
-                toggleHoneyPot.Content = "HoneyPot umschalten";
                 toggleDHH.Content = "DHH umschalten";
                 toggleConsole.Content = "Konsole umschalten";
                 labelDist.Content = "Unbekannte Installationsmethode";
@@ -488,13 +443,9 @@ namespace InitSetting
                 buttonUserData.Content = "UserData";
                 labelStart.Content = "Start Spill";
                 labelStartS.Content = "Start Studio";
-                labelStartVR.Content = "Start VR";
                 labelM.Content = "Spill manual";
                 labelMS.Content = "Studio manual";
-                labelMV.Content = "VR manual";
-                HoneyPotInspector.Text = "Start HoneyPot Inspector";
                 toggleFullscreen.Content = "Start spill med fullskjerm";
-                toggleHoneyPot.Content = "Aktiver HoneyPot";
                 toggleDHH.Content = "Aktiver DHH";
                 toggleConsole.Content = "Aktiver Konsoll";
                 labelDist.Content = "Ukjent distribusjon";
@@ -522,11 +473,9 @@ namespace InitSetting
             isStudio = File.Exists(m_strCurrentDir + m_strStudioExe);
             isMainGame = File.Exists(m_strCurrentDir + m_strGameExe);
 
-            if(!is64bitOS)
-            {
-                toggle32.IsChecked = true;
-                toggle32.IsEnabled = false;
-            }
+            if (m_strCurrentDir.Length >= 75)
+                MessageBox.Show("The game is installed deep in the file system!\n\nThis can cause a variety of errors, so it's recommended that you move it to a shorter path, something like:\n\nC:\\Illusion\\AI.Shoujo", "Critical warning!");
+
 
             // Customization options
 
@@ -737,18 +686,12 @@ namespace InitSetting
 
         void buttonStart_Click(object sender, RoutedEventArgs e)
         {
-            if(x86 == true)
-                PlayFunc(m_strGameExe32);
-            else
-                PlayFunc(m_strGameExe);
+            PlayFunc(m_strGameExe);
         }
 
         void buttonStartS_Click(object sender, RoutedEventArgs e)
         {
-            if (x86 == true)
-                PlayFunc(m_strStudioExe32);
-            else
-                PlayFunc(m_strStudioExe);
+            PlayFunc(m_strStudioExe);
         }
 
         void buttonStartV_Click(object sender, RoutedEventArgs e)
@@ -931,7 +874,27 @@ namespace InitSetting
                 '\\'
             };
             string text = m_strCurrentDir.TrimEnd(trimChars);
-            text = text.TrimEnd(trimChars2) + "\\UserData\\Studio\\scene";
+            text = text.TrimEnd(trimChars2) + "\\UserData\\UserData";
+            if (Directory.Exists(text))
+            {
+                Process.Start("explorer.exe", text);
+                return;
+            }
+            MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
+        }
+
+        void buttonHousing_Click(object sender, RoutedEventArgs e)
+        {
+            char[] trimChars = new char[]
+            {
+                '/'
+            };
+            char[] trimChars2 = new char[]
+            {
+                '\\'
+            };
+            string text = m_strCurrentDir.TrimEnd(trimChars);
+            text = text.TrimEnd(trimChars2) + "\\UserData\\UserData\\housing";
             if (Directory.Exists(text))
             {
                 Process.Start("explorer.exe", text);
@@ -1272,8 +1235,6 @@ namespace InitSetting
         string m_strStudioRegistry = "Software\\illusion\\PlayHomeStudio\\";
         string m_strGameExe = "PlayHome64bit.exe";
         string m_strStudioExe = "PlayHomeStudio64bit.exe";
-        string m_strGameExe32 = "PlayHome32bit.exe";
-        string m_strStudioExe32 = "PlayHomeStudio32bit.exe";
         string m_strVRExe = "VR GEDOU.exe";
         string m_strManualDir = "/manual/お読み下さい.html";
         string m_strStudioManualDir = "/manual_s/お読み下さい.html";
@@ -1308,7 +1269,8 @@ namespace InitSetting
         bool PatreonExists;
         bool LangExists;
         bool DevExists;
-        bool x86;
+        bool kkmanExist;
+        bool updatelocExists;
 
         bool isIPA;
         bool isBepIn;
@@ -1733,73 +1695,25 @@ namespace InitSetting
 
         private void dhh_Checked(object sender, RoutedEventArgs e)
         {
-            if (File.Exists($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_"))
+            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_"))
             {
-                if (File.Exists($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll"))
+                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll"))
                 {
-                    File.Delete($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll");
+                    File.Delete($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll");
                 }
-                File.Move($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_", $"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll");
+                File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_", $"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll");
             }
         }
 
         private void dhh_Unchecked(object sender, RoutedEventArgs e)
         {
-            if(File.Exists($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll"))
+            if(File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll"))
             {
-                if (File.Exists($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_"))
+                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_"))
                 {
-                    File.Delete($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_");
+                    File.Delete($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_");
                 }
-                File.Move($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll", $"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_");
-            }
-        }
-
-        private void hp_Checked(object sender, RoutedEventArgs e)
-        {
-            if(File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_"))
-                MessageBox.Show("When HoneyPot is enabled, the game will use a bit longer to load in some scenes due to checking for HoneySelect assets, making it appear to be freezing for a few seconds. This is completely normal.\n\nJust disable this option again if you would rather not have that freeze.", "Information");
-            if (File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_"))
-            {
-                if (File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dll"))
-                {
-                    File.Delete($"{m_strCurrentDir}\\Plugins\\HoneyPot.dll");
-                }
-                File.Move($"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_", $"{m_strCurrentDir}\\Plugins\\HoneyPot.dll");
-            }
-            
-        }
-
-        private void hp_Unchecked(object sender, RoutedEventArgs e)
-        {
-            if (File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dll"))
-            {
-                if (File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_"))
-                {
-                    File.Delete($"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_");
-                }
-                File.Move($"{m_strCurrentDir}\\Plugins\\HoneyPot.dll", $"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_");
-            }
-        }
-
-        private void toggle32_Checked(object sender, RoutedEventArgs e)
-        {
-            x86 = true;
-            if (!File.Exists($"{m_customDir}{m_customDir}/toggle32.txt"))
-            {
-                using (StreamWriter writetext = new StreamWriter($"{m_strCurrentDir}{m_customDir}/toggle32.txt"))
-                {
-                    writetext.WriteLine("x86");
-                }
-            }
-        }
-
-        private void toggle32_Unchecked(object sender, RoutedEventArgs e)
-        {
-            x86 = false;
-            if (File.Exists($"{m_strCurrentDir}{m_customDir}/toggle32.txt"))
-            {
-                File.Delete($"{m_strCurrentDir}{m_customDir}/toggle32.txt");
+                File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll", $"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_");
             }
         }
 
