@@ -6,13 +6,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{5AF75EC6-4B19-4507-AF25-742AFBCBF45D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>InitDialogEN</RootNamespace>
+    <RootNamespace>InitDialog</RootNamespace>
     <AssemblyName>InitSetting</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60DC8134-EBA5-43B8-BCC9-BB4BC16C2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <ApplicationIcon>InitSetting.ico</ApplicationIcon>
+    <ApplicationIcon>images\icon.ico</ApplicationIcon>
     <StartupObject>InitDialog.App</StartupObject>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -29,7 +29,8 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -40,6 +41,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -49,6 +51,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -113,10 +116,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\transBG.png" />
+    <Resource Include="images\Discord.png" />
     <Resource Include="images\LauncherBG.png" />
     <Resource Include="images\Chara.png" />
-    <Resource Include="images\ModernDiscord_small.png" />
-    <Resource Include="images\ModernPatreon_small.png" />
+    <Resource Include="images\Patreon.png" />
     <Resource Include="images\Flags\brazil.png" />
     <Resource Include="images\Flags\china.png" />
     <Resource Include="images\Flags\france.png" />
@@ -126,7 +129,12 @@
     <Resource Include="images\Flags\south-korea.png" />
     <Resource Include="images\Flags\spain.png" />
     <Resource Include="images\Flags\united-kingdom.png" />
-    <Content Include="InitSetting.ico" />
+    <Resource Include="images\ModernDiscord_small.png" />
+    <Resource Include="images\ModernDL_small.png" />
+    <Resource Include="images\ModernPatreon_small.png" />
+    <Resource Include="images\ButtonBG\manual.png" />
+    <Resource Include="images\ButtonBG\startGame.png" />
+    <Resource Include="images\ButtonBG\startStudio.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
@@ -134,6 +142,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\AILogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\EC_Logo.png" />
   </ItemGroup>
   <Import Project="..\SharedCode\SharedCode.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,489 +1,193 @@
-<windows:Window
-	x:Class="InitDialog.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    x:Name="mainApp"
-	Title="Emotion Creators Launcher"
-	Height="591"
-	Width="871"
-	WindowStartupLocation="CenterScreen"
-	FontFamily="MS Gothic"
-	FontSize="22"
-	Foreground="#FF00E4E3"
-	Visibility="Visible"
-	BorderBrush="#FF00FFFE"
-	OpacityMask="#FFCF00FF"
-	WindowStyle="ToolWindow"
-	ResizeMode="NoResize"
-	Background="#FF000000" xmlns:initdialog="clr-namespace:InitDialog" xmlns:windows="clr-namespace:System.Windows;assembly=PresentationFramework"
-	Closed="MenuCloseButton">
-    <Grid
-		Background="#FFD4D0C8"
-		Margin="0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <Image 
-            x:Name="appBG"
-            HorizontalAlignment="Left" 
-            Height="563" 
-            VerticalAlignment="Bottom" 
-            Width="865" 
-            Source="images/launcherBG.png"/>
-        <Image x:Name="image" HorizontalAlignment="Left" Height="637.25" Margin="-63.08,-57.5,-16.231,-16.75" VerticalAlignment="Top" Width="944.311" Source="images/transBG.png" Stretch="Fill" Opacity="0.4"/>
-        <Image 
-            x:Name="PackChara"
-            Source="images/Chara.png" 
-            Margin="599,218.25,0,0"/>
-        <Rectangle Fill="#3F000000" HorizontalAlignment="Left" Height="59.999" Margin="281.843,519.751,0,-16.75" Stroke="#7FE00000" VerticalAlignment="Top" Width="268.75" RadiusX="20" RadiusY="11"/>
-        <GroupBox
-            x:Name="GameSBox"
-			Header="Game Startup"
-			HorizontalAlignment="Left"
-			Height="69.669"
-			Margin="5.198,321.953,0,0"
-			VerticalAlignment="Top"
-			Width="441.033"
-			Foreground="White"
-			FontFamily="Meiryo UI"
-			FontSize="16" />
-        <GroupBox
-            x:Name="GameFBox"
-            Header="Game folders"
-            HorizontalAlignment="Left"
-            Height="109.75"
-            Margin="5.587,210,0,0"
-            VerticalAlignment="Top"
-            Width="440.644"
-            Foreground="White"
-            FontFamily="Meiryo UI"
-            FontSize="16" />
-        <GroupBox
-            x:Name="SettingsBox"
-            Header="Settings"
-            HorizontalAlignment="Left"
-            Height="202.583"
-            Margin="589,5,0,0"
-            VerticalAlignment="Top"
-            Width="266"
-            Foreground="White"
-            FontFamily="Meiryo UI"
-            FontSize="16" Background="#FFB38F5E" />
-        <GroupBox
-            x:Name="warnBox"
-			Header="Notice!"
-			Height="202.583"
-			Margin="5,5,0,0"
-			VerticalAlignment="Top"
-			Foreground="White"
-			BorderBrush="#FF000000"
-			BorderThickness="2"
-			FontFamily="MS UI Gothic"
-			FontSize="14"
-			RenderTransformOrigin="0.5,0.5"
-			HorizontalAlignment="Left"
-			Width="579" Background="#FFB38F5E" />
-        <TextBlock
-            x:Name="warningText"
-			HorizontalAlignment="Left"
-			Margin="13,15,0,0"
-			VerticalAlignment="Top"
-			Height="190"
-			Width="571"
-			FontSize="16"
-			Padding="10,15,10,0"
-			RenderTransformOrigin="0.5,0.5"
-			Foreground="White"
-			FontFamily="Arial"
-			TextWrapping="Wrap"
-			TextDecorations="{x:Null}"><Run Text="This game is intended for adult audiences, no person under the age of 18 (or equivalent according to local law) are supposed to play or be in possession of this game."/><LineBreak/><Run/><LineBreak/><Run Text="This game contains content of a sexual nature, and some of the actions depicted within may be illegal to replicate in real life. Aka, it's all fun and games in the game, let's keep it that way shall we? (~.~)v"/></TextBlock>
-        <ComboBox
-			Name="ResolutionBox"
-			Margin="599,25,0,0"
-			Background="#FFFFFFFF"
-			RenderTransformOrigin="0.5,0.5"
-			FontSize="12"
-			Padding="0,4,5,3"
-			ScrollViewer.CanContentScroll="False"
-			MaxDropDownHeight="240"
-			BorderBrush="#FF000000"
-			FontFamily="MS UI Gothic"
-			TabIndex="0"
-			VerticalContentAlignment="Center"
-			HorizontalContentAlignment="Center"
-			Height="25"
-			VerticalAlignment="Top"
-			HorizontalAlignment="Left"
-			Width="246"
-			SelectionChanged="Resolution_Change" />
-        <CheckBox
-			Name="modeFenetre"
-			Content="Run Game in Fullscreen"
-			VerticalAlignment="Top"
-			Height="26"
-			FontFamily="Arial"
-			FontSize="18"
-			BorderThickness="1"
-			Padding="5,0,0,4"
-			Background="#FFFFFFFF"
-			RenderTransformOrigin="-0.25,6.269"
-			BorderBrush="#FF646464"
-			Foreground="White"
-			Margin="609,115,0,0"
-			IsHitTestVisible="True"
-			VerticalContentAlignment="Center"
-			TabIndex="1"
-			HorizontalAlignment="Left"
-			Width="236"
-			Unchecked="windowUnChecked"
-			Checked="windowChecked" />
-        <CheckBox
-			Name="modeDev"
-			Content="Developer Mode"
-			VerticalAlignment="Top"
-			Height="26"
-			FontFamily="Arial"
-			FontSize="18"
-			BorderThickness="1"
-			Padding="5,0,0,4"
-			Background="#FFFFFFFF"
-			RenderTransformOrigin="-0.25,6.269"
-			BorderBrush="#FF646464"
-			Foreground="White"
-			Margin="609,138.25,0,0"
-			IsHitTestVisible="True"
-			VerticalContentAlignment="Center"
-			TabIndex="1"
-			HorizontalAlignment="Left"
-			Width="236"
-			Unchecked="modeDev_Unchecked"
-			Checked="modeDev_Checked" />
-        <ComboBox
-			Name="QualityBox"
-			Margin="599,55,0,0"
-			Background="#FFFFFFFF"
-			FontSize="12"
-			Padding="0,4,5,3"
-			ScrollViewer.CanContentScroll="False"
-			BorderBrush="#FF000000"
-			FontFamily="MS UI Gothic"
-			HorizontalContentAlignment="Center"
-			TabIndex="2"
-			VerticalContentAlignment="Center"
-			Height="25"
-			VerticalAlignment="Top"
-			HorizontalAlignment="Left"
-			Width="246"
-			SelectionChanged="Quality_Change" />
-        <ComboBox
-			Name="DisplayBox"
-			HorizontalAlignment="Left"
-			Margin="599,85,0,0"
-			VerticalAlignment="Top"
-			Width="246"
-			Height="25"
-			BorderBrush="#FF000000"
-			FontFamily="MS UI Gothic"
-			FontSize="12"
-			ScrollViewer.CanContentScroll="False"
-			HorizontalContentAlignment="Center"
-			Padding="0,4,5,3"
-			VerticalContentAlignment="Center"
-			TabIndex="3"
-			Background="#FFFFFFFF"
-			SelectionChanged="Display_Change" />
-        <Button
-			Name="PLAY"
-			Content="Start Game"
-			Margin="19,346.047,0,0"
-			RenderTransformOrigin="0.5,0.5"
-			FontFamily="MS UI Gothic"
-			FontSize="16"
-			TabIndex="4"
-			Padding="0,0,1,1"
-			Height="35"
-			VerticalAlignment="Top"
-			HorizontalAlignment="Left"
-			Width="135"
-			Click="PLAY_Click">
-            <UIElement.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform />
-                    <SkewTransform />
-                    <RotateTransform />
-                    <TranslateTransform />
-                </TransformGroup>
-            </UIElement.RenderTransform>
-        </Button>
-        <Button
-			x:Name="OfflineManual_Open"
-			Content="Offline Manual"
-			Margin="159,346.047,0,0"
-			RenderTransformOrigin="0.5,0.5"
-			FontFamily="MS UI Gothic"
-			FontSize="16"
-			TabIndex="5"
-			Height="35"
-			VerticalAlignment="Top"
-			HorizontalAlignment="Left"
-			Width="135"
-			Click="ManualOpenOffline">
-            <UIElement.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform />
-                    <SkewTransform />
-                    <RotateTransform />
-                    <TranslateTransform />
-                </TransformGroup>
-            </UIElement.RenderTransform>
-        </Button>
-        <Button
-			Name="SystemInfo"
-			Content="System info"
-			HorizontalAlignment="Left"
-			Margin="599,164.25,0,0"
-			VerticalAlignment="Top"
-			Width="110"
-			Height="35"
-			FontFamily="MS UI Gothic"
-			FontSize="16"
-			TabIndex="6"
-			Click="SystemInfo_Open" />
-        <Button
-			Name="EXIT"
-			Content="Exit"
-			Margin="735,164.25,0,0"
-			FontFamily="MS UI Gothic"
-			FontSize="16"
-			RenderTransformOrigin="0.5,0.5"
-			TabIndex="8"
-			HorizontalAlignment="Left"
-			Width="110"
-			Height="35"
-			VerticalAlignment="Top"
-            IsCancel="true"
-			Click="Exit_Click" />
-        <Button
-			Name="CharaDirectory"
-			Content="Character Cards"
-			HorizontalAlignment="Left"
-			Margin="159,235.25,0,0"
-			VerticalAlignment="Top"
-			Width="135"
-			Height="35"
-			FontFamily="MS UI Gothic"
-			FontSize="16"
-			RenderTransformOrigin="0.5,0.5"
-			TabIndex="7"
-			Click="AISCharaDir_Open" />
-        <Button
-			Name="ScreenShotDirectory"
-			Content="ScreenShots"
-			HorizontalAlignment="Left"
-			Margin="19,275.25,0,0"
-			VerticalAlignment="Top"
-			Width="135"
-			Height="35"
-			FontFamily="MS UI Gothic"
-			FontSize="16"
-			RenderTransformOrigin="0.5,0.5"
-			TabIndex="7"
-			Click="AISSSDir_Open" />
-        <Button
-			Name="PosesDirectory"
-			Content="Poses"
-			HorizontalAlignment="Left"
-			Margin="159,275.25,0,0"
-			VerticalAlignment="Top"
-			Width="135"
-			Height="35"
-			FontFamily="MS UI Gothic"
-			FontSize="16"
-			RenderTransformOrigin="0.5,0.5"
-			TabIndex="7"
-			Click="Poses_Open" />
-        <Button
-			Name="MapsDirectory"
-			Content="Maps"
-			HorizontalAlignment="Left"
-			Margin="299,275.25,0,0"
-			VerticalAlignment="Top"
-			Width="135"
-			Height="35"
-			FontFamily="MS UI Gothic"
-			FontSize="16"
-			RenderTransformOrigin="0.5,0.5"
-			TabIndex="7"
-			Click="Maps_Open" />
-        <Button
-			Name="InstallDirectory"
-			Content="Install"
-			HorizontalAlignment="Left"
-			Margin="19,235.25,0,0"
-			VerticalAlignment="Top"
-			Width="135"
-			Height="35"
-			FontFamily="MS UI Gothic"
-			FontSize="16"
-			TabIndex="6"
-			Click="InstallDir_Open" />
-        <Button
-			Name="SceneDirectory"
-			Content="Scenes"
-			HorizontalAlignment="Left"
-			Margin="299,235.25,0,0"
-			VerticalAlignment="Top"
-			Width="135"
-			Height="35"
-			FontFamily="MS UI Gothic"
-			FontSize="16"
-			TabIndex="6"
-			Click="SceneDir_Open" />
-        <Button
-			x:Name="OnlineManual_Open"
-			Content="Online Manual"
-			Margin="299,346.047,0,0"
-			RenderTransformOrigin="0.5,0.5"
-			FontFamily="MS UI Gothic"
-			FontSize="16"
-			TabIndex="5"
-			Height="35"
-			VerticalAlignment="Top"
-			HorizontalAlignment="Left"
-			Width="135"
-			Click="ManualOpenOnline">
-            <UIElement.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform />
-                    <SkewTransform />
-                    <RotateTransform />
-                    <TranslateTransform />
-                </TransformGroup>
-            </UIElement.RenderTransform>
-        </Button>
-        <Image 
-            HorizontalAlignment="Left" 
-            Height="42.833" 
-            Margin="19.333,507.651,0,0" 
-            VerticalAlignment="Top" 
-            Width="40.726" 
-            MouseLeftButtonDown="discord_MouseLeftButtonDown" 
-            Source="images/ModernDiscord_small.png"/>
-        <Image 
-            x:Name="PatreonButton"
-            HorizontalAlignment="Left" 
-            Height="42.833" 
-            Width="40.726" 
-            Margin="74.333,510.167,0,0" 
-            VerticalAlignment="Top" 
-            MouseLeftButtonDown="patreon_MouseLeftButtonDown" 
-            Source="images/ModernPatreon_small.png"/>
-        <TextBlock 
-            x:Name="Versioning" 
-            Margin="10,0,11.917,0" 
-            TextWrapping="Wrap" 
-            VerticalAlignment="Top" 
-            FontFamily="Arial" 
-            FontSize="12" 
-            TextAlignment="Right" 
-            Foreground="White" 
-            Text="Unknown Install Method"/>
-        <TextBlock 
-            x:Name="TransCred" 
-            Margin="110.667,0,11.917,0" 
-            TextWrapping="Wrap" 
-            VerticalAlignment="Top" 
-            FontFamily="Arial" 
-            FontSize="12" 
-            TextAlignment="Left" 
-            Foreground="White" 
-            ><Run Text="Launcher translated by"/><Run Text="...."/></TextBlock>
-        <Image 
-            x:Name="English" 
-            HorizontalAlignment="Left" 
-            Height="23.625" 
-            Width="24.059" 
-            Margin="286.725,529.375,0,0" 
-            VerticalAlignment="Top"
-            Source="images/Flags/united-kingdom.png" 
-            MouseLeftButtonDown="langEnglish"/>
-        <Image 
-            x:Name="Japanese" 
-            HorizontalAlignment="Left" 
-            Height="23.625" 
-            Width="24.059" 
-            Margin="315.784,529.375,0,0" 
-            VerticalAlignment="Top" 
-            Source="images/Flags/japan.png" 
-            MouseLeftButtonDown="langJapanese" 
-            Stretch="UniformToFill"/>
-        <Image 
-            x:Name="Chinese" 
-            HorizontalAlignment="Left" 
-            Height="23.625" 
-            Width="24.059" 
-            Margin="344.843,529.375,0,0" 
-            VerticalAlignment="Top" 
-            Source="images/Flags/china.png" 
-            MouseLeftButtonDown="langChinese" 
-            Stretch="UniformToFill"/>
-        <Image 
-            x:Name="Korean" 
-            HorizontalAlignment="Left" 
-            Height="23.625" 
-            Width="24.059" 
-            Margin="373.902,529.375,0,0" 
-            VerticalAlignment="Top" 
-            Source="images/Flags/south-korea.png" 
-            MouseLeftButtonDown="langKorean" 
-            Stretch="UniformToFill"/>
-        <Image 
-            x:Name="Spanish" 
-            HorizontalAlignment="Left" 
-            Height="23.625" 
-            Width="24.059" 
-            Margin="402.961,529.375,0,0" 
-            VerticalAlignment="Top" 
-            Source="images/Flags/spain.png" 
-            MouseLeftButtonDown="langSpanish" 
-            Stretch="UniformToFill"/>
-        <Image 
-            x:Name="Brazil" 
-            HorizontalAlignment="Left" 
-            Height="23.625" 
-            Width="24.059" 
-            Margin="432.02,529.375,0,0" 
-            VerticalAlignment="Top" 
-            Source="images/Flags/brazil.png" 
-            MouseLeftButtonDown="langBrazil" 
-            Stretch="UniformToFill"/>
-        <Image 
-            x:Name="French" 
-            HorizontalAlignment="Left" 
-            Height="23.625" 
-            Width="24.059" 
-            Margin="462.02,529.375,0,0" 
-            VerticalAlignment="Top" 
-            Source="images/Flags/france.png" 
-            MouseLeftButtonDown="langFrench" 
-            Stretch="UniformToFill"/>
-        <Image 
-            x:Name="German" 
-            HorizontalAlignment="Left" 
-            Height="23.625" 
-            Width="24.059" 
-            Margin="491.333,529.375,0,0" 
-            VerticalAlignment="Top" 
-            Source="images/Flags/germany.png" 
-            MouseLeftButtonDown="langGerman" 
-            Stretch="UniformToFill"/>
-        <Image 
-            x:Name="Norwegian" 
-            HorizontalAlignment="Left" 
-            Height="23.625" 
-            Width="24.059" 
-            Margin="520.392,529.375,0,0" 
-            VerticalAlignment="Top" 
-            Source="images/Flags/norway.png" 
-            MouseLeftButtonDown="langNorwegian" 
-            Stretch="UniformToFill"/>
+<Window x:Class="InitSetting.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InitSetting"
+        mc:Ignorable="d"
+        Title="AI Shoujo Launcher"
+	    Height="600"
+	    Width="900"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        MouseLeftButtonDown="Window_MouseDown"
+        BorderBrush="Black"
+        BorderThickness="1">
+    <Window.Resources>
+        <Style x:Key="fie" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <TextBlock Text="{TemplateBinding Content}" FontSize="20" TextWrapping="Wrap"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="buttonHover" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="3"/>
+            <Setter Property="BorderBrush" Value="#FF7D8118"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" Background="{TemplateBinding Background}" BorderThickness="2" BorderBrush="#FF7D8118" CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsPressed" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#33FF0000" />
+                                <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                                <Setter Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#337D8118"/>
+                                <Setter Property="BorderThickness" Value="3"/>
+                                <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="GameButtonsLabel" TargetType="Label">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush x:Name="appBG" ImageSource="Images/LauncherBG.png"/>
+        </Grid.Background>
+
+        <Grid HorizontalAlignment="Left" Height="102" VerticalAlignment="Top" Width="898">
+            <Border HorizontalAlignment="Left" Height="34" Margin="351.994,22.333,0,0" VerticalAlignment="Top" Width="219.839" ClipToBounds="True" Background="Black">
+                <Border.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="-40"/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Border.RenderTransform>
+                <Image x:Name="image" Source="Images/ButtonBG/startGame.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Stretch="None">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleX="40"/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </Border>
+
+            <Label Style="{StaticResource GameButtonsLabel}" x:Name="labelStart" Content="Start Game" HorizontalAlignment="Left" Margin="351.833,22.333,0,0" VerticalAlignment="Top" Width="190" Height="34"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonStart" Content="" HorizontalAlignment="Left" Height="36" Margin="350.833,21.333,0,0" VerticalAlignment="Top" Width="223" Click="buttonStart_Click">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="-40"/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
+            <Border  HorizontalAlignment="Left" Height="20.333" Margin="269.666,66.583,0,0" VerticalAlignment="Top" Width="170.417" Background="Black">
+                <Image x:Name="idmssage2" Source="Images/ButtonBG/manual.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right"/>
+            </Border>
+            <Label x:Name="labelM" Foreground="White" VerticalContentAlignment="Center" Content="Game Manual" HorizontalAlignment="Left" Margin="273.833,64.833,0,0" VerticalAlignment="Top" Height="24" Width="134"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonManual" Content="" HorizontalAlignment="Left" Height="24" Margin="267.833,64.833,0,0" VerticalAlignment="Top" Width="174" Click="buttonManual_Click"/>
+            <Border  HorizontalAlignment="Left" Height="20.333" Margin="448.666,66.583,0,0" VerticalAlignment="Top" Width="170.417" Background="Black">
+                <Image x:Name="idmssage1" Source="images/ButtonBG/manual.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right"/>
+            </Border>
+            <Label x:Name="labelM_Copy" Foreground="White" VerticalContentAlignment="Center" Content="Game Manual" HorizontalAlignment="Left" Margin="452.833,64.833,0,0" VerticalAlignment="Top" Height="24" Width="134"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonManual_Copy" Content="" HorizontalAlignment="Left" Height="24" Margin="446.833,64.833,0,0" VerticalAlignment="Top" Width="174" Click="buttonManual_Click"/>
+        </Grid>
+        <Image x:Name="PackChara" HorizontalAlignment="Left" Height="378" Margin="322,220,0,0" VerticalAlignment="Top" Width="255" Source="Images/Chara.png"/>
+        <Grid HorizontalAlignment="Left" Height="491" Margin="0,107,0,0" VerticalAlignment="Top" Width="322">
+            <Border BorderBrush="#FF7D8118" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left" Height="276" Margin="-41,48,0,0" VerticalAlignment="Top" Width="84" CornerRadius="3"/>
+            <Image x:Name="flagEN" HorizontalAlignment="Left" Height="22" Margin="10,60,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/united-kingdom.png" MouseLeftButtonDown="langEnglish"/>
+            <Image x:Name="flagJA" HorizontalAlignment="Left" Height="24" Margin="10,88,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/japan.png" MouseLeftButtonDown="langJapanese"/>
+            <Image x:Name="flagCH" HorizontalAlignment="Left" Height="22" Margin="10,118,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/china.png" MouseLeftButtonDown="langChinese"/>
+            <Image x:Name="flagKO" HorizontalAlignment="Left" Height="24" Margin="10,146,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/south-korea.png" MouseLeftButtonDown="langKorean"/>
+            <Image x:Name="flagSP" HorizontalAlignment="Left" Height="24" Margin="10,176,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/spain.png" MouseLeftButtonDown="langSpanish"/>
+            <Image x:Name="flagBR" HorizontalAlignment="Left" Height="24" Margin="10,204,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/brazil.png" MouseLeftButtonDown="langBrazil"/>
+            <Image x:Name="flagFR" HorizontalAlignment="Left" Height="24" Margin="10,234,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/france.png" MouseLeftButtonDown="langFrench"/>
+            <Image x:Name="flagGE" HorizontalAlignment="Left" Height="24" Margin="10,262,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/germany.png" MouseLeftButtonDown="langGerman"/>
+            <Image x:Name="flagNO" HorizontalAlignment="Left" Height="24" Margin="10,292,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/norway.png" MouseLeftButtonDown="langNorwegian"/>
+            <Border BorderBrush="#FF7D8118" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left" Height="196.333" Margin="52,169,0,0" VerticalAlignment="Top" Width="247" CornerRadius="3">
+            </Border>
+            <CheckBox x:Name="toggleFullscreen" Content="Play game in fullscreen" Foreground="White" VerticalContentAlignment="Center" Margin="58,176.333,30,298.667" Checked="windowChecked" Unchecked="windowUnChecked"/>
+            <CheckBox x:Name="toggleConsole" Content="Activate Console" Foreground="White" VerticalContentAlignment="Center" Margin="58,192.333,30,282.667" Checked="modeDev_Checked" Unchecked="modeDev_Unchecked"/>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="491" Margin="576,107,0,0" VerticalAlignment="Top" Width="322">
+            <Grid HorizontalAlignment="Left" Height="156" Margin="-533,19,0,0" VerticalAlignment="Top" Width="265">
+                <Border BorderBrush="#FF7D8118" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left" Height="136" Margin="10,10,0,0" VerticalAlignment="Top" Width="246" CornerRadius="3">
+                    <Grid x:Name="CustomRes" Margin="0,88,0,8">
+                        <TextBox x:Name="boxHeight" IsEnabled="False" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="23" Margin="10.667,4.501,0,0" TextWrapping="Wrap" Text="Height" VerticalAlignment="Top" Width="92"/>
+                        <TextBox x:Name="boxWidth" IsEnabled="False" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="23" Margin="136.667,4.501,0,0" TextWrapping="Wrap" Text="Width" VerticalAlignment="Top" Width="91"/>
+                        <Label x:Name="labelCustRes" Foreground="#FF7D8118" Content="X" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="108.667,4.501,0,0" VerticalAlignment="Top" Height="23" Width="22"/>
+                    </Grid>
+                </Border>
+                <ComboBox x:Name="dropQual" HorizontalAlignment="Left" Margin="23,23,0,0" VerticalAlignment="Top" Width="217" SelectionChanged="Quality_Change"/>
+                <ComboBox x:Name="dropDisplay" HorizontalAlignment="Left" Margin="23,50,0,0" VerticalAlignment="Top" Width="217" SelectionChanged="Display_Change"/>
+                <ComboBox x:Name="dropRes" HorizontalAlignment="Left" Margin="23,77,0,0" VerticalAlignment="Top" Width="217" SelectionChanged="Resolution_Change"/>
+
+            </Grid>
+            <Grid HorizontalAlignment="Left" Height="329" Margin="10,19,0,0" VerticalAlignment="Top" Width="302">
+                <Border BorderBrush="#FF7D8118" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left" Height="197" Margin="10,10,0,0" VerticalAlignment="Top" Width="282" CornerRadius="3">
+                    <TextBlock Foreground="White" x:Name="warningText" TextWrapping="Wrap" Margin="8"><Run Text="This game is intended for adult audiences, no person under the age of 18 (or equivalent according to local law) are supposed to play or be in possession of this game."/><LineBreak/><Run/><LineBreak/><Run Text="This game contains content of a sexual nature, and some of the actions depicted within may be illegal to replicate in real life. Aka, it's all fun and games in the game, let's keep it that way shall we? (~.~)v"/></TextBlock>
+                </Border>
+            </Grid>
+            <Grid Margin="-431,446,19,10">
+                <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Right" VerticalAlignment="Top" MaxWidth="600" Margin="0,5,5,0" CornerRadius="5" Background="#BF000002">
+                    <Label x:Name="labelDist" Content="Unknown distribution" Foreground="White"/>
+                </Border>
+            </Grid>
+            <Grid x:Name="TransCred" Margin="-431,411,19,45">
+                <Border x:Name="labelTranslatedBorder" BorderBrush="White" BorderThickness="1" HorizontalAlignment="Right" VerticalAlignment="Top" MaxWidth="700" Margin="0,5,5,0" CornerRadius="5" Background="#BF000002">
+                    <Label x:Name="labelTranslated" Content="Launcher translated by..." Foreground="White"/>
+                </Border>
+            </Grid>
+            <Border BorderBrush="#FF7D8118" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left" Height="131.333" Margin="21,231,0,0" VerticalAlignment="Top" Width="282" CornerRadius="3">
+            </Border>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonInst" FontSize="10" Content="Install Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="129.516" Margin="28.625,241.71,0,0" Click="buttonInst_Click"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonHousing" FontSize="10" Content="Houses Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="129.517" Margin="164.358,241.71,0,0" Click="buttonHousing_Click"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonScenes" FontSize="10" Content="Scenes Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="129.516" Margin="28.625,270.71,0,0" Click="buttonScenes_Click"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonScreenshot" FontSize="10" Content="Screenshots Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="129.517" Margin="164.358,270.71,0,0" Click="buttonScreenshot_Click"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonFemaleCard" FontSize="10" Content="Female Card Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="129.516" Margin="28.625,299.71,0,0" Click="buttonFemaleCard_Click"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonMaleCard" FontSize="10" Content="Male Card Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="129.517" Margin="164.358,299.71,0,0" Click="buttonMaleCard_Click"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonUserData" FontSize="10" Content="UserData Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="265.25" Margin="28.625,328.71,0,0" Click="buttonUserData_Click"/>
+        </Grid>
+        <Image x:Name="image2" HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="283.333" Source="images/EC_Logo.png" Margin="313.5,102,301.167,0"/>
+        <Button Style="{StaticResource buttonHover}" x:Name="buttonClose" Content="X" HorizontalAlignment="Left" Margin="856,10,0,0" VerticalAlignment="Top" Width="32" Height="28" Click="buttonClose_Click" IsCancel="true"/>
+        <Grid x:Name="gridDiscord" HorizontalAlignment="Left" Height="36.333" Margin="-40.584,556.667,0,0" VerticalAlignment="Top" Width="189.917">
+            <Border BorderBrush="#FF7D8118" Background="Black" BorderThickness="2" HorizontalAlignment="Left" Height="37" Margin="0,0,-0.083,0" VerticalAlignment="Top" Width="190" CornerRadius="20">
+                <Label x:Name="labelDiscord" Content="Visit Discord" Foreground="White" VerticalContentAlignment="Center" Padding="50,0,0,0"/>
+            </Border>
+            <Image x:Name="images3" HorizontalAlignment="Left" Height="25" Margin="151,6,0,0" VerticalAlignment="Top" Width="24" Source="images/ModernDiscord_small.png"/>
+            <Rectangle x:Name="linkDiscord" Fill="Transparent" HorizontalAlignment="Left" Height="37" Margin="0,0,-0.083,0" VerticalAlignment="Top" Width="190" MouseLeftButtonDown="discord_MouseLeftButtonDown"/>
+        </Grid>
+        <Grid x:Name="gridPatreon" HorizontalAlignment="Left" Height="36.333" Margin="-40.584,515.334,0,0" VerticalAlignment="Top" Width="189.917">
+            <Border x:Name="patreonBorder" BorderBrush="#FF7D8118" Background="Black" BorderThickness="2" HorizontalAlignment="Left" Height="37" Margin="-0.083,0,0,-0.667" VerticalAlignment="Top" Width="190" CornerRadius="20">
+                <Label x:Name="labelPatreon" Content="Visit Patreon" Foreground="White" VerticalContentAlignment="Center" Padding="50,0,0,0" Margin="-2"/>
+            </Border>
+            <Image x:Name="patreonIMG" HorizontalAlignment="Left" Height="28" Margin="150.917,6,0,0" VerticalAlignment="Top" Width="24" Source="images/ModernPatreon_small.png"/>
+            <Rectangle x:Name="linkPatreon" Fill="Transparent" HorizontalAlignment="Left" Height="37" Margin="-0.083,0,0,-0.667" VerticalAlignment="Top" Width="190" MouseLeftButtonDown="patreon_MouseLeftButtonDown"/>
+        </Grid>
+        <Grid x:Name="gridUpdate" HorizontalAlignment="Left" Height="36.333" Margin="-40.584,474.001,0,0" VerticalAlignment="Top" Width="189.917">
+            <Border BorderBrush="#FF7D8118" Background="Black" BorderThickness="2" HorizontalAlignment="Left" Height="37" Margin="-0.083,0,0,-0.667" VerticalAlignment="Top" Width="190" CornerRadius="20">
+                <Label x:Name="labelUpdate" Content="Update" Foreground="White" VerticalContentAlignment="Center" Padding="50,0,0,0" Margin="-2"/>
+            </Border>
+            <Image x:Name="imasge3" HorizontalAlignment="Left" Height="28" Margin="150.917,5,0,0" VerticalAlignment="Top" Width="24" Source="images/ModernDL_small.png"/>
+            <Rectangle x:Name="linkUpdate" Fill="Transparent" HorizontalAlignment="Left" Height="37" Margin="-0.083,0,0,-0.667" VerticalAlignment="Top" Width="190" MouseLeftButtonDown="update_MouseLeftButtonDown"/>
+        </Grid>
+
     </Grid>
-</windows:Window>
+</Window>

@@ -1,24 +1,23 @@
-﻿using System;
-using System.CodeDom.Compiler;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Management;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
-using System.Windows.Markup;
 using System.Windows.Media.Imaging;
 using System.Xml.Serialization;
-using System.Linq;
-using Microsoft.Win32;
 using MessageBox = System.Windows.Forms.MessageBox;
+using System.Windows.Input;
 
-namespace InitDialog
+namespace InitSetting
 {
     public partial class MainWindow : Window
     {
@@ -72,23 +71,88 @@ namespace InitDialog
                 }
             }
 
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+
             startup = true;
 
+            //temp hide unimplemented stuffs
+            CustomRes.Visibility = Visibility.Hidden;
+
             Directory.CreateDirectory(m_strCurrentDir + m_customDir);
+
+            if (!File.Exists(m_strCurrentDir + m_customDir + kkmdir))
+            {
+
+            }
+
+            // Framework test
+            isIPA = File.Exists($"{m_strCurrentDir}\\IPA.exe");
+            isBepIn = Directory.Exists($"{m_strCurrentDir}\\BepInEx");
+
+            if (isIPA && isBepIn)
+                MessageBox.Show("Both BepInEx and IPA is detected in the game folder!\n\nApplying both frameworks may lead to problems when running the game!", "Warning!");
 
             // Check if dev mode is active
 
             if (!File.Exists(m_strCurrentDir + "/Bepinex/config/BepInEx.cfg"))
             {
-                modeDev.IsEnabled = false;
+                toggleConsole.IsEnabled = false;
                 File.Delete(m_strCurrentDir + m_customDir + "/devMode");
             }
 
             DevExists = File.Exists(m_strCurrentDir + m_customDir + "/devMode");
             if (DevExists)
             {
-                modeDev.IsChecked = true;
+                toggleConsole.IsChecked = true;
             }
+
+
+            // Updater stuffs
+
+            kkmanExist = File.Exists(m_strCurrentDir + m_customDir + kkmdir);
+            updatelocExists = File.Exists(m_strCurrentDir + m_customDir + updateLoc);
+            if (kkmanExist)
+            {
+                var kkmanFileStream = new FileStream(m_strCurrentDir + m_customDir + kkmdir, FileMode.Open, FileAccess.Read);
+                using (var streamReader = new StreamReader(kkmanFileStream, Encoding.UTF8))
+                {
+                    string line;
+                    while ((line = streamReader.ReadLine()) != null)
+                    {
+                        kkman = line;
+                    }
+                }
+                kkmanFileStream.Close();
+                if (updatelocExists)
+                {
+                    var updFileStream = new FileStream(m_strCurrentDir + m_customDir + updateLoc, FileMode.Open, FileAccess.Read);
+                    using (var streamReader = new StreamReader(updFileStream, Encoding.UTF8))
+                    {
+                        string line;
+                        while ((line = streamReader.ReadLine()) != null)
+                        {
+                            updated = line;
+                        }
+                    }
+                    updFileStream.Close();
+                }
+                else
+                {
+                    updated = "https://mega.nz/#F!LH5iwKxR!d_ztxVonEesY-ckOI_bfSw";
+                }
+            }
+            else
+            {
+                gridUpdate.Visibility = Visibility.Hidden;
+            }
+
+            if (!File.Exists(m_strCurrentDir + m_customDir + kkmdir))
+            {
+
+            }
+
+            // Mod settings
+
 
             startup = false;
 
@@ -107,36 +171,37 @@ namespace InitDialog
                 verFileStream.Close();
             }
 
-            TransCred.Visibility = Visibility.Hidden;
+            labelTranslated.Visibility = Visibility.Hidden;
+            labelTranslatedBorder.Visibility = Visibility.Hidden;
 
             // MessageBox.Show($"Chinese is {chnActive}", "Debug");
 
             // Template for new translations
             //if (lang == "en-US")
             //{
-            //    mainApp.Title = "Emotion Creators Launcher";
+            //    MainWindow.Title = "PH Launcher";
             //    warnBox.Header = "Notice!";
             //    warningText.Text = "This game is intended for adult audiences, no person under the age of 18 (or equivalent according to local law) are supposed to play or be in possession of this game.\n\nThis game contains content of a sexual nature, and some of the actions depicted within may be illegal to replicate in real life. Aka, it's all fun and games in the game, let's keep it that way shall we? (~.~)v";
             //    GameFBox.Header = "Game folders";
-            //    InstallDirectory.Content = "Install";
-            //    CharaDirectory.Content = "Character Cards";
-            //    SceneDirectory.Content = "Scenes";
-            //    ScreenShotDirectory.Content = "ScreenShots";
+            //    buttonInst.Content = "Install";
+            //    buttonFemaleCard.Content = "Character Cards";
+            //    buttonScenes.Content = "Scenes";
+            //    buttonScreenshot.Content = "ScreenShots";
             //    AISHousingDirectory.Content = "Hus";
             //    GameSBox.Header = "Game Startup";
-            //    PLAY.Content = "Start Emotion Creators";
-            //    OfflineManual_Open.Content = "Emotion Creators Manual";
-            //    PLAY_Studio.Content = "Start Studio";
-            //    Manual_s_Open.Content = "Studio Manual";
-            //    PLAY_VR.Content = "Start Emotion Creators VR";
-            //    Manual_v_Open.Content = "VR Manual";
+            //    labelStart.Content = "Start PH";
+            //    labelM.Content = "PH Manual";
+            //    labelStartS.Content = "Start Studio";
+            //    labelMS.Content = "Studio Manual";
+            //    labelStartVR.Content = "Start PH VR";
+            //    labelMV.Content = "VR Manual";
             //    SettingsBox.Header = "Settings";
-            //    modeFenetre.Content = "Run Game in Fullscreen";
+            //    toggleFullscreen.Content = "Run Game in Fullscreen";
             //    modeDev.Content = "Developer Mode";
             //    SystemInfo.Content = "System Info";
-            //    EXIT.Content = "Exit";
-            //    Versioning.Text = "Unknown Install Method";
-            //    TransCred.Text = "Launcher translated by: <Insert Name>";
+            //    buttonClose.Content = "Exit";
+            //    labelDist.Content = "Unknown Install Method";
+            //    labelTranslated.Content = "Launcher translated by: <Insert Name>";
             //    translationString = "Do you want to restore Japanese language in-game?";
             //    q_performance = "Performance";
             //    q_normal = "Normal";
@@ -148,270 +213,219 @@ namespace InitDialog
             // Translations
             if (lang == "ja")
             {
-                TransCred.Visibility = Visibility.Visible;
+                labelTranslated.Visibility = Visibility.Visible;
+                labelTranslatedBorder.Visibility = Visibility.Visible;
 
-                OfflineManual_Open.FontSize = 11;
-                OnlineManual_Open.FontSize = 11;
-
-                mainApp.Title = "初期設定";
-                warnBox.Header = "はじめに…";
                 warningText.Text = "このゲームは成人向けので、18歳未満（または地域の法律によりと同等の年齢）がこのゲームをプレイまたは所有しているができない。\n\nこのゲームには性的内容の内容が含まれます。内に描かれている行動は、実生活で複製することは違法です。つまり、これは面白いゲームです、そうしましょう？(~.~)v";
-                GameFBox.Header = "ゲームフォルダ";
-                InstallDirectory.Content = "インストール先を開く";
-                CharaDirectory.Content = "キャラカード";
-                SceneDirectory.Content = "シーン";
-                ScreenShotDirectory.Content = "SS";
-                PosesDirectory.Content = "ポーズ";
-                MapsDirectory.Content = "マップ";
-                GameSBox.Header = "起動メニュー";
-                PLAY.Content = "ゲーム開始";
-                OfflineManual_Open.Content = "マニュアル (オフラインシ)";
-                OnlineManual_Open.Content = "マニュアル (オンライン)";
-                SettingsBox.Header = "設定";
-                modeFenetre.Content = "全画面表示";
-                modeDev.Content = "開発者モード";
-                SystemInfo.Content = "システム情報";
-                EXIT.Content = "終了";
-                Versioning.Text = "不明バージョン";
-                TransCred.Text = "初期設定翻訳者: Earthship";
+                buttonInst.Content = "インストール";
+                buttonFemaleCard.Content = "キャラカード (女性)";
+                buttonMaleCard.Content = "キャラカード (男性)";
+                buttonScenes.Content = "シーン";
+                buttonScreenshot.Content = "SS"; 
+                buttonUserData.Content = "UserData";
+                labelStart.Content = "ゲーム開始";
+                labelM.Content = "ゲーム";
+                toggleFullscreen.Content = "全画面表示";
+                toggleConsole.Content = "コンソールを有効にする";
+                labelDist.Content = "不明バージョン";
+                labelTranslated.Content = "初期設定翻訳者: Earthship";
                 q_performance = "パフォーマンス";
                 q_normal = "ノーマル";
                 q_quality = "クオリティ";
                 s_primarydisplay = "メインディスプレイ";
                 s_subdisplay = "サブディスプレイ";
+                labelDiscord.Content = "Discordを訪問";
+                labelPatreon.Content = "Patreonを訪問";
+                labelUpdate.Content = "ゲームを更新する";
             }
             else if (lang == "zh-CN") // By @Madevil#1103 & @𝐄𝐀𝐑𝐓𝐇𝐒𝐇𝐈𝐏 💖#4313 
             {
-                TransCred.Visibility = Visibility.Visible;
+                labelTranslated.Visibility = Visibility.Visible;
+                labelTranslatedBorder.Visibility = Visibility.Visible;
 
-                mainApp.Title = "情感创造者启动器";
-                warnBox.Header = "声明";
                 warningText.Text = "此游戏适用于成人用户，任何未满18岁的人（或根据当地法律规定的同等人）都不得遊玩或拥有此游戏。\n\n这个游戏包含性相关的内容，某些行为在现实生活中可能是非法的。所以，游戏中的所有乐趣请保留在游戏中，让我们保持这种方式吧? (~.~)v";
-                GameFBox.Header = "文件夹";
-                InstallDirectory.Content = "游戏主目录";
-                CharaDirectory.Content = "人物卡";
-                SceneDirectory.Content = "工作室场景";
-                ScreenShotDirectory.Content = "截图";
-                PosesDirectory.Content = "假充";
-                MapsDirectory.Content = "图";
-                GameSBox.Header = "启动";
-                PLAY.Content = "情感创造者";
-                OfflineManual_Open.Content = "离线手册";
-                OnlineManual_Open.Content = "在线手册";
-                SettingsBox.Header = "设置";
-                modeFenetre.Content = "全屏执行";
-                modeDev.Content = "开发者模式";
-                SystemInfo.Content = "系统资讯";
-                EXIT.Content = "关闭";
-                Versioning.Text = "未知版本";
-                TransCred.Text = "Launcher translated by: Madevil & Earthship";
+                buttonInst.Content = "游戏主目录";
+                buttonFemaleCard.Content = "人物卡 (女)";
+                buttonMaleCard.Content = "人物卡 (男)";
+                buttonScenes.Content = "工作室场景";
+                buttonScreenshot.Content = "截图";
+                buttonUserData.Content = "UserData";
+                labelStart.Content = "开始游戏";
+                labelM.Content = "游戏手册";
+                toggleFullscreen.Content = "全屏执行";
+                toggleConsole.Content = "激活控制台";
+                labelDist.Content = "未知版本";
+                labelTranslated.Content = "翻译： Madevil & Earthship";
                 q_performance = "性能";
                 q_normal = "标准";
                 q_quality = "高画质";
                 s_primarydisplay = "主显示器";
                 s_subdisplay = "次显示器";
+                labelDiscord.Content = "前往Discord";
+                labelPatreon.Content = "前往Patreon";
+                labelUpdate.Content = "更新游戏";
             }
             else if (lang == "ko") // By @Keris-#1903 
             {
-                TransCred.Visibility = Visibility.Visible;
+                labelTranslated.Visibility = Visibility.Visible;
+                labelTranslatedBorder.Visibility = Visibility.Visible;
 
-                PLAY.FontSize = 12;
-
-                mainApp.Title = "이모션크레이터즈 런쳐";
-                warnBox.Header = "중요사항!";
                 warningText.Text = "이게임은 성인용입니다 18세 미만의 사람(또는 법에따라 동등한사람)은 게임을 하거나 해당게임을 소유하면 안됩니다\n\n이게임에는 성적인 내용이 포함되어있으며 그안에 묘사된 행동중 일부는 실제에서 행동하면 법적인 처벌을 받습니다";
-                GameFBox.Header = "게임 폴더";
-                InstallDirectory.Content = "설치된폴더";
-                CharaDirectory.Content = "캐릭터 카드";
-                SceneDirectory.Content = "장면";
-                ScreenShotDirectory.Content = "스크린샷 폴더";
-                PosesDirectory.Content = "포즈";
-                MapsDirectory.Content = "맵";
-                GameSBox.Header = "실행";
-                PLAY.Content = "이모션크레이터즈 시작";
-                OfflineManual_Open.Content = "오프라인 메뉴얼";
-                OnlineManual_Open.Content = "온라인 메뉴얼";
-                SettingsBox.Header = "설정";
-                modeFenetre.Content = "전체화면으로 시작";
-                modeDev.Content = "개발자 모드";
-                SystemInfo.Content = "시스템 정보";
-                EXIT.Content = "나가기";
-                Versioning.Text = "알수 없는 설치 메소드";
-                TransCred.Text = "런쳐 번역 by: Keris";
+                buttonInst.Content = "설치된폴더";
+                buttonFemaleCard.Content = "캐릭터 카드 (여자)";
+                buttonMaleCard.Content = "캐릭터 카드 (남성)";
+                buttonScenes.Content = "장면";
+                buttonScreenshot.Content = "스크린샷 폴더";
+                buttonUserData.Content = "UserData";
+                labelStart.Content = "플레이 시작";
+                labelM.Content = "플레이 메뉴얼";
+                toggleFullscreen.Content = "전체화면으로 시작";
+                toggleConsole.Content = "콘솔 활성화";
+                labelDist.Content = "알수 없는 설치 메소드";
+                labelTranslated.Content = "런쳐 번역 by: Keris";
                 q_performance = "퍼포먼스";
                 q_normal = "일반";
                 q_quality = "퀄리티";
                 s_primarydisplay = "주 디스플레이";
                 s_subdisplay = "서브 디스플레이";
+                labelDiscord.Content = "Discord 방문";
+                labelPatreon.Content = "Patreon 방문";
+                labelUpdate.Content = "게임 업데이트";
             }
             else if (lang == "es") // By @Heroine Nisa#3207
             {
-                TransCred.Visibility = Visibility.Visible;
+                labelTranslated.Visibility = Visibility.Visible;
+                labelTranslatedBorder.Visibility = Visibility.Visible;
 
-                CharaDirectory.FontSize = 13;
-                OfflineManual_Open.FontSize = 15;
-                SystemInfo.FontSize = 10;
-                modeFenetre.FontSize = 13;
-
-                mainApp.Title = "Lanzador Emotion Creators";
-                warnBox.Header = "¡Atención!";
                 warningText.Text = "Este juego está dirigido hacia un público adulto, ninguna persona bajo 18 años (o equivalente según las leyes locales) no deberían de jugar o estar en posesión de este juego. \n\nEste juego contiene escenas de carácter sexual, y algunas de las acciones representadas en el mismo pueden ser ilegales de hacerlas en la vida real.  También conocido como, todo es diversión y risas dentro del juego, así que mantengámoslo así, ¿vale? (~.~)v";
-                GameFBox.Header = "Archivos del Juego";
-                InstallDirectory.Content = "Instalar";
-                CharaDirectory.Content = "Cartas de Personaje";
-                SceneDirectory.Content = "Escenas";
-                ScreenShotDirectory.Content = "Capturas";
-                PosesDirectory.Content = "la postura";
-                MapsDirectory.Content = "el plano";
-                GameSBox.Header = "Lanzador del Juego";
-                PLAY.Content = "Iniciar del Juego";
-                OfflineManual_Open.Content = "Manual sin conexión";
-                OnlineManual_Open.Content = "Manual en Linea";
-                SettingsBox.Header = "Configuración";
-                modeFenetre.Content = "Lanzar Juego en Pantalla Completa";
-                modeDev.Content = "Modo desarrollador";
-                SystemInfo.Content = "Información de Sistema";
-                EXIT.Content = "Salir";
-                Versioning.Text = " Método de Instalación Desconocido";
-                TransCred.Text = "Launcher translated by: Heroine Nisa";
+                buttonInst.Content = "Instalar";
+                buttonFemaleCard.Content = "Cartas de Personaje (M)";
+                buttonMaleCard.Content = "Cartas de Personaje (F)";
+                buttonScenes.Content = "Escenas";
+                buttonScreenshot.Content = "Capturas";
+                buttonUserData.Content = "UserData";
+                labelStart.Content = "Iniciar juego";
+                labelM.Content = "Manual de juego";
+                toggleFullscreen.Content = "Lanzar Juego en Pantalla Completa";
+                toggleConsole.Content = "Activar consola";
+                labelDist.Content = "Método de Instalación Desconocido";
+                labelTranslated.Content = "Traducido por: Heroine Nisa";
                 q_performance = "Rendimiento";
                 q_normal = "Normal";
                 q_quality = "Calidad";
                 s_primarydisplay = "Pantalla Primaria";
                 s_subdisplay = "Pantalla Secundaria";
+                labelDiscord.Content = "visita la Discord";
+                labelPatreon.Content = "visita la Patreon";
+                labelUpdate.Content = "Actualizar";
             }
             else if (lang == "pt") // By @Neptune#1989 
             {
-                TransCred.Visibility = Visibility.Visible;
+                labelTranslated.Visibility = Visibility.Visible;
+                labelTranslatedBorder.Visibility = Visibility.Visible;
 
-                CharaDirectory.FontSize = 13;
-                OfflineManual_Open.FontSize = 15;
-                SystemInfo.FontSize = 10;
-                modeFenetre.FontSize = 13;
-
-                mainApp.Title = "Launcher do Emotion Creators";
-                warnBox.Header = "Advertência!";
                 warningText.Text = "Este jogo, por apresentar conteúdo adulto, é voltado para maiores de 18 anos (ou equivalente perante a lei local), menores de idade não devem jogar ou possuí-lo.\n\nAlgumas das ações presentes nessa obra de ficção podem ser ilegais ao serem realizadas no mundo real. Deixe essas coisas somente para o mundo fictício, combinado? (~.~)v";
-                GameFBox.Header = "Pastas do Jogo";
-                InstallDirectory.Content = "Instalar";
-                CharaDirectory.Content = "Cards de Personagens";
-                SceneDirectory.Content = "Cenas";
-                ScreenShotDirectory.Content = "Capturas de Tela";
-                PosesDirectory.Content = "a postura";
-                MapsDirectory.Content = "planejar";
-                GameSBox.Header = "Incialização do Jogo";
-                PLAY.Content = "Iniciar EC";
-                OfflineManual_Open.Content = "Manual offline";
-                OnlineManual_Open.Content = "Manual online";
-                SettingsBox.Header = "Configurações";
-                modeFenetre.Content = "Iniciar Jogo em Tela Cheia";
-                modeDev.Content = "Modo de desenvolvedor";
-                SystemInfo.Content = "Info. de Sistema";
-                EXIT.Content = "Sair";
-                Versioning.Text = "Método de Instalação Desconhecido";
-                TransCred.Text = "Launcher traduzido por: Neptune";
+                buttonInst.Content = "Instalar";
+                buttonFemaleCard.Content = "Cards de Personagens (F)";
+                buttonMaleCard.Content = "Cards de Personagens (M)";
+                buttonScenes.Content = "Cenas";
+                buttonScreenshot.Content = "Capturas de Tela";
+                buttonUserData.Content = "UserData";
+                labelStart.Content = "Iniciar Jogo";
+                labelM.Content = "Manual do Jogo";
+                toggleFullscreen.Content = "Iniciar Jogo em Tela Cheia";
+                toggleConsole.Content = "Ativar console";
+                labelDist.Content = "Método de Instalação Desconhecido";
+                labelTranslated.Content = "Launcher traduzido por: Neptune";
                 q_performance = "Baixo";
                 q_normal = "Normal";
                 q_quality = "Alto";
                 s_primarydisplay = "Display Primário";
                 s_subdisplay = "Display Secundário";
+                labelDiscord.Content = "Visitar Discord";
+                labelPatreon.Content = "Visitar Patreon";
+                labelUpdate.Content = "Atualizar";
             }
-            else if (lang == "fr") // By @Punky  (°TotalDecay78°)#0001 
+            else if (lang == "fr") // By VaizravaNa#2315
             {
-                TransCred.Visibility = Visibility.Visible;
+                labelTranslated.Visibility = Visibility.Visible;
+                labelTranslatedBorder.Visibility = Visibility.Visible;
 
-                CharaDirectory.FontSize = 14;
-                PLAY.FontSize = 14;
-                SystemInfo.FontSize = 9;
-
-                mainApp.Title = "Emotion Creators Launcher";
-                warnBox.Header = "Attention!";
-                warningText.Text = "Ce jeu s'adresse aux adultes. Tout mineur de moins de 18 ans (ou plus suivant les lois locales) ne doit pas avoir accès à ce jeu. Selon l’article 227-24 du code Pénal, « le fait soit de fabriquer, de transporter, de diffuser par quelque moyen que ce soit et quel qu’en soit le support, un message à caractère violent ou pornographique ou de nature à porter gravement atteinte à la dignité humaine, soit de faire commerce d’un tel message, est puni de trois ans d’emprisonnement et de 75 000 euros d’amende lorsque ce message est susceptible d’être vu ou perçu par un mineur. »";
-                GameFBox.Header = "Répertoires du jeu";
-                InstallDirectory.Content = "Installation";
-                CharaDirectory.Content = "Personnages";
-                SceneDirectory.Content = "Scènes";
-                ScreenShotDirectory.Content = "Captures d'écran";
-                PosesDirectory.Content = "Pose";
-                MapsDirectory.Content = "Plans";
-                GameSBox.Header = "Lancement du jeu";
-                PLAY.Content = "Démarrer EC";
-                OfflineManual_Open.Content = "Manuel hors ligne";
-                OnlineManual_Open.Content = "Manuel en ligne";
-                SettingsBox.Header = "Paramètres";
-                modeFenetre.Content = "Lancer en plein écran";
-                modeDev.Content = "Mode développeur";
-                SystemInfo.Content = "Informations sur le système";
-                EXIT.Content = "Quitter";
-                Versioning.Text = "Unknown Install Method";
-                TransCred.Text = "Launcher translated by: TotalDecay78";
-                q_performance = "Minimum";
+                warningText.Text = "Ce jeu est destiné à un public adulte, aucun mineur en dessous de 18 ans (ou l'équivalent selon les lois locales) ne doit pas jouer ou posséder ce jeu. \n\nCe jeu contient des scènes matures, et certaines actions du jeu peuvent être considéré comme illégales, à ne pas reproduire dans la vraie vie. Ce n'est que de la fiction, du moment que cela reste dans le jeu. Amusez-vous bien!";
+                buttonInst.Content = "Installation";
+                buttonFemaleCard.Content = "Personnages (Femme)";
+                buttonMaleCard.Content = "Personnages (Mâle)";
+                buttonScenes.Content = "Scènes";
+                buttonScreenshot.Content = "Captures d'écran";
+                buttonUserData.Content = "UserData";
+                labelStart.Content = "Lancer le jeu";
+                labelM.Content = "Manuel de jeu";
+                toggleFullscreen.Content = "Lancer le jeu en pleins écran";
+                toggleConsole.Content = "Activer la console";
+                labelDist.Content = "Méthode d'installation inconnue";
+                labelTranslated.Content = "Lanceur traduit par: VaizravaNa";
+                q_performance = "Performance";
                 q_normal = "Normal";
-                q_quality = "Haut";
+                q_quality = "Qualité";
                 s_primarydisplay = "Ecran principal";
                 s_subdisplay = "Ecran secondaire";
+                labelDiscord.Content = "Visiter la Discord";
+                labelPatreon.Content = "Visiter la Patreon";
+                labelUpdate.Content = "Mise à jour";
             }
             else if (lang == "de") // By @DONTFORGETME#6198 
             {
-                modeFenetre.FontSize = 13;
-                modeDev.FontSize = 13;
-                OfflineManual_Open.FontSize = 10;
-                SystemInfo.FontSize = 12;
+                labelTranslated.Visibility = Visibility.Visible;
+                labelTranslatedBorder.Visibility = Visibility.Visible;
 
-                mainApp.Title = "Emotion Creators Launcher";
-                warnBox.Header = "Achtung!";
                 warningText.Text = "Dieses Spiel ist ausschließlich für erwachsenes Publikum vorgesehen. Niemand unter 18 Jahren ( Oder entsprechend deiner örtlichen Gesetze ) ist vorgesehen dieses Spiel zu spielen, oder es zu besitzen.\n\nDieses Spiel enthällt sexuelle Inhalte welche bei Ausführung im realen Leben strafbar sein könnten. Dinge die im Spiel geschehen sollten also auch im Spiel bleiben in Ordnung? (~.~)v";
-                GameFBox.Header = "Spiel Ordner";
-                InstallDirectory.Content = "Installieren";
-                CharaDirectory.Content = "Charakter Karten";
-                SceneDirectory.Content = "Scenen";
-                ScreenShotDirectory.Content = "ScreenShots";
-                PosesDirectory.Content = "Pose";
-                MapsDirectory.Content = "Karten";
-                GameSBox.Header = "Starte Spiel";
-                PLAY.Content = "Starte EC";
-                OfflineManual_Open.Content = "Offline-Handbuch";
-                OnlineManual_Open.Content = "Online-Handbuch";
-                SettingsBox.Header = "Einstellungen";
-                modeFenetre.Content = "Starte Spiel in Vollbildmodus";
-                modeDev.Content = "Entwicklermodus";
-                SystemInfo.Content = "System Information";
-                EXIT.Content = "Exit";
-                Versioning.Text = "Unknown Install Method";
-                TransCred.Text = "Launcher translated by: <HyD>";
+                buttonInst.Content = "Installieren";
+                buttonFemaleCard.Content = "Charakter Karten (F)";
+                buttonMaleCard.Content = "Charakter Karten (M)";
+                buttonScenes.Content = "Scenen";
+                buttonScreenshot.Content = "ScreenShots";
+                buttonUserData.Content = "UserData";
+                labelStart.Content = "Starte Spiel";
+                labelM.Content = "Spiel Bedienungsanleitung";
+                toggleFullscreen.Content = "Starte Spiel in Vollbildmodus";
+                toggleConsole.Content = "Konsole umschalten";
+                labelDist.Content = "Unbekannte Installationsmethode";
+                labelTranslated.Content = "Übersetzt von: <HyD>";
                 q_performance = "Leistung";
                 q_normal = "Normal";
                 q_quality = "Qualität";
                 s_primarydisplay = "Primär Bildschirm";
                 s_subdisplay = "Neben Bildschrim";
+                labelDiscord.Content = "Besuche die Discord";
+                labelPatreon.Content = "Besuche die Patreon";
+                labelUpdate.Content = "Aktualisieren";
             }
             else if (lang == "no") // By @SmokeOfC|女神様の兄様#1984
             {
-                mainApp.Title = "Emotion Creators Oppstart";
-                warnBox.Header = "Advarsel!";
+                labelTranslated.Visibility = Visibility.Visible;
+                labelTranslatedBorder.Visibility = Visibility.Visible;
+
                 warningText.Text = "Dette spillet er ment for voksne spillere, og ingen person under 18 år (Eller tilsvarende iht lokal lov) er tiltenkt å være i besittelse av dette spillet.\n\nDette spillet inneholder innhold av en seksuell natur, og noen av handlingene avbildet i dette spillet kan være ulovlig å replikere i virkeligheten. Altså, det er lek og artig i spillet, la oss holde det slik, eller hva? (~.~)v";
-                GameFBox.Header = "Spillmapper";
-                InstallDirectory.Content = "Installasjon";
-                CharaDirectory.Content = "Kort";
-                SceneDirectory.Content = "Scener";
-                ScreenShotDirectory.Content = "Skjermbilder";
-                PosesDirectory.Content = "Poseringer";
-                MapsDirectory.Content = "Scenekort";
-                GameSBox.Header = "Start spill";
-                PLAY.Content = "Start spillet";
-                OfflineManual_Open.Content = "Offline Manual";
-                OnlineManual_Open.Content = "Online Manual";
-                SettingsBox.Header = "Instillinger";
-                modeFenetre.Content = "Bruk fullskjerm";
-                modeDev.Content = "Utviklermodus";
-                SystemInfo.Content = "Systeminfo";
-                EXIT.Content = "Avslutt";
-                Versioning.Text = "Ingen kjent installasjonsmetode";
-                q_performance = "Ytelse";
-                q_normal = "Normal";
-                q_quality = "Kvalitet";
+                buttonInst.Content = "Installasjon";
+                buttonFemaleCard.Content = "Kort (Kvinner)";
+                buttonMaleCard.Content = "Kort (Menn)";
+                buttonScenes.Content = "Scener";
+                buttonScreenshot.Content = "Skjermbilder";
+                buttonUserData.Content = "UserData";
+                labelStart.Content = "Start Spill";
+                labelM.Content = "Spill manual";
+                toggleFullscreen.Content = "Start spill med fullskjerm";
+                toggleConsole.Content = "Aktiver Konsoll";
+                labelDist.Content = "Ukjent distribusjon";
+                labelTranslated.Content = "Oversatt av: SmokeOfC";
+                q_performance = "Ytelsesmodus";
+                q_normal = "Normalmodus";
+                q_quality = "Kvalitetsmodus";
                 s_primarydisplay = "Hovedskjerm";
-                s_subdisplay = "SubSkjerm";
+                s_subdisplay = "Subskjerm";
+                labelDiscord.Content = "Besøk Discord";
+                labelPatreon.Content = "Besøk Patreon";
+                labelUpdate.Content = "Oppdater";
             }
 
             m_astrQuality = new string[]
@@ -424,7 +438,12 @@ namespace InitDialog
             // Do checks
 
             is64bitOS = Is64BitOS();
+            isStudio = File.Exists(m_strCurrentDir + m_strStudioExe);
             isMainGame = File.Exists(m_strCurrentDir + m_strGameExe);
+
+            if (m_strCurrentDir.Length >= 75)
+                MessageBox.Show("The game is installed deep in the file system!\n\nThis can cause a variety of errors, so it's recommended that you move it to a shorter path, something like:\n\nC:\\Illusion\\AI.Shoujo", "Critical warning!");
+
 
             // Customization options
 
@@ -444,7 +463,7 @@ namespace InitDialog
                     string line;
                     while ((line = streamReader.ReadLine()) != null)
                     {
-                        Versioning.Text = line;
+                        labelDist.Content = line;
                     }
                 }
                 verFileStream.Close();
@@ -476,7 +495,7 @@ namespace InitDialog
             if (BackgExists)
             {
                 Uri uribg = new Uri(m_strCurrentDir + m_customDir + backgLoc, UriKind.RelativeOrAbsolute);
-                appBG.Source = BitmapFrame.Create(uribg);
+                appBG.ImageSource = BitmapFrame.Create(uribg);
             }
             if (PatreonExists)
             {
@@ -493,7 +512,9 @@ namespace InitDialog
             }
             else
             {
-                PatreonButton.Visibility = Visibility.Collapsed;
+                linkPatreon.Visibility = Visibility.Collapsed;
+                patreonBorder.Visibility = Visibility.Collapsed;
+                patreonIMG.Visibility = Visibility.Collapsed;
             }
 
             int num = Screen.AllScreens.Length;
@@ -507,20 +528,20 @@ namespace InitDialog
             m_Setting.m_bFullScreen = false;
             if (num == 2)
             {
-                DisplayBox.Items.Add(s_primarydisplay);
-                DisplayBox.Items.Add($"{s_subdisplay} : 1");
+                dropDisplay.Items.Add(s_primarydisplay);
+                dropDisplay.Items.Add($"{s_subdisplay} : 1");
             }
             else
             {
                 for (int i = 0; i < num; i++)
                 {
                     string newItem = (i == 0) ? s_primarydisplay : ($"{s_subdisplay} : " + i);
-                    DisplayBox.Items.Add(newItem);
+                    dropDisplay.Items.Add(newItem);
                 }
             }
             foreach (string newItem2 in m_astrQuality)
             {
-                QualityBox.Items.Add(newItem2);
+                dropQual.Items.Add(newItem2);
             }
 
             SetEnableAndVisible();
@@ -540,14 +561,14 @@ namespace InitDialog
                     m_Setting.m_nDisplay = Math.Min(m_Setting.m_nDisplay, num - 1);
                     setDisplayComboBox(m_Setting.m_bFullScreen);
                     var flag = false;
-                    for (var k = 0; k < ResolutionBox.Items.Count; k++)
+                    for (var k = 0; k < dropRes.Items.Count; k++)
                     {
-                        if (ResolutionBox.Items[k].ToString() == m_Setting.m_strSizeChoose)
+                        if (dropRes.Items[k].ToString() == m_Setting.m_strSizeChoose)
                             flag = true;
                     }
-                    ResolutionBox.Text = flag ? m_Setting.m_strSizeChoose : "1280 x 720 (16 : 9)";
-                    modeFenetre.IsChecked = m_Setting.m_bFullScreen;
-                    QualityBox.Text = m_astrQuality[m_Setting.m_nQualityChoose];
+                    dropRes.Text = flag ? m_Setting.m_strSizeChoose : "1280 x 720 (16 : 9)";
+                    toggleFullscreen.IsChecked = m_Setting.m_bFullScreen;
+                    dropQual.Text = m_astrQuality[m_Setting.m_nQualityChoose];
                     string text = m_Setting.m_nDisplay == 0 ? s_primarydisplay : $"{s_subdisplay} : " + m_Setting.m_nDisplay;
                     if (num == 2)
                     {
@@ -557,11 +578,11 @@ namespace InitDialog
                         $"{s_subdisplay} : 1"
                         }[m_Setting.m_nDisplay];
                     }
-                    if (DisplayBox.Items.Contains(text))
-                        DisplayBox.Text = text;
+                    if (dropDisplay.Items.Contains(text))
+                        dropDisplay.Text = text;
                     else
                     {
-                        DisplayBox.Text = s_primarydisplay;
+                        dropDisplay.Text = s_primarydisplay;
                         m_Setting.m_nDisplay = 0;
                     }
                 }
@@ -575,48 +596,73 @@ namespace InitDialog
             else
             {
                 setDisplayComboBox(false);
-                ResolutionBox.Text = m_Setting.m_strSizeChoose;
-                QualityBox.Text = m_astrQuality[m_Setting.m_nQualityChoose];
-                DisplayBox.Text = s_primarydisplay;
+                dropRes.Text = m_Setting.m_strSizeChoose;
+                dropQual.Text = m_astrQuality[m_Setting.m_nQualityChoose];
+                dropDisplay.Text = s_primarydisplay;
             }
         }
 
         void SetEnableAndVisible()
         {
-            if (!isMainGame)
+            
+        }
+
+        void SaveRegistry()
+        {
+            using (RegistryKey registryKey = Registry.CurrentUser.CreateSubKey(m_strGameRegistry))
             {
-                PLAY.IsEnabled = false;
-                OfflineManual_Open.IsEnabled = false;
-                InstallDirectory.IsEnabled = false;
-                CharaDirectory.IsEnabled = false;
-                ScreenShotDirectory.IsEnabled = false;
+                registryKey.SetValue("Screenmanager Is Fullscreen mode_h3981298716", m_Setting.m_bFullScreen ? 1 : 0);
+                registryKey.SetValue("Screenmanager Resolution Height_h2627697771", m_Setting.m_nHeightChoose);
+                registryKey.SetValue("Screenmanager Resolution Width_h182942802", m_Setting.m_nWidthChoose);
+                registryKey.SetValue("UnityGraphicsQuality_h1669003810", 2);
+                registryKey.SetValue("UnitySelectMonitor_h17969598", m_Setting.m_nDisplay);
+            }
+            if (isStudio)
+            {
+                using (RegistryKey registryKey2 = Registry.CurrentUser.CreateSubKey(m_strStudioRegistry))
+                {
+                    registryKey2.SetValue("Screenmanager Is Fullscreen mode_h3981298716", m_Setting.m_bFullScreen ? 1 : 0);
+                    registryKey2.SetValue("Screenmanager Resolution Height_h2627697771", m_Setting.m_nHeightChoose);
+                    registryKey2.SetValue("Screenmanager Resolution Width_h182942802", m_Setting.m_nWidthChoose);
+                    registryKey2.SetValue("UnityGraphicsQuality_h1669003810", 2);
+                    registryKey2.SetValue("UnitySelectMonitor_h17969598", m_Setting.m_nDisplay);
+                }
             }
         }
 
         void PlayFunc(string strExe)
         {
             saveConfigFile(m_strCurrentDir + m_strSaveDir);
-            if (!is64bitOS)
+            SaveRegistry();
+            string text = m_strCurrentDir + strExe;
+            string ipa = "\u0022" + m_strCurrentDir + "IPA.exe" + "\u0022";
+            string ipaArgs = "\u0022" + text + "\u0022" + " --launch";
+            if (File.Exists(text) && isIPA)
             {
-                new MessageWindow().SetupWindow("Warning", "This application requires a x64 version of windows.", new object[0]);
+                Process.Start(new ProcessStartInfo(ipa) { WorkingDirectory = m_strCurrentDir, Arguments = ipaArgs });
+                System.Windows.Application.Current.MainWindow.Close();
                 return;
             }
-            string text = m_strCurrentDir + strExe;
-            if (File.Exists(text))
+            else if (File.Exists(text))
             {
                 Process.Start(new ProcessStartInfo(text) { WorkingDirectory = m_strCurrentDir });
                 System.Windows.Application.Current.MainWindow.Close();
                 return;
             }
-            new MessageWindow().SetupWindow("Warning", "\nCould not find the executable.", new object[0]);
+            MessageBox.Show("Executable can't be located", "Warning!");
         }
 
-        void PLAY_Click(object sender, RoutedEventArgs e)
+        void buttonStart_Click(object sender, RoutedEventArgs e)
         {
             PlayFunc(m_strGameExe);
         }
 
-        void Exit_Click(object sender, RoutedEventArgs e)
+        void buttonStartS_Click(object sender, RoutedEventArgs e)
+        {
+            PlayFunc(m_strStudioExe);
+        }
+
+        void buttonClose_Click(object sender, RoutedEventArgs e)
         {
             saveConfigFile(m_strCurrentDir + m_strSaveDir);
             ReleaseMutex();
@@ -625,11 +671,11 @@ namespace InitDialog
 
         void Resolution_Change(object sender, SelectionChangedEventArgs e)
         {
-            if (-1 == ResolutionBox.SelectedIndex)
+            if (-1 == dropRes.SelectedIndex)
             {
                 return;
             }
-            ComboBoxCustomItem comboBoxCustomItem = (ComboBoxCustomItem)ResolutionBox.SelectedItem;
+            ComboBoxCustomItem comboBoxCustomItem = (ComboBoxCustomItem)dropRes.SelectedItem;
             m_Setting.m_strSizeChoose = comboBoxCustomItem.text;
             m_Setting.m_nWidthChoose = comboBoxCustomItem.width;
             m_Setting.m_nHeightChoose = comboBoxCustomItem.height;
@@ -637,7 +683,7 @@ namespace InitDialog
 
         void Quality_Change(object sender, SelectionChangedEventArgs e)
         {
-            string a = QualityBox.SelectedItem.ToString();
+            string a = dropQual.SelectedItem.ToString();
             if (a == q_performance)
             {
                 m_Setting.m_nQualityChoose = 0;
@@ -658,7 +704,7 @@ namespace InitDialog
         void windowUnChecked(object sender, RoutedEventArgs e)
         {
             setDisplayComboBox(false);
-            ResolutionBox.Text = m_Setting.m_strSizeChoose;
+            dropRes.Text = m_Setting.m_strSizeChoose;
             m_Setting.m_bFullScreen = false;
         }
 
@@ -669,30 +715,70 @@ namespace InitDialog
             setFullScreenDevice();
         }
 
-        void ManualOpenOffline(object sender, RoutedEventArgs e)
+        void buttonManual_Click(object sender, RoutedEventArgs e)
         {
-            string text = m_strCurrentDir + m_strOfflineManualDir;
-            if (File.Exists(text))
+            string manualEN = $"{m_strCurrentDir}\\manual\\manual_en.html";
+            string manualLANG = $"{m_strCurrentDir}\\manual\\manual_{lang}.html";
+            string manualJA = m_strCurrentDir + m_strManualDir;
+
+            if(File.Exists(manualEN) || File.Exists(manualLANG) || File.Exists(manualJA))
             {
-                Process.Start(text);
+                if (File.Exists(manualLANG))
+                    Process.Start(manualLANG);
+                else if (File.Exists(manualEN))
+                    Process.Start(manualEN);
+                else
+                    Process.Start(manualJA);
                 return;
             }
-            new MessageWindow().SetupWindow("Warning", "\nThe manual could not be found.", new object[0]);
+            MessageBox.Show("Manual could not be found.", "Warning!");
         }
 
-        void ManualOpenOnline(object sender, RoutedEventArgs e)
+        void buttonManualS_Click(object sender, RoutedEventArgs e)
         {
-            string text = m_strOnlineManualDir;
-            Process.Start(text);
+            string manualEN = $"{m_strCurrentDir}\\manual_s\\manual_en.html";
+            string manualLANG = $"{m_strCurrentDir}\\manual_s\\manual_{lang}.html";
+            string manualJA = m_strCurrentDir + m_strStudioManualDir;
+
+            if (File.Exists(manualEN) || File.Exists(manualLANG) || File.Exists(manualJA))
+            {
+                if (File.Exists(manualLANG))
+                    Process.Start(manualLANG);
+                else if (File.Exists(manualEN))
+                    Process.Start(manualEN);
+                else
+                    Process.Start(manualJA);
+                return;
+            }
+            MessageBox.Show("Manual could not be found.", "Warning!");
+        }
+
+        void buttonManualV_Click(object sender, RoutedEventArgs e)
+        {
+            string manualEN = $"{m_strCurrentDir}\\manual_vr\\manual_en.html";
+            string manualLANG = $"{m_strCurrentDir}\\manual_vr\\manual_{lang}.html";
+            string manualJA = m_strCurrentDir + m_strVRManualDir;
+
+            if (File.Exists(manualEN) || File.Exists(manualLANG) || File.Exists(manualJA))
+            {
+                if (File.Exists(manualLANG))
+                    Process.Start(manualLANG);
+                else if (File.Exists(manualEN))
+                    Process.Start(manualEN);
+                else
+                    Process.Start(manualJA);
+                return;
+            }
+            MessageBox.Show("Manual could not be found.", "Warning!");
         }
 
         void Display_Change(object sender, SelectionChangedEventArgs e)
         {
-            if (-1 == DisplayBox.SelectedIndex)
+            if (-1 == dropDisplay.SelectedIndex)
             {
                 return;
             }
-            m_Setting.m_nDisplay = DisplayBox.SelectedIndex;
+            m_Setting.m_nDisplay = dropDisplay.SelectedIndex;
             if (m_Setting.m_bFullScreen)
             {
                 setDisplayComboBox(true);
@@ -700,7 +786,7 @@ namespace InitDialog
             }
         }
 
-        void InstallDir_Open(object sender, RoutedEventArgs e)
+        void buttonInst_Click(object sender, RoutedEventArgs e)
         {
             char[] trimChars = new char[]
             {
@@ -717,10 +803,10 @@ namespace InitDialog
                 Process.Start("explorer.exe", text);
                 return;
             }
-            new MessageWindow().SetupWindow("Warning", "\nCan't find the folder, please launch the game once.", new object[0]);
+            MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
         }
 
-        void SceneDir_Open(object sender, RoutedEventArgs e)
+        void buttonScenes_Click(object sender, RoutedEventArgs e)
         {
             char[] trimChars = new char[]
             {
@@ -731,16 +817,56 @@ namespace InitDialog
                 '\\'
             };
             string text = m_strCurrentDir.TrimEnd(trimChars);
-            text = text.TrimEnd(trimChars2) + "\\UserData\\edit\\scene";
+            text = text.TrimEnd(trimChars2) + "\\UserData\\Studio\\scene";
             if (Directory.Exists(text))
             {
                 Process.Start("explorer.exe", text);
                 return;
             }
-            new MessageWindow().SetupWindow("Warning", "\nCan't find the folder, please launch the game once.", new object[0]);
+            MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
         }
 
-        void AISSSDir_Open(object sender, RoutedEventArgs e)
+        void buttonUserData_Click(object sender, RoutedEventArgs e)
+        {
+            char[] trimChars = new char[]
+            {
+                '/'
+            };
+            char[] trimChars2 = new char[]
+            {
+                '\\'
+            };
+            string text = m_strCurrentDir.TrimEnd(trimChars);
+            text = text.TrimEnd(trimChars2) + "\\UserData\\UserData";
+            if (Directory.Exists(text))
+            {
+                Process.Start("explorer.exe", text);
+                return;
+            }
+            MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
+        }
+
+        void buttonHousing_Click(object sender, RoutedEventArgs e)
+        {
+            char[] trimChars = new char[]
+            {
+                '/'
+            };
+            char[] trimChars2 = new char[]
+            {
+                '\\'
+            };
+            string text = m_strCurrentDir.TrimEnd(trimChars);
+            text = text.TrimEnd(trimChars2) + "\\UserData\\UserData\\housing";
+            if (Directory.Exists(text))
+            {
+                Process.Start("explorer.exe", text);
+                return;
+            }
+            MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
+        }
+
+        void buttonScreenshot_Click(object sender, RoutedEventArgs e)
         {
             char[] trimChars = new char[]
             {
@@ -757,10 +883,10 @@ namespace InitDialog
                 Process.Start("explorer.exe", text);
                 return;
             }
-            new MessageWindow().SetupWindow("Warning", "\nCan't find the folder, please launch the game once.", new object[0]);
+            MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
         }
 
-        void Poses_Open(object sender, RoutedEventArgs e)
+        void buttonFemaleCard_Click(object sender, RoutedEventArgs e)
         {
             char[] trimChars = new char[]
             {
@@ -771,16 +897,16 @@ namespace InitDialog
                 '\\'
             };
             string text = m_strCurrentDir.TrimEnd(trimChars);
-            text = text.TrimEnd(trimChars2) + "\\UserData\\pose\\data";
+            text = text.TrimEnd(trimChars2) + "\\UserData\\chara\\female";
             if (Directory.Exists(text))
             {
                 Process.Start("explorer.exe", text);
                 return;
             }
-            new MessageWindow().SetupWindow("Warning", "\nCan't find the folder, please launch the game once.", new object[0]);
+            MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
         }
 
-        void Maps_Open(object sender, RoutedEventArgs e)
+        void buttonMaleCard_Click(object sender, RoutedEventArgs e)
         {
             char[] trimChars = new char[]
             {
@@ -791,33 +917,13 @@ namespace InitDialog
                 '\\'
             };
             string text = m_strCurrentDir.TrimEnd(trimChars);
-            text = text.TrimEnd(trimChars2) + "\\UserData\\map\\data";
+            text = text.TrimEnd(trimChars2) + "\\UserData\\chara\\male";
             if (Directory.Exists(text))
             {
                 Process.Start("explorer.exe", text);
                 return;
             }
-            new MessageWindow().SetupWindow("Warning", "\nCan't find the folder, please launch the game once.", new object[0]);
-        }
-
-        void AISCharaDir_Open(object sender, RoutedEventArgs e)
-        {
-            char[] trimChars = new char[]
-            {
-                '/'
-            };
-            char[] trimChars2 = new char[]
-            {
-                '\\'
-            };
-            string text = m_strCurrentDir.TrimEnd(trimChars);
-            text = text.TrimEnd(trimChars2) + "\\UserData\\chara";
-            if (Directory.Exists(text))
-            {
-                Process.Start("explorer.exe", text);
-                return;
-            }
-            new MessageWindow().SetupWindow("Warning", "\nCan't find the folder, please launch the game once.", new object[0]);
+            MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
         }
 
         void SystemInfo_Open(object sender, RoutedEventArgs e)
@@ -828,7 +934,7 @@ namespace InitDialog
                 Process.Start(text);
                 return;
             }
-            new MessageWindow().SetupWindow("Warning", "\nCan't find the folder, please launch the game once.", new object[0]);
+            MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
         }
 
         bool DoubleStartCheck()
@@ -862,7 +968,7 @@ namespace InitDialog
 
         void setDisplayComboBox(bool _bFullScreen)
         {
-            ResolutionBox.Items.Clear();
+            dropRes.Items.Clear();
             int nDisplay = m_Setting.m_nDisplay;
             foreach (MainWindow.DisplayMode displayMode in (_bFullScreen ? m_listCurrentDisplay[nDisplay].list : m_listDefaultDisplay))
             {
@@ -872,7 +978,7 @@ namespace InitDialog
                     width = displayMode.Width,
                     height = displayMode.Height
                 };
-                ResolutionBox.Items.Add(newItem);
+                dropRes.Items.Add(newItem);
             }
         }
 
@@ -1049,7 +1155,7 @@ namespace InitDialog
             if (m_listCurrentDisplay[nDisplay].list.Count == 0)
             {
                 m_Setting.m_bFullScreen = false;
-                modeFenetre.IsChecked = new bool?(false);
+                toggleFullscreen.IsChecked = new bool?(false);
                 System.Windows.Forms.MessageBox.Show("This monitor doesn't support fullscreen.");
                 return;
             }
@@ -1059,7 +1165,7 @@ namespace InitDialog
                 m_Setting.m_nWidthChoose = m_listCurrentDisplay[nDisplay].list[0].Width;
                 m_Setting.m_nHeightChoose = m_listCurrentDisplay[nDisplay].list[0].Height;
             }
-            ResolutionBox.Text = m_Setting.m_strSizeChoose;
+            dropRes.Text = m_Setting.m_strSizeChoose;
         }
 
         public bool IsWow64()
@@ -1088,10 +1194,13 @@ namespace InitDialog
         string[] m_astrQuality;
         string[] s_EnglishTL;
 
-        string m_strGameExe = "EmotionCreators.exe";
-        string m_strOnlineManualDir = "http://www.illusion.jp/preview/emocre/manual/index.html";
-        string m_strOfflineManualDir = "/manual/index.html";
-        string m_strVRManualDir = "/manual_v/お読み下さい.html";
+        string m_strGameRegistry = "Software\\illusion\\AI-Syoujyo\\AI-Syoujyo\\";
+        string m_strStudioRegistry = "Software\\illusion\\AI-Syoujyo\\StudioNEOV2";
+        string m_strGameExe = "AI-Syoujyo.exe";
+        string m_strStudioExe = "StudioNEOV2.exe";
+        string m_strManualDir = "/manual/お読み下さい.html";
+        string m_strStudioManualDir = "/manual_s/お読み下さい.html";
+        string m_strVRManualDir = "/manual_vr/お読み下さい.html";
 
         const string m_strSaveDir = "/UserData/setup.xml";
         const string m_customDir = "/UserData/LauncherEN";
@@ -1108,6 +1217,7 @@ namespace InitDialog
 
         bool is64bitOS;
 
+        bool isStudio;
         bool isMainGame;
 
         string lang = "en";
@@ -1121,6 +1231,14 @@ namespace InitDialog
         bool PatreonExists;
         bool LangExists;
         bool DevExists;
+        bool kkmanExist;
+        bool updatelocExists;
+
+        bool isIPA;
+        bool isBepIn;
+
+        string kkman;
+        string updated = "placeholder";
 
         string q_performance = "Performance";
         string q_normal = "Normal";
@@ -1134,6 +1252,11 @@ namespace InitDialog
         const string charLoc = "/Chara.png";
         const string backgLoc = "/LauncherBG.png";
         const string patreonLoc = "/patreon.txt";
+        const string kkmdir = "/kkman.txt";
+        const string updateLoc = "/updater.txt";
+        //string updateURL;
+        //string packVersion;
+        //string newPackVersion;
 
         string patreonURL;
 
@@ -1270,11 +1393,42 @@ namespace InitDialog
 
         void discord_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            Process.Start("https://universalhentai.com/KoiLauncher");
+            Process.Start("https://discord.gg/F3bDEFE");
         }
         void patreon_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             Process.Start(patreonURL);
+        }
+
+        void update_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            saveConfigFile(m_strCurrentDir + m_strSaveDir);
+            SaveRegistry();
+
+            string marcofix = m_strCurrentDir.TrimEnd('\\', '/', ' ');
+            kkman = kkman.TrimEnd('\\', '/', ' ');
+            string finaldir;
+
+            if (!File.Exists($@"{kkman}\StandaloneUpdater.exe"))
+            {
+                finaldir = $@"{m_strCurrentDir}{kkman}";
+            }
+            else
+            {
+                finaldir = kkman;
+            }
+
+            string text = $@"{finaldir}\StandaloneUpdater.exe";
+
+            string argdir = $"\u0022{marcofix}\u0022";
+            string argloc = updated;
+            string args = $"{argdir} {argloc}";
+
+            if (File.Exists(text))
+            {
+                Process.Start(new ProcessStartInfo(text) { WorkingDirectory = $@"{finaldir}", Arguments = args });
+                return;
+            }
         }
 
         void langEnglish(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -1429,25 +1583,6 @@ namespace InitDialog
             System.Windows.Forms.Application.Restart();
         }
 
-        private void EnglishForce_Checked(object sender, RoutedEventArgs e)
-        {
-            WriteLangIni("en");
-            deactivateTL(1);
-            using (StreamWriter writetext = new StreamWriter(m_strCurrentDir + m_customDir + "/ForceEnglish"))
-            {
-                writetext.WriteLine("/ForceEnglish");
-            }
-        }
-
-        private void EnglishForce_Unchecked(object sender, RoutedEventArgs e)
-        {
-            if (File.Exists(m_strCurrentDir + m_customDir + "/ForceEnglish"))
-            {
-                File.Delete(m_strCurrentDir + m_customDir + "/ForceEnglish");
-            }
-            PartyFilter(lang);
-        }
-
         private void modeDev_Checked(object sender, RoutedEventArgs e)
         {
             using (StreamWriter writetext = new StreamWriter(m_strCurrentDir + m_customDir + "/devMode"))
@@ -1501,6 +1636,53 @@ namespace InitDialog
             {
                 MessageBox.Show("Something went wrong: " + e);
             }
+        }
+
+        private void checkBox_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void HoneyPotInspector_Run(object sender, RoutedEventArgs e)
+        {
+            if(File.Exists($"{m_strCurrentDir}\\HoneyPot\\HoneyPotInspector.exe"))
+            {
+                Process.Start($"{m_strCurrentDir}\\HoneyPot\\HoneyPotInspector.exe");
+            }
+            else
+            {
+                MessageBox.Show("HoneyPot doesn't seem to be applied to this installation.");
+            }
+        }
+
+        private void dhh_Checked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll"))
+                {
+                    File.Delete($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll");
+                }
+                File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_", $"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll");
+            }
+        }
+
+        private void dhh_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if(File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_"))
+                {
+                    File.Delete($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_");
+                }
+                File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll", $"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_");
+            }
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
         }
     }
 }
