@@ -893,7 +893,7 @@ namespace InitSetting
                 '\\'
             };
             string text = m_strCurrentDir.TrimEnd(trimChars);
-            text = text.TrimEnd(trimChars2) + "\\UserData\\UserData";
+            text = text.TrimEnd(trimChars2) + "\\UserData";
             if (Directory.Exists(text))
             {
                 Process.Start("explorer.exe", text);
@@ -913,7 +913,7 @@ namespace InitSetting
                 '\\'
             };
             string text = m_strCurrentDir.TrimEnd(trimChars);
-            text = text.TrimEnd(trimChars2) + "\\UserData\\UserData\\housing";
+            text = text.TrimEnd(trimChars2) + "\\UserData\\housing";
             if (Directory.Exists(text))
             {
                 Process.Start("explorer.exe", text);

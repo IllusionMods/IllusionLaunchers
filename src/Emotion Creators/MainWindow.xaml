@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InitSetting"
         mc:Ignorable="d"
-        Title="AI Shoujo Launcher"
+        Title="Emotion Creators Launcher"
 	    Height="600"
 	    Width="900"
         ResizeMode="NoResize"
@@ -106,8 +106,8 @@
             <Border  HorizontalAlignment="Left" Height="20.333" Margin="448.666,66.583,0,0" VerticalAlignment="Top" Width="170.417" Background="Black">
                 <Image x:Name="idmssage1" Source="images/ButtonBG/manual.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right"/>
             </Border>
-            <Label x:Name="labelM_Copy" Foreground="White" VerticalContentAlignment="Center" Content="Game Manual" HorizontalAlignment="Left" Margin="452.833,64.833,0,0" VerticalAlignment="Top" Height="24" Width="134"/>
-            <Button Style="{StaticResource buttonHover}" x:Name="buttonManual_Copy" Content="" HorizontalAlignment="Left" Height="24" Margin="446.833,64.833,0,0" VerticalAlignment="Top" Width="174" Click="buttonManual_Click"/>
+            <Label x:Name="labelMO" Foreground="White" VerticalContentAlignment="Center" Content="Online Manual" HorizontalAlignment="Left" Margin="452.833,64.833,0,0" VerticalAlignment="Top" Height="24" Width="134"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonManual_Online" Content="" HorizontalAlignment="Left" Height="24" Margin="446.833,64.833,0,0" VerticalAlignment="Top" Width="174" Click="buttonManual_Click"/>
         </Grid>
         <Image x:Name="PackChara" HorizontalAlignment="Left" Height="378" Margin="322,220,0,0" VerticalAlignment="Top" Width="255" Source="Images/Chara.png"/>
         <Grid HorizontalAlignment="Left" Height="491" Margin="0,107,0,0" VerticalAlignment="Top" Width="322">
@@ -158,11 +158,11 @@
             <Border BorderBrush="#FF7D8118" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left" Height="131.333" Margin="21,231,0,0" VerticalAlignment="Top" Width="282" CornerRadius="3">
             </Border>
             <Button Style="{StaticResource buttonHover}" x:Name="buttonInst" FontSize="10" Content="Install Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="129.516" Margin="28.625,241.71,0,0" Click="buttonInst_Click"/>
-            <Button Style="{StaticResource buttonHover}" x:Name="buttonHousing" FontSize="10" Content="Houses Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="129.517" Margin="164.358,241.71,0,0" Click="buttonHousing_Click"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonHousing" FontSize="10" Content="Maps Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="129.517" Margin="164.358,241.71,0,0" Click="buttonHousing_Click"/>
             <Button Style="{StaticResource buttonHover}" x:Name="buttonScenes" FontSize="10" Content="Scenes Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="129.516" Margin="28.625,270.71,0,0" Click="buttonScenes_Click"/>
-            <Button Style="{StaticResource buttonHover}" x:Name="buttonScreenshot" FontSize="10" Content="Screenshots Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="129.517" Margin="164.358,270.71,0,0" Click="buttonScreenshot_Click"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonPoses" FontSize="10" Content="Poses Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="129.517" Margin="164.358,270.71,0,0" Click="buttonScreenshot_Click"/>
             <Button Style="{StaticResource buttonHover}" x:Name="buttonFemaleCard" FontSize="10" Content="Female Card Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="129.516" Margin="28.625,299.71,0,0" Click="buttonFemaleCard_Click"/>
-            <Button Style="{StaticResource buttonHover}" x:Name="buttonMaleCard" FontSize="10" Content="Male Card Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="129.517" Margin="164.358,299.71,0,0" Click="buttonMaleCard_Click"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonScreenshot" FontSize="10" Content="Screenshots Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="129.517" Margin="164.358,299.71,0,0" Click="buttonMaleCard_Click"/>
             <Button Style="{StaticResource buttonHover}" x:Name="buttonUserData" FontSize="10" Content="UserData Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="265.25" Margin="28.625,328.71,0,0" Click="buttonUserData_Click"/>
         </Grid>
         <Image x:Name="image2" HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="283.333" Source="images/EC_Logo.png" Margin="313.5,102,301.167,0"/>
