@@ -135,7 +135,6 @@
     <Resource Include="images\ButtonBG\manual.png" />
     <Resource Include="images\ButtonBG\startGame.png" />
     <Resource Include="images\ButtonBG\startStudio.png" />
-    <Resource Include="images\PHLogo.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

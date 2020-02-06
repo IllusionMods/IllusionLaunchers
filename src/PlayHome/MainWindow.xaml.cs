@@ -175,7 +175,7 @@ namespace InitSetting
             }
             if (!File.Exists($"{m_strCurrentDir}\\PlayHome32bit.exe"))
             {
-                toggle32.IsEnabled = false;
+                toggle32.Visibility = Visibility.Hidden;
                 x86 = false;
             }
 

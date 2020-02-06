@@ -159,7 +159,7 @@ namespace InitSetting
             }
             if (!File.Exists($"{m_strCurrentDir}\\PlayHome32bit.exe"))
             {
-                toggle32.IsEnabled = false;
+                toggle32.Visibility = Visibility.Hidden;
                 x86 = false;
             }
 
@@ -201,10 +201,10 @@ namespace InitSetting
             //    GameSBox.Header = "Game Startup";
             //    labelStart.Content = "Start PH";
             //    labelM.Content = "PH Manual";
-            //    labelStartSN.Content = "Start Studio";
-            //    labelMSN.Content = "Studio Manual";
-            //    labelStartVO.Content = "Start PH VR";
-            //    labelMVO.Content = "VR Manual";
+            //    labelStartS.Content = "Start Studio";
+            //    labelMS.Content = "Studio Manual";
+            //    labelStartVR.Content = "Start PH VR";
+            //    labelMV.Content = "VR Manual";
             //    SettingsBox.Header = "Settings";
             //    toggleFullscreen.Content = "Run Game in Fullscreen";
             //    modeDev.Content = "Developer Mode";
@@ -228,21 +228,11 @@ namespace InitSetting
 
                 warningText.Text = "このゲームは成人向けので、18歳未満（または地域の法律によりと同等の年齢）がこのゲームをプレイまたは所有しているができない。\n\nこのゲームには性的内容の内容が含まれます。内に描かれている行動は、実生活で複製することは違法です。つまり、これは面白いゲームです、そうしましょう？(~.~)v";
                 buttonInst.Content = "インストール";
-                buttonFemaleCard.Content = "キャラカード";
-                buttonScenes.Content = "シーン";
-                buttonScreenshot.Content = "SS";
+                buttonFemaleCard.Content = "キャラカード (女性)";
+                buttonMaleCard.Content = "キャラカード (男性)";
+                buttonScreenshot.Content = "SS"; buttonUserData.Content = "UserData";
                 labelStart.Content = "ゲーム開始";
                 labelM.Content = "ゲーム";
-                labelStartSC.Content = "スタジオ開始";
-                labelMSC.Content = "スタジオ";
-                labelStartSN.Content = "スタジオ開始";
-                labelMSN.Content = "スタジオ";
-                labelStartVO.Content = "VR(Ocolus)開始";
-                labelMVO.Content = "スタジオ";
-                labelStartVV.Content = "VR(Vive)開始";
-                labelMVV.Content = "スタジオ";
-                labelStartBA.Content = "BattleArena開始";
-                labelMBA.Content = "スタジオ";
                 toggleFullscreen.Content = "全画面表示";
                 toggleConsole.Content = "コンソールを有効にする";
                 labelDist.Content = "不明バージョン";
@@ -252,196 +242,73 @@ namespace InitSetting
                 q_quality = "クオリティ";
                 s_primarydisplay = "メインディスプレイ";
                 s_subdisplay = "サブディスプレイ";
+                labelDiscord.Content = "Discordを訪問";
+                labelPatreon.Content = "Patreonを訪問";
+                labelUpdate.Content = "ゲームを更新する";
+
+                // HoneySelect Exclusive
+                labelStartSC.Content = "スタジオNEO開始";
+                labelStartSN.Content = "スタジオ開始";
+                labelStartVO.Content = "VR(Ocolus)開始";
+                labelStartVV.Content = "VR(Vive)開始";
+                labelStartBA.Content = "BattleArena開始";
+                labelMSC.Content = "マニュアル";
+                labelMSN.Content = "マニュアル";
+                labelMVO.Content = "マニュアル";
+                labelMVV.Content = "マニュアル";
+                labelMBA.Content = "マニュアル";
+                buttonScenesN.Content = "シーン (NEO)";
+                buttonScenesC.Content = "シーン";
+
             }
             else if (lang == "zh-CN") // By @Madevil#1103 & @𝐄𝐀𝐑𝐓𝐇𝐒𝐇𝐈𝐏 💖#4313 
             {
                 labelTranslated.Visibility = Visibility.Visible;
                 labelTranslatedBorder.Visibility = Visibility.Visible;
 
-                warningText.Text = "此游戏适用于成人用户，任何未满18岁的人（或根据当地法律规定的同等人）都不得遊玩或拥有此游戏。\n\n这个游戏包含性相关的内容，某些行为在现实生活中可能是非法的。所以，游戏中的所有乐趣请保留在游戏中，让我们保持这种方式吧? (~.~)v";
-                buttonInst.Content = "游戏主目录";
-                buttonFemaleCard.Content = "人物卡";
-                buttonScenes.Content = "工作室场景";
-                buttonScreenshot.Content = "截图";
-                labelStart.Content = "PlayHome";
-                labelM.Content = "说明文件";
-                labelStartSN.Content = "工作室";
-                labelMSN.Content = "工作室说明";
-                labelStartVO.Content = "VR";
-                toggleFullscreen.Content = "全屏执行";
-                toggleConsole.Content = "激活控制台";
-                labelDist.Content = "未知版本";
-                labelTranslated.Content = "Launcher translated by: Madevil & Earthship";
-                q_performance = "性能";
-                q_normal = "标准";
-                q_quality = "高画质";
-                s_primarydisplay = "主显示器";
-                s_subdisplay = "次显示器";
+                
             }
             else if (lang == "ko") // By @Keris-#1903 
             {
                 labelTranslated.Visibility = Visibility.Visible;
                 labelTranslatedBorder.Visibility = Visibility.Visible;
 
-                //labelStartS.FontSize = 11;
-                //buttonManualS.FontSize = 11;
-
-                warningText.Text = "이게임은 성인용입니다 18세 미만의 사람(또는 법에따라 동등한사람)은 게임을 하거나 해당게임을 소유하면 안됩니다\n\n이게임에는 성적인 내용이 포함되어있으며 그안에 묘사된 행동중 일부는 실제에서 행동하면 법적인 처벌을 받습니다";
-                buttonInst.Content = "설치된폴더";
-                buttonFemaleCard.Content = "캐릭터 카드";
-                buttonScenes.Content = "장면";
-                buttonScreenshot.Content = "스크린샷 폴더";
-                labelStart.Content = "플레이";
-                labelM.Content = "플레이";
-                labelStartSN.Content = "스튜디오";
-                labelMSN.Content = "스튜디오";
-                toggleConsole.Content = "콘솔 활성화";
-                toggleFullscreen.Content = "전체화면으로 시작";
-                toggleConsole.Content = "개발자 모드";
-                labelDist.Content = "알수 없는 설치 메소드";
-                labelTranslated.Content = "런쳐 번역 by: Keris";
-                q_performance = "퍼포먼스";
-                q_normal = "일반";
-                q_quality = "퀄리티";
-                s_primarydisplay = "주 디스플레이";
-                s_subdisplay = "서브 디스플레이";
+                
             }
             else if (lang == "es") // By @Heroine Nisa#3207
             {
                 labelTranslated.Visibility = Visibility.Visible;
                 labelTranslatedBorder.Visibility = Visibility.Visible;
 
-                buttonFemaleCard.FontSize = 13;
-                buttonManual.FontSize = 15;
-                toggleFullscreen.FontSize = 13;
-
-                warningText.Text = "Este juego está dirigido hacia un público adulto, ninguna persona bajo 18 años (o equivalente según las leyes locales) no deberían de jugar o estar en posesión de este juego. \n\nEste juego contiene escenas de carácter sexual, y algunas de las acciones representadas en el mismo pueden ser ilegales de hacerlas en la vida real.  También conocido como, todo es diversión y risas dentro del juego, así que mantengámoslo así, ¿vale? (~.~)v";
-                buttonInst.Content = "Instalar";
-                buttonFemaleCard.Content = "Cartas de Personaje";
-                buttonScenes.Content = "Escenas";
-                buttonScreenshot.Content = "Capturas";
-                labelStart.Content = "Iniciar PH";
-                labelM.Content = "Manual de PH";
-                labelStartSN.Content = "Iniciar Studio";
-                labelMSN.Content = "Manual de Studio";
-                labelStartVO.Content = "Iniciar VR";
-                labelMVO.Content = "Manual de VR";
-                toggleConsole.Content = "Activar consola";
-                toggleFullscreen.Content = "Lanzar Juego en Pantalla Completa";
-                labelDist.Content = " Método de Instalación Desconocido";
-                labelTranslated.Content = "Launcher translated by: Heroine Nisa";
-                q_performance = "Rendimiento";
-                q_normal = "Normal";
-                q_quality = "Calidad";
-                s_primarydisplay = "Pantalla Primaria";
-                s_subdisplay = "Pantalla Secundaria";
+                
             }
             else if (lang == "pt") // By @Neptune#1989 
             {
                 labelTranslated.Visibility = Visibility.Visible;
                 labelTranslatedBorder.Visibility = Visibility.Visible;
 
-                buttonFemaleCard.FontSize = 13;
-                buttonManual.FontSize = 15;
-                toggleFullscreen.FontSize = 13;
-
-                warningText.Text = "Este jogo, por apresentar conteúdo adulto, é voltado para maiores de 18 anos (ou equivalente perante a lei local), menores de idade não devem jogar ou possuí-lo.\n\nAlgumas das ações presentes nessa obra de ficção podem ser ilegais ao serem realizadas no mundo real. Deixe essas coisas somente para o mundo fictício, combinado? (~.~)v";
-                buttonInst.Content = "Instalar";
-                buttonFemaleCard.Content = "Cards de Personagens";
-                buttonScenes.Content = "Cenas";
-                buttonScreenshot.Content = "Capturas de Tela";
-                labelStart.Content = "Iniciar PH";
-                labelM.Content = "Manual do PH";
-                labelStartSN.Content = "Iniciar Studio";
-                labelMSN.Content = "Manual do Studio";
-                toggleFullscreen.Content = "Iniciar Jogo em Tela Cheia";
-                toggleConsole.Content = "Modo de desenvolvedor";
-                labelDist.Content = "Método de Instalação Desconhecido";
-                labelTranslated.Content = "Launcher traduzido por: Neptune";
-                q_performance = "Baixo";
-                q_normal = "Normal";
-                q_quality = "Alto";
-                s_primarydisplay = "Display Primário";
-                s_subdisplay = "Display Secundário";
+                
             }
             else if (lang == "fr") // By VaizravaNa#2315
             {
                 labelTranslated.Visibility = Visibility.Visible;
                 labelTranslatedBorder.Visibility = Visibility.Visible;
 
-                buttonFemaleCard.FontSize = 14;
-                labelStart.FontSize = 14;
-                HoneyPotInspector.FontSize = 13;
-
-                warningText.Text = "Ce jeu est destiné à un public adulte, aucun mineur en dessous de 18 ans (ou l'équivalent selon les lois locales) ne doit pas jouer ou posséder ce jeu. \n\nCe jeu contient des scènes matures, et certaines actions du jeu peuvent être considéré comme illégales, à ne pas reproduire dans la vraie vie. Ce n'est que de la fiction, du moment que cela reste dans le jeu. Amusez-vous bien!";
-                buttonInst.Content = "Installation";
-                buttonFemaleCard.Content = "Personnages";
-                buttonScenes.Content = "Scènes";
-                buttonScreenshot.Content = "Captures d'écran";
-                labelStart.Content = "Lancer PH";
-                labelM.Content = "Manuel de PH";
-                labelStartSN.Content = "Lancer le Studio";
-                labelMSN.Content = "Manuel du Studio";
-                labelStartVO.Content = "Lancer la VR";
-                labelMVO.Content = "Manuel de VR";
-                toggleFullscreen.Content = "Lancer le jeu en pleins écran";
-                toggleConsole.Content = "Activer la console";
-                HoneyPotInspector.Text = "Lancer HoneyPot Inspector";
-                labelDist.Content = "Méthode d'installation inconnue";
-                labelTranslated.Content = "Lanceur traduit par: VaizravaNa";
-                q_performance = "Performance";
-                q_normal = "Normal";
-                q_quality = "Qualité";
-                s_primarydisplay = "Ecran principal";
-                s_subdisplay = "Ecran secondaire";
+                
             }
             else if (lang == "de") // By @DONTFORGETME#6198 
             {
+                labelTranslated.Visibility = Visibility.Visible;
                 labelTranslatedBorder.Visibility = Visibility.Visible;
-                toggleFullscreen.FontSize = 13;
-                toggleConsole.FontSize = 13;
-                buttonManual.FontSize = 10;
 
-                warningText.Text = "Dieses Spiel ist ausschließlich für erwachsenes Publikum vorgesehen. Niemand unter 18 Jahren ( Oder entsprechend deiner örtlichen Gesetze ) ist vorgesehen dieses Spiel zu spielen, oder es zu besitzen.\n\nDieses Spiel enthällt sexuelle Inhalte welche bei Ausführung im realen Leben strafbar sein könnten. Dinge die im Spiel geschehen sollten also auch im Spiel bleiben in Ordnung? (~.~)v";
-                buttonInst.Content = "Installieren";
-                buttonFemaleCard.Content = "Charakter Karten";
-                buttonScenes.Content = "Scenen";
-                buttonScreenshot.Content = "ScreenShots";
-                labelStart.Content = "Starte PH";
-                labelM.Content = "PH Bedienungsanleitung";
-                labelStartSN.Content = "Starte Studio";
-                labelMSN.Content = "Studio Bedienungsanleitung";
-                toggleFullscreen.Content = "Starte Spiel in Vollbildmodus";
-                toggleConsole.Content = "Entwicklermodus";
-                labelDist.Content = "Unknown Install Method";
-                labelTranslated.Content = "Launcher translated by: <HyD>";
-                q_performance = "Leistung";
-                q_normal = "Normal";
-                q_quality = "Qualität";
-                s_primarydisplay = "Primär Bildschirm";
-                s_subdisplay = "Neben Bildschrim";
+                
             }
             else if (lang == "no") // By @SmokeOfC|女神様の兄様#1984
             {
+                labelTranslated.Visibility = Visibility.Visible;
                 labelTranslatedBorder.Visibility = Visibility.Visible;
-                warningText.Text = "Dette spillet er ment for voksne spillere, og ingen person under 18 år (Eller tilsvarende iht lokal lov) er tiltenkt å være i besittelse av dette spillet.\n\nDette spillet inneholder innhold av en seksuell natur, og noen av handlingene avbildet i dette spillet kan være ulovlig å replikere i virkeligheten. Altså, det er lek og artig i spillet, la oss holde det slik, eller hva? (~.~)v";
-                buttonInst.Content = "Installasjon";
-                buttonFemaleCard.Content = "Kort";
-                buttonScenes.Content = "Scener";
-                buttonScreenshot.Content = "Skjermbilder";
-                labelStart.Content = "Start PH";
-                labelM.Content = "Spill";
-                labelStartSN.Content = "Start Studio";
-                labelMSN.Content = "Studio";
-                toggleFullscreen.Content = "Bruk fullskjerm";
-                toggleConsole.Content = "Utviklermodus";
-                toggleConsole.Content = "Aktiver Konsoll";
-                labelDist.Content = "Ingen kjent installasjonsmetode";
-                q_performance = "Ytelse";
-                q_normal = "Normal";
-                q_quality = "Kvalitet";
-                s_primarydisplay = "Hovedskjerm";
-                s_subdisplay = "SubSkjerm";
+
+                
             }
 
             m_astrQuality = new string[]
@@ -457,7 +324,7 @@ namespace InitSetting
             isStudio = File.Exists(m_strCurrentDir + m_strStudioExe);
             isMainGame = File.Exists(m_strCurrentDir + m_strGameExe);
 
-            if(!is64bitOS)
+            if (!is64bitOS)
             {
                 toggle32.IsChecked = true;
                 toggle32.IsEnabled = false;
@@ -622,7 +489,7 @@ namespace InitSetting
 
         void SetEnableAndVisible()
         {
-            
+
         }
 
         void SaveRegistry()
@@ -672,7 +539,7 @@ namespace InitSetting
 
         void buttonStart_Click(object sender, RoutedEventArgs e)
         {
-            if(x86 == true)
+            if (x86 == true)
                 PlayFunc(m_strGameExe32);
             else
                 PlayFunc(m_strGameExe);
@@ -750,7 +617,7 @@ namespace InitSetting
             string manualLANG = $"{m_strCurrentDir}\\manual\\manual_{lang}.html";
             string manualJA = m_strCurrentDir + m_strManualDir;
 
-            if(File.Exists(manualEN) || File.Exists(manualLANG) || File.Exists(manualJA))
+            if (File.Exists(manualEN) || File.Exists(manualLANG) || File.Exists(manualJA))
             {
                 if (File.Exists(manualLANG))
                     Process.Start(manualLANG);
@@ -1652,6 +1519,69 @@ namespace InitSetting
         private void checkBox_Checked(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void HoneyPotInspector_Run(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists($"{m_strCurrentDir}\\HoneyPot\\HoneyPotInspector.exe"))
+            {
+                Process.Start($"{m_strCurrentDir}\\HoneyPot\\HoneyPotInspector.exe");
+            }
+            else
+            {
+                MessageBox.Show("HoneyPot doesn't seem to be applied to this installation.");
+            }
+        }
+
+        private void dhh_Checked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll"))
+                {
+                    File.Delete($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll");
+                }
+                File.Move($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_", $"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll");
+            }
+        }
+
+        private void dhh_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_"))
+                {
+                    File.Delete($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_");
+                }
+                File.Move($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll", $"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_");
+            }
+        }
+
+        private void hp_Checked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_"))
+                MessageBox.Show("When HoneyPot is enabled, the game will use a bit longer to load in some scenes due to checking for HoneySelect assets, making it appear to be freezing for a few seconds. This is completely normal.\n\nJust disable this option again if you would rather not have that freeze.", "Information");
+            if (File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dll"))
+                {
+                    File.Delete($"{m_strCurrentDir}\\Plugins\\HoneyPot.dll");
+                }
+                File.Move($"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_", $"{m_strCurrentDir}\\Plugins\\HoneyPot.dll");
+            }
+
+        }
+
+        private void hp_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dll"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_"))
+                {
+                    File.Delete($"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_");
+                }
+                File.Move($"{m_strCurrentDir}\\Plugins\\HoneyPot.dll", $"{m_strCurrentDir}\\Plugins\\HoneyPot.dl_");
+            }
         }
 
         private void toggle32_Checked(object sender, RoutedEventArgs e)

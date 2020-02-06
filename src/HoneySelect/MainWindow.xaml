@@ -238,9 +238,6 @@
             </Border>
             <CheckBox x:Name="toggleFullscreen" Content="Play game in fullscreen" Foreground="White" VerticalContentAlignment="Center" Margin="58,176.333,30,298.667" Checked="windowChecked" Unchecked="windowUnChecked"/>
             <CheckBox x:Name="toggleConsole" Content="Activate Console" Foreground="White" VerticalContentAlignment="Center" Margin="58,192.333,30,282.667" Checked="modeDev_Checked" Unchecked="modeDev_Unchecked"/>
-            <Button Style="{StaticResource buttonHover}" MaxWidth="900" FontSize="10" Height="39.21" VerticalAlignment="Top" Margin="0,287.333,34,0" HorizontalAlignment="Right" Width="104.333">
-                <TextBlock x:Name="HoneyPotInspector" Text="Run HoneyPot inspector" TextWrapping="Wrap" TextAlignment="Center"/>
-            </Button>
         </Grid>
         <Grid HorizontalAlignment="Left" Height="491" Margin="576,107,0,0" VerticalAlignment="Top" Width="322">
             <Grid HorizontalAlignment="Left" Height="156" Margin="-533,19,0,0" VerticalAlignment="Top" Width="265">
@@ -271,34 +268,35 @@
                     <Label x:Name="labelTranslated" Content="Launcher translated by..." Foreground="White"/>
                 </Border>
             </Grid>
-            <Border BorderBrush="#FF7D8118" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left" Height="117" Margin="21,231,0,0" VerticalAlignment="Top" Width="282" CornerRadius="3">
+            <Border BorderBrush="#FF7D8118" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left" Height="135" Margin="21,231,0,0" VerticalAlignment="Top" Width="282" CornerRadius="3">
             </Border>
-            <Button Style="{StaticResource buttonHover}" x:Name="buttonInst" FontSize="10" Content="Install Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="125" Margin="35,249,0,0" Click="buttonInst_Click"/>
-            <Button Style="{StaticResource buttonHover}" x:Name="buttonUserData" FontSize="10" Content="UserData Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="125" Margin="166,249,0,0" Click="buttonUserData_Click"/>
-            <Button Style="{StaticResource buttonHover}" x:Name="buttonScenes" FontSize="10" Content="Scenes Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="125" Margin="35,278,0,0" Click="buttonScenes_Click"/>
-            <Button Style="{StaticResource buttonHover}" x:Name="buttonScreenshot" FontSize="10" Content="Screenshots Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="125" Margin="166,278,0,0" Click="buttonScreenshot_Click"/>
-            <Button Style="{StaticResource buttonHover}" x:Name="buttonFemaleCard" FontSize="10" Content="Female Card Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="125" Margin="35,307,0,0" Click="buttonFemaleCard_Click"/>
-            <Button Style="{StaticResource buttonHover}" x:Name="buttonMaleCard" FontSize="10" Content="Male Card Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="125" Margin="166,307,0,0" Click="buttonMaleCard_Click"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonInst" FontSize="10" Content="Install Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="128.901" Margin="30.5,244.21,0,0" Click="buttonInst_Click"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonScreenshot" FontSize="10" Content="UserData Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="128.901" Margin="165.599,244.21,0,0" Click="buttonUserData_Click"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonScenesN" FontSize="10" Content="Scenes Folder (Neo)" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="128.901" Margin="30.5,273.21,0,0" Click="buttonScenes_Click"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonScenesC" FontSize="10" Content="Scenes Folder (Classic)" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="128.901" Margin="165.599,273.21,0,0" Click="buttonScreenshot_Click"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonFemaleCard" FontSize="10" Content="Female Card Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="128.901" Margin="30.5,302.21,0,0" Click="buttonFemaleCard_Click"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonMaleCard" FontSize="10" Content="Male Card Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="128.901" Margin="165.599,302.21,0,0" Click="buttonMaleCard_Click"/>
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonUserData" FontSize="10" Content="UserData Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="263.991" Margin="30.5,331.21,0,0" Click="buttonFemaleCard_Click"/>
         </Grid>
         <Image x:Name="image2" HorizontalAlignment="Center" Height="113" VerticalAlignment="Top" Width="262" Source="images/HSLogo.png" Margin="318,102,318,0"/>
         <Button Style="{StaticResource buttonHover}" x:Name="buttonClose" Content="X" HorizontalAlignment="Left" Margin="857.833,6.5,0,0" VerticalAlignment="Top" Width="32" Height="28" Click="buttonClose_Click" IsCancel="true"/>
         <Grid x:Name="gridDiscord" HorizontalAlignment="Left" Height="36.333" Margin="-40.667,551.667,0,0" VerticalAlignment="Top" Width="189.917">
-            <Border BorderBrush="#FF7D8118" Background="Black" BorderThickness="2" HorizontalAlignment="Left" Height="37" Margin="0,0,-0.083,0" VerticalAlignment="Top" Width="190" CornerRadius="20">
-                <Label x:Name="label2" Content="Visit Discord" Foreground="White" VerticalContentAlignment="Center" Padding="50,0,0,0"/>
+            <Border BorderBrush="#FF510E0E" Background="Black" BorderThickness="2" HorizontalAlignment="Left" Height="37" Margin="0,0,-0.083,0" VerticalAlignment="Top" Width="190" CornerRadius="20">
+                <Label x:Name="labelDiscord" Content="Visit Discord" Foreground="White" VerticalContentAlignment="Center" Padding="50,0,0,0"/>
             </Border>
             <Image x:Name="images3" HorizontalAlignment="Left" Height="25" Margin="151,6,0,0" VerticalAlignment="Top" Width="24" Source="images/ModernDiscord_small.png"/>
             <Rectangle x:Name="linkDiscord" Fill="Transparent" HorizontalAlignment="Left" Height="37" Margin="0,0,-0.083,0" VerticalAlignment="Top" Width="190" MouseLeftButtonDown="discord_MouseLeftButtonDown"/>
         </Grid>
         <Grid x:Name="gridPatreon" HorizontalAlignment="Left" Height="36.333" Margin="-40.667,510.334,0,0" VerticalAlignment="Top" Width="189.917">
-            <Border x:Name="patreonBorder" BorderBrush="#FF7D8118" Background="Black" BorderThickness="2" HorizontalAlignment="Left" Height="37" Margin="-0.083,0,0,-0.667" VerticalAlignment="Top" Width="190" CornerRadius="20">
-                <Label x:Name="lasbel2" Content="Visit Patreon" Foreground="White" VerticalContentAlignment="Center" Padding="50,0,0,0" Margin="-2"/>
+            <Border x:Name="patreonBorder" BorderBrush="#FF510E0E" Background="Black" BorderThickness="2" HorizontalAlignment="Left" Height="37" Margin="-0.083,0,0,-0.667" VerticalAlignment="Top" Width="190" CornerRadius="20">
+                <Label x:Name="labelPatreon" Content="Visit Patreon" Foreground="White" VerticalContentAlignment="Center" Padding="50,0,0,0" Margin="-2"/>
             </Border>
             <Image x:Name="patreonIMG" HorizontalAlignment="Left" Height="28" Margin="150.917,6,0,0" VerticalAlignment="Top" Width="24" Source="images/ModernPatreon_small.png"/>
             <Rectangle x:Name="linkPatreon" Fill="Transparent" HorizontalAlignment="Left" Height="37" Margin="-0.083,0,0,-0.667" VerticalAlignment="Top" Width="190" MouseLeftButtonDown="patreon_MouseLeftButtonDown"/>
         </Grid>
         <Grid x:Name="gridUpdate" HorizontalAlignment="Left" Height="36.333" Margin="-40.667,469.001,0,0" VerticalAlignment="Top" Width="189.917">
-            <Border BorderBrush="#FF7D8118" Background="Black" BorderThickness="2" HorizontalAlignment="Left" Height="37" Margin="-0.083,0,0,-0.667" VerticalAlignment="Top" Width="190" CornerRadius="20">
-                <Label x:Name="lassbel2" Content="Update" Foreground="White" VerticalContentAlignment="Center" Padding="50,0,0,0" Margin="-2"/>
+            <Border BorderBrush="#FF510E0E" Background="Black" BorderThickness="2" HorizontalAlignment="Left" Height="37" Margin="-0.083,0,0,-0.667" VerticalAlignment="Top" Width="190" CornerRadius="20">
+                <Label x:Name="labelUpdate" Content="Update" Foreground="White" VerticalContentAlignment="Center" Padding="50,0,0,0" Margin="-2"/>
             </Border>
             <Image x:Name="imasge3" HorizontalAlignment="Left" Height="28" Margin="150.917,5,0,0" VerticalAlignment="Top" Width="24" Source="images/ModernDL_small.png"/>
             <Rectangle x:Name="linkUpdate" Fill="Transparent" HorizontalAlignment="Left" Height="37" Margin="-0.083,0,0,-0.667" VerticalAlignment="Top" Width="190"/>

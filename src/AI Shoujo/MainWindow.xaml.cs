@@ -236,7 +236,6 @@ namespace InitSetting
                 labelM.Content = "ゲーム";
                 labelMS.Content = "スタジオ";
                 toggleFullscreen.Content = "全画面表示";
-                toggleDHH.Content = "DHHを有効にする";
                 toggleConsole.Content = "コンソールを有効にする";
                 labelDist.Content = "不明バージョン";
                 labelTranslated.Content = "初期設定翻訳者: Earthship";
@@ -248,6 +247,10 @@ namespace InitSetting
                 labelDiscord.Content = "Discordを訪問";
                 labelPatreon.Content = "Patreonを訪問";
                 labelUpdate.Content = "ゲームを更新する";
+
+                // AIS Exclusive
+                buttonHousing.Content = "家";
+                toggleDHH.Content = "DHHを有効にする";
             }
             else if (lang == "zh-CN") // By @Madevil#1103 & @𝐄𝐀𝐑𝐓𝐇𝐒𝐇𝐈𝐏 💖#4313 
             {
@@ -266,7 +269,6 @@ namespace InitSetting
                 labelM.Content = "游戏手册";
                 labelMS.Content = "工作室手册";
                 toggleFullscreen.Content = "全屏执行";
-                toggleDHH.Content = "激活DHH";
                 toggleConsole.Content = "激活控制台";
                 labelDist.Content = "未知版本";
                 labelTranslated.Content = "翻译： Madevil & Earthship";
@@ -278,6 +280,10 @@ namespace InitSetting
                 labelDiscord.Content = "前往Discord";
                 labelPatreon.Content = "前往Patreon";
                 labelUpdate.Content = "更新游戏";
+
+                // AIS Exclusive
+                buttonHousing.Content = "房子";
+                toggleDHH.Content = "激活DHH";
             }
             else if (lang == "ko") // By @Keris-#1903 
             {
@@ -296,7 +302,6 @@ namespace InitSetting
                 labelM.Content = "플레이 메뉴얼";
                 labelMS.Content = "스튜디오 메뉴얼";
                 toggleFullscreen.Content = "전체화면으로 시작";
-                toggleDHH.Content = "DHH 활성화";
                 toggleConsole.Content = "콘솔 활성화";
                 labelDist.Content = "알수 없는 설치 메소드";
                 labelTranslated.Content = "런쳐 번역 by: Keris";
@@ -308,6 +313,10 @@ namespace InitSetting
                 labelDiscord.Content = "Discord 방문";
                 labelPatreon.Content = "Patreon 방문";
                 labelUpdate.Content = "게임 업데이트";
+
+                // AIS Exclusive
+                buttonHousing.Content = "하우징 폴더";
+                toggleDHH.Content = "DHH 활성화";
             }
             else if (lang == "es") // By @Heroine Nisa#3207
             {
@@ -326,7 +335,6 @@ namespace InitSetting
                 labelM.Content = "Manual de juego";
                 labelMS.Content = "Manual de studio";
                 toggleFullscreen.Content = "Lanzar Juego en Pantalla Completa";
-                toggleDHH.Content = "Activar DHH";
                 toggleConsole.Content = "Activar consola";
                 labelDist.Content = "Método de Instalación Desconocido";
                 labelTranslated.Content = "Traducido por: Heroine Nisa";
@@ -338,6 +346,10 @@ namespace InitSetting
                 labelDiscord.Content = "visita la Discord";
                 labelPatreon.Content = "visita la Patreon";
                 labelUpdate.Content = "Actualizar";
+
+                // AIS Exclusive
+                buttonHousing.Content = "Casas";
+                toggleDHH.Content = "Activar DHH";
             }
             else if (lang == "pt") // By @Neptune#1989 
             {
@@ -356,7 +368,6 @@ namespace InitSetting
                 labelM.Content = "Manual do Jogo";
                 labelMS.Content = "Manual do Studio";
                 toggleFullscreen.Content = "Iniciar Jogo em Tela Cheia";
-                toggleDHH.Content = "Ativar DHH";
                 toggleConsole.Content = "Ativar console";
                 labelDist.Content = "Método de Instalação Desconhecido";
                 labelTranslated.Content = "Launcher traduzido por: Neptune";
@@ -368,6 +379,10 @@ namespace InitSetting
                 labelDiscord.Content = "Visitar Discord";
                 labelPatreon.Content = "Visitar Patreon";
                 labelUpdate.Content = "Atualizar";
+
+                // AIS Exclusive
+                buttonHousing.Content = "Casas";
+                toggleDHH.Content = "Ativar DHH";
             }
             else if (lang == "fr") // By VaizravaNa#2315
             {
@@ -386,7 +401,6 @@ namespace InitSetting
                 labelM.Content = "Manuel de jeu";
                 labelMS.Content = "Manuel du Studio";
                 toggleFullscreen.Content = "Lancer le jeu en pleins écran";
-                toggleDHH.Content = "Activer DHH";
                 toggleConsole.Content = "Activer la console";
                 labelDist.Content = "Méthode d'installation inconnue";
                 labelTranslated.Content = "Lanceur traduit par: VaizravaNa";
@@ -398,6 +412,10 @@ namespace InitSetting
                 labelDiscord.Content = "Visiter la Discord";
                 labelPatreon.Content = "Visiter la Patreon";
                 labelUpdate.Content = "Mise à jour";
+
+                // AIS Exclusive
+                buttonHousing.Content = "Plans des maisons";
+                toggleDHH.Content = "Activer DHH";
             }
             else if (lang == "de") // By @DONTFORGETME#6198 
             {
@@ -416,7 +434,6 @@ namespace InitSetting
                 labelM.Content = "Spiel Bedienungsanleitung";
                 labelMS.Content = "Studio Bedienungsanleitung";
                 toggleFullscreen.Content = "Starte Spiel in Vollbildmodus";
-                toggleDHH.Content = "DHH umschalten";
                 toggleConsole.Content = "Konsole umschalten";
                 labelDist.Content = "Unbekannte Installationsmethode";
                 labelTranslated.Content = "Übersetzt von: <HyD>";
@@ -428,6 +445,10 @@ namespace InitSetting
                 labelDiscord.Content = "Besuche die Discord";
                 labelPatreon.Content = "Besuche die Patreon";
                 labelUpdate.Content = "Aktualisieren";
+
+                // AIS Exclusive
+                buttonHousing.Content = "Häuser";
+                toggleDHH.Content = "DHH umschalten";
             }
             else if (lang == "no") // By @SmokeOfC|女神様の兄様#1984
             {
@@ -446,7 +467,6 @@ namespace InitSetting
                 labelM.Content = "Spill manual";
                 labelMS.Content = "Studio manual";
                 toggleFullscreen.Content = "Start spill med fullskjerm";
-                toggleDHH.Content = "Aktiver DHH";
                 toggleConsole.Content = "Aktiver Konsoll";
                 labelDist.Content = "Ukjent distribusjon";
                 labelTranslated.Content = "Oversatt av: SmokeOfC";
@@ -458,6 +478,10 @@ namespace InitSetting
                 labelDiscord.Content = "Besøk Discord";
                 labelPatreon.Content = "Besøk Patreon";
                 labelUpdate.Content = "Oppdater";
+
+                // AIS Exclusive
+                buttonHousing.Content = "Hus";
+                toggleDHH.Content = "Aktiver DHH";
             }
 
             m_astrQuality = new string[]
