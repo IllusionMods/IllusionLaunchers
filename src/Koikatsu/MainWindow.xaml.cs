@@ -138,7 +138,7 @@ namespace InitSetting
                 }
                 else
                 {
-                    updated = "https://mega.nz/#F!LH5iwKxR!d_ztxVonEesY-ckOI_bfSw";
+                    updated = "";
                 }
             }
             else
@@ -1475,6 +1475,9 @@ namespace InitSetting
             string argdir = $"\u0022{marcofix}\u0022";
             string argloc = updated;
             string args = $"{argdir} {argloc}";
+
+            if(!updatelocExists)
+                args = $"{argdir}";
 
             if (File.Exists(text))
             {
