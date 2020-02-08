@@ -5,26 +5,26 @@
 	Width="363"
 	ResizeMode="NoResize"
 	WindowStartupLocation="CenterScreen" xmlns:windows="clr-namespace:System.Windows;assembly=PresentationFramework">
-    <Grid>
-        <Panel.Background>
-            <LinearGradientBrush
+	<Grid>
+		<Panel.Background>
+			<LinearGradientBrush
 				EndPoint="0.5,1"
 				StartPoint="0.5,0">
-                <GradientStop
+				<GradientStop
 					Color="White"
 					Offset="0" />
-                <GradientStop
+				<GradientStop
 					Color="#FFDEEFFB"
 					Offset="1" />
-            </LinearGradientBrush>
-        </Panel.Background>
-        <Canvas
+			</LinearGradientBrush>
+		</Panel.Background>
+		<Canvas
 			HorizontalAlignment="Left"
 			Height="78"
 			VerticalAlignment="Top"
 			Width="357"
 			Background="#FFFFFFFF" />
-        <Button
+		<Button
 			Content="OK"
 			HorizontalAlignment="Center"
 			Height="30"
