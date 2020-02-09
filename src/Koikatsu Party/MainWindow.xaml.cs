@@ -1,24 +1,23 @@
-﻿using System;
-using System.CodeDom.Compiler;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Management;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
-using System.Windows.Markup;
 using System.Windows.Media.Imaging;
 using System.Xml.Serialization;
-using System.Linq;
-using Microsoft.Win32;
 using MessageBox = System.Windows.Forms.MessageBox;
+using System.Windows.Input;
 
-namespace InitDialog
+namespace InitSetting
 {
     public partial class MainWindow : Window
     {
@@ -72,9 +71,41 @@ namespace InitDialog
                 }
             }
 
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+
             startup = true;
 
+            //temp hide unimplemented stuffs
+            CustomRes.Visibility = Visibility.Hidden;
+
             Directory.CreateDirectory(m_strCurrentDir + m_customDir);
+
+            if (!File.Exists(m_strCurrentDir + m_customDir + kkmdir))
+            {
+
+            }
+
+            // Framework test
+            isIPA = File.Exists($"{m_strCurrentDir}\\IPA.exe");
+            isBepIn = Directory.Exists($"{m_strCurrentDir}\\BepInEx");
+
+            if (isIPA && isBepIn)
+                MessageBox.Show("Both BepInEx and IPA is detected in the game folder!\n\nApplying both frameworks may lead to problems when running the game!", "Warning!");
+
+            // Check if dev mode is active
+
+            if (!File.Exists(m_strCurrentDir + "/Bepinex/config/BepInEx.cfg"))
+            {
+                toggleConsole.IsEnabled = false;
+                File.Delete(m_strCurrentDir + m_customDir + "/devMode");
+            }
+
+            DevExists = File.Exists(m_strCurrentDir + m_customDir + "/devMode");
+            if (DevExists)
+            {
+                toggleConsole.IsChecked = true;
+            }
+
 
             // Updater stuffs
 
@@ -90,7 +121,6 @@ namespace InitDialog
                     {
                         kkman = line;
                     }
-                    //UpdateButton.Visibility = Visibility.Visible;
                 }
                 kkmanFileStream.Close();
                 if (updatelocExists)
@@ -108,12 +138,17 @@ namespace InitDialog
                 }
                 else
                 {
-                    updated = "https://mega.nz/#F!fkYzQa5K!nSc7wkY82OUqZ4Hlff7Rlg ftp://kkshare:ayaya@144.91.89.152";
+                    updated = "";
                 }
             }
             else
             {
-                UpdateButton.Visibility = Visibility.Hidden;
+                gridUpdate.Visibility = Visibility.Hidden;
+            }
+
+            if (!File.Exists(m_strCurrentDir + m_customDir + kkmdir))
+            {
+
             }
 
             // Check if Party fonts are present
@@ -127,27 +162,16 @@ namespace InitDialog
 
             if (!lang1en && !lang1di && !lang2en && !lang2di && !lang3en && !lang3di)
             {
-                FontBG.Visibility = Visibility.Hidden;
-                font.Visibility = Visibility.Hidden;
+                toggleFont.IsEnabled = false;
             }
             else if (lang1en || lang2en || lang3en)
             {
-                font.IsChecked = true;
+                toggleFont.IsChecked = true;
             }
 
-                // Check if dev mode is active
+            // Mod settings
 
-                if (!File.Exists(m_strCurrentDir + "/Bepinex/config/BepInEx.cfg"))
-            {
-                modeDev.IsEnabled = false;
-                File.Delete(m_strCurrentDir + m_customDir + "/devMode");
-            }
 
-            DevExists = File.Exists(m_strCurrentDir + m_customDir + "/devMode");
-            if (DevExists)
-            {
-                modeDev.IsChecked = true;
-            }
 
             startup = false;
 
@@ -166,34 +190,37 @@ namespace InitDialog
                 verFileStream.Close();
             }
 
-            TransCred.Visibility = Visibility.Hidden;
+            labelTranslated.Visibility = Visibility.Hidden;
+            labelTranslatedBorder.Visibility = Visibility.Hidden;
 
             // MessageBox.Show($"Chinese is {chnActive}", "Debug");
 
             // Template for new translations
             //if (lang == "en-US")
             //{
-            //    mainApp.Title = "Koikatsu Launcher";
+            //    MainWindow.Title = "PH Launcher";
             //    warnBox.Header = "Notice!";
             //    warningText.Text = "This game is intended for adult audiences, no person under the age of 18 (or equivalent according to local law) are supposed to play or be in possession of this game.\n\nThis game contains content of a sexual nature, and some of the actions depicted within may be illegal to replicate in real life. Aka, it's all fun and games in the game, let's keep it that way shall we? (~.~)v";
             //    GameFBox.Header = "Game folders";
-            //    InstallDirectory.Content = "Install";
-            //    KoikatuCharaDirectory.Content = "Character Cards";
-            //    SceneDirectory.Content = "Scenes";
-            //    KoikatuScreenShotDirectory.Content = "ScreenShots";
+            //    buttonInst.Content = "Install";
+            //    buttonFemaleCard.Content = "Character Cards";
+            //    buttonScenes.Content = "Scenes";
+            //    buttonScreenshot.Content = "ScreenShots";
+            //    AISHousingDirectory.Content = "Hus";
             //    GameSBox.Header = "Game Startup";
-            //    PLAY.Content = "Start Koikatsu";
-            //    Manual_Open.Content = "Koikatsu Manual";
-            //    PLAY_Studio.Content = "Start Studio";
-            //    Manual_s_Open.Content = "Studio Manual";
-            //    PLAY_VR.Content = "Start Koikatsu VR";
-            //    Manual_v_Open.Content = "VR Manual";
+            //    labelStart.Content = "Start PH";
+            //    labelM.Content = "PH Manual";
+            //    labelStartS.Content = "Start Studio";
+            //    labelMS.Content = "Studio Manual";
+            //    labelStartVR.Content = "Start PH VR";
+            //    labelMV.Content = "VR Manual";
             //    SettingsBox.Header = "Settings";
-            //    modeFenetre.Content = "Run Game in Fullscreen";
+            //    toggleFullscreen.Content = "Run Game in Fullscreen";
+            //    modeDev.Content = "Developer Mode";
             //    SystemInfo.Content = "System Info";
-            //    EXIT.Content = "Exit";
-            //    Versioning.Text = "Unknown Install Method";
-            //    TransCred.Text = "Launcher translated by: <Insert Name>";
+            //    buttonClose.Content = "Exit";
+            //    labelDist.Content = "Unknown Install Method";
+            //    labelTranslated.Content = "Launcher translated by: <Insert Name>";
             //    translationString = "Do you want to restore Japanese language in-game?";
             //    q_performance = "Performance";
             //    q_normal = "Normal";
@@ -205,35 +232,38 @@ namespace InitDialog
             // Translations
             if (lang == "zh-CN") // By @Madevil#1103 & @𝐄𝐀𝐑𝐓𝐇𝐒𝐇𝐈𝐏 💖#4313 
             {
-                TransCred.Visibility = Visibility.Visible;
+                labelTranslated.Visibility = Visibility.Visible;
+                labelTranslatedBorder.Visibility = Visibility.Visible;
 
-                mainApp.Title = "恋爱活动启动器";
-                warnBox.Header = "声明";
+                m_strManualDir = "/manual/Traditional Chinese/README.html";
+                m_strStudioManualDir = "/manual_s/お読み下さい.html";
+                m_strVRManualDir = "/manual_v/Traditional Chinese/README.html";
+
                 warningText.Text = "此游戏适用于成人用户，任何未满18岁的人（或根据当地法律规定的同等人）都不得遊玩或拥有此游戏。\n\n这个游戏包含性相关的内容，某些行为在现实生活中可能是非法的。所以，游戏中的所有乐趣请保留在游戏中，让我们保持这种方式吧? (~.~)v";
-                GameFBox.Header = "文件夹";
-                InstallDirectory.Content = "游戏主目录";
-                KoikatuCharaDirectory.Content = "人物卡";
-                SceneDirectory.Content = "工作室场景";
-                KoikatuScreenShotDirectory.Content = "截图";
-                GameSBox.Header = "启动";
-                PLAY.Content = "恋爱活动";
-                Manual_Open.Content = "说明文件";
-                PLAY_Studio.Content = "工作室";
-                Manual_s_Open.Content = "工作室说明";
-                PLAY_VR.Content = "恋爱活动 VR";
-                Manual_v_Open.Content = "VR 说明";
-                SettingsBox.Header = "设置";
-                modeFenetre.Content = "全屏执行";
-                modeDev.Content = "开发者模式";
-                SystemInfo.Content = "系统资讯";
-                EXIT.Content = "关闭";
-                Versioning.Text = "未知版本";
-                TransCred.Text = "Launcher translated by: Madevil & Earthship";
+                buttonInst.Content = "游戏主目录";
+                buttonFemaleCard.Content = "人物卡 (女)";
+                buttonMaleCard.Content = "人物卡 (男)";
+                buttonScenes.Content = "工作室场景";
+                buttonScreenshot.Content = "截图";
+                buttonUserData.Content = "UserData";
+                labelStart.Content = "开始游戏";
+                labelStartS.Content = "开始工作室";
+                labelStartVR.Content = "开始VR";
+                labelM.Content = "游戏手册";
+                labelMS.Content = "工作室手册";
+                labelMV.Content = "VR手册";
+                toggleFullscreen.Content = "全屏执行";
+                toggleConsole.Content = "激活控制台";
+                labelDist.Content = "未知版本";
+                labelTranslated.Content = "翻译： Madevil & Earthship";
                 q_performance = "性能";
                 q_normal = "标准";
                 q_quality = "高画质";
                 s_primarydisplay = "主显示器";
                 s_subdisplay = "次显示器";
+                labelDiscord.Content = "前往Discord";
+                labelPatreon.Content = "前往Patreon";
+                labelUpdate.Content = "更新游戏";
             }
 
             m_astrQuality = new string[]
@@ -245,10 +275,16 @@ namespace InitDialog
 
             // Do checks
 
+            
+
             is64bitOS = Is64BitOS();
             isStudio = File.Exists(m_strCurrentDir + m_strStudioExe);
             isVR = File.Exists(m_strCurrentDir + m_strVRExe);
             isMainGame = File.Exists(m_strCurrentDir + m_strGameExe);
+
+            if (m_strCurrentDir.Length >= 75)
+                MessageBox.Show("The game is installed deep in the file system!\n\nThis can cause a variety of errors, so it's recommended that you move it to a shorter path, something like:\n\nC:\\Illusion\\AI.Shoujo", "Critical warning!");
+
 
             // Customization options
 
@@ -268,7 +304,7 @@ namespace InitDialog
                     string line;
                     while ((line = streamReader.ReadLine()) != null)
                     {
-                        Versioning.Text = line;
+                        labelDist.Content = line;
                     }
                 }
                 verFileStream.Close();
@@ -300,7 +336,7 @@ namespace InitDialog
             if (BackgExists)
             {
                 Uri uribg = new Uri(m_strCurrentDir + m_customDir + backgLoc, UriKind.RelativeOrAbsolute);
-                appBG.Source = BitmapFrame.Create(uribg);
+                appBG.ImageSource = BitmapFrame.Create(uribg);
             }
             if (PatreonExists)
             {
@@ -317,7 +353,9 @@ namespace InitDialog
             }
             else
             {
-                PatreonButton.Visibility = Visibility.Collapsed;
+                linkPatreon.Visibility = Visibility.Collapsed;
+                patreonBorder.Visibility = Visibility.Collapsed;
+                patreonIMG.Visibility = Visibility.Collapsed;
             }
 
             int num = Screen.AllScreens.Length;
@@ -329,23 +367,22 @@ namespace InitDialog
             m_Setting.m_nLangChoose = 0;
             m_Setting.m_nDisplay = 0;
             m_Setting.m_bFullScreen = false;
-            m_Setting.m_nLangChoose = 1;
             if (num == 2)
             {
-                DisplayBox.Items.Add(s_primarydisplay);
-                DisplayBox.Items.Add($"{s_subdisplay} : 1");
+                dropDisplay.Items.Add(s_primarydisplay);
+                dropDisplay.Items.Add($"{s_subdisplay} : 1");
             }
             else
             {
                 for (int i = 0; i < num; i++)
                 {
                     string newItem = (i == 0) ? s_primarydisplay : ($"{s_subdisplay} : " + i);
-                    DisplayBox.Items.Add(newItem);
+                    dropDisplay.Items.Add(newItem);
                 }
             }
             foreach (string newItem2 in m_astrQuality)
             {
-                QualityBox.Items.Add(newItem2);
+                dropQual.Items.Add(newItem2);
             }
 
             SetEnableAndVisible();
@@ -365,14 +402,14 @@ namespace InitDialog
                     m_Setting.m_nDisplay = Math.Min(m_Setting.m_nDisplay, num - 1);
                     setDisplayComboBox(m_Setting.m_bFullScreen);
                     var flag = false;
-                    for (var k = 0; k < ResolutionBox.Items.Count; k++)
+                    for (var k = 0; k < dropRes.Items.Count; k++)
                     {
-                        if (ResolutionBox.Items[k].ToString() == m_Setting.m_strSizeChoose)
+                        if (dropRes.Items[k].ToString() == m_Setting.m_strSizeChoose)
                             flag = true;
                     }
-                    ResolutionBox.Text = flag ? m_Setting.m_strSizeChoose : "1280 x 720 (16 : 9)";
-                    modeFenetre.IsChecked = m_Setting.m_bFullScreen;
-                    QualityBox.Text = m_astrQuality[m_Setting.m_nQualityChoose];
+                    dropRes.Text = flag ? m_Setting.m_strSizeChoose : "1280 x 720 (16 : 9)";
+                    toggleFullscreen.IsChecked = m_Setting.m_bFullScreen;
+                    dropQual.Text = m_astrQuality[m_Setting.m_nQualityChoose];
                     string text = m_Setting.m_nDisplay == 0 ? s_primarydisplay : $"{s_subdisplay} : " + m_Setting.m_nDisplay;
                     if (num == 2)
                     {
@@ -382,11 +419,11 @@ namespace InitDialog
                         $"{s_subdisplay} : 1"
                         }[m_Setting.m_nDisplay];
                     }
-                    if (DisplayBox.Items.Contains(text))
-                        DisplayBox.Text = text;
+                    if (dropDisplay.Items.Contains(text))
+                        dropDisplay.Text = text;
                     else
                     {
-                        DisplayBox.Text = s_primarydisplay;
+                        dropDisplay.Text = s_primarydisplay;
                         m_Setting.m_nDisplay = 0;
                     }
                 }
@@ -400,33 +437,15 @@ namespace InitDialog
             else
             {
                 setDisplayComboBox(false);
-                ResolutionBox.Text = m_Setting.m_strSizeChoose;
-                QualityBox.Text = m_astrQuality[m_Setting.m_nQualityChoose];
-                DisplayBox.Text = s_primarydisplay;
+                dropRes.Text = m_Setting.m_strSizeChoose;
+                dropQual.Text = m_astrQuality[m_Setting.m_nQualityChoose];
+                dropDisplay.Text = s_primarydisplay;
             }
         }
 
         void SetEnableAndVisible()
         {
-            if (!isMainGame)
-            {
-                PLAY.IsEnabled = false;
-                Manual_Open.IsEnabled = false;
-                InstallDirectory.IsEnabled = false;
-                KoikatuCharaDirectory.IsEnabled = false;
-                KoikatuScreenShotDirectory.IsEnabled = false;
-            }
-            if (!isVR)
-            {
-                PLAY_VR.IsEnabled = false;
-                Manual_v_Open.IsEnabled = false;
-            }
-            if (!isStudio)
-            {
-                PLAY_Studio.IsEnabled = false;
-                Manual_s_Open.IsEnabled = false;
-                SceneDirectory.IsEnabled = false;
-            }
+            
         }
 
         void SaveRegistry()
@@ -467,37 +486,40 @@ namespace InitDialog
         {
             saveConfigFile(m_strCurrentDir + m_strSaveDir);
             SaveRegistry();
-            if (!is64bitOS)
+            string text = m_strCurrentDir + strExe;
+            string ipa = "\u0022" + m_strCurrentDir + "IPA.exe" + "\u0022";
+            string ipaArgs = "\u0022" + text + "\u0022" + " --launch";
+            if (File.Exists(text) && isIPA)
             {
-                new MessageWindow().SetupWindow("Warning", "This application requires a x64 version of windows.", new object[0]);
+                Process.Start(new ProcessStartInfo(ipa) { WorkingDirectory = m_strCurrentDir, Arguments = ipaArgs });
+                System.Windows.Application.Current.MainWindow.Close();
                 return;
             }
-            string text = m_strCurrentDir + strExe;
-            if (File.Exists(text))
+            else if (File.Exists(text))
             {
                 Process.Start(new ProcessStartInfo(text) { WorkingDirectory = m_strCurrentDir });
                 System.Windows.Application.Current.MainWindow.Close();
                 return;
             }
-            new MessageWindow().SetupWindow("Warning", "\nCould not find the executable.", new object[0]);
+            MessageBox.Show("Executable can't be located", "Warning!");
         }
 
-        void PLAY_Click(object sender, RoutedEventArgs e)
+        void buttonStart_Click(object sender, RoutedEventArgs e)
         {
             PlayFunc(m_strGameExe);
         }
 
-        void PLAY_Studio_Click(object sender, RoutedEventArgs e)
+        void buttonStartS_Click(object sender, RoutedEventArgs e)
         {
             PlayFunc(m_strStudioExe);
         }
 
-        void PLAY_VR_Click(object sender, RoutedEventArgs e)
+        void buttonStartV_Click(object sender, RoutedEventArgs e)
         {
             PlayFunc(m_strVRExe);
         }
 
-        void Exit_Click(object sender, RoutedEventArgs e)
+        void buttonClose_Click(object sender, RoutedEventArgs e)
         {
             saveConfigFile(m_strCurrentDir + m_strSaveDir);
             ReleaseMutex();
@@ -506,11 +528,11 @@ namespace InitDialog
 
         void Resolution_Change(object sender, SelectionChangedEventArgs e)
         {
-            if (-1 == ResolutionBox.SelectedIndex)
+            if (-1 == dropRes.SelectedIndex)
             {
                 return;
             }
-            ComboBoxCustomItem comboBoxCustomItem = (ComboBoxCustomItem)ResolutionBox.SelectedItem;
+            ComboBoxCustomItem comboBoxCustomItem = (ComboBoxCustomItem)dropRes.SelectedItem;
             m_Setting.m_strSizeChoose = comboBoxCustomItem.text;
             m_Setting.m_nWidthChoose = comboBoxCustomItem.width;
             m_Setting.m_nHeightChoose = comboBoxCustomItem.height;
@@ -518,7 +540,7 @@ namespace InitDialog
 
         void Quality_Change(object sender, SelectionChangedEventArgs e)
         {
-            string a = QualityBox.SelectedItem.ToString();
+            string a = dropQual.SelectedItem.ToString();
             if (a == q_performance)
             {
                 m_Setting.m_nQualityChoose = 0;
@@ -539,7 +561,7 @@ namespace InitDialog
         void windowUnChecked(object sender, RoutedEventArgs e)
         {
             setDisplayComboBox(false);
-            ResolutionBox.Text = m_Setting.m_strSizeChoose;
+            dropRes.Text = m_Setting.m_strSizeChoose;
             m_Setting.m_bFullScreen = false;
         }
 
@@ -550,46 +572,70 @@ namespace InitDialog
             setFullScreenDevice();
         }
 
-        void ManualOpen(object sender, RoutedEventArgs e)
+        void buttonManual_Click(object sender, RoutedEventArgs e)
         {
-            string text = m_strCurrentDir + m_strManualDir;
-            if (File.Exists(text))
+            string manualEN = $"{m_strCurrentDir}\\manual\\manual_en.html";
+            string manualLANG = $"{m_strCurrentDir}\\manual\\manual_{lang}.html";
+            string manualJA = m_strCurrentDir + m_strManualDir;
+
+            if(File.Exists(manualEN) || File.Exists(manualLANG) || File.Exists(manualJA))
             {
-                Process.Start(text);
+                if (File.Exists(manualLANG))
+                    Process.Start(manualLANG);
+                else if (File.Exists(manualEN))
+                    Process.Start(manualEN);
+                else
+                    Process.Start(manualJA);
                 return;
             }
-            new MessageWindow().SetupWindow("Warning", "\nThe manual could not be found.", new object[0]);
+            MessageBox.Show("Manual could not be found.", "Warning!");
         }
 
-        void ManualOpenS(object sender, RoutedEventArgs e)
+        void buttonManualS_Click(object sender, RoutedEventArgs e)
         {
-            string text = m_strCurrentDir + m_strStudioManualDir;
-            if (File.Exists(text))
+            string manualEN = $"{m_strCurrentDir}\\manual_s\\manual_en.html";
+            string manualLANG = $"{m_strCurrentDir}\\manual_s\\manual_{lang}.html";
+            string manualJA = m_strCurrentDir + m_strStudioManualDir;
+
+            if (File.Exists(manualEN) || File.Exists(manualLANG) || File.Exists(manualJA))
             {
-                Process.Start(text);
+                if (File.Exists(manualLANG))
+                    Process.Start(manualLANG);
+                else if (File.Exists(manualEN))
+                    Process.Start(manualEN);
+                else
+                    Process.Start(manualJA);
                 return;
             }
-            new MessageWindow().SetupWindow("Warning", "\nThe manual could not be found.", new object[0]);
+            MessageBox.Show("Manual could not be found.", "Warning!");
         }
 
-        void ManualOpenV(object sender, RoutedEventArgs e)
+        void buttonManualV_Click(object sender, RoutedEventArgs e)
         {
-            string text = m_strCurrentDir + m_strVRManualDir;
-            if (File.Exists(text))
+            string manualEN = $"{m_strCurrentDir}\\manual_vr\\manual_en.html";
+            string manualLANG = $"{m_strCurrentDir}\\manual_vr\\manual_{lang}.html";
+            string manualJA = m_strCurrentDir + m_strVRManualDir;
+
+            if (File.Exists(manualEN) || File.Exists(manualLANG) || File.Exists(manualJA))
             {
-                Process.Start(text);
+                if (File.Exists(manualLANG))
+                    Process.Start(manualLANG);
+                else if (File.Exists(manualEN))
+                    Process.Start(manualEN);
+                else
+                    Process.Start(manualJA);
                 return;
             }
-            new MessageWindow().SetupWindow("Warning", "\nThe manual could not be found.", new object[0]);
+            MessageBox.Show("Manual could not be found.", "Warning!");
         }
 
         void Display_Change(object sender, SelectionChangedEventArgs e)
         {
-            if (-1 == DisplayBox.SelectedIndex)
+            if (-1 == dropDisplay.SelectedIndex)
             {
                 return;
             }
-            m_Setting.m_nDisplay = DisplayBox.SelectedIndex;
+            m_Setting.m_nDisplay = dropDisplay.SelectedIndex;
             if (m_Setting.m_bFullScreen)
             {
                 setDisplayComboBox(true);
@@ -597,7 +643,7 @@ namespace InitDialog
             }
         }
 
-        void InstallDir_Open(object sender, RoutedEventArgs e)
+        void buttonInst_Click(object sender, RoutedEventArgs e)
         {
             char[] trimChars = new char[]
             {
@@ -614,10 +660,10 @@ namespace InitDialog
                 Process.Start("explorer.exe", text);
                 return;
             }
-            new MessageWindow().SetupWindow("Warning", "\nCan't find the folder, please launch the game once.", new object[0]);
+            MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
         }
 
-        void SceneDir_Open(object sender, RoutedEventArgs e)
+        void buttonScenes_Click(object sender, RoutedEventArgs e)
         {
             char[] trimChars = new char[]
             {
@@ -634,10 +680,50 @@ namespace InitDialog
                 Process.Start("explorer.exe", text);
                 return;
             }
-            new MessageWindow().SetupWindow("Warning", "\nCan't find the folder, please launch the game once.", new object[0]);
+            MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
         }
 
-        void KoikatuSSDir_Open(object sender, RoutedEventArgs e)
+        void buttonUserData_Click(object sender, RoutedEventArgs e)
+        {
+            char[] trimChars = new char[]
+            {
+                '/'
+            };
+            char[] trimChars2 = new char[]
+            {
+                '\\'
+            };
+            string text = m_strCurrentDir.TrimEnd(trimChars);
+            text = text.TrimEnd(trimChars2) + "\\UserData";
+            if (Directory.Exists(text))
+            {
+                Process.Start("explorer.exe", text);
+                return;
+            }
+            MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
+        }
+
+        void buttonHousing_Click(object sender, RoutedEventArgs e)
+        {
+            char[] trimChars = new char[]
+            {
+                '/'
+            };
+            char[] trimChars2 = new char[]
+            {
+                '\\'
+            };
+            string text = m_strCurrentDir.TrimEnd(trimChars);
+            text = text.TrimEnd(trimChars2) + "\\UserData\\housing";
+            if (Directory.Exists(text))
+            {
+                Process.Start("explorer.exe", text);
+                return;
+            }
+            MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
+        }
+
+        void buttonScreenshot_Click(object sender, RoutedEventArgs e)
         {
             char[] trimChars = new char[]
             {
@@ -654,10 +740,10 @@ namespace InitDialog
                 Process.Start("explorer.exe", text);
                 return;
             }
-            new MessageWindow().SetupWindow("Warning", "\nCan't find the folder, please launch the game once.", new object[0]);
+            MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
         }
 
-        void KoikatuCharaDir_Open(object sender, RoutedEventArgs e)
+        void buttonFemaleCard_Click(object sender, RoutedEventArgs e)
         {
             char[] trimChars = new char[]
             {
@@ -668,13 +754,33 @@ namespace InitDialog
                 '\\'
             };
             string text = m_strCurrentDir.TrimEnd(trimChars);
-            text = text.TrimEnd(trimChars2) + "\\UserData\\chara";
+            text = text.TrimEnd(trimChars2) + "\\UserData\\chara\\female";
             if (Directory.Exists(text))
             {
                 Process.Start("explorer.exe", text);
                 return;
             }
-            new MessageWindow().SetupWindow("Warning", "\nCan't find the folder, please launch the game once.", new object[0]);
+            MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
+        }
+
+        void buttonMaleCard_Click(object sender, RoutedEventArgs e)
+        {
+            char[] trimChars = new char[]
+            {
+                '/'
+            };
+            char[] trimChars2 = new char[]
+            {
+                '\\'
+            };
+            string text = m_strCurrentDir.TrimEnd(trimChars);
+            text = text.TrimEnd(trimChars2) + "\\UserData\\chara\\male";
+            if (Directory.Exists(text))
+            {
+                Process.Start("explorer.exe", text);
+                return;
+            }
+            MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
         }
 
         void SystemInfo_Open(object sender, RoutedEventArgs e)
@@ -685,13 +791,13 @@ namespace InitDialog
                 Process.Start(text);
                 return;
             }
-            new MessageWindow().SetupWindow("Warning", "\nCan't find the folder, please launch the game once.", new object[0]);
+            MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
         }
 
         bool DoubleStartCheck()
         {
             bool flag;
-            mutex = new Mutex(true, "Koikatu", out flag);
+            mutex = new Mutex(true, "AIS", out flag);
             bool v = !flag;
             if (v)
             {
@@ -719,7 +825,7 @@ namespace InitDialog
 
         void setDisplayComboBox(bool _bFullScreen)
         {
-            ResolutionBox.Items.Clear();
+            dropRes.Items.Clear();
             int nDisplay = m_Setting.m_nDisplay;
             foreach (MainWindow.DisplayMode displayMode in (_bFullScreen ? m_listCurrentDisplay[nDisplay].list : m_listDefaultDisplay))
             {
@@ -729,7 +835,7 @@ namespace InitDialog
                     width = displayMode.Width,
                     height = displayMode.Height
                 };
-                ResolutionBox.Items.Add(newItem);
+                dropRes.Items.Add(newItem);
             }
         }
 
@@ -906,7 +1012,7 @@ namespace InitDialog
             if (m_listCurrentDisplay[nDisplay].list.Count == 0)
             {
                 m_Setting.m_bFullScreen = false;
-                modeFenetre.IsChecked = new bool?(false);
+                toggleFullscreen.IsChecked = new bool?(false);
                 System.Windows.Forms.MessageBox.Show("This monitor doesn't support fullscreen.");
                 return;
             }
@@ -916,7 +1022,7 @@ namespace InitDialog
                 m_Setting.m_nWidthChoose = m_listCurrentDisplay[nDisplay].list[0].Width;
                 m_Setting.m_nHeightChoose = m_listCurrentDisplay[nDisplay].list[0].Height;
             }
-            ResolutionBox.Text = m_Setting.m_strSizeChoose;
+            dropRes.Text = m_Setting.m_strSizeChoose;
         }
 
         public bool IsWow64()
@@ -947,7 +1053,7 @@ namespace InitDialog
 
         string m_strGameRegistry = "Software\\illusion\\Koikatsu\\Koikatsu Party\\";
         string m_strStudioRegistry = "Software\\illusion\\Koikatu\\CharaStudio\\";
-        string m_strVRRegistry = "Software\\illusion\\Koikatu\\KoikatuVR\\";
+        string m_strVRRegistry = "Software\\illusion\\Koikatsu\\Koikatsu Party VR\\";
         string m_strGameExe = "Koikatsu Party.exe";
         string m_strStudioExe = "CharaStudio.exe";
         string m_strVRExe = "Koikatsu Party VR.exe";
@@ -974,7 +1080,7 @@ namespace InitDialog
         bool isVR;
         bool isMainGame;
 
-        string lang = "en"; 
+        string lang = "en";
         bool startup;
 
         bool versionAvail;
@@ -987,8 +1093,11 @@ namespace InitDialog
         bool kkmanExist;
         bool updatelocExists;
 
+        bool isIPA;
+        bool isBepIn;
+
         string kkman;
-        string updated;
+        string updated = "placeholder";
 
         string q_performance = "Performance";
         string q_normal = "Normal";
@@ -1004,6 +1113,9 @@ namespace InitDialog
         const string patreonLoc = "/patreon.txt";
         const string kkmdir = "/kkman.txt";
         const string updateLoc = "/updater.txt";
+        //string updateURL;
+        //string packVersion;
+        //string newPackVersion;
 
         string patreonURL;
 
@@ -1087,7 +1199,7 @@ namespace InitDialog
 
         const int m_nQualityCount = 3;
 
-        
+
 
 
 
@@ -1140,7 +1252,7 @@ namespace InitDialog
 
         void discord_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            Process.Start("https://universalhentai.com/KoiLauncher");
+            Process.Start("https://discord.gg/F3bDEFE");
         }
         void patreon_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
@@ -1171,6 +1283,9 @@ namespace InitDialog
             string argloc = updated;
             string args = $"{argdir} {argloc}";
 
+            if(!updatelocExists)
+                args = $"{argdir}";
+
             if (File.Exists(text))
             {
                 Process.Start(new ProcessStartInfo(text) { WorkingDirectory = $@"{finaldir}", Arguments = args });
@@ -1191,6 +1306,13 @@ namespace InitDialog
             SetupLang("zh-CN2");
         }
 
+        void ChangeTL(string language)
+        {
+            deactivateTL(1);
+            WriteLangIni(language);
+            SetupLang(language);
+        }
+
         void WriteLangIni(string language)
         {
             if (File.Exists(m_strCurrentDir + "BepInEx/Config/AutoTranslatorConfig.ini"))
@@ -1206,7 +1328,7 @@ namespace InitDialog
 
         void helvete(string language)
         {
-            if(File.Exists("BepInEx/Config/AutoTranslatorConfig.ini"))
+            if (File.Exists("BepInEx/Config/AutoTranslatorConfig.ini"))
             {
                 var ud = Path.Combine(m_strCurrentDir, @"BepInEx/Config/AutoTranslatorConfig.ini");
 
@@ -1286,7 +1408,7 @@ namespace InitDialog
             }
             using (StreamWriter writetext = new StreamWriter(m_strCurrentDir + m_customDir + decideLang))
             {
-                if(langstring == "zh-CN2")
+                if (langstring == "zh-CN2")
                 {
                     writetext.WriteLine("zh-CN");
                 }
@@ -1296,11 +1418,11 @@ namespace InitDialog
                 }
             }
 
-            if(langstring == "en")
+            if (langstring == "en")
             {
                 partyTL(1);
             }
-            else if(langstring == "zh-CN")
+            else if (langstring == "zh-CN")
             {
                 partyTL(2);
             }
@@ -1312,7 +1434,12 @@ namespace InitDialog
             System.Windows.Forms.Application.Restart();
         }
 
-        private void modeDev_Checked(object sender, RoutedEventArgs e)
+        void partyTL(int x)
+        {
+            m_Setting.m_nLangChoose = x;
+        }
+
+        void modeDev_Checked(object sender, RoutedEventArgs e)
         {
             using (StreamWriter writetext = new StreamWriter(m_strCurrentDir + m_customDir + "/devMode"))
             {
@@ -1324,7 +1451,7 @@ namespace InitDialog
             }
         }
 
-        private void modeDev_Unchecked(object sender, RoutedEventArgs e)
+        void modeDev_Unchecked(object sender, RoutedEventArgs e)
         {
             devMode(false);
             if (DevExists)
@@ -1334,38 +1461,6 @@ namespace InitDialog
             if (!startup)
             {
                 devMode(false);
-            }
-        }
-
-        private void font_Checked(object sender, RoutedEventArgs e)
-        {
-            if(File.Exists(m_strCurrentDir + "abdata\\localize\\translate\\1\\font.unity3d"))
-            {
-                File.Move(m_strCurrentDir + "abdata\\localize\\translate\\1\\font.unity3d", m_strCurrentDir + "abdata\\localize\\translate\\1\\font.unit-y3d");
-            }
-            if (File.Exists(m_strCurrentDir + "abdata\\localize\\translate\\2\\font.unity3d"))
-            {
-                File.Move(m_strCurrentDir + "abdata\\localize\\translate\\2\\font.unity3d", m_strCurrentDir + "abdata\\localize\\translate\\2\\font.unit-y3d");
-            }
-            if (File.Exists(m_strCurrentDir + "abdata\\localize\\translate\\3\\font.unity3d"))
-            {
-                File.Move(m_strCurrentDir + "abdata\\localize\\translate\\3\\font.unity3d", m_strCurrentDir + "abdata\\localize\\translate\\3\\font.unit-y3d");
-            }
-        }
-
-        private void font_Unchecked(object sender, RoutedEventArgs e)
-        {
-            if (File.Exists(m_strCurrentDir + "abdata\\localize\\translate\\1\\font.unit-y3d"))
-            {
-                File.Move(m_strCurrentDir + "abdata\\localize\\translate\\1\\font.unity3d", m_strCurrentDir + "abdata\\localize\\translate\\1\\font.unity3d");
-            }
-            if (File.Exists(m_strCurrentDir + "abdata\\localize\\translate\\2\\font.unit-y3d"))
-            {
-                File.Move(m_strCurrentDir + "abdata\\localize\\translate\\2\\font.unity3d", m_strCurrentDir + "abdata\\localize\\translate\\2\\font.unity3d");
-            }
-            if (File.Exists(m_strCurrentDir + "abdata\\localize\\translate\\3\\font.unit-y3d"))
-            {
-                File.Move(m_strCurrentDir + "abdata\\localize\\translate\\3\\font.unity3d", m_strCurrentDir + "abdata\\localize\\translate\\3\\font.unity3d");
             }
         }
 
@@ -1398,9 +1493,84 @@ namespace InitDialog
                 MessageBox.Show("Something went wrong: " + e);
             }
         }
-        void partyTL(int x)
+
+        private void checkBox_Checked(object sender, RoutedEventArgs e)
         {
-            m_Setting.m_nLangChoose = x;
+
+        }
+
+        private void HoneyPotInspector_Run(object sender, RoutedEventArgs e)
+        {
+            if(File.Exists($"{m_strCurrentDir}\\HoneyPot\\HoneyPotInspector.exe"))
+            {
+                Process.Start($"{m_strCurrentDir}\\HoneyPot\\HoneyPotInspector.exe");
+            }
+            else
+            {
+                MessageBox.Show("HoneyPot doesn't seem to be applied to this installation.");
+            }
+        }
+
+        private void dhh_Checked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll"))
+                {
+                    File.Delete($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll");
+                }
+                File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_", $"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll");
+            }
+        }
+
+        private void dhh_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if(File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_"))
+                {
+                    File.Delete($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_");
+                }
+                File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll", $"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_");
+            }
+        }
+
+        private void font_Checked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists(m_strCurrentDir + "abdata\\localize\\translate\\1\\font.unity3d"))
+            {
+                File.Move(m_strCurrentDir + "abdata\\localize\\translate\\1\\font.unity3d", m_strCurrentDir + "abdata\\localize\\translate\\1\\font.unit-y3d");
+            }
+            if (File.Exists(m_strCurrentDir + "abdata\\localize\\translate\\2\\font.unity3d"))
+            {
+                File.Move(m_strCurrentDir + "abdata\\localize\\translate\\2\\font.unity3d", m_strCurrentDir + "abdata\\localize\\translate\\2\\font.unit-y3d");
+            }
+            if (File.Exists(m_strCurrentDir + "abdata\\localize\\translate\\3\\font.unity3d"))
+            {
+                File.Move(m_strCurrentDir + "abdata\\localize\\translate\\3\\font.unity3d", m_strCurrentDir + "abdata\\localize\\translate\\3\\font.unit-y3d");
+            }
+        }
+
+        private void font_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists(m_strCurrentDir + "abdata\\localize\\translate\\1\\font.unit-y3d"))
+            {
+                File.Move(m_strCurrentDir + "abdata\\localize\\translate\\1\\font.unit-y3d", m_strCurrentDir + "abdata\\localize\\translate\\1\\font.unity3d");
+            }
+            if (File.Exists(m_strCurrentDir + "abdata\\localize\\translate\\2\\font.unit-y3d"))
+            {
+                File.Move(m_strCurrentDir + "abdata\\localize\\translate\\2\\font.unit-y3d", m_strCurrentDir + "abdata\\localize\\translate\\2\\font.unity3d");
+            }
+            if (File.Exists(m_strCurrentDir + "abdata\\localize\\translate\\3\\font.unit-y3d"))
+            {
+                File.Move(m_strCurrentDir + "abdata\\localize\\translate\\3\\font.unit-y3d", m_strCurrentDir + "abdata\\localize\\translate\\3\\font.unity3d");
+            }
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
         }
     }
 }

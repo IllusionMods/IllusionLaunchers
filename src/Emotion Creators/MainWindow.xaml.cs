@@ -138,7 +138,7 @@ namespace InitSetting
                 }
                 else
                 {
-                    updated = "https://mega.nz/#F!LH5iwKxR!d_ztxVonEesY-ckOI_bfSw";
+                    updated = "";
                 }
             }
             else
@@ -218,8 +218,7 @@ namespace InitSetting
 
                 warningText.Text = "このゲームは成人向けので、18歳未満（または地域の法律によりと同等の年齢）がこのゲームをプレイまたは所有しているができない。\n\nこのゲームには性的内容の内容が含まれます。内に描かれている行動は、実生活で複製することは違法です。つまり、これは面白いゲームです、そうしましょう？(~.~)v";
                 buttonInst.Content = "インストール";
-                buttonFemaleCard.Content = "キャラカード (女性)";
-                buttonMaleCard.Content = "キャラカード (男性)";
+                buttonFemaleCard.Content = "キャラカード";
                 buttonScenes.Content = "シーン";
                 buttonScreenshot.Content = "SS"; 
                 buttonUserData.Content = "UserData";
@@ -245,8 +244,7 @@ namespace InitSetting
 
                 warningText.Text = "此游戏适用于成人用户，任何未满18岁的人（或根据当地法律规定的同等人）都不得遊玩或拥有此游戏。\n\n这个游戏包含性相关的内容，某些行为在现实生活中可能是非法的。所以，游戏中的所有乐趣请保留在游戏中，让我们保持这种方式吧? (~.~)v";
                 buttonInst.Content = "游戏主目录";
-                buttonFemaleCard.Content = "人物卡 (女)";
-                buttonMaleCard.Content = "人物卡 (男)";
+                buttonFemaleCard.Content = "人物卡";
                 buttonScenes.Content = "工作室场景";
                 buttonScreenshot.Content = "截图";
                 buttonUserData.Content = "UserData";
@@ -272,8 +270,7 @@ namespace InitSetting
 
                 warningText.Text = "이게임은 성인용입니다 18세 미만의 사람(또는 법에따라 동등한사람)은 게임을 하거나 해당게임을 소유하면 안됩니다\n\n이게임에는 성적인 내용이 포함되어있으며 그안에 묘사된 행동중 일부는 실제에서 행동하면 법적인 처벌을 받습니다";
                 buttonInst.Content = "설치된폴더";
-                buttonFemaleCard.Content = "캐릭터 카드 (여자)";
-                buttonMaleCard.Content = "캐릭터 카드 (남성)";
+                buttonFemaleCard.Content = "캐릭터 카드";
                 buttonScenes.Content = "장면";
                 buttonScreenshot.Content = "스크린샷 폴더";
                 buttonUserData.Content = "UserData";
@@ -299,8 +296,7 @@ namespace InitSetting
 
                 warningText.Text = "Este juego está dirigido hacia un público adulto, ninguna persona bajo 18 años (o equivalente según las leyes locales) no deberían de jugar o estar en posesión de este juego. \n\nEste juego contiene escenas de carácter sexual, y algunas de las acciones representadas en el mismo pueden ser ilegales de hacerlas en la vida real.  También conocido como, todo es diversión y risas dentro del juego, así que mantengámoslo así, ¿vale? (~.~)v";
                 buttonInst.Content = "Instalar";
-                buttonFemaleCard.Content = "Cartas de Personaje (M)";
-                buttonMaleCard.Content = "Cartas de Personaje (F)";
+                buttonFemaleCard.Content = "Cartas de Personaje";
                 buttonScenes.Content = "Escenas";
                 buttonScreenshot.Content = "Capturas";
                 buttonUserData.Content = "UserData";
@@ -326,8 +322,7 @@ namespace InitSetting
 
                 warningText.Text = "Este jogo, por apresentar conteúdo adulto, é voltado para maiores de 18 anos (ou equivalente perante a lei local), menores de idade não devem jogar ou possuí-lo.\n\nAlgumas das ações presentes nessa obra de ficção podem ser ilegais ao serem realizadas no mundo real. Deixe essas coisas somente para o mundo fictício, combinado? (~.~)v";
                 buttonInst.Content = "Instalar";
-                buttonFemaleCard.Content = "Cards de Personagens (F)";
-                buttonMaleCard.Content = "Cards de Personagens (M)";
+                buttonFemaleCard.Content = "Cards de Personagens";
                 buttonScenes.Content = "Cenas";
                 buttonScreenshot.Content = "Capturas de Tela";
                 buttonUserData.Content = "UserData";
@@ -353,8 +348,7 @@ namespace InitSetting
 
                 warningText.Text = "Ce jeu est destiné à un public adulte, aucun mineur en dessous de 18 ans (ou l'équivalent selon les lois locales) ne doit pas jouer ou posséder ce jeu. \n\nCe jeu contient des scènes matures, et certaines actions du jeu peuvent être considéré comme illégales, à ne pas reproduire dans la vraie vie. Ce n'est que de la fiction, du moment que cela reste dans le jeu. Amusez-vous bien!";
                 buttonInst.Content = "Installation";
-                buttonFemaleCard.Content = "Personnages (Femme)";
-                buttonMaleCard.Content = "Personnages (Mâle)";
+                buttonFemaleCard.Content = "Personnages";
                 buttonScenes.Content = "Scènes";
                 buttonScreenshot.Content = "Captures d'écran";
                 buttonUserData.Content = "UserData";
@@ -380,8 +374,7 @@ namespace InitSetting
 
                 warningText.Text = "Dieses Spiel ist ausschließlich für erwachsenes Publikum vorgesehen. Niemand unter 18 Jahren ( Oder entsprechend deiner örtlichen Gesetze ) ist vorgesehen dieses Spiel zu spielen, oder es zu besitzen.\n\nDieses Spiel enthällt sexuelle Inhalte welche bei Ausführung im realen Leben strafbar sein könnten. Dinge die im Spiel geschehen sollten also auch im Spiel bleiben in Ordnung? (~.~)v";
                 buttonInst.Content = "Installieren";
-                buttonFemaleCard.Content = "Charakter Karten (F)";
-                buttonMaleCard.Content = "Charakter Karten (M)";
+                buttonFemaleCard.Content = "Charakter Karten";
                 buttonScenes.Content = "Scenen";
                 buttonScreenshot.Content = "ScreenShots";
                 buttonUserData.Content = "UserData";
@@ -407,8 +400,7 @@ namespace InitSetting
 
                 warningText.Text = "Dette spillet er ment for voksne spillere, og ingen person under 18 år (Eller tilsvarende iht lokal lov) er tiltenkt å være i besittelse av dette spillet.\n\nDette spillet inneholder innhold av en seksuell natur, og noen av handlingene avbildet i dette spillet kan være ulovlig å replikere i virkeligheten. Altså, det er lek og artig i spillet, la oss holde det slik, eller hva? (~.~)v";
                 buttonInst.Content = "Installasjon";
-                buttonFemaleCard.Content = "Kort (Kvinner)";
-                buttonMaleCard.Content = "Kort (Menn)";
+                buttonFemaleCard.Content = "Kort";
                 buttonScenes.Content = "Scener";
                 buttonScreenshot.Content = "Skjermbilder";
                 buttonUserData.Content = "UserData";
@@ -438,7 +430,6 @@ namespace InitSetting
             // Do checks
 
             is64bitOS = Is64BitOS();
-            isStudio = File.Exists(m_strCurrentDir + m_strStudioExe);
             isMainGame = File.Exists(m_strCurrentDir + m_strGameExe);
 
             if (m_strCurrentDir.Length >= 75)
@@ -617,17 +608,6 @@ namespace InitSetting
                 registryKey.SetValue("UnityGraphicsQuality_h1669003810", 2);
                 registryKey.SetValue("UnitySelectMonitor_h17969598", m_Setting.m_nDisplay);
             }
-            if (isStudio)
-            {
-                using (RegistryKey registryKey2 = Registry.CurrentUser.CreateSubKey(m_strStudioRegistry))
-                {
-                    registryKey2.SetValue("Screenmanager Is Fullscreen mode_h3981298716", m_Setting.m_bFullScreen ? 1 : 0);
-                    registryKey2.SetValue("Screenmanager Resolution Height_h2627697771", m_Setting.m_nHeightChoose);
-                    registryKey2.SetValue("Screenmanager Resolution Width_h182942802", m_Setting.m_nWidthChoose);
-                    registryKey2.SetValue("UnityGraphicsQuality_h1669003810", 2);
-                    registryKey2.SetValue("UnitySelectMonitor_h17969598", m_Setting.m_nDisplay);
-                }
-            }
         }
 
         void PlayFunc(string strExe)
@@ -655,11 +635,6 @@ namespace InitSetting
         void buttonStart_Click(object sender, RoutedEventArgs e)
         {
             PlayFunc(m_strGameExe);
-        }
-
-        void buttonStartS_Click(object sender, RoutedEventArgs e)
-        {
-            PlayFunc(m_strStudioExe);
         }
 
         void buttonClose_Click(object sender, RoutedEventArgs e)
@@ -734,42 +709,9 @@ namespace InitSetting
             MessageBox.Show("Manual could not be found.", "Warning!");
         }
 
-        void buttonManualS_Click(object sender, RoutedEventArgs e)
+        void buttonManualOnline_Click(object sender, RoutedEventArgs e)
         {
-            string manualEN = $"{m_strCurrentDir}\\manual_s\\manual_en.html";
-            string manualLANG = $"{m_strCurrentDir}\\manual_s\\manual_{lang}.html";
-            string manualJA = m_strCurrentDir + m_strStudioManualDir;
-
-            if (File.Exists(manualEN) || File.Exists(manualLANG) || File.Exists(manualJA))
-            {
-                if (File.Exists(manualLANG))
-                    Process.Start(manualLANG);
-                else if (File.Exists(manualEN))
-                    Process.Start(manualEN);
-                else
-                    Process.Start(manualJA);
-                return;
-            }
-            MessageBox.Show("Manual could not be found.", "Warning!");
-        }
-
-        void buttonManualV_Click(object sender, RoutedEventArgs e)
-        {
-            string manualEN = $"{m_strCurrentDir}\\manual_vr\\manual_en.html";
-            string manualLANG = $"{m_strCurrentDir}\\manual_vr\\manual_{lang}.html";
-            string manualJA = m_strCurrentDir + m_strVRManualDir;
-
-            if (File.Exists(manualEN) || File.Exists(manualLANG) || File.Exists(manualJA))
-            {
-                if (File.Exists(manualLANG))
-                    Process.Start(manualLANG);
-                else if (File.Exists(manualEN))
-                    Process.Start(manualEN);
-                else
-                    Process.Start(manualJA);
-                return;
-            }
-            MessageBox.Show("Manual could not be found.", "Warning!");
+            Process.Start(m_strManualDirOnline);
         }
 
         void Display_Change(object sender, SelectionChangedEventArgs e)
@@ -817,7 +759,27 @@ namespace InitSetting
                 '\\'
             };
             string text = m_strCurrentDir.TrimEnd(trimChars);
-            text = text.TrimEnd(trimChars2) + "\\UserData\\Studio\\scene";
+            text = text.TrimEnd(trimChars2) + "\\UserData\\edit\\scene";
+            if (Directory.Exists(text))
+            {
+                Process.Start("explorer.exe", text);
+                return;
+            }
+            MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
+        }
+
+        void buttonPoses_Click(object sender, RoutedEventArgs e)
+        {
+            char[] trimChars = new char[]
+            {
+                '/'
+            };
+            char[] trimChars2 = new char[]
+            {
+                '\\'
+            };
+            string text = m_strCurrentDir.TrimEnd(trimChars);
+            text = text.TrimEnd(trimChars2) + "\\UserData\\pose\\data";
             if (Directory.Exists(text))
             {
                 Process.Start("explorer.exe", text);
@@ -837,7 +799,7 @@ namespace InitSetting
                 '\\'
             };
             string text = m_strCurrentDir.TrimEnd(trimChars);
-            text = text.TrimEnd(trimChars2) + "\\UserData\\UserData";
+            text = text.TrimEnd(trimChars2) + "\\UserData";
             if (Directory.Exists(text))
             {
                 Process.Start("explorer.exe", text);
@@ -846,7 +808,7 @@ namespace InitSetting
             MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
         }
 
-        void buttonHousing_Click(object sender, RoutedEventArgs e)
+        void buttonMaps_Click(object sender, RoutedEventArgs e)
         {
             char[] trimChars = new char[]
             {
@@ -857,7 +819,7 @@ namespace InitSetting
                 '\\'
             };
             string text = m_strCurrentDir.TrimEnd(trimChars);
-            text = text.TrimEnd(trimChars2) + "\\UserData\\UserData\\housing";
+            text = text.TrimEnd(trimChars2) + "\\UserData\\map\\data";
             if (Directory.Exists(text))
             {
                 Process.Start("explorer.exe", text);
@@ -886,7 +848,7 @@ namespace InitSetting
             MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
         }
 
-        void buttonFemaleCard_Click(object sender, RoutedEventArgs e)
+        void buttonCard_Click(object sender, RoutedEventArgs e)
         {
             char[] trimChars = new char[]
             {
@@ -897,7 +859,7 @@ namespace InitSetting
                 '\\'
             };
             string text = m_strCurrentDir.TrimEnd(trimChars);
-            text = text.TrimEnd(trimChars2) + "\\UserData\\chara\\female";
+            text = text.TrimEnd(trimChars2) + "\\UserData\\chara";
             if (Directory.Exists(text))
             {
                 Process.Start("explorer.exe", text);
@@ -1194,13 +1156,10 @@ namespace InitSetting
         string[] m_astrQuality;
         string[] s_EnglishTL;
 
-        string m_strGameRegistry = "Software\\illusion\\AI-Syoujyo\\AI-Syoujyo\\";
-        string m_strStudioRegistry = "Software\\illusion\\AI-Syoujyo\\StudioNEOV2";
-        string m_strGameExe = "AI-Syoujyo.exe";
-        string m_strStudioExe = "StudioNEOV2.exe";
-        string m_strManualDir = "/manual/お読み下さい.html";
-        string m_strStudioManualDir = "/manual_s/お読み下さい.html";
-        string m_strVRManualDir = "/manual_vr/お読み下さい.html";
+        string m_strGameRegistry = "Software\\illusion\\EmotionCreators\\EmotionCreators\\";
+        string m_strGameExe = "EmotionCreators.exe";
+        string m_strManualDir = "/manual/index.html";
+        string m_strManualDirOnline = "http://www.illusion.jp/preview/emocre/manual/index.html";
 
         const string m_strSaveDir = "/UserData/setup.xml";
         const string m_customDir = "/UserData/LauncherEN";
@@ -1217,7 +1176,6 @@ namespace InitSetting
 
         bool is64bitOS;
 
-        bool isStudio;
         bool isMainGame;
 
         string lang = "en";
@@ -1393,7 +1351,7 @@ namespace InitSetting
 
         void discord_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            Process.Start("https://discord.gg/F3bDEFE");
+            Process.Start("https://discord.gg/hevygx6");
         }
         void patreon_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
@@ -1423,6 +1381,9 @@ namespace InitSetting
             string argdir = $"\u0022{marcofix}\u0022";
             string argloc = updated;
             string args = $"{argdir} {argloc}";
+
+            if (!updatelocExists)
+                args = $"{argdir}";
 
             if (File.Exists(text))
             {
