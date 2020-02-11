@@ -225,7 +225,7 @@
             <Button Style="{StaticResource buttonHover}" x:Name="buttonFemaleCard" FontSize="10" Content="Female Card Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="129.516" Margin="28.625,299.71,0,0" Click="buttonFemaleCard_Click"/>
             <Button Style="{StaticResource buttonHover}" x:Name="buttonMaleCard" FontSize="10" Content="Male Card Folder" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="129.517" Margin="164.358,299.71,0,0" Click="buttonMaleCard_Click"/>
         </Grid>
-        <Image x:Name="image2" HorizontalAlignment="Center" Height="113" VerticalAlignment="Top" Width="262" Source="images/KKLogo.png" Margin="318,102,318,0"/>
+        <Image x:Name="image2" HorizontalAlignment="Center" Height="113" VerticalAlignment="Top" Width="262" Source="images/KKPLogo.png" Margin="318,102,318,0"/>
         <Button Style="{StaticResource buttonHover}" x:Name="buttonClose" Content="X" HorizontalAlignment="Left" Margin="856,10,0,0" VerticalAlignment="Top" Width="32" Height="28" Click="buttonClose_Click" IsCancel="true"/>
         <Grid x:Name="gridDiscord" HorizontalAlignment="Left" Height="36.333" Margin="-40.584,556.667,0,0" VerticalAlignment="Top" Width="189.917">
             <Border BorderBrush="#FF641D61" Background="Black" BorderThickness="2" HorizontalAlignment="Left" Height="37" Margin="0,0,-0.083,0" VerticalAlignment="Top" Width="190" CornerRadius="20">
