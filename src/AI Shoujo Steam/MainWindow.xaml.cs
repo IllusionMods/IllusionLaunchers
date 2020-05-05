@@ -285,6 +285,39 @@ namespace InitSetting
                 buttonHousing.Content = "房子";
                 toggleDHH.Content = "激活DHH";
             }
+            else if (lang == "zh-TW") // By @𝐄𝐀𝐑𝐓𝐇𝐒𝐇𝐈𝐏 💖#4313 
+            {
+                labelTranslated.Visibility = Visibility.Visible;
+                labelTranslatedBorder.Visibility = Visibility.Visible;
+
+                warningText.Text = "此遊戲適用於成人用戶，任何未滿18歲的人（或根據當地法律規定的同等人）都不得遊玩或擁有此遊戲。\n\n這個遊戲包含性相關的內容，某些行為在現實生活中可能是非法的。所以，遊戲中的所有樂趣請保留在遊戲中，讓我們保持這種方式吧? (~.~)v";
+                buttonInst.Content = "遊戲主目錄";
+                buttonFemaleCard.Content = "人物卡 (女)";
+                buttonMaleCard.Content = "人物卡 (男)";
+                buttonScenes.Content = "工作室場景";
+                buttonScreenshot.Content = "截圖";
+                buttonUserData.Content = "UserData";
+                labelStart.Content = "開始遊戲";
+                labelStartS.Content = "開始工作室";
+                labelM.Content = "遊戲手冊";
+                labelMS.Content = "工作室手冊";
+                toggleFullscreen.Content = "全螢幕執行";
+                toggleConsole.Content = "啟動控制台";
+                labelDist.Content = "未知版本";
+                labelTranslated.Content = "翻譯： Earthship";
+                q_performance = "性能";
+                q_normal = "標準";
+                q_quality = "高畫質";
+                s_primarydisplay = "主顯示器";
+                s_subdisplay = "次顯示器";
+                labelDiscord.Content = "前往Discord";
+                labelPatreon.Content = "前往Patreon";
+                labelUpdate.Content = "更新遊戲";
+
+                // AIS Exclusive
+                buttonHousing.Content = "房子";
+                toggleDHH.Content = "啟動DHH";
+            }
 
             m_astrQuality = new string[]
             {
