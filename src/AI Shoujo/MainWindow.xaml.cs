@@ -92,18 +92,36 @@ namespace InitSetting
             if (isIPA && isBepIn)
                 MessageBox.Show("Both BepInEx and IPA is detected in the game folder!\n\nApplying both frameworks may lead to problems when running the game!", "Warning!");
 
-            // Check if dev mode is active
+            // Check if console is active
 
-            if (!File.Exists(m_strCurrentDir + "/Bepinex/config/BepInEx.cfg"))
+            if (File.Exists(m_strCurrentDir + "/Bepinex/config/BepInEx.cfg"))
+            {
+                var ud = Path.Combine(m_strCurrentDir, @"BepInEx\config\BepInEx.cfg");
+
+                try
+                {
+                    var contents = File.ReadAllLines(ud).ToList();
+
+                    var devmodeEN = contents.FindIndex(s => s.ToLower().Contains("[Logging.Console]".ToLower()));
+                    if (devmodeEN >= 0)
+                    {
+                        var i = contents.FindIndex(devmodeEN, s => s.StartsWith("Enabled = true"));
+                        var n = contents.FindIndex(devmodeEN, s => s.StartsWith("[Logging.Disk]"));
+                        if (i < n)
+                        {
+                            toggleConsole.IsChecked = true;
+                        }
+
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Something went wrong: " + e);
+                }
+            }
+            else
             {
                 toggleConsole.IsEnabled = false;
-                File.Delete(m_strCurrentDir + m_customDir + "/devMode");
-            }
-
-            DevExists = File.Exists(m_strCurrentDir + m_customDir + "/devMode");
-            if (DevExists)
-            {
-                toggleConsole.IsChecked = true;
             }
 
 
@@ -1299,7 +1317,6 @@ namespace InitSetting
         bool BackgExists;
         bool PatreonExists;
         bool LangExists;
-        bool DevExists;
         bool kkmanExist;
         bool updatelocExists;
 
@@ -1669,11 +1686,6 @@ namespace InitSetting
 
         private void modeDev_Unchecked(object sender, RoutedEventArgs e)
         {
-            devMode(false);
-            if (DevExists)
-            {
-                File.Delete(m_strCurrentDir + m_customDir + "/devMode");
-            }
             if (!startup)
             {
                 devMode(false);

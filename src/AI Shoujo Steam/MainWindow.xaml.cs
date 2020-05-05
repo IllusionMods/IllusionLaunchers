@@ -1409,21 +1409,21 @@ namespace InitSetting
                     case "ja":
                         if (System.Windows.MessageBox.Show("ゲームにこの言語の選択を反映させたいですか？", "質問", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                         {
-                            enableXUA();
+                            disableXUA();
                             helvete(language);
                         }
                         return;
                     case "zh-CN":
                         if (System.Windows.MessageBox.Show("您是否希望遊戲中的語言反映這項語言選擇？", "問題", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                         {
-                            enableXUA();
+                            disableXUA();
                             helvete(language);
                         }
                     return;
                     case "zh-TW":
                         if (System.Windows.MessageBox.Show("您是否希望游戏中的语言反映这项语言选择？", "问题", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                         {
-                            enableXUA();
+                            disableXUA();
                             helvete(language);
                         }
                         return;
@@ -1437,7 +1437,6 @@ namespace InitSetting
                 }
                 // Borrowed from Marco
             }
-            //MessageBox.Show($"{curAutoTLOut}", "Debug");
         }
 
         void helvete(string language)
