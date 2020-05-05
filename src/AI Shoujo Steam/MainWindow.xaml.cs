@@ -1390,7 +1390,17 @@ namespace InitSetting
             {
                 if (System.Windows.MessageBox.Show("Do you want the ingame language to reflect this language choice?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    helvete(language);
+                    if (language == "zh-CN" || language == "zh-TW" || language == "ja")
+                    {
+                        disableXUA();
+                        helvete(language);
+                    }
+                    else
+                    {
+                        enableXUA();
+                        helvete(language);
+                    }
+                        
                 }
                 // Borrowed from Marco
             }
@@ -1424,6 +1434,80 @@ namespace InitSetting
                         contents.Add("");
                         contents.Add("[General]");
                         contents.Add($"Language={language}");
+                    }
+
+                    File.WriteAllLines(ud, contents.ToArray());
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Something went wrong: " + e);
+                }
+            }
+        }
+
+        void enableXUA()
+        {
+            if (File.Exists("BepInEx/Config/AutoTranslatorConfig.ini"))
+            {
+                var ud = Path.Combine(m_strCurrentDir, @"BepInEx/Config/AutoTranslatorConfig.ini");
+
+                try
+                {
+                    var contents = File.ReadAllLines(ud).ToList();
+
+                    var setToLanguage = contents.FindIndex(s => s.ToLower().Contains("[Service]".ToLower()));
+                    if (setToLanguage >= 0)
+                    {
+                        var i = contents.FindIndex(setToLanguage, s => s.StartsWith("Endpoint"));
+                        if (i > setToLanguage)
+                            contents[i] = $"Endpoint=GoogleTranslate";
+                        else
+                        {
+                            contents.Insert(setToLanguage + 1, $"Endpoint=");
+                        }
+                    }
+                    else
+                    {
+                        contents.Add("");
+                        contents.Add("[Service]");
+                        contents.Add($"Endpoint=GoogleTranslate");
+                    }
+
+                    File.WriteAllLines(ud, contents.ToArray());
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Something went wrong: " + e);
+                }
+            }
+        }
+
+        void disableXUA()
+        {
+            if (File.Exists("BepInEx/Config/AutoTranslatorConfig.ini"))
+            {
+                var ud = Path.Combine(m_strCurrentDir, @"BepInEx/Config/AutoTranslatorConfig.ini");
+
+                try
+                {
+                    var contents = File.ReadAllLines(ud).ToList();
+
+                    var setToLanguage = contents.FindIndex(s => s.ToLower().Contains("[Service]".ToLower()));
+                    if (setToLanguage >= 0)
+                    {
+                        var i = contents.FindIndex(setToLanguage, s => s.StartsWith("Endpoint"));
+                        if (i > setToLanguage)
+                            contents[i] = $"Endpoint=";
+                        else
+                        {
+                            contents.Insert(setToLanguage + 1, $"Endpoint=");
+                        }
+                    }
+                    else
+                    {
+                        contents.Add("");
+                        contents.Add("[Service]");
+                        contents.Add($"Endpoint=");
                     }
 
                     File.WriteAllLines(ud, contents.ToArray());
