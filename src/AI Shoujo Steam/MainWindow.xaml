@@ -142,10 +142,11 @@
         </Grid>
         <Image x:Name="PackChara" HorizontalAlignment="Left" Height="378" Margin="322,220,0,0" VerticalAlignment="Top" Width="255" Source="Images/Chara.png"/>
         <Grid HorizontalAlignment="Left" Height="491" Margin="0,107,0,0" VerticalAlignment="Top" Width="322">
-            <Border BorderBrush="#FF366EBF" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left" Height="104.571" Margin="-41,116.333,0,0" VerticalAlignment="Top" Width="84" CornerRadius="3"/>
+            <Border BorderBrush="#FF366EBF" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left" Height="130.238" Margin="-41,116.333,0,0" VerticalAlignment="Top" Width="84" CornerRadius="3"/>
             <Image x:Name="flagEN" HorizontalAlignment="Left" Height="22" Margin="10,128.333,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/united-kingdom.png" MouseLeftButtonDown="langEnglish"/>
             <Image x:Name="flagJA" HorizontalAlignment="Left" Height="24" Margin="10,156.333,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/japan.png" MouseLeftButtonDown="langJapanese"/>
-            <Image x:Name="flagCH" HorizontalAlignment="Left" Height="22" Margin="10,186.333,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/china.png" MouseLeftButtonDown="langChinese" Visibility="Hidden"/>
+            <Image x:Name="flagCH" HorizontalAlignment="Left" Height="22" Margin="10,186.333,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/china.png" MouseLeftButtonDown="langChinese"/>
+            <Image x:Name="flagTW" HorizontalAlignment="Left" Height="22" Margin="10,213.333,0,0" VerticalAlignment="Top" Width="22" Source="images/Flags/taiwan.png" MouseLeftButtonDown="langTaiwanese"/>
             <Border BorderBrush="#FF366EBF" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left" Height="196.333" Margin="52,169,0,0" VerticalAlignment="Top" Width="247" CornerRadius="3">
             </Border>
             <CheckBox x:Name="toggleFullscreen" Content="Play game in fullscreen" Foreground="White" VerticalContentAlignment="Center" Margin="58,176.333,30,298.667" Checked="windowChecked" Unchecked="windowUnChecked"/>

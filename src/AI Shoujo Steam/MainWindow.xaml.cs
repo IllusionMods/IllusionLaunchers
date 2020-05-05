@@ -1314,6 +1314,10 @@ namespace InitSetting
         {
             ChangeTL("zh-CN");
         }
+        void langTaiwanese(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            ChangeTL("zh-TW");
+        }
 
         void PartyFilter(string language)
         {
@@ -1336,6 +1340,10 @@ namespace InitSetting
             if (language == "zh-CN")
             {
                 m_Setting.m_nLangChoose = 2;
+            }
+            if (language == "zh-TW")
+            {
+                m_Setting.m_nLangChoose = 3;
             }
             saveConfigFile(m_strCurrentDir + m_strSaveDir);
             SaveRegistry();

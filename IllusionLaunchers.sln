@@ -23,6 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SBPR", "src\Sexy Beach Prem
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\SharedCode\SharedCode.projitems*{1d2166e2-4da0-4fd6-a28d-7ebbef40955b}*SharedItemsImports = 4
 		src\SharedCode\SharedCode.projitems*{561f2722-a3ea-40ed-a5d0-982ed26118b9}*SharedItemsImports = 4
 		src\SharedCode\SharedCode.projitems*{5af75ec6-4b19-4507-af25-742afbcbf45d}*SharedItemsImports = 4
 		src\SharedCode\SharedCode.projitems*{687a6b4f-f433-40b0-b1f5-cc15f7437b14}*SharedItemsImports = 4
