@@ -92,20 +92,37 @@ namespace InitSetting
             if (isIPA && isBepIn)
                 MessageBox.Show("Both BepInEx and IPA is detected in the game folder!\n\nApplying both frameworks may lead to problems when running the game!", "Warning!");
 
-            // Check if dev mode is active
+            // Check if console is active
 
-            if (!File.Exists(m_strCurrentDir + "/Bepinex/config/BepInEx.cfg"))
+            if (File.Exists(m_strCurrentDir + "/Bepinex/config/BepInEx.cfg"))
+            {
+                var ud = Path.Combine(m_strCurrentDir, @"BepInEx\config\BepInEx.cfg");
+
+                try
+                {
+                    var contents = File.ReadAllLines(ud).ToList();
+
+                    var devmodeEN = contents.FindIndex(s => s.ToLower().Contains("[Logging.Console]".ToLower()));
+                    if (devmodeEN >= 0)
+                    {
+                        var i = contents.FindIndex(devmodeEN, s => s.StartsWith("Enabled = true"));
+                        var n = contents.FindIndex(devmodeEN, s => s.StartsWith("[Logging.Disk]"));
+                        if (i < n)
+                        {
+                            toggleConsole.IsChecked = true;
+                        }
+
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Something went wrong: " + e);
+                }
+            }
+            else
             {
                 toggleConsole.IsEnabled = false;
-                File.Delete(m_strCurrentDir + m_customDir + "/devMode");
             }
-
-            DevExists = File.Exists(m_strCurrentDir + m_customDir + "/devMode");
-            if (DevExists)
-            {
-                toggleConsole.IsChecked = true;
-            }
-
 
             // Updater stuffs
 
@@ -1131,7 +1148,6 @@ namespace InitSetting
         bool BackgExists;
         bool PatreonExists;
         bool LangExists;
-        bool DevExists;
         bool kkmanExist;
         bool updatelocExists;
 
@@ -1388,19 +1404,36 @@ namespace InitSetting
         {
             if (File.Exists(m_strCurrentDir + "BepInEx/Config/AutoTranslatorConfig.ini"))
             {
-                if (System.Windows.MessageBox.Show("Do you want the ingame language to reflect this language choice?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                switch(language)
                 {
-                    if (language == "zh-CN" || language == "zh-TW" || language == "ja")
-                    {
-                        disableXUA();
-                        helvete(language);
-                    }
-                    else
-                    {
-                        enableXUA();
-                        helvete(language);
-                    }
-                        
+                    case "ja":
+                        if (System.Windows.MessageBox.Show("ゲームにこの言語の選択を反映させたいですか？", "質問", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        {
+                            enableXUA();
+                            helvete(language);
+                        }
+                        return;
+                    case "zh-CN":
+                        if (System.Windows.MessageBox.Show("您是否希望遊戲中的語言反映這項語言選擇？", "問題", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        {
+                            enableXUA();
+                            helvete(language);
+                        }
+                    return;
+                    case "zh-TW":
+                        if (System.Windows.MessageBox.Show("您是否希望游戏中的语言反映这项语言选择？", "问题", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        {
+                            enableXUA();
+                            helvete(language);
+                        }
+                        return;
+                    default:
+                        if (System.Windows.MessageBox.Show("Do you want the ingame language to reflect this language choice?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        {
+                            enableXUA();
+                            helvete(language);
+                        }
+                        return;
                 }
                 // Borrowed from Marco
             }
@@ -1582,11 +1615,6 @@ namespace InitSetting
 
         private void modeDev_Unchecked(object sender, RoutedEventArgs e)
         {
-            devMode(false);
-            if (DevExists)
-            {
-                File.Delete(m_strCurrentDir + m_customDir + "/devMode");
-            }
             if (!startup)
             {
                 devMode(false);
