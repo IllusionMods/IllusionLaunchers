@@ -7,7 +7,7 @@
     <ProjectGuid>{719350AD-52F8-4752-8360-35C1EA196D42}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>InitDialog</RootNamespace>
-    <AssemblyName>InitSetting</AssemblyName>
+    <AssemblyName>Initial Settings</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60DC8134-EBA5-43B8-BCC9-BB4BC16C2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

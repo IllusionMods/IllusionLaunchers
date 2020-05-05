@@ -282,6 +282,45 @@ namespace InitSetting
                 labelDiscord.Content = "前往Discord";
                 labelPatreon.Content = "前往Patreon";
                 labelUpdate.Content = "更新游戏";
+
+                // KK exclusive
+                toggleFont.Content = "變更字型";
+            }
+            else if (lang == "zh-TW") // By @𝐄𝐀𝐑𝐓𝐇𝐒𝐇𝐈𝐏 💖#4313 
+            {
+                labelTranslated.Visibility = Visibility.Visible;
+                labelTranslatedBorder.Visibility = Visibility.Visible;
+
+                m_strManualDir = "/manual/Simplified Chinese/README.html";
+                m_strStudioManualDir = "/manual_s/お読み下さい.html";
+                m_strVRManualDir = "/manual_v/Simplified Chinese/README.html";
+
+                warningText.Text = "此遊戲適用於成人用戶，任何未滿18歲的人（或根據當地法律規定的同等人）都不得遊玩或擁有此遊戲。\n\n這個遊戲包含性相關的內容，某些行為在現實生活中可能是非法的。所以，遊戲中的所有樂趣請保留在遊戲中，讓我們保持這種方式吧? (~.~)v";
+                buttonInst.Content = "遊戲主目錄";
+                buttonFemaleCard.Content = "人物卡 (女)";
+                buttonMaleCard.Content = "人物卡 (男)";
+                buttonScenes.Content = "工作室場景";
+                buttonScreenshot.Content = "截圖";
+                buttonUserData.Content = "UserData";
+                labelStart.Content = "開始遊戲";
+                labelStartS.Content = "開始工作室";
+                labelM.Content = "遊戲手冊";
+                labelMS.Content = "工作室手冊";
+                toggleFullscreen.Content = "全螢幕執行";
+                toggleConsole.Content = "啟動控制台";
+                labelDist.Content = "未知版本";
+                labelTranslated.Content = "翻譯： Earthship";
+                q_performance = "性能";
+                q_normal = "標準";
+                q_quality = "高畫質";
+                s_primarydisplay = "主顯示器";
+                s_subdisplay = "次顯示器";
+                labelDiscord.Content = "前往Discord";
+                labelPatreon.Content = "前往Patreon";
+                labelUpdate.Content = "更新遊戲";
+
+                // KK exclusive
+                toggleFont.Content = "变更字型";
             }
 
             m_astrQuality = new string[]
@@ -1318,20 +1357,37 @@ namespace InitSetting
 
         void langEnglish(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            SetupLang("en");
+            ChangeTL("en");
         }
         void langChinese(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            SetupLang("zh-CN");
+            ChangeTL("zh-CN");
         }
-        void langChineseTrad(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        void langTaiwanese(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            SetupLang("zh-CN2");
+            ChangeTL("zh-TW");
         }
 
         void ChangeTL(string language)
         {
-            deactivateTL(1);
+            if (language == "ja")
+            {
+                m_Setting.m_nLangChoose = 0;
+            }
+            if (language == "en")
+            {
+                m_Setting.m_nLangChoose = 1;
+            }
+            if (language == "zh-CN")
+            {
+                m_Setting.m_nLangChoose = 2;
+            }
+            if (language == "zh-TW")
+            {
+                m_Setting.m_nLangChoose = 3;
+            }
+            saveConfigFile(m_strCurrentDir + m_strSaveDir);
+            SaveRegistry();
             WriteLangIni(language);
             SetupLang(language);
         }
@@ -1530,32 +1586,8 @@ namespace InitSetting
             }
             using (StreamWriter writetext = new StreamWriter(m_strCurrentDir + m_customDir + decideLang))
             {
-                if (langstring == "zh-CN2")
-                {
-                    writetext.WriteLine("zh-CN");
-                }
-                else
-                {
-                    writetext.WriteLine(langstring);
-                }
+                writetext.WriteLine(langstring);
             }
-
-            if (langstring == "en")
-            {
-                partyTL(1);
-            }
-            else if (langstring == "zh-CN")
-            {
-                partyTL(2);
-            }
-            else if (langstring == "zh-CN2")
-            {
-                partyTL(3);
-            }
-            saveConfigFile(m_strCurrentDir + m_strSaveDir);
-            SaveRegistry();
-            WriteLangIni(langstring);
-            SetupLang(langstring);
             System.Windows.Forms.Application.Restart();
         }
 
