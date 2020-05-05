@@ -153,6 +153,22 @@ namespace InitSetting
 
             // Mod settings
 
+            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\Stiletto.dll"))
+            {
+                toggleStiletto.IsChecked = true;
+            }
+            if (!File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\Stiletto.dl_") && !File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\Stiletto.dll"))
+            {
+                toggleStiletto.IsEnabled = false;
+            }
+            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\RimRemover.dll"))
+            {
+                toggleRimRemover.IsChecked = true;
+            }
+            if (!File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\RimRemover.dl_") && !File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\RimRemover.dll"))
+            {
+                toggleRimRemover.IsEnabled = false;
+            }
 
 
             startup = false;
@@ -552,10 +568,10 @@ namespace InitSetting
 
             int num = Screen.AllScreens.Length;
             getDisplayMode_EnumDisplaySettings(num);
-            m_Setting.m_strSizeChoose = "1280 x 720 (16 : 9)";
-            m_Setting.m_nWidthChoose = 1280;
-            m_Setting.m_nHeightChoose = 720;
-            m_Setting.m_nQualityChoose = 1;
+            m_Setting.m_strSizeChoose = "1600 x 900 (16 : 9)";
+            m_Setting.m_nWidthChoose = 1600;
+            m_Setting.m_nHeightChoose = 900;
+            m_Setting.m_nQualityChoose = 2;
             m_Setting.m_nLangChoose = 0;
             m_Setting.m_nDisplay = 0;
             m_Setting.m_bFullScreen = false;
@@ -1710,33 +1726,95 @@ namespace InitSetting
             }
         }
 
-        private void dhh_Checked(object sender, RoutedEventArgs e)
+        private void toggleStiletto_Checked(object sender, RoutedEventArgs e)
         {
-            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_"))
+            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\Stiletto.dl_"))
             {
-                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll"))
+                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\Stiletto.dll"))
                 {
-                    File.Delete($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll");
+                    File.Delete($"{m_strCurrentDir}\\BepInEx\\Plugins\\Stiletto.dll");
                 }
-                File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_", $"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll");
+                File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\Stiletto.dl_", $"{m_strCurrentDir}\\BepInEx\\Plugins\\Stiletto.dll");
+                if (!startup)
+                {
+                    stilettoMode(true);
+                }
             }
         }
 
-        private void dhh_Unchecked(object sender, RoutedEventArgs e)
+        private void toggleStiletto_Unchecked(object sender, RoutedEventArgs e)
         {
-            if(File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll"))
+            if(File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\Stiletto.dll"))
             {
-                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_"))
+                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\Stiletto.dl_"))
                 {
-                    File.Delete($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_");
+                    File.Delete($"{m_strCurrentDir}\\BepInEx\\Plugins\\Stiletto.dl_");
                 }
-                File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll", $"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_");
+                File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\Stiletto.dll", $"{m_strCurrentDir}\\BepInEx\\Plugins\\Stiletto.dl_");
+            }
+            if (!startup)
+            {
+                stilettoMode(false);
+            }
+        }
+
+        void stilettoMode(bool setDev)
+        {
+            var ud = Path.Combine(m_strCurrentDir, @"BepInEx\config\KK_Fix_MakerOptimizations.cfg");
+
+            try
+            {
+                var contents = File.ReadAllLines(ud).ToList();
+
+                var setToLanguage = contents.FindIndex(s => s.ToLower().Contains("[Tweaks]".ToLower()));
+                if (setToLanguage >= 0 && setDev)
+                {
+                    var i = contents.FindIndex(setToLanguage, s => s.StartsWith("Disable maker IK"));
+                    if (i > setToLanguage)
+                        contents[i] = $"Disable maker IK = false";
+                }
+                else
+                {
+                    var i = contents.FindIndex(setToLanguage, s => s.StartsWith("Disable maker IK"));
+                    if (i > setToLanguage)
+                        contents[i] = $"Disable maker IK = true";
+                }
+
+                File.WriteAllLines(ud, contents.ToArray());
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong: " + e);
+            }
+        }
+
+        private void toggleRimRemover_Checked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\RimRemover.dl_"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\RimRemover.dll"))
+                {
+                    File.Delete($"{m_strCurrentDir}\\BepInEx\\Plugins\\RimRemover.dll");
+                }
+                File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\RimRemover.dl_", $"{m_strCurrentDir}\\BepInEx\\Plugins\\RimRemover.dll");
+            }
+        }
+
+        private void toggleRimRemover_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\RimRemover.dll"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\RimRemover.dl_"))
+                {
+                    File.Delete($"{m_strCurrentDir}\\BepInEx\\Plugins\\RimRemover.dl_");
+                }
+                File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\RimRemover.dll", $"{m_strCurrentDir}\\BepInEx\\Plugins\\RimRemover.dl_");
             }
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Left)
+            if (Mouse.LeftButton == MouseButtonState.Pressed)
                 this.DragMove();
         }
     }

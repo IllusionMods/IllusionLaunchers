@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
 
-namespace InitDialog
+namespace InitSetting
 {
 	// Token: 0x0200000B RID: 11
 	public partial class MessageWindow : Window

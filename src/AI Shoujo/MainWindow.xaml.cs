@@ -138,7 +138,7 @@ namespace InitSetting
                 }
                 else
                 {
-                    updated = "https://mega.nz/#F!LH5iwKxR!d_ztxVonEesY-ckOI_bfSw";
+                    updated = "";
                 }
             }
             else
@@ -160,6 +160,19 @@ namespace InitSetting
             if (!File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_") && !File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll"))
             {
                 toggleDHH.IsEnabled = false;
+            }
+            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll"))
+            {
+                toggleAIGraphics.IsChecked = true;
+            }
+            if (!File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_") && !File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll"))
+            {
+                toggleAIGraphics.IsEnabled = false;
+            }
+            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll") && File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll"))
+            {
+                toggleDHH.IsChecked = false;
+                toggleAIGraphics.IsChecked = false;
             }
 
 
@@ -1480,6 +1493,9 @@ namespace InitSetting
             string argloc = updated;
             string args = $"{argdir} {argloc}";
 
+            if (!updatelocExists)
+                args = $"{argdir}";
+
             if (File.Exists(text))
             {
                 Process.Start(new ProcessStartInfo(text) { WorkingDirectory = $@"{finaldir}", Arguments = args });
@@ -1721,6 +1737,7 @@ namespace InitSetting
                 }
                 File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_", $"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll");
             }
+            toggleAIGraphics.IsChecked = false;
         }
 
         private void dhh_Unchecked(object sender, RoutedEventArgs e)
@@ -1732,6 +1749,33 @@ namespace InitSetting
                     File.Delete($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_");
                 }
                 File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll", $"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_");
+            }
+        }
+
+        private void aigraphics_Checked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll"))
+                {
+                    File.Delete($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll");
+                }
+                File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_", $"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll");
+            }
+            toggleDHH.IsChecked = false;
+            if(!startup)
+                MessageBox.Show("Press F5 ingame for menu.", "Information");
+        }
+
+        private void aigraphics_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_"))
+                {
+                    File.Delete($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_");
+                }
+                File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll", $"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_");
             }
         }
 

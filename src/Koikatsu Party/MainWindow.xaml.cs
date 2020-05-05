@@ -360,13 +360,19 @@ namespace InitSetting
 
             int num = Screen.AllScreens.Length;
             getDisplayMode_EnumDisplaySettings(num);
-            m_Setting.m_strSizeChoose = "1280 x 720 (16 : 9)";
-            m_Setting.m_nWidthChoose = 1280;
-            m_Setting.m_nHeightChoose = 720;
+            m_Setting.m_strSizeChoose = "1600 x 900 (16 : 9)";
+            m_Setting.m_nWidthChoose = 1600;
+            m_Setting.m_nHeightChoose = 900;
             m_Setting.m_nQualityChoose = 1;
             m_Setting.m_nLangChoose = 0;
             m_Setting.m_nDisplay = 0;
             m_Setting.m_bFullScreen = false;
+            if (lang == "en")
+                m_Setting.m_nLangChoose = 1;
+            if (lang == "zh-CNT")
+                m_Setting.m_nLangChoose = 2;
+            if (lang == "zh-CN")
+                m_Setting.m_nLangChoose = 3;
             if (num == 2)
             {
                 dropDisplay.Items.Add(s_primarydisplay);
@@ -1431,6 +1437,9 @@ namespace InitSetting
                 partyTL(3);
             }
             saveConfigFile(m_strCurrentDir + m_strSaveDir);
+            SaveRegistry();
+            WriteLangIni(langstring);
+            SetupLang(langstring);
             System.Windows.Forms.Application.Restart();
         }
 

@@ -1,0 +1,15 @@
+﻿<Window x:Class="InitSetting.Update"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        ResizeMode="NoResize"
+        xmlns:local="clr-namespace:InitDialog"
+        mc:Ignorable="d"
+        Title="Update" Height="245.568" Width="176.731">
+    <Grid>
+        <Button x:Name="NormalUpd" Content="Normal" HorizontalAlignment="Left" Margin="10,10.149,0,0" VerticalAlignment="Top" Width="151" Height="56.328"/>
+        <Button x:Name="BRHostUpd" Content="BR-Host" HorizontalAlignment="Left" Margin="10,80.559,0,0" VerticalAlignment="Top" Width="151" Height="56.327"/>
+        <Button x:Name="MegaUpd" Content="Mega" HorizontalAlignment="Left" Margin="10,150.968,0,0" VerticalAlignment="Top" Width="151" Height="56.328"/>
+    </Grid>
+</Window>
