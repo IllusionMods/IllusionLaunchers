@@ -157,6 +157,7 @@
             <CheckBox x:Name="toggleFullscreen" Content="Play game in fullscreen" Foreground="White" VerticalContentAlignment="Center" Margin="58,137.333,30,298.667" Checked="windowChecked" Unchecked="windowUnChecked" Grid.Row="1"/>
             <CheckBox x:Name="toggleConsole" Content="Activate Console" Foreground="White" VerticalContentAlignment="Center" Margin="58,153.333,30,282.667" Checked="modeDev_Checked" Unchecked="modeDev_Unchecked" Grid.Row="1"/>
             <CheckBox x:Name="toggleDHH" Content="Activate DHH" Foreground="White" VerticalContentAlignment="Center" Margin="58,169.333,30,266.667" Checked="dhh_Checked" Unchecked="dhh_Unchecked" Grid.Row="1"/>
+            <CheckBox x:Name="toggleAIGraphics" Content="Activate AI Graphics" Foreground="White" VerticalContentAlignment="Center" Margin="58,185.333,30,249.334" Checked="aigraphics_Checked" Unchecked="aigraphics_Unchecked" Grid.Row="1"/>
             <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="-23.604,78.108,0,0" TextWrapping="Wrap" Text="Language" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Height="28.782" Width="91.861" FontSize="20" Foreground="White" Grid.Row="1">
                 <TextBlock.RenderTransform>
                     <TransformGroup>

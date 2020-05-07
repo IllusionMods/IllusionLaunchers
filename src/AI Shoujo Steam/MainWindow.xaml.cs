@@ -178,6 +178,19 @@ namespace InitSetting
             {
                 toggleDHH.IsEnabled = false;
             }
+            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll"))
+            {
+                toggleAIGraphics.IsChecked = true;
+            }
+            if (!File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_") && !File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll"))
+            {
+                toggleAIGraphics.IsEnabled = false;
+            }
+            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll") && File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll"))
+            {
+                toggleDHH.IsChecked = false;
+                toggleAIGraphics.IsChecked = false;
+            }
 
 
             startup = false;
@@ -242,6 +255,10 @@ namespace InitSetting
                 labelTranslated.Visibility = Visibility.Visible;
                 labelTranslatedBorder.Visibility = Visibility.Visible;
 
+                m_strManualDir = "/manual/Japanese/README.html";
+                m_strStudioManualDir = "/manual_s/お読み下さい.html";
+                m_strVRManualDir = "/manual_v/Japanese/README.html";
+
                 warningText.Text = "このゲームは成人向けので、18歳未満（または地域の法律によりと同等の年齢）がこのゲームをプレイまたは所有しているができない。\n\nこのゲームには性的内容の内容が含まれます。内に描かれている行動は、実生活で複製することは違法です。つまり、これは面白いゲームです、そうしましょう？(~.~)v";
                 buttonInst.Content = "インストール";
                 buttonFemaleCard.Content = "キャラカード (女性)";
@@ -268,11 +285,16 @@ namespace InitSetting
                 // AIS Exclusive
                 buttonHousing.Content = "家";
                 toggleDHH.Content = "DHHを有効にする";
+                toggleAIGraphics.Content = "AIGraphicsを有効にする";
             }
             else if (lang == "zh-CN") // By @Madevil#1103 & @𝐄𝐀𝐑𝐓𝐇𝐒𝐇𝐈𝐏 💖#4313 
             {
                 labelTranslated.Visibility = Visibility.Visible;
                 labelTranslatedBorder.Visibility = Visibility.Visible;
+
+                m_strManualDir = "/manual/Traditional Chinese/README.html";
+                m_strStudioManualDir = "/manual_s/お読み下さい.html";
+                m_strVRManualDir = "/manual_v/Traditional Chinese/README.html";
 
                 warningText.Text = "此游戏适用于成人用户，任何未满18岁的人（或根据当地法律规定的同等人）都不得遊玩或拥有此游戏。\n\n这个游戏包含性相关的内容，某些行为在现实生活中可能是非法的。所以，游戏中的所有乐趣请保留在游戏中，让我们保持这种方式吧? (~.~)v";
                 buttonInst.Content = "游戏主目录";
@@ -301,11 +323,16 @@ namespace InitSetting
                 // AIS Exclusive
                 buttonHousing.Content = "房子";
                 toggleDHH.Content = "激活DHH";
+                toggleAIGraphics.Content = "激活AIGraphics";
             }
             else if (lang == "zh-TW") // By @𝐄𝐀𝐑𝐓𝐇𝐒𝐇𝐈𝐏 💖#4313 
             {
                 labelTranslated.Visibility = Visibility.Visible;
                 labelTranslatedBorder.Visibility = Visibility.Visible;
+
+                m_strManualDir = "/manual/Simplified Chinese/README.html";
+                m_strStudioManualDir = "/manual_s/お読み下さい.html";
+                m_strVRManualDir = "/manual_v/Simplified Chinese/README.html";
 
                 warningText.Text = "此遊戲適用於成人用戶，任何未滿18歲的人（或根據當地法律規定的同等人）都不得遊玩或擁有此遊戲。\n\n這個遊戲包含性相關的內容，某些行為在現實生活中可能是非法的。所以，遊戲中的所有樂趣請保留在遊戲中，讓我們保持這種方式吧? (~.~)v";
                 buttonInst.Content = "遊戲主目錄";
@@ -334,6 +361,7 @@ namespace InitSetting
                 // AIS Exclusive
                 buttonHousing.Content = "房子";
                 toggleDHH.Content = "啟動DHH";
+                toggleAIGraphics.Content = "啟動AIGraphics";
             }
 
             m_astrQuality = new string[]
@@ -1688,6 +1716,33 @@ namespace InitSetting
                     File.Delete($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_");
                 }
                 File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll", $"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_");
+            }
+        }
+
+        private void aigraphics_Checked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll"))
+                {
+                    File.Delete($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll");
+                }
+                File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_", $"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll");
+            }
+            toggleDHH.IsChecked = false;
+            if (!startup)
+                MessageBox.Show("Press F5 ingame for menu.", "Information");
+        }
+
+        private void aigraphics_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_"))
+                {
+                    File.Delete($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_");
+                }
+                File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll", $"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_");
             }
         }
 

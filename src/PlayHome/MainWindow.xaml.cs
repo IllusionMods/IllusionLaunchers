@@ -77,7 +77,6 @@ namespace InitSetting
 
             //temp hide unimplemented stuffs
             CustomRes.Visibility = Visibility.Hidden;
-            gridUpdate.Visibility = Visibility.Hidden;
 
             Directory.CreateDirectory(m_strCurrentDir + m_customDir);
 
@@ -128,45 +127,47 @@ namespace InitSetting
 
             // Updater stuffs
 
-            //if (File.Exists(m_strCurrentDir + m_customDir + "/enableUpdate") && File.Exists(m_strCurrentDir + m_customDir + "/updateURL.txt"))
-            //{
-            //    //Getting download URL
-            //    var dlFileStream = new FileStream(m_strCurrentDir + m_customDir + "/updateURL.txt", FileMode.Open, FileAccess.Read);
-            //    using (var streamReader = new StreamReader(dlFileStream, Encoding.UTF8))
-            //    {
-            //        string line;
-            //        while ((line = streamReader.ReadLine()) != null)
-            //        {
-            //            updateURL = line;
-            //        }
-            //    }
-            //    dlFileStream.Close();
+            kkmanExist = File.Exists(m_strCurrentDir + m_customDir + kkmdir);
+            updatelocExists = File.Exists(m_strCurrentDir + m_customDir + updateLoc);
+            if (kkmanExist)
+            {
+                var kkmanFileStream = new FileStream(m_strCurrentDir + m_customDir + kkmdir, FileMode.Open, FileAccess.Read);
+                using (var streamReader = new StreamReader(kkmanFileStream, Encoding.UTF8))
+                {
+                    string line;
+                    while ((line = streamReader.ReadLine()) != null)
+                    {
+                        kkman = line;
+                    }
+                }
+                kkmanFileStream.Close();
+                if (updatelocExists)
+                {
+                    var updFileStream = new FileStream(m_strCurrentDir + m_customDir + updateLoc, FileMode.Open, FileAccess.Read);
+                    using (var streamReader = new StreamReader(updFileStream, Encoding.UTF8))
+                    {
+                        string line;
+                        while ((line = streamReader.ReadLine()) != null)
+                        {
+                            updated = line;
+                        }
+                    }
+                    updFileStream.Close();
+                }
+                else
+                {
+                    updated = "";
+                }
+            }
+            else
+            {
+                gridUpdate.Visibility = Visibility.Hidden;
+            }
 
-            //    //Grabbing existing version
-            //    var verFileStream = new FileStream(m_strCurrentDir + m_customDir + "/enableUpdate", FileMode.Open, FileAccess.Read);
-            //    using (var streamReader = new StreamReader(verFileStream, Encoding.UTF8))
-            //    {
-            //        string line;
-            //        while ((line = streamReader.ReadLine()) != null)
-            //        {
-            //            packVersion = line;
-            //        }
-            //    }
-            //    verFileStream.Close();
+            if (!File.Exists(m_strCurrentDir + m_customDir + kkmdir))
+            {
 
-            //    //Grabbing new version string
-            //    try
-            //    {
-            //        newPackVersion = (new WebClient()).DownloadString(updateURL).ToString();
-            //    }
-            //    catch { }
-
-            //    //Enables update button if new version is found
-            //    if (packVersion != newPackVersion && newPackVersion != null)
-            //    {
-            //        updateBtn.Visibility = Visibility.Visible;
-            //    }
-            //}
+            }
 
             // Mod settings
 
@@ -1325,6 +1326,8 @@ namespace InitSetting
         bool BackgExists;
         bool PatreonExists;
         bool LangExists;
+        bool kkmanExist;
+        bool updatelocExists;
         bool x86;
 
         bool isIPA;
@@ -1516,6 +1519,9 @@ namespace InitSetting
             string argdir = $"\u0022{marcofix}\u0022";
             string argloc = updated;
             string args = $"{argdir} {argloc}";
+
+            if (!updatelocExists)
+                args = $"{argdir}";
 
             if (File.Exists(text))
             {
