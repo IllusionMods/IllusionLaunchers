@@ -944,67 +944,61 @@ namespace InitSetting
 
         void getDisplayMode_EnumDisplaySettings(int numDisplay)
         {
-            DISPLAY_DEVICE display_DEVICE = default(DISPLAY_DEVICE);
+
+            var display_DEVICE = default(DISPLAY_DEVICE);
             display_DEVICE.cb = Marshal.SizeOf(display_DEVICE);
-            List<string> list = new List<string>();
-            MainWindow.MonitorInfoEx[] monitors = MainWindow.GetMonitors();
-            uint num = 0u;
-            while (MainWindow.EnumDisplayDevices(null, num, ref display_DEVICE, 1u))
+            var allDisplayNames = new List<string>();
+            var dispNum = 0u;
+            while (EnumDisplayDevices(null, dispNum, ref display_DEVICE, 1u))
             {
-                if ((display_DEVICE.StateFlags & DisplayDeviceStateFlags.AttachedToDesktop) == DisplayDeviceStateFlags.AttachedToDesktop)
-                {
-                    list.Add(display_DEVICE.DeviceName);
-                }
-                num += 1u;
+                if ((display_DEVICE.StateFlags & DisplayDeviceStateFlags.AttachedToDesktop) ==
+                    DisplayDeviceStateFlags.AttachedToDesktop) allDisplayNames.Add(display_DEVICE.DeviceName);
+                dispNum += 1u;
             }
-            int num2 = 0;
-            int num3 = -1;
-            foreach (string text in list)
+
+            var primaryIndex = -1;
+            for (var currentDisp = 0; currentDisp < allDisplayNames.Count; currentDisp++)
             {
-                int num4 = 0;
-                int num5 = 0;
-                DEVMODE devmode = default(DEVMODE);
-                List<MainWindow.DisplayMode> list2 = new List<MainWindow.DisplayMode>();
-                int num6 = 0;
-                while (MainWindow.EnumDisplaySettings(text, num6, ref devmode))
+                var displayName = allDisplayNames[currentDisp];
+                var num4 = 0;
+                var num5 = 0;
+                var devmode = default(DEVMODE);
+                var list2 = new List<DisplayMode>();
+                var num6 = 0;
+                while (EnumDisplaySettings(displayName, num6, ref devmode))
                 {
-                    int nXX = devmode.dmPelsWidth;
-                    int nYY = devmode.dmPelsHeight;
+                    var nXX = devmode.dmPelsWidth;
+                    var nYY = devmode.dmPelsHeight;
                     if ((num4 != nXX || num5 != nYY) && devmode.dmBitsPerPel == 32)
                     {
-                        MainWindow.DisplayMode displayMode = m_listDefaultDisplay.Find((MainWindow.DisplayMode dis) => dis.Width == nXX && dis.Height == nYY);
-                        if (displayMode.Width != 0)
-                        {
-                            list2.Add(displayMode);
-                        }
+                        var displayMode = m_listDefaultDisplay.Find(dis => dis.Width == nXX && dis.Height == nYY);
+                        if (displayMode.Width != 0) list2.Add(displayMode);
                         num4 = nXX;
                         num5 = nYY;
                     }
+
                     num6++;
                 }
-                MainWindow.DisplayModes item = default(MainWindow.DisplayModes);
-                foreach (MainWindow.MonitorInfoEx monitorInfoEx in monitors)
-                {
-                    if (monitorInfoEx.szDevice == text)
+
+                var item = default(DisplayModes);
+                foreach (var monitorInfoEx in Screen.AllScreens)
+                    if (monitorInfoEx.DeviceName == displayName)
                     {
-                        item.x = monitorInfoEx.rcWork.Left;
-                        item.y = monitorInfoEx.rcWork.Top;
-                        if (monitorInfoEx.dwFlags == 1)
-                        {
-                            num3 = num2;
-                        }
+                        item.x = monitorInfoEx.WorkingArea.Left;
+                        item.y = monitorInfoEx.WorkingArea.Top;
+                        if (monitorInfoEx.Primary) primaryIndex = currentDisp;
                     }
-                }
+
                 item.list = list2;
-                num2++;
                 m_listCurrentDisplay.Add(item);
             }
+
             if (m_listCurrentDisplay.Count == 0 || m_listCurrentDisplay.Count != numDisplay)
-            {
-                System.Windows.Forms.MessageBox.Show("Failed to list supported resolutions");
-            }
-            m_listCurrentDisplay.Insert(0, m_listCurrentDisplay[num3]);
-            m_listCurrentDisplay.RemoveAt(num3 + 1);
+                MessageBox.Show("Failed to list supported resolutions");
+
+            if (primaryIndex < 0) return;
+            m_listCurrentDisplay.Insert(0, m_listCurrentDisplay[primaryIndex]);
+            m_listCurrentDisplay.RemoveAt(primaryIndex + 1);
         }
 
         static int DisplaySort(MainWindow.DisplayModes a, MainWindow.DisplayModes b)
