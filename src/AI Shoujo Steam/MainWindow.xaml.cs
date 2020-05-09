@@ -1,57 +1,185 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Management;
-using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Xml.Serialization;
+using Microsoft.Win32;
+using Application = System.Windows.Application;
 using MessageBox = System.Windows.Forms.MessageBox;
-using System.Windows.Input;
 
 namespace InitSetting
 {
     public partial class MainWindow : Window
     {
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
-        static extern IntPtr GetModuleHandle(string lpModuleName);
+        private const int MONITORINFOF_PRIMARY = 1;
 
-        [DllImport("kernel32", CharSet = CharSet.Ansi, ExactSpelling = true)]
-        static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
+        private const string m_strSaveDir = "/UserData/setup.xml";
+        private const string m_customDir = "/UserData/LauncherEN";
 
-        [DllImport("kernel32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool IsWow64Process([In] IntPtr hProcess, out bool lpSystemInfo);
+        private const string m_strDefSizeText = "1900 x 720 (16 : 9)";
+        private const int m_nDefQuality = 2;
+        private const int m_nDefWidth = 1600;
+        private const int m_nDefHeight = 900;
+        private const int m_nDefLang = 1;
+        private const bool m_bDefFullScreen = false;
 
-        [DllImport("user32.dll")]
-        static extern bool EnumDisplaySettings(string deviceName, int modeNum, ref DEVMODE devMode);
+        private const string decideLang = "/lang";
+        private const string versioningLoc = "/version";
+        private const string warningLoc = "/warning.txt";
+        private const string charLoc = "/Chara.png";
+        private const string backgLoc = "/LauncherBG.png";
+        private const string patreonLoc = "/patreon.txt";
+        private const string kkmdir = "/kkman.txt";
+        private const string updateLoc = "/updater.txt";
 
-        [DllImport("user32.dll")]
-        static extern bool EnumDisplayDevices(string lpDevice, uint iDevNum, ref DISPLAY_DEVICE lpDisplayDevice, uint dwFlags);
+        private const int m_nQualityCount = 3;
+        private readonly bool BackgExists;
+        private readonly bool CharExists;
 
-        [DllImport("User32.dll")]
-        static extern bool EnumDisplayMonitors(IntPtr hdc, IntPtr rect, MainWindow.EnumDisplayMonitorsCallback callback, IntPtr dwData);
+        private bool is64bitOS;
+        private readonly bool isBepIn;
 
-        [DllImport("User32.dll")]
-        static extern bool GetMonitorInfo(IntPtr hMonitor, ref MainWindow.MonitorInfoEx info);
+        private readonly bool isIPA;
+        private bool isMainGame;
 
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern bool DeviceIoControl(IntPtr hDevice, uint dwIoControlCode,
-        IntPtr InBuffer, int nInBufferSize,
-        IntPtr OutBuffer, int nOutBufferSize,
-        out int pBytesReturned, IntPtr lpOverlapped);
+        private readonly bool isStudio;
+
+        private string kkman;
+        private readonly bool kkmanExist;
+
+        private readonly string lang = "en";
+        private readonly bool LangExists;
+
+        private readonly string[] m_astrQuality;
+
+        private readonly List<DisplayModes> m_listCurrentDisplay = new List<DisplayModes>();
+
+        private readonly List<DisplayMode> m_listDefaultDisplay = new List<DisplayMode>
+        {
+            new DisplayMode
+            {
+                Width = 854,
+                Height = 480,
+                text = "854 x 480 (16 : 9)"
+            },
+            new DisplayMode
+            {
+                Width = 1024,
+                Height = 576,
+                text = "1024 x 576 (16 : 9)"
+            },
+            new DisplayMode
+            {
+                Width = 1136,
+                Height = 640,
+                text = "1136 x 640 (16 : 9)"
+            },
+            new DisplayMode
+            {
+                Width = 1280,
+                Height = 720,
+                text = "1280 x 720 (16 : 9)"
+            },
+            new DisplayMode
+            {
+                Width = 1366,
+                Height = 768,
+                text = "1366 x 768 (16 : 9)"
+            },
+            new DisplayMode
+            {
+                Width = 1536,
+                Height = 864,
+                text = "1536 x 864 (16 : 9)"
+            },
+            new DisplayMode
+            {
+                Width = 1600,
+                Height = 900,
+                text = "1600 x 900 (16 : 9)"
+            },
+            new DisplayMode
+            {
+                Width = 1920,
+                Height = 1080,
+                text = "1920 x 1080 (16 : 9)"
+            },
+            new DisplayMode
+            {
+                Width = 2048,
+                Height = 1152,
+                text = "2048 x 1152 (16 : 9)"
+            },
+            new DisplayMode
+            {
+                Width = 2560,
+                Height = 1440,
+                text = "2560 x 1440 (16 : 9)"
+            },
+            new DisplayMode
+            {
+                Width = 3200,
+                Height = 1800,
+                text = "3200 x 1800 (16 : 9)"
+            },
+            new DisplayMode
+            {
+                Width = 3840,
+                Height = 2160,
+                text = "3840 x 2160 (16 : 9)"
+            }
+        };
+
+        private readonly ConfigSetting m_Setting = new ConfigSetting();
+
+        private readonly string m_strCurrentDir = Environment.CurrentDirectory + "\\";
+        private readonly string m_strGameExe = "AI-Shoujo.exe";
+
+        private readonly string m_strGameRegistry = "Software\\illusion\\AI-Shoujo\\AI-Shoujo\\";
+        private readonly string m_strManualDir = "/manual/お読み下さい.html";
+        private readonly string m_strStudioExe = "StudioNEOV2.exe";
+        private readonly string m_strStudioManualDir = "/manual_s/お読み下さい.html";
+        private readonly string m_strStudioRegistry = "Software\\illusion\\AI-Syoujyo\\StudioNEOV2";
+        private readonly string m_strVRManualDir = "/manual_vr/お読み下さい.html";
+
+
+        private Mutex mutex;
+        private readonly bool noTL = false;
+
+        private readonly bool PatreonExists;
+        //string updateURL;
+        //string packVersion;
+        //string newPackVersion;
+
+        private readonly string patreonURL;
+        private readonly string q_normal = "Normal";
+
+        private readonly string q_performance = "Performance";
+        private readonly string q_quality = "Quality";
+        private string[] s_EnglishTL;
+        private readonly string s_primarydisplay = "PrimaryDisplay";
+        private readonly string s_subdisplay = "SubDisplay";
+        private readonly bool startup;
+        private readonly string updated = "placeholder";
+        private readonly bool updatelocExists;
+
+        private readonly bool versionAvail;
+        private readonly bool WarningExists;
 
         public MainWindow()
         {
             InitializeComponent();
+            
             //if (!DoubleStartCheck())
             //{
             //    System.Windows.Application.Current.MainWindow.Close();
@@ -59,19 +187,14 @@ namespace InitSetting
             //}
 
             // Check for duplicate launches
-
-            Process process = Process.GetCurrentProcess();
-            var dupl = (Process.GetProcessesByName(process.ProcessName));
+            var process = Process.GetCurrentProcess();
+            var dupl = Process.GetProcessesByName(process.ProcessName);
             if (true)
-            {
                 foreach (var p in dupl)
-                {
                     if (p.Id != process.Id)
                         p.Kill();
-                }
-            }
 
-            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
             startup = true;
 
@@ -80,17 +203,14 @@ namespace InitSetting
 
             Directory.CreateDirectory(m_strCurrentDir + m_customDir);
 
-            if (!File.Exists(m_strCurrentDir + m_customDir + kkmdir))
-            {
-
-            }
-
             // Framework test
             isIPA = File.Exists($"{m_strCurrentDir}\\IPA.exe");
             isBepIn = Directory.Exists($"{m_strCurrentDir}\\BepInEx");
 
             if (isIPA && isBepIn)
-                MessageBox.Show("Both BepInEx and IPA is detected in the game folder!\n\nApplying both frameworks may lead to problems when running the game!", "Warning!");
+                MessageBox.Show(
+                    "Both BepInEx and IPA is detected in the game folder!\n\nApplying both frameworks may lead to problems when running the game!",
+                    "Warning!");
 
             // Check if console is active
 
@@ -107,11 +227,7 @@ namespace InitSetting
                     {
                         var i = contents.FindIndex(devmodeEN, s => s.StartsWith("Enabled = true"));
                         var n = contents.FindIndex(devmodeEN, s => s.StartsWith("[Logging.Disk]"));
-                        if (i < n)
-                        {
-                            toggleConsole.IsChecked = true;
-                        }
-
+                        if (i < n) toggleConsole.IsChecked = true;
                     }
                 }
                 catch (Exception e)
@@ -130,27 +246,25 @@ namespace InitSetting
             updatelocExists = File.Exists(m_strCurrentDir + m_customDir + updateLoc);
             if (kkmanExist)
             {
-                var kkmanFileStream = new FileStream(m_strCurrentDir + m_customDir + kkmdir, FileMode.Open, FileAccess.Read);
+                var kkmanFileStream = new FileStream(m_strCurrentDir + m_customDir + kkmdir, FileMode.Open,
+                    FileAccess.Read);
                 using (var streamReader = new StreamReader(kkmanFileStream, Encoding.UTF8))
                 {
                     string line;
-                    while ((line = streamReader.ReadLine()) != null)
-                    {
-                        kkman = line;
-                    }
+                    while ((line = streamReader.ReadLine()) != null) kkman = line;
                 }
+
                 kkmanFileStream.Close();
                 if (updatelocExists)
                 {
-                    var updFileStream = new FileStream(m_strCurrentDir + m_customDir + updateLoc, FileMode.Open, FileAccess.Read);
+                    var updFileStream = new FileStream(m_strCurrentDir + m_customDir + updateLoc, FileMode.Open,
+                        FileAccess.Read);
                     using (var streamReader = new StreamReader(updFileStream, Encoding.UTF8))
                     {
                         string line;
-                        while ((line = streamReader.ReadLine()) != null)
-                        {
-                            updated = line;
-                        }
+                        while ((line = streamReader.ReadLine()) != null) updated = line;
                     }
+
                     updFileStream.Close();
                 }
                 else
@@ -165,28 +279,25 @@ namespace InitSetting
 
             if (!File.Exists(m_strCurrentDir + m_customDir + kkmdir))
             {
-
             }
 
             // Mod settings
 
-            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll"))
-            {
-                toggleDHH.IsChecked = true;
-            }
-            if (!File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_") && !File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll"))
-            {
+            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll")) toggleDHH.IsChecked = true;
+
+            if (!File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_") &&
+                !File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll"))
                 toggleDHH.IsEnabled = false;
-            }
+
             if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll"))
-            {
                 toggleAIGraphics.IsChecked = true;
-            }
-            if (!File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_") && !File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll"))
-            {
+
+            if (!File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_") &&
+                !File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll"))
                 toggleAIGraphics.IsEnabled = false;
-            }
-            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll") && File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll"))
+
+            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll") &&
+                File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll"))
             {
                 toggleDHH.IsChecked = false;
                 toggleAIGraphics.IsChecked = false;
@@ -198,15 +309,14 @@ namespace InitSetting
             LangExists = File.Exists(m_strCurrentDir + m_customDir + decideLang);
             if (LangExists)
             {
-                var verFileStream = new FileStream(m_strCurrentDir + m_customDir + decideLang, FileMode.Open, FileAccess.Read);
+                var verFileStream = new FileStream(m_strCurrentDir + m_customDir + decideLang, FileMode.Open,
+                    FileAccess.Read);
                 using (var streamReader = new StreamReader(verFileStream, Encoding.UTF8))
                 {
                     string line;
-                    while ((line = streamReader.ReadLine()) != null)
-                    {
-                        lang = line;
-                    }
+                    while ((line = streamReader.ReadLine()) != null) lang = line;
                 }
+
                 verFileStream.Close();
             }
 
@@ -259,12 +369,14 @@ namespace InitSetting
                 m_strStudioManualDir = "/manual_s/お読み下さい.html";
                 m_strVRManualDir = "/manual_v/Japanese/README.html";
 
-                warningText.Text = "このゲームは成人向けので、18歳未満（または地域の法律によりと同等の年齢）がこのゲームをプレイまたは所有しているができない。\n\nこのゲームには性的内容の内容が含まれます。内に描かれている行動は、実生活で複製することは違法です。つまり、これは面白いゲームです、そうしましょう？(~.~)v";
+                warningText.Text =
+                    "このゲームは成人向けので、18歳未満（または地域の法律によりと同等の年齢）がこのゲームをプレイまたは所有しているができない。\n\nこのゲームには性的内容の内容が含まれます。内に描かれている行動は、実生活で複製することは違法です。つまり、これは面白いゲームです、そうしましょう？(~.~)v";
                 buttonInst.Content = "インストール";
                 buttonFemaleCard.Content = "キャラカード (女性)";
                 buttonMaleCard.Content = "キャラカード (男性)";
                 buttonScenes.Content = "シーン";
-                buttonScreenshot.Content = "SS"; buttonUserData.Content = "UserData";
+                buttonScreenshot.Content = "SS";
+                buttonUserData.Content = "UserData";
                 labelStart.Content = "ゲーム開始";
                 labelStartS.Content = "スタジオ開始";
                 labelM.Content = "ゲーム";
@@ -296,7 +408,8 @@ namespace InitSetting
                 m_strStudioManualDir = "/manual_s/お読み下さい.html";
                 m_strVRManualDir = "/manual_v/Traditional Chinese/README.html";
 
-                warningText.Text = "此游戏适用于成人用户，任何未满18岁的人（或根据当地法律规定的同等人）都不得遊玩或拥有此游戏。\n\n这个游戏包含性相关的内容，某些行为在现实生活中可能是非法的。所以，游戏中的所有乐趣请保留在游戏中，让我们保持这种方式吧? (~.~)v";
+                warningText.Text =
+                    "此游戏适用于成人用户，任何未满18岁的人（或根据当地法律规定的同等人）都不得遊玩或拥有此游戏。\n\n这个游戏包含性相关的内容，某些行为在现实生活中可能是非法的。所以，游戏中的所有乐趣请保留在游戏中，让我们保持这种方式吧? (~.~)v";
                 buttonInst.Content = "游戏主目录";
                 buttonFemaleCard.Content = "人物卡 (女)";
                 buttonMaleCard.Content = "人物卡 (男)";
@@ -334,7 +447,8 @@ namespace InitSetting
                 m_strStudioManualDir = "/manual_s/お読み下さい.html";
                 m_strVRManualDir = "/manual_v/Simplified Chinese/README.html";
 
-                warningText.Text = "此遊戲適用於成人用戶，任何未滿18歲的人（或根據當地法律規定的同等人）都不得遊玩或擁有此遊戲。\n\n這個遊戲包含性相關的內容，某些行為在現實生活中可能是非法的。所以，遊戲中的所有樂趣請保留在遊戲中，讓我們保持這種方式吧? (~.~)v";
+                warningText.Text =
+                    "此遊戲適用於成人用戶，任何未滿18歲的人（或根據當地法律規定的同等人）都不得遊玩或擁有此遊戲。\n\n這個遊戲包含性相關的內容，某些行為在現實生活中可能是非法的。所以，遊戲中的所有樂趣請保留在遊戲中，讓我們保持這種方式吧? (~.~)v";
                 buttonInst.Content = "遊戲主目錄";
                 buttonFemaleCard.Content = "人物卡 (女)";
                 buttonMaleCard.Content = "人物卡 (男)";
@@ -364,7 +478,7 @@ namespace InitSetting
                 toggleAIGraphics.Content = "啟動AIGraphics";
             }
 
-            m_astrQuality = new string[]
+            m_astrQuality = new[]
             {
                 q_performance,
                 q_normal,
@@ -378,7 +492,9 @@ namespace InitSetting
             isMainGame = File.Exists(m_strCurrentDir + m_strGameExe);
 
             if (m_strCurrentDir.Length >= 75)
-                MessageBox.Show("The game is installed deep in the file system!\n\nThis can cause a variety of errors, so it's recommended that you move it to a shorter path, something like:\n\nC:\\Illusion\\AI.Shoujo", "Critical warning!");
+                MessageBox.Show(
+                    "The game is installed deep in the file system!\n\nThis can cause a variety of errors, so it's recommended that you move it to a shorter path, something like:\n\nC:\\Illusion\\AI.Shoujo",
+                    "Critical warning!");
 
 
             // Customization options
@@ -397,11 +513,9 @@ namespace InitSetting
                 using (var streamReader = new StreamReader(verFileStream, Encoding.UTF8))
                 {
                     string line;
-                    while ((line = streamReader.ReadLine()) != null)
-                    {
-                        labelDist.Content = line;
-                    }
+                    while ((line = streamReader.ReadLine()) != null) labelDist.Content = line;
                 }
+
                 verFileStream.Close();
             }
 
@@ -409,12 +523,13 @@ namespace InitSetting
 
             if (WarningExists)
             {
-                var verFileStream = new FileStream(m_strCurrentDir + m_customDir + warningLoc, FileMode.Open, FileAccess.Read);
+                var verFileStream = new FileStream(m_strCurrentDir + m_customDir + warningLoc, FileMode.Open,
+                    FileAccess.Read);
                 try
                 {
-                    using (StreamReader sr = new StreamReader(m_strCurrentDir + m_customDir + warningLoc))
+                    using (var sr = new StreamReader(m_strCurrentDir + m_customDir + warningLoc))
                     {
-                        String line = sr.ReadToEnd();
+                        var line = sr.ReadToEnd();
                         warningText.Text = line;
                     }
                 }
@@ -423,27 +538,29 @@ namespace InitSetting
                     warningText.Text = e.Message;
                 }
             }
+
             if (CharExists)
             {
-                Uri urich = new Uri(m_strCurrentDir + m_customDir + charLoc, UriKind.RelativeOrAbsolute);
+                var urich = new Uri(m_strCurrentDir + m_customDir + charLoc, UriKind.RelativeOrAbsolute);
                 PackChara.Source = BitmapFrame.Create(urich);
             }
+
             if (BackgExists)
             {
-                Uri uribg = new Uri(m_strCurrentDir + m_customDir + backgLoc, UriKind.RelativeOrAbsolute);
+                var uribg = new Uri(m_strCurrentDir + m_customDir + backgLoc, UriKind.RelativeOrAbsolute);
                 appBG.ImageSource = BitmapFrame.Create(uribg);
             }
+
             if (PatreonExists)
             {
-                var verFileStream = new FileStream(m_strCurrentDir + m_customDir + patreonLoc, FileMode.Open, FileAccess.Read);
+                var verFileStream = new FileStream(m_strCurrentDir + m_customDir + patreonLoc, FileMode.Open,
+                    FileAccess.Read);
                 using (var streamReader = new StreamReader(verFileStream, Encoding.UTF8))
                 {
                     string line;
-                    while ((line = streamReader.ReadLine()) != null)
-                    {
-                        patreonURL = line;
-                    }
+                    while ((line = streamReader.ReadLine()) != null) patreonURL = line;
                 }
+
                 verFileStream.Close();
             }
             else
@@ -453,7 +570,7 @@ namespace InitSetting
                 patreonIMG.Visibility = Visibility.Collapsed;
             }
 
-            int num = Screen.AllScreens.Length;
+            var num = Screen.AllScreens.Length;
             getDisplayMode_EnumDisplaySettings(num);
             m_Setting.m_strSizeChoose = "1600 x 900 (16 : 9)";
             m_Setting.m_nWidthChoose = 1600;
@@ -475,53 +592,53 @@ namespace InitSetting
             }
             else
             {
-                for (int i = 0; i < num; i++)
+                for (var i = 0; i < num; i++)
                 {
-                    string newItem = (i == 0) ? s_primarydisplay : ($"{s_subdisplay} : " + i);
+                    var newItem = i == 0 ? s_primarydisplay : $"{s_subdisplay} : " + i;
                     dropDisplay.Items.Add(newItem);
                 }
             }
-            foreach (string newItem2 in m_astrQuality)
-            {
-                dropQual.Items.Add(newItem2);
-            }
+
+            foreach (var newItem2 in m_astrQuality) dropQual.Items.Add(newItem2);
 
             SetEnableAndVisible();
 
-            string path = m_strCurrentDir + m_strSaveDir;
-        CheckConfigFile:
+            var path = m_strCurrentDir + m_strSaveDir;
+            CheckConfigFile:
             if (File.Exists(path))
             {
                 try
                 {
-                    using (FileStream fileStream = new FileStream(path, FileMode.Open))
+                    using (var fileStream = new FileStream(path, FileMode.Open))
                     {
-                        XmlSerializer xmlSerializer = new XmlSerializer(typeof(ConfigSetting));
-                        m_Setting = (ConfigSetting)xmlSerializer.Deserialize(fileStream);
+                        var xmlSerializer = new XmlSerializer(typeof(ConfigSetting));
+                        m_Setting = (ConfigSetting) xmlSerializer.Deserialize(fileStream);
                     }
 
                     m_Setting.m_nDisplay = Math.Min(m_Setting.m_nDisplay, num - 1);
                     setDisplayComboBox(m_Setting.m_bFullScreen);
                     var flag = false;
                     for (var k = 0; k < dropRes.Items.Count; k++)
-                    {
                         if (dropRes.Items[k].ToString() == m_Setting.m_strSizeChoose)
                             flag = true;
-                    }
+
                     dropRes.Text = flag ? m_Setting.m_strSizeChoose : "1280 x 720 (16 : 9)";
                     toggleFullscreen.IsChecked = m_Setting.m_bFullScreen;
                     dropQual.Text = m_astrQuality[m_Setting.m_nQualityChoose];
-                    string text = m_Setting.m_nDisplay == 0 ? s_primarydisplay : $"{s_subdisplay} : " + m_Setting.m_nDisplay;
+                    var text = m_Setting.m_nDisplay == 0
+                        ? s_primarydisplay
+                        : $"{s_subdisplay} : " + m_Setting.m_nDisplay;
                     if (num == 2)
-                    {
                         text = new[]
                         {
-                        s_primarydisplay,
-                        $"{s_subdisplay} : 1"
+                            s_primarydisplay,
+                            $"{s_subdisplay} : 1"
                         }[m_Setting.m_nDisplay];
-                    }
+
                     if (dropDisplay.Items.Contains(text))
+                    {
                         dropDisplay.Text = text;
+                    }
                     else
                     {
                         dropDisplay.Text = s_primarydisplay;
@@ -533,7 +650,7 @@ namespace InitSetting
                 }
                 catch (Exception)
                 {
-                    System.Windows.Forms.MessageBox.Show("/UserData/setup.xml file was corrupted, settings will be reset.");
+                    MessageBox.Show("/UserData/setup.xml file was corrupted, settings will be reset.");
                     File.Delete(path);
                     goto CheckConfigFile;
                 }
@@ -547,14 +664,43 @@ namespace InitSetting
             }
         }
 
-        void SetEnableAndVisible()
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+        private static extern IntPtr GetModuleHandle(string lpModuleName);
+
+        [DllImport("kernel32", CharSet = CharSet.Ansi, ExactSpelling = true)]
+        private static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
+
+        [DllImport("kernel32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool IsWow64Process([In] IntPtr hProcess, out bool lpSystemInfo);
+
+        [DllImport("user32.dll")]
+        private static extern bool EnumDisplaySettings(string deviceName, int modeNum, ref DEVMODE devMode);
+
+        [DllImport("user32.dll")]
+        private static extern bool EnumDisplayDevices(string lpDevice, uint iDevNum, ref DISPLAY_DEVICE lpDisplayDevice,
+            uint dwFlags);
+
+        [DllImport("User32.dll")]
+        private static extern bool EnumDisplayMonitors(IntPtr hdc, IntPtr rect, EnumDisplayMonitorsCallback callback,
+            IntPtr dwData);
+
+        [DllImport("User32.dll")]
+        private static extern bool GetMonitorInfo(IntPtr hMonitor, ref MonitorInfoEx info);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern bool DeviceIoControl(IntPtr hDevice, uint dwIoControlCode,
+            IntPtr InBuffer, int nInBufferSize,
+            IntPtr OutBuffer, int nOutBufferSize,
+            out int pBytesReturned, IntPtr lpOverlapped);
+
+        private void SetEnableAndVisible()
         {
-            
         }
 
-        void SaveRegistry()
+        private void SaveRegistry()
         {
-            using (RegistryKey registryKey = Registry.CurrentUser.CreateSubKey(m_strGameRegistry))
+            using (var registryKey = Registry.CurrentUser.CreateSubKey(m_strGameRegistry))
             {
                 registryKey.SetValue("Screenmanager Is Fullscreen mode_h3981298716", m_Setting.m_bFullScreen ? 1 : 0);
                 registryKey.SetValue("Screenmanager Resolution Height_h2627697771", m_Setting.m_nHeightChoose);
@@ -562,128 +708,107 @@ namespace InitSetting
                 registryKey.SetValue("UnityGraphicsQuality_h1669003810", 2);
                 registryKey.SetValue("UnitySelectMonitor_h17969598", m_Setting.m_nDisplay);
             }
+
             if (isStudio)
-            {
-                using (RegistryKey registryKey2 = Registry.CurrentUser.CreateSubKey(m_strStudioRegistry))
+                using (var registryKey2 = Registry.CurrentUser.CreateSubKey(m_strStudioRegistry))
                 {
-                    registryKey2.SetValue("Screenmanager Is Fullscreen mode_h3981298716", m_Setting.m_bFullScreen ? 1 : 0);
+                    registryKey2.SetValue("Screenmanager Is Fullscreen mode_h3981298716",
+                        m_Setting.m_bFullScreen ? 1 : 0);
                     registryKey2.SetValue("Screenmanager Resolution Height_h2627697771", m_Setting.m_nHeightChoose);
                     registryKey2.SetValue("Screenmanager Resolution Width_h182942802", m_Setting.m_nWidthChoose);
                     registryKey2.SetValue("UnityGraphicsQuality_h1669003810", 2);
                     registryKey2.SetValue("UnitySelectMonitor_h17969598", m_Setting.m_nDisplay);
                 }
-            }
         }
 
-        void PlayFunc(string strExe)
+        private void PlayFunc(string strExe)
         {
             saveConfigFile(m_strCurrentDir + m_strSaveDir);
             SaveRegistry();
-            string text = m_strCurrentDir + strExe;
-            string ipa = "\u0022" + m_strCurrentDir + "IPA.exe" + "\u0022";
-            string ipaArgs = "\u0022" + text + "\u0022" + " --launch";
+            var text = m_strCurrentDir + strExe;
+            var ipa = "\u0022" + m_strCurrentDir + "IPA.exe" + "\u0022";
+            var ipaArgs = "\u0022" + text + "\u0022" + " --launch";
             if (File.Exists(text) && isIPA)
             {
-                Process.Start(new ProcessStartInfo(ipa) { WorkingDirectory = m_strCurrentDir, Arguments = ipaArgs });
-                System.Windows.Application.Current.MainWindow.Close();
+                Process.Start(new ProcessStartInfo(ipa) {WorkingDirectory = m_strCurrentDir, Arguments = ipaArgs});
+                Application.Current.MainWindow.Close();
                 return;
             }
-            else if (File.Exists(text))
+
+            if (File.Exists(text))
             {
-                Process.Start(new ProcessStartInfo(text) { WorkingDirectory = m_strCurrentDir });
-                System.Windows.Application.Current.MainWindow.Close();
+                Process.Start(new ProcessStartInfo(text) {WorkingDirectory = m_strCurrentDir});
+                Application.Current.MainWindow.Close();
                 return;
             }
+
             MessageBox.Show("Executable can't be located", "Warning!");
         }
 
-        void buttonStart_Click(object sender, RoutedEventArgs e)
+        private void buttonStart_Click(object sender, RoutedEventArgs e)
         {
             PlayFunc(m_strGameExe);
         }
 
-        void buttonStartS_Click(object sender, RoutedEventArgs e)
+        private void buttonStartS_Click(object sender, RoutedEventArgs e)
         {
             PlayFunc(m_strStudioExe);
         }
 
-        void buttonClose_Click(object sender, RoutedEventArgs e)
+        private void buttonClose_Click(object sender, RoutedEventArgs e)
         {
             saveConfigFile(m_strCurrentDir + m_strSaveDir);
             ReleaseMutex();
-            System.Windows.Application.Current.MainWindow.Close();
+            Application.Current.MainWindow.Close();
         }
 
-        void Resolution_Change(object sender, SelectionChangedEventArgs e)
+        private void Resolution_Change(object sender, SelectionChangedEventArgs e)
         {
-            if (-1 == dropRes.SelectedIndex)
-            {
-                return;
-            }
-            ComboBoxCustomItem comboBoxCustomItem = (ComboBoxCustomItem)dropRes.SelectedItem;
+            if (-1 == dropRes.SelectedIndex) return;
+            var comboBoxCustomItem = (ComboBoxCustomItem) dropRes.SelectedItem;
             m_Setting.m_strSizeChoose = comboBoxCustomItem.text;
             m_Setting.m_nWidthChoose = comboBoxCustomItem.width;
             m_Setting.m_nHeightChoose = comboBoxCustomItem.height;
         }
 
-        void Quality_Change(object sender, SelectionChangedEventArgs e)
+        private void Quality_Change(object sender, SelectionChangedEventArgs e)
         {
-            string a = dropQual.SelectedItem.ToString();
+            var a = dropQual.SelectedItem.ToString();
             if (a == q_performance)
             {
                 m_Setting.m_nQualityChoose = 0;
                 return;
             }
+
             if (a == q_normal)
             {
                 m_Setting.m_nQualityChoose = 1;
                 return;
             }
-            if (!(a == q_quality))
-            {
-                return;
-            }
+
+            if (!(a == q_quality)) return;
             m_Setting.m_nQualityChoose = 2;
         }
 
-        void windowUnChecked(object sender, RoutedEventArgs e)
+        private void windowUnChecked(object sender, RoutedEventArgs e)
         {
             setDisplayComboBox(false);
             dropRes.Text = m_Setting.m_strSizeChoose;
             m_Setting.m_bFullScreen = false;
         }
 
-        void windowChecked(object sender, RoutedEventArgs e)
+        private void windowChecked(object sender, RoutedEventArgs e)
         {
             setDisplayComboBox(true);
             m_Setting.m_bFullScreen = true;
             setFullScreenDevice();
         }
 
-        void buttonManual_Click(object sender, RoutedEventArgs e)
+        private void buttonManual_Click(object sender, RoutedEventArgs e)
         {
-            string manualEN = $"{m_strCurrentDir}\\manual\\manual_en.html";
-            string manualLANG = $"{m_strCurrentDir}\\manual\\manual_{lang}.html";
-            string manualJA = m_strCurrentDir + m_strManualDir;
-
-            if(File.Exists(manualEN) || File.Exists(manualLANG) || File.Exists(manualJA))
-            {
-                if (File.Exists(manualLANG))
-                    Process.Start(manualLANG);
-                else if (File.Exists(manualEN))
-                    Process.Start(manualEN);
-                else
-                    Process.Start(manualJA);
-                return;
-            }
-            MessageBox.Show("Manual could not be found.", "Warning!");
-        }
-
-        void buttonManualS_Click(object sender, RoutedEventArgs e)
-        {
-            string manualEN = $"{m_strCurrentDir}\\manual_s\\manual_en.html";
-            string manualLANG = $"{m_strCurrentDir}\\manual_s\\manual_{lang}.html";
-            string manualJA = m_strCurrentDir + m_strStudioManualDir;
+            var manualEN = $"{m_strCurrentDir}\\manual\\manual_en.html";
+            var manualLANG = $"{m_strCurrentDir}\\manual\\manual_{lang}.html";
+            var manualJA = m_strCurrentDir + m_strManualDir;
 
             if (File.Exists(manualEN) || File.Exists(manualLANG) || File.Exists(manualJA))
             {
@@ -695,14 +820,15 @@ namespace InitSetting
                     Process.Start(manualJA);
                 return;
             }
+
             MessageBox.Show("Manual could not be found.", "Warning!");
         }
 
-        void buttonManualV_Click(object sender, RoutedEventArgs e)
+        private void buttonManualS_Click(object sender, RoutedEventArgs e)
         {
-            string manualEN = $"{m_strCurrentDir}\\manual_vr\\manual_en.html";
-            string manualLANG = $"{m_strCurrentDir}\\manual_vr\\manual_{lang}.html";
-            string manualJA = m_strCurrentDir + m_strVRManualDir;
+            var manualEN = $"{m_strCurrentDir}\\manual_s\\manual_en.html";
+            var manualLANG = $"{m_strCurrentDir}\\manual_s\\manual_{lang}.html";
+            var manualJA = m_strCurrentDir + m_strStudioManualDir;
 
             if (File.Exists(manualEN) || File.Exists(manualLANG) || File.Exists(manualJA))
             {
@@ -714,15 +840,33 @@ namespace InitSetting
                     Process.Start(manualJA);
                 return;
             }
+
             MessageBox.Show("Manual could not be found.", "Warning!");
         }
 
-        void Display_Change(object sender, SelectionChangedEventArgs e)
+        private void buttonManualV_Click(object sender, RoutedEventArgs e)
         {
-            if (-1 == dropDisplay.SelectedIndex)
+            var manualEN = $"{m_strCurrentDir}\\manual_vr\\manual_en.html";
+            var manualLANG = $"{m_strCurrentDir}\\manual_vr\\manual_{lang}.html";
+            var manualJA = m_strCurrentDir + m_strVRManualDir;
+
+            if (File.Exists(manualEN) || File.Exists(manualLANG) || File.Exists(manualJA))
             {
+                if (File.Exists(manualLANG))
+                    Process.Start(manualLANG);
+                else if (File.Exists(manualEN))
+                    Process.Start(manualEN);
+                else
+                    Process.Start(manualJA);
                 return;
             }
+
+            MessageBox.Show("Manual could not be found.", "Warning!");
+        }
+
+        private void Display_Change(object sender, SelectionChangedEventArgs e)
+        {
+            if (-1 == dropDisplay.SelectedIndex) return;
             m_Setting.m_nDisplay = dropDisplay.SelectedIndex;
             if (m_Setting.m_bFullScreen)
             {
@@ -731,193 +875,196 @@ namespace InitSetting
             }
         }
 
-        void buttonInst_Click(object sender, RoutedEventArgs e)
+        private void buttonInst_Click(object sender, RoutedEventArgs e)
         {
-            char[] trimChars = new char[]
+            char[] trimChars =
             {
                 '/'
             };
-            char[] trimChars2 = new char[]
+            char[] trimChars2 =
             {
                 '\\'
             };
-            string text = m_strCurrentDir.TrimEnd(trimChars);
+            var text = m_strCurrentDir.TrimEnd(trimChars);
             text = text.TrimEnd(trimChars2);
             if (Directory.Exists(text))
             {
                 Process.Start("explorer.exe", text);
                 return;
             }
+
             MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
         }
 
-        void buttonScenes_Click(object sender, RoutedEventArgs e)
+        private void buttonScenes_Click(object sender, RoutedEventArgs e)
         {
-            char[] trimChars = new char[]
+            char[] trimChars =
             {
                 '/'
             };
-            char[] trimChars2 = new char[]
+            char[] trimChars2 =
             {
                 '\\'
             };
-            string text = m_strCurrentDir.TrimEnd(trimChars);
+            var text = m_strCurrentDir.TrimEnd(trimChars);
             text = text.TrimEnd(trimChars2) + "\\UserData\\Studio\\scene";
             if (Directory.Exists(text))
             {
                 Process.Start("explorer.exe", text);
                 return;
             }
+
             MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
         }
 
-        void buttonUserData_Click(object sender, RoutedEventArgs e)
+        private void buttonUserData_Click(object sender, RoutedEventArgs e)
         {
-            char[] trimChars = new char[]
+            char[] trimChars =
             {
                 '/'
             };
-            char[] trimChars2 = new char[]
+            char[] trimChars2 =
             {
                 '\\'
             };
-            string text = m_strCurrentDir.TrimEnd(trimChars);
+            var text = m_strCurrentDir.TrimEnd(trimChars);
             text = text.TrimEnd(trimChars2) + "\\UserData";
             if (Directory.Exists(text))
             {
                 Process.Start("explorer.exe", text);
                 return;
             }
+
             MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
         }
 
-        void buttonHousing_Click(object sender, RoutedEventArgs e)
+        private void buttonHousing_Click(object sender, RoutedEventArgs e)
         {
-            char[] trimChars = new char[]
+            char[] trimChars =
             {
                 '/'
             };
-            char[] trimChars2 = new char[]
+            char[] trimChars2 =
             {
                 '\\'
             };
-            string text = m_strCurrentDir.TrimEnd(trimChars);
+            var text = m_strCurrentDir.TrimEnd(trimChars);
             text = text.TrimEnd(trimChars2) + "\\UserData\\housing";
             if (Directory.Exists(text))
             {
                 Process.Start("explorer.exe", text);
                 return;
             }
+
             MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
         }
 
-        void buttonScreenshot_Click(object sender, RoutedEventArgs e)
+        private void buttonScreenshot_Click(object sender, RoutedEventArgs e)
         {
-            char[] trimChars = new char[]
+            char[] trimChars =
             {
                 '/'
             };
-            char[] trimChars2 = new char[]
+            char[] trimChars2 =
             {
                 '\\'
             };
-            string text = m_strCurrentDir.TrimEnd(trimChars);
+            var text = m_strCurrentDir.TrimEnd(trimChars);
             text = text.TrimEnd(trimChars2) + "\\UserData\\cap";
             if (Directory.Exists(text))
             {
                 Process.Start("explorer.exe", text);
                 return;
             }
+
             MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
         }
 
-        void buttonFemaleCard_Click(object sender, RoutedEventArgs e)
+        private void buttonFemaleCard_Click(object sender, RoutedEventArgs e)
         {
-            char[] trimChars = new char[]
+            char[] trimChars =
             {
                 '/'
             };
-            char[] trimChars2 = new char[]
+            char[] trimChars2 =
             {
                 '\\'
             };
-            string text = m_strCurrentDir.TrimEnd(trimChars);
+            var text = m_strCurrentDir.TrimEnd(trimChars);
             text = text.TrimEnd(trimChars2) + "\\UserData\\chara\\female";
             if (Directory.Exists(text))
             {
                 Process.Start("explorer.exe", text);
                 return;
             }
+
             MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
         }
 
-        void buttonMaleCard_Click(object sender, RoutedEventArgs e)
+        private void buttonMaleCard_Click(object sender, RoutedEventArgs e)
         {
-            char[] trimChars = new char[]
+            char[] trimChars =
             {
                 '/'
             };
-            char[] trimChars2 = new char[]
+            char[] trimChars2 =
             {
                 '\\'
             };
-            string text = m_strCurrentDir.TrimEnd(trimChars);
+            var text = m_strCurrentDir.TrimEnd(trimChars);
             text = text.TrimEnd(trimChars2) + "\\UserData\\chara\\male";
             if (Directory.Exists(text))
             {
                 Process.Start("explorer.exe", text);
                 return;
             }
+
             MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
         }
 
-        void SystemInfo_Open(object sender, RoutedEventArgs e)
+        private void SystemInfo_Open(object sender, RoutedEventArgs e)
         {
-            string text = Environment.ExpandEnvironmentVariables("%windir%") + "/System32/dxdiag.exe";
+            var text = Environment.ExpandEnvironmentVariables("%windir%") + "/System32/dxdiag.exe";
             if (File.Exists(text))
             {
                 Process.Start(text);
                 return;
             }
+
             MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
         }
 
-        bool DoubleStartCheck()
+        private bool DoubleStartCheck()
         {
             bool flag;
             mutex = new Mutex(true, "AIS", out flag);
-            bool v = !flag;
+            var v = !flag;
             if (v)
             {
-                if (mutex != null)
-                {
-                    mutex.Close();
-                }
+                if (mutex != null) mutex.Close();
                 mutex = null;
                 return false;
             }
+
             return true;
         }
 
-        bool ReleaseMutex()
+        private bool ReleaseMutex()
         {
-            if (mutex == null)
-            {
-                return false;
-            }
+            if (mutex == null) return false;
             mutex.ReleaseMutex();
             mutex.Close();
             mutex = null;
             return true;
         }
 
-        void setDisplayComboBox(bool _bFullScreen)
+        private void setDisplayComboBox(bool _bFullScreen)
         {
             dropRes.Items.Clear();
-            int nDisplay = m_Setting.m_nDisplay;
-            foreach (MainWindow.DisplayMode displayMode in (_bFullScreen ? m_listCurrentDisplay[nDisplay].list : m_listDefaultDisplay))
+            var nDisplay = m_Setting.m_nDisplay;
+            foreach (var displayMode in _bFullScreen ? m_listCurrentDisplay[nDisplay].list : m_listDefaultDisplay)
             {
-                ComboBoxCustomItem newItem = new ComboBoxCustomItem
+                var newItem = new ComboBoxCustomItem
                 {
                     text = displayMode.text,
                     width = displayMode.Width,
@@ -927,379 +1074,579 @@ namespace InitSetting
             }
         }
 
-        void saveConfigFile(string _strFilePath)
+        private void saveConfigFile(string _strFilePath)
         {
-            if (!Directory.Exists(Path.GetDirectoryName(_strFilePath)))
-            {
-                return;
-            }
+            if (!Directory.Exists(Path.GetDirectoryName(_strFilePath))) return;
             FileStream fileStream = null;
             try
             {
                 fileStream = new FileStream(_strFilePath, FileMode.Create);
                 if (fileStream != null)
-                {
-                    using (StreamWriter streamWriter = new StreamWriter(fileStream, Encoding.GetEncoding("UTF-16")))
+                    using (var streamWriter = new StreamWriter(fileStream, Encoding.GetEncoding("UTF-16")))
                     {
-                        XmlSerializerNamespaces xmlSerializerNamespaces = new XmlSerializerNamespaces();
+                        var xmlSerializerNamespaces = new XmlSerializerNamespaces();
                         xmlSerializerNamespaces.Add(string.Empty, string.Empty);
-                        new XmlSerializer(typeof(ConfigSetting)).Serialize(streamWriter, m_Setting, xmlSerializerNamespaces);
+                        new XmlSerializer(typeof(ConfigSetting)).Serialize(streamWriter, m_Setting,
+                            xmlSerializerNamespaces);
                         fileStream = null;
                     }
-                }
             }
             finally
             {
-                if (fileStream != null)
-                {
-                    fileStream.Dispose();
-                }
+                if (fileStream != null) fileStream.Dispose();
             }
         }
 
-        void getDisplayMode_CIM_VideoControllerResolution()
+        private void getDisplayMode_CIM_VideoControllerResolution()
         {
-            ManagementObjectCollection instances = new ManagementClass("CIM_VideoControllerResolution").GetInstances();
-            List<MainWindow.DisplayMode> list = new List<MainWindow.DisplayMode>();
-            uint num = 0u;
-            uint num2 = 0u;
-            foreach (ManagementBaseObject managementBaseObject in instances)
+            var instances = new ManagementClass("CIM_VideoControllerResolution").GetInstances();
+            var list = new List<DisplayMode>();
+            var num = 0u;
+            var num2 = 0u;
+            foreach (var managementBaseObject in instances)
             {
-                ManagementObject managementObject = (ManagementObject)managementBaseObject;
-                uint nXX = (uint)managementObject["HorizontalResolution"];
-                uint nYY = (uint)managementObject["VerticalResolution"];
-                if ((num != nXX || num2 != nYY) && (ulong)managementObject["NumberOfColors"] == 4294967296UL)
+                var managementObject = (ManagementObject) managementBaseObject;
+                var nXX = (uint) managementObject["HorizontalResolution"];
+                var nYY = (uint) managementObject["VerticalResolution"];
+                if ((num != nXX || num2 != nYY) && (ulong) managementObject["NumberOfColors"] == 4294967296UL)
                 {
-                    MainWindow.DisplayMode displayMode = m_listDefaultDisplay.Find((MainWindow.DisplayMode i) => (long)i.Width == (long)((ulong)nXX) && (long)i.Height == (long)((ulong)nYY));
-                    if (displayMode.Width != 0)
-                    {
-                        list.Add(displayMode);
-                    }
+                    var displayMode = m_listDefaultDisplay.Find(i =>
+                        (long) i.Width == (long) (ulong) nXX && (long) i.Height == (long) (ulong) nYY);
+                    if (displayMode.Width != 0) list.Add(displayMode);
                     num = nXX;
                     num2 = nYY;
                 }
             }
-            MainWindow.DisplayModes item = default(MainWindow.DisplayModes);
+
+            var item = default(DisplayModes);
             item.list = list;
             m_listCurrentDisplay.Add(item);
             if (instances.Count == 0)
             {
-                System.Windows.Forms.MessageBox.Show("Failed to list screens");
+                MessageBox.Show("Failed to list screens");
                 return;
             }
-            if (m_listCurrentDisplay.Count == 0)
-            {
-                System.Windows.Forms.MessageBox.Show("Failed to list supported resolutions");
-            }
+
+            if (m_listCurrentDisplay.Count == 0) MessageBox.Show("Failed to list supported resolutions");
         }
 
-        void getDisplayMode_EnumDisplaySettings(int numDisplay)
+        private void getDisplayMode_EnumDisplaySettings(int numDisplay)
         {
-            DISPLAY_DEVICE display_DEVICE = default(DISPLAY_DEVICE);
+            var display_DEVICE = default(DISPLAY_DEVICE);
             display_DEVICE.cb = Marshal.SizeOf(display_DEVICE);
-            List<string> list = new List<string>();
-            MainWindow.MonitorInfoEx[] monitors = MainWindow.GetMonitors();
-            uint num = 0u;
-            while (MainWindow.EnumDisplayDevices(null, num, ref display_DEVICE, 1u))
+            var list = new List<string>();
+            var monitors = GetMonitors();
+            var num = 0u;
+            while (EnumDisplayDevices(null, num, ref display_DEVICE, 1u))
             {
-                if ((display_DEVICE.StateFlags & DisplayDeviceStateFlags.AttachedToDesktop) == DisplayDeviceStateFlags.AttachedToDesktop)
-                {
-                    list.Add(display_DEVICE.DeviceName);
-                }
+                if ((display_DEVICE.StateFlags & DisplayDeviceStateFlags.AttachedToDesktop) ==
+                    DisplayDeviceStateFlags.AttachedToDesktop) list.Add(display_DEVICE.DeviceName);
                 num += 1u;
             }
-            int num2 = 0;
-            int num3 = -1;
-            foreach (string text in list)
+
+            var num2 = 0;
+            var num3 = -1;
+            foreach (var text in list)
             {
-                int num4 = 0;
-                int num5 = 0;
-                DEVMODE devmode = default(DEVMODE);
-                List<MainWindow.DisplayMode> list2 = new List<MainWindow.DisplayMode>();
-                int num6 = 0;
-                while (MainWindow.EnumDisplaySettings(text, num6, ref devmode))
+                var num4 = 0;
+                var num5 = 0;
+                var devmode = default(DEVMODE);
+                var list2 = new List<DisplayMode>();
+                var num6 = 0;
+                while (EnumDisplaySettings(text, num6, ref devmode))
                 {
-                    int nXX = devmode.dmPelsWidth;
-                    int nYY = devmode.dmPelsHeight;
+                    var nXX = devmode.dmPelsWidth;
+                    var nYY = devmode.dmPelsHeight;
                     if ((num4 != nXX || num5 != nYY) && devmode.dmBitsPerPel == 32)
                     {
-                        MainWindow.DisplayMode displayMode = m_listDefaultDisplay.Find((MainWindow.DisplayMode dis) => dis.Width == nXX && dis.Height == nYY);
-                        if (displayMode.Width != 0)
-                        {
-                            list2.Add(displayMode);
-                        }
+                        var displayMode = m_listDefaultDisplay.Find(dis => dis.Width == nXX && dis.Height == nYY);
+                        if (displayMode.Width != 0) list2.Add(displayMode);
                         num4 = nXX;
                         num5 = nYY;
                     }
+
                     num6++;
                 }
-                MainWindow.DisplayModes item = default(MainWindow.DisplayModes);
-                foreach (MainWindow.MonitorInfoEx monitorInfoEx in monitors)
-                {
+
+                var item = default(DisplayModes);
+                foreach (var monitorInfoEx in monitors)
                     if (monitorInfoEx.szDevice == text)
                     {
                         item.x = monitorInfoEx.rcWork.Left;
                         item.y = monitorInfoEx.rcWork.Top;
-                        if (monitorInfoEx.dwFlags == 1)
-                        {
-                            num3 = num2;
-                        }
+                        if (monitorInfoEx.dwFlags == 1) num3 = num2;
                     }
-                }
+
                 item.list = list2;
                 num2++;
                 m_listCurrentDisplay.Add(item);
             }
+
             if (m_listCurrentDisplay.Count == 0 || m_listCurrentDisplay.Count != numDisplay)
-            {
-                System.Windows.Forms.MessageBox.Show("Failed to list supported resolutions");
-            }
+                MessageBox.Show("Failed to list supported resolutions");
+
+            //if (num3 < 0) return;
             m_listCurrentDisplay.Insert(0, m_listCurrentDisplay[num3]);
             m_listCurrentDisplay.RemoveAt(num3 + 1);
         }
 
-        static int DisplaySort(MainWindow.DisplayModes a, MainWindow.DisplayModes b)
+        private static int DisplaySort(DisplayModes a, DisplayModes b)
         {
-            if (a.x < b.x)
-            {
-                return -1;
-            }
-            if (a.x > b.x)
-            {
-                return 1;
-            }
-            if (a.y < b.y)
-            {
-                return -1;
-            }
-            if (a.y > b.y)
-            {
-                return 1;
-            }
+            if (a.x < b.x) return -1;
+            if (a.x > b.x) return 1;
+            if (a.y < b.y) return -1;
+            if (a.y > b.y) return 1;
             return 0;
         }
 
-        static MainWindow.MonitorInfoEx[] GetMonitors()
+        private static MonitorInfoEx[] GetMonitors()
         {
-            List<MainWindow.MonitorInfoEx> list = new List<MainWindow.MonitorInfoEx>();
-            MainWindow.EnumDisplayMonitors(IntPtr.Zero, IntPtr.Zero, delegate (IntPtr hMonitor, IntPtr hdcMonitor, IntPtr lprcMonitor, IntPtr dwData)
-            {
-                MainWindow.MonitorInfoEx item = new MainWindow.MonitorInfoEx
+            var list = new List<MonitorInfoEx>();
+            EnumDisplayMonitors(IntPtr.Zero, IntPtr.Zero,
+                delegate(IntPtr hMonitor, IntPtr hdcMonitor, IntPtr lprcMonitor, IntPtr dwData)
                 {
-                    cbSize = Marshal.SizeOf(typeof(MainWindow.MonitorInfoEx))
-                };
-                MainWindow.GetMonitorInfo(hMonitor, ref item);
-                list.Add(item);
-            }, IntPtr.Zero);
+                    var item = new MonitorInfoEx
+                    {
+                        cbSize = Marshal.SizeOf(typeof(MonitorInfoEx))
+                    };
+                    GetMonitorInfo(hMonitor, ref item);
+                    list.Add(item);
+                }, IntPtr.Zero);
             return list.ToArray();
         }
 
-        void setFullScreenDevice()
+        private void setFullScreenDevice()
         {
-            int nDisplay = m_Setting.m_nDisplay;
+            var nDisplay = m_Setting.m_nDisplay;
             if (m_listCurrentDisplay[nDisplay].list.Count == 0)
             {
                 m_Setting.m_bFullScreen = false;
-                toggleFullscreen.IsChecked = new bool?(false);
-                System.Windows.Forms.MessageBox.Show("This monitor doesn't support fullscreen.");
+                toggleFullscreen.IsChecked = false;
+                MessageBox.Show("This monitor doesn't support fullscreen.");
                 return;
             }
-            if (m_listCurrentDisplay[nDisplay].list.Find((MainWindow.DisplayMode x) => x.text.Contains(m_Setting.m_strSizeChoose)).Width == 0)
+
+            if (m_listCurrentDisplay[nDisplay].list.Find(x => x.text.Contains(m_Setting.m_strSizeChoose)).Width == 0)
             {
                 m_Setting.m_strSizeChoose = m_listCurrentDisplay[nDisplay].list[0].text;
                 m_Setting.m_nWidthChoose = m_listCurrentDisplay[nDisplay].list[0].Width;
                 m_Setting.m_nHeightChoose = m_listCurrentDisplay[nDisplay].list[0].Height;
             }
+
             dropRes.Text = m_Setting.m_strSizeChoose;
         }
 
         public bool IsWow64()
         {
             bool flag;
-            return MainWindow.GetProcAddress(MainWindow.GetModuleHandle("Kernel32.dll"), "IsWow64Process") != IntPtr.Zero && MainWindow.IsWow64Process(Process.GetCurrentProcess().Handle, out flag) && flag;
+            return GetProcAddress(GetModuleHandle("Kernel32.dll"), "IsWow64Process") != IntPtr.Zero &&
+                   IsWow64Process(Process.GetCurrentProcess().Handle, out flag) && flag;
         }
 
         public bool Is64BitOS()
         {
-            if (IntPtr.Size == 4)
-            {
-                return IsWow64();
-            }
+            if (IntPtr.Size == 4) return IsWow64();
             return IntPtr.Size == 8;
         }
 
-        void MenuCloseButton(object sender, EventArgs e)
+        private void MenuCloseButton(object sender, EventArgs e)
         {
             saveConfigFile(m_strCurrentDir + m_strSaveDir);
             ReleaseMutex();
         }
 
-        const int MONITORINFOF_PRIMARY = 1;
-
-        string[] m_astrQuality;
-        string[] s_EnglishTL;
-
-        string m_strGameRegistry = "Software\\illusion\\AI-Shoujo\\AI-Shoujo\\";
-        string m_strStudioRegistry = "Software\\illusion\\AI-Syoujyo\\StudioNEOV2";
-        string m_strGameExe = "AI-Shoujo.exe";
-        string m_strStudioExe = "StudioNEOV2.exe";
-        string m_strManualDir = "/manual/お読み下さい.html";
-        string m_strStudioManualDir = "/manual_s/お読み下さい.html";
-        string m_strVRManualDir = "/manual_vr/お読み下さい.html";
-
-        const string m_strSaveDir = "/UserData/setup.xml";
-        const string m_customDir = "/UserData/LauncherEN";
-
-        const string m_strDefSizeText = "1900 x 720 (16 : 9)";
-        const int m_nDefQuality = 2;
-        const int m_nDefWidth = 1600;
-        const int m_nDefHeight = 900;
-        const int m_nDefLang = 1;
-        const bool m_bDefFullScreen = false;
-
-        string m_strCurrentDir = Environment.CurrentDirectory + "\\";
-
-        ConfigSetting m_Setting = new ConfigSetting();
-
-        bool is64bitOS;
-
-        bool isStudio;
-        bool isMainGame;
-
-        string lang = "en";
-        bool noTL = false;
-        bool startup;
-
-        bool versionAvail;
-        bool WarningExists;
-        bool CharExists;
-        bool BackgExists;
-        bool PatreonExists;
-        bool LangExists;
-        bool kkmanExist;
-        bool updatelocExists;
-
-        bool isIPA;
-        bool isBepIn;
-
-        string kkman;
-        string updated = "placeholder";
-
-        string q_performance = "Performance";
-        string q_normal = "Normal";
-        string q_quality = "Quality";
-        string s_primarydisplay = "PrimaryDisplay";
-        string s_subdisplay = "SubDisplay";
-
-        const string decideLang = "/lang";
-        const string versioningLoc = "/version";
-        const string warningLoc = "/warning.txt";
-        const string charLoc = "/Chara.png";
-        const string backgLoc = "/LauncherBG.png";
-        const string patreonLoc = "/patreon.txt";
-        const string kkmdir = "/kkman.txt";
-        const string updateLoc = "/updater.txt";
-        //string updateURL;
-        //string packVersion;
-        //string newPackVersion;
-
-        string patreonURL;
-
-        List<MainWindow.DisplayMode> m_listDefaultDisplay = new List<MainWindow.DisplayMode>
+        private void discord_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            new MainWindow.DisplayMode
+            Process.Start("https://discord.gg/F3bDEFE");
+        }
+
+        private void patreon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start(patreonURL);
+        }
+
+        private void update_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            saveConfigFile(m_strCurrentDir + m_strSaveDir);
+            SaveRegistry();
+
+            var marcofix = m_strCurrentDir.TrimEnd('\\', '/', ' ');
+            kkman = kkman.TrimEnd('\\', '/', ' ');
+            string finaldir;
+
+            if (!File.Exists($@"{kkman}\StandaloneUpdater.exe"))
+                finaldir = $@"{m_strCurrentDir}{kkman}";
+            else
+                finaldir = kkman;
+
+            var text = $@"{finaldir}\StandaloneUpdater.exe";
+
+            var argdir = $"\u0022{marcofix}\u0022";
+            var argloc = updated;
+            var args = $"{argdir} {argloc}";
+
+            if (!updatelocExists)
+                args = $"{argdir}";
+
+            if (File.Exists(text))
+                Process.Start(new ProcessStartInfo(text) {WorkingDirectory = $@"{finaldir}", Arguments = args});
+        }
+
+        private void langEnglish(object sender, MouseButtonEventArgs e)
+        {
+            ChangeTL("en");
+        }
+
+        private void langJapanese(object sender, MouseButtonEventArgs e)
+        {
+            ChangeTL("ja");
+        }
+
+        private void langChinese(object sender, MouseButtonEventArgs e)
+        {
+            ChangeTL("zh-CN");
+        }
+
+        private void langTaiwanese(object sender, MouseButtonEventArgs e)
+        {
+            ChangeTL("zh-TW");
+        }
+
+        private void PartyFilter(string language)
+        {
+            if (!noTL)
+                ChangeTL(language);
+            else
+                SetupLang(language);
+        }
+
+        private void ChangeTL(string language)
+        {
+            if (language == "ja") m_Setting.m_nLangChoose = 0;
+            if (language == "en") m_Setting.m_nLangChoose = 1;
+            if (language == "zh-CN") m_Setting.m_nLangChoose = 2;
+            if (language == "zh-TW") m_Setting.m_nLangChoose = 3;
+            saveConfigFile(m_strCurrentDir + m_strSaveDir);
+            SaveRegistry();
+            WriteLangIni(language);
+            SetupLang(language);
+        }
+
+        private void WriteLangIni(string language)
+        {
+            if (File.Exists(m_strCurrentDir + "BepInEx/Config/AutoTranslatorConfig.ini"))
+                switch (language)
+                {
+                    case "ja":
+                        if (System.Windows.MessageBox.Show("ゲームにこの言語の選択を反映させたいですか？", "質問", MessageBoxButton.YesNo,
+                            MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        {
+                            disableXUA();
+                            helvete(language);
+                        }
+
+                        return;
+                    case "zh-CN":
+                        if (System.Windows.MessageBox.Show("您是否希望遊戲中的語言反映這項語言選擇？", "問題", MessageBoxButton.YesNo,
+                            MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        {
+                            disableXUA();
+                            helvete(language);
+                        }
+
+                        return;
+                    case "zh-TW":
+                        if (System.Windows.MessageBox.Show("您是否希望游戏中的语言反映这项语言选择？", "问题", MessageBoxButton.YesNo,
+                            MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        {
+                            disableXUA();
+                            helvete(language);
+                        }
+
+                        return;
+                    default:
+                        if (System.Windows.MessageBox.Show(
+                            "Do you want the ingame language to reflect this language choice?", "Question",
+                            MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        {
+                            enableXUA();
+                            helvete(language);
+                        }
+
+                        return;
+                }
+            // Borrowed from Marco
+        }
+
+        private void helvete(string language)
+        {
+            if (File.Exists("BepInEx/Config/AutoTranslatorConfig.ini"))
             {
-                Width = 854,
-                Height = 480,
-                text = "854 x 480 (16 : 9)"
-            },
-            new MainWindow.DisplayMode
-            {
-                Width = 1024,
-                Height = 576,
-                text = "1024 x 576 (16 : 9)"
-            },
-            new MainWindow.DisplayMode
-            {
-                Width = 1136,
-                Height = 640,
-                text = "1136 x 640 (16 : 9)"
-            },
-            new MainWindow.DisplayMode
-            {
-                Width = 1280,
-                Height = 720,
-                text = "1280 x 720 (16 : 9)"
-            },
-            new MainWindow.DisplayMode
-            {
-                Width = 1366,
-                Height = 768,
-                text = "1366 x 768 (16 : 9)"
-            },
-            new MainWindow.DisplayMode
-            {
-                Width = 1536,
-                Height = 864,
-                text = "1536 x 864 (16 : 9)"
-            },
-            new MainWindow.DisplayMode
-            {
-                Width = 1600,
-                Height = 900,
-                text = "1600 x 900 (16 : 9)"
-            },
-            new MainWindow.DisplayMode
-            {
-                Width = 1920,
-                Height = 1080,
-                text = "1920 x 1080 (16 : 9)"
-            },
-            new MainWindow.DisplayMode
-            {
-                Width = 2048,
-                Height = 1152,
-                text = "2048 x 1152 (16 : 9)"
-            },
-            new MainWindow.DisplayMode
-            {
-                Width = 2560,
-                Height = 1440,
-                text = "2560 x 1440 (16 : 9)"
-            },
-            new MainWindow.DisplayMode
-            {
-                Width = 3200,
-                Height = 1800,
-                text = "3200 x 1800 (16 : 9)"
-            },
-            new MainWindow.DisplayMode
-            {
-                Width = 3840,
-                Height = 2160,
-                text = "3840 x 2160 (16 : 9)"
+                var ud = Path.Combine(m_strCurrentDir, @"BepInEx/Config/AutoTranslatorConfig.ini");
+
+                try
+                {
+                    var contents = File.ReadAllLines(ud).ToList();
+
+                    // Fix VMD for darkness
+                    var setToLanguage = contents.FindIndex(s => s.ToLower().Contains("[General]".ToLower()));
+                    if (setToLanguage >= 0)
+                    {
+                        var i = contents.FindIndex(setToLanguage, s => s.StartsWith("Language"));
+                        if (i > setToLanguage)
+                            contents[i] = $"Language={language}";
+                        else
+                            contents.Insert(setToLanguage + 1, $"Language={language}");
+                    }
+                    else
+                    {
+                        contents.Add("");
+                        contents.Add("[General]");
+                        contents.Add($"Language={language}");
+                    }
+
+                    File.WriteAllLines(ud, contents.ToArray());
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Something went wrong: " + e);
+                }
             }
-        };
+        }
 
-        List<MainWindow.DisplayModes> m_listCurrentDisplay = new List<MainWindow.DisplayModes>();
+        private void enableXUA()
+        {
+            if (File.Exists("BepInEx/Config/AutoTranslatorConfig.ini"))
+            {
+                var ud = Path.Combine(m_strCurrentDir, @"BepInEx/Config/AutoTranslatorConfig.ini");
 
-        const int m_nQualityCount = 3;
+                try
+                {
+                    var contents = File.ReadAllLines(ud).ToList();
 
+                    var setToLanguage = contents.FindIndex(s => s.ToLower().Contains("[Service]".ToLower()));
+                    if (setToLanguage >= 0)
+                    {
+                        var i = contents.FindIndex(setToLanguage, s => s.StartsWith("Endpoint"));
+                        if (i > setToLanguage)
+                            contents[i] = "Endpoint=GoogleTranslate";
+                        else
+                            contents.Insert(setToLanguage + 1, "Endpoint=");
+                    }
+                    else
+                    {
+                        contents.Add("");
+                        contents.Add("[Service]");
+                        contents.Add("Endpoint=GoogleTranslate");
+                    }
 
+                    File.WriteAllLines(ud, contents.ToArray());
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Something went wrong: " + e);
+                }
+            }
+        }
 
+        private void disableXUA()
+        {
+            if (File.Exists("BepInEx/Config/AutoTranslatorConfig.ini"))
+            {
+                var ud = Path.Combine(m_strCurrentDir, @"BepInEx/Config/AutoTranslatorConfig.ini");
 
+                try
+                {
+                    var contents = File.ReadAllLines(ud).ToList();
 
-        Mutex mutex;
+                    var setToLanguage = contents.FindIndex(s => s.ToLower().Contains("[Service]".ToLower()));
+                    if (setToLanguage >= 0)
+                    {
+                        var i = contents.FindIndex(setToLanguage, s => s.StartsWith("Endpoint"));
+                        if (i > setToLanguage)
+                            contents[i] = "Endpoint=";
+                        else
+                            contents.Insert(setToLanguage + 1, "Endpoint=");
+                    }
+                    else
+                    {
+                        contents.Add("");
+                        contents.Add("[Service]");
+                        contents.Add("Endpoint=");
+                    }
 
-        delegate void EnumDisplayMonitorsCallback(IntPtr hMonir, IntPtr hdcMonitor, IntPtr lprcMonitor, IntPtr dwData);
+                    File.WriteAllLines(ud, contents.ToArray());
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Something went wrong: " + e);
+                }
+            }
+        }
+
+        private void deactivateTL(int i)
+        {
+            s_EnglishTL = new[]
+            {
+                "BepInEx/XUnity.AutoTranslator.Plugin.BepIn",
+                "BepInEx/XUnity.AutoTranslator.Plugin.Core",
+                "BepInEx/XUnity.AutoTranslator.Plugin.ExtProtocol",
+                "BepInEx/XUnity.RuntimeHooker.Core",
+                "BepInEx/XUnity.RuntimeHooker",
+                "BepInEx/KK_Subtitles",
+                "BepInEx/ExIni"
+            };
+
+            if (i == 0)
+            {
+                foreach (var file in s_EnglishTL)
+                    if (File.Exists(m_strCurrentDir + file + ".dll"))
+                        File.Move(m_strCurrentDir + file + ".dll", m_strCurrentDir + file + "._ll");
+            }
+            else
+            {
+                foreach (var file in s_EnglishTL)
+                {
+                    if (File.Exists(m_strCurrentDir + file + "._ll"))
+                        File.Move(m_strCurrentDir + file + "._ll", m_strCurrentDir + file + ".dll");
+                    helvete("en");
+                }
+            }
+        }
+
+        private void SetupLang(string langstring)
+        {
+            if (File.Exists(m_strCurrentDir + m_customDir + decideLang))
+                File.Delete(m_strCurrentDir + m_customDir + decideLang);
+            using (var writetext = new StreamWriter(m_strCurrentDir + m_customDir + decideLang))
+            {
+                writetext.WriteLine(langstring);
+            }
+
+            System.Windows.Forms.Application.Restart();
+        }
+
+        private void modeDev_Checked(object sender, RoutedEventArgs e)
+        {
+            using (var writetext = new StreamWriter(m_strCurrentDir + m_customDir + "/devMode"))
+            {
+                writetext.WriteLine("devmode: True");
+            }
+
+            if (!startup) devMode(true);
+        }
+
+        private void modeDev_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (!startup) devMode(false);
+        }
+
+        private void devMode(bool setDev)
+        {
+            var ud = Path.Combine(m_strCurrentDir, @"BepInEx\config\BepInEx.cfg");
+
+            try
+            {
+                var contents = File.ReadAllLines(ud).ToList();
+
+                var setToLanguage = contents.FindIndex(s => s.ToLower().Contains("[Logging.Console]".ToLower()));
+                if (setToLanguage >= 0 && setDev)
+                {
+                    var i = contents.FindIndex(setToLanguage, s => s.StartsWith("Enabled"));
+                    if (i > setToLanguage)
+                        contents[i] = "Enabled = true";
+                }
+                else
+                {
+                    var i = contents.FindIndex(setToLanguage, s => s.StartsWith("Enabled"));
+                    if (i > setToLanguage)
+                        contents[i] = "Enabled = false";
+                }
+
+                File.WriteAllLines(ud, contents.ToArray());
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong: " + e);
+            }
+        }
+
+        private void checkBox_Checked(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void HoneyPotInspector_Run(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists($"{m_strCurrentDir}\\HoneyPot\\HoneyPotInspector.exe"))
+                Process.Start($"{m_strCurrentDir}\\HoneyPot\\HoneyPotInspector.exe");
+            else
+                MessageBox.Show("HoneyPot doesn't seem to be applied to this installation.");
+        }
+
+        private void dhh_Checked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll"))
+                    File.Delete($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll");
+                File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_",
+                    $"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll");
+            }
+        }
+
+        private void dhh_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_"))
+                    File.Delete($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_");
+                File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll",
+                    $"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_");
+            }
+        }
+
+        private void aigraphics_Checked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll"))
+                    File.Delete($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll");
+                File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_",
+                    $"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll");
+            }
+
+            toggleDHH.IsChecked = false;
+            if (!startup)
+                MessageBox.Show("Press F5 ingame for menu.", "Information");
+        }
+
+        private void aigraphics_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_"))
+                    File.Delete($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_");
+                File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll",
+                    $"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_");
+            }
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (Mouse.LeftButton == MouseButtonState.Pressed)
+                DragMove();
+        }
+
+        private delegate void EnumDisplayMonitorsCallback(IntPtr hMonir, IntPtr hdcMonitor, IntPtr lprcMonitor,
+            IntPtr dwData);
 
         internal struct MonitorInfoEx
         {
             public int cbSize;
 
-            public MainWindow.Rect rcMonitor;
+            public Rect rcMonitor;
 
-            public MainWindow.Rect rcWork;
+            public Rect rcWork;
 
             public int dwFlags;
 
@@ -1318,7 +1665,7 @@ namespace InitSetting
             public int Bottom;
         }
 
-        struct DisplayMode
+        private struct DisplayMode
         {
             public int Width;
 
@@ -1327,429 +1674,13 @@ namespace InitSetting
             public string text;
         }
 
-        struct DisplayModes
+        private struct DisplayModes
         {
             public int x;
 
             public int y;
 
-            public List<MainWindow.DisplayMode> list;
-        }
-
-        void discord_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            Process.Start("https://discord.gg/F3bDEFE");
-        }
-        void patreon_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            Process.Start(patreonURL);
-        }
-
-        void update_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            saveConfigFile(m_strCurrentDir + m_strSaveDir);
-            SaveRegistry();
-
-            string marcofix = m_strCurrentDir.TrimEnd('\\', '/', ' ');
-            kkman = kkman.TrimEnd('\\', '/', ' ');
-            string finaldir;
-
-            if (!File.Exists($@"{kkman}\StandaloneUpdater.exe"))
-            {
-                finaldir = $@"{m_strCurrentDir}{kkman}";
-            }
-            else
-            {
-                finaldir = kkman;
-            }
-
-            string text = $@"{finaldir}\StandaloneUpdater.exe";
-
-            string argdir = $"\u0022{marcofix}\u0022";
-            string argloc = updated;
-            string args = $"{argdir} {argloc}";
-
-            if (!updatelocExists)
-                args = $"{argdir}";
-
-            if (File.Exists(text))
-            {
-                Process.Start(new ProcessStartInfo(text) { WorkingDirectory = $@"{finaldir}", Arguments = args });
-                return;
-            }
-        }
-
-        void langEnglish(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            ChangeTL("en");
-        }
-        void langJapanese(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            ChangeTL("ja");
-        }
-        void langChinese(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            ChangeTL("zh-CN");
-        }
-        void langTaiwanese(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            ChangeTL("zh-TW");
-        }
-
-        void PartyFilter(string language)
-        {
-            if (!noTL)
-                ChangeTL(language);
-            else
-                SetupLang(language);
-        }
-
-        void ChangeTL(string language)
-        {
-            if (language == "ja")
-            {
-                m_Setting.m_nLangChoose = 0;
-            }
-            if (language == "en")
-            {
-                m_Setting.m_nLangChoose = 1;
-            }
-            if (language == "zh-CN")
-            {
-                m_Setting.m_nLangChoose = 2;
-            }
-            if (language == "zh-TW")
-            {
-                m_Setting.m_nLangChoose = 3;
-            }
-            saveConfigFile(m_strCurrentDir + m_strSaveDir);
-            SaveRegistry();
-            WriteLangIni(language);
-            SetupLang(language);
-        }
-
-        void WriteLangIni(string language)
-        {
-            if (File.Exists(m_strCurrentDir + "BepInEx/Config/AutoTranslatorConfig.ini"))
-            {
-                switch(language)
-                {
-                    case "ja":
-                        if (System.Windows.MessageBox.Show("ゲームにこの言語の選択を反映させたいですか？", "質問", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                        {
-                            disableXUA();
-                            helvete(language);
-                        }
-                        return;
-                    case "zh-CN":
-                        if (System.Windows.MessageBox.Show("您是否希望遊戲中的語言反映這項語言選擇？", "問題", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                        {
-                            disableXUA();
-                            helvete(language);
-                        }
-                    return;
-                    case "zh-TW":
-                        if (System.Windows.MessageBox.Show("您是否希望游戏中的语言反映这项语言选择？", "问题", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                        {
-                            disableXUA();
-                            helvete(language);
-                        }
-                        return;
-                    default:
-                        if (System.Windows.MessageBox.Show("Do you want the ingame language to reflect this language choice?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                        {
-                            enableXUA();
-                            helvete(language);
-                        }
-                        return;
-                }
-                // Borrowed from Marco
-            }
-        }
-
-        void helvete(string language)
-        {
-            if (File.Exists("BepInEx/Config/AutoTranslatorConfig.ini"))
-            {
-                var ud = Path.Combine(m_strCurrentDir, @"BepInEx/Config/AutoTranslatorConfig.ini");
-
-                try
-                {
-                    var contents = File.ReadAllLines(ud).ToList();
-
-                    // Fix VMD for darkness
-                    var setToLanguage = contents.FindIndex(s => s.ToLower().Contains("[General]".ToLower()));
-                    if (setToLanguage >= 0)
-                    {
-                        var i = contents.FindIndex(setToLanguage, s => s.StartsWith("Language"));
-                        if (i > setToLanguage)
-                            contents[i] = $"Language={language}";
-                        else
-                        {
-                            contents.Insert(setToLanguage + 1, $"Language={language}");
-                        }
-                    }
-                    else
-                    {
-                        contents.Add("");
-                        contents.Add("[General]");
-                        contents.Add($"Language={language}");
-                    }
-
-                    File.WriteAllLines(ud, contents.ToArray());
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show("Something went wrong: " + e);
-                }
-            }
-        }
-
-        void enableXUA()
-        {
-            if (File.Exists("BepInEx/Config/AutoTranslatorConfig.ini"))
-            {
-                var ud = Path.Combine(m_strCurrentDir, @"BepInEx/Config/AutoTranslatorConfig.ini");
-
-                try
-                {
-                    var contents = File.ReadAllLines(ud).ToList();
-
-                    var setToLanguage = contents.FindIndex(s => s.ToLower().Contains("[Service]".ToLower()));
-                    if (setToLanguage >= 0)
-                    {
-                        var i = contents.FindIndex(setToLanguage, s => s.StartsWith("Endpoint"));
-                        if (i > setToLanguage)
-                            contents[i] = $"Endpoint=GoogleTranslate";
-                        else
-                        {
-                            contents.Insert(setToLanguage + 1, $"Endpoint=");
-                        }
-                    }
-                    else
-                    {
-                        contents.Add("");
-                        contents.Add("[Service]");
-                        contents.Add($"Endpoint=GoogleTranslate");
-                    }
-
-                    File.WriteAllLines(ud, contents.ToArray());
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show("Something went wrong: " + e);
-                }
-            }
-        }
-
-        void disableXUA()
-        {
-            if (File.Exists("BepInEx/Config/AutoTranslatorConfig.ini"))
-            {
-                var ud = Path.Combine(m_strCurrentDir, @"BepInEx/Config/AutoTranslatorConfig.ini");
-
-                try
-                {
-                    var contents = File.ReadAllLines(ud).ToList();
-
-                    var setToLanguage = contents.FindIndex(s => s.ToLower().Contains("[Service]".ToLower()));
-                    if (setToLanguage >= 0)
-                    {
-                        var i = contents.FindIndex(setToLanguage, s => s.StartsWith("Endpoint"));
-                        if (i > setToLanguage)
-                            contents[i] = $"Endpoint=";
-                        else
-                        {
-                            contents.Insert(setToLanguage + 1, $"Endpoint=");
-                        }
-                    }
-                    else
-                    {
-                        contents.Add("");
-                        contents.Add("[Service]");
-                        contents.Add($"Endpoint=");
-                    }
-
-                    File.WriteAllLines(ud, contents.ToArray());
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show("Something went wrong: " + e);
-                }
-            }
-        }
-
-        void deactivateTL(int i)
-        {
-            s_EnglishTL = new string[]
-            {
-                "BepInEx/XUnity.AutoTranslator.Plugin.BepIn",
-                "BepInEx/XUnity.AutoTranslator.Plugin.Core",
-                "BepInEx/XUnity.AutoTranslator.Plugin.ExtProtocol",
-                "BepInEx/XUnity.RuntimeHooker.Core",
-                "BepInEx/XUnity.RuntimeHooker",
-                "BepInEx/KK_Subtitles",
-                "BepInEx/ExIni"
-            };
-
-            if (i == 0)
-            {
-                foreach (var file in s_EnglishTL)
-                {
-                    if (File.Exists(m_strCurrentDir + file + ".dll"))
-                    {
-                        File.Move(m_strCurrentDir + file + ".dll", m_strCurrentDir + file + "._ll");
-                    }
-                }
-            }
-            else
-            {
-                foreach (var file in s_EnglishTL)
-                {
-                    if (File.Exists(m_strCurrentDir + file + "._ll"))
-                    {
-                        File.Move(m_strCurrentDir + file + "._ll", m_strCurrentDir + file + ".dll");
-                    }
-                    helvete("en");
-                }
-            }
-        }
-
-        void SetupLang(string langstring)
-        {
-            if (File.Exists(m_strCurrentDir + m_customDir + decideLang))
-            {
-                File.Delete(m_strCurrentDir + m_customDir + decideLang);
-            }
-            using (StreamWriter writetext = new StreamWriter(m_strCurrentDir + m_customDir + decideLang))
-            {
-                writetext.WriteLine(langstring);
-            }
-            System.Windows.Forms.Application.Restart();
-        }
-
-        private void modeDev_Checked(object sender, RoutedEventArgs e)
-        {
-            using (StreamWriter writetext = new StreamWriter(m_strCurrentDir + m_customDir + "/devMode"))
-            {
-                writetext.WriteLine("devmode: True");
-            }
-            if (!startup)
-            {
-                devMode(true);
-            }
-        }
-
-        private void modeDev_Unchecked(object sender, RoutedEventArgs e)
-        {
-            if (!startup)
-            {
-                devMode(false);
-            }
-        }
-
-        void devMode(bool setDev)
-        {
-            var ud = Path.Combine(m_strCurrentDir, @"BepInEx\config\BepInEx.cfg");
-
-            try
-            {
-                var contents = File.ReadAllLines(ud).ToList();
-
-                var setToLanguage = contents.FindIndex(s => s.ToLower().Contains("[Logging.Console]".ToLower()));
-                if (setToLanguage >= 0 && setDev)
-                {
-                    var i = contents.FindIndex(setToLanguage, s => s.StartsWith("Enabled"));
-                    if (i > setToLanguage)
-                        contents[i] = $"Enabled = true";
-                }
-                else
-                {
-                    var i = contents.FindIndex(setToLanguage, s => s.StartsWith("Enabled"));
-                    if (i > setToLanguage)
-                        contents[i] = $"Enabled = false";
-                }
-
-                File.WriteAllLines(ud, contents.ToArray());
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Something went wrong: " + e);
-            }
-        }
-
-        private void checkBox_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void HoneyPotInspector_Run(object sender, RoutedEventArgs e)
-        {
-            if(File.Exists($"{m_strCurrentDir}\\HoneyPot\\HoneyPotInspector.exe"))
-            {
-                Process.Start($"{m_strCurrentDir}\\HoneyPot\\HoneyPotInspector.exe");
-            }
-            else
-            {
-                MessageBox.Show("HoneyPot doesn't seem to be applied to this installation.");
-            }
-        }
-
-        private void dhh_Checked(object sender, RoutedEventArgs e)
-        {
-            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_"))
-            {
-                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll"))
-                {
-                    File.Delete($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll");
-                }
-                File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_", $"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll");
-            }
-        }
-
-        private void dhh_Unchecked(object sender, RoutedEventArgs e)
-        {
-            if(File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll"))
-            {
-                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_"))
-                {
-                    File.Delete($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_");
-                }
-                File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll", $"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_");
-            }
-        }
-
-        private void aigraphics_Checked(object sender, RoutedEventArgs e)
-        {
-            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_"))
-            {
-                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll"))
-                {
-                    File.Delete($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll");
-                }
-                File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_", $"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll");
-            }
-            toggleDHH.IsChecked = false;
-            if (!startup)
-                MessageBox.Show("Press F5 ingame for menu.", "Information");
-        }
-
-        private void aigraphics_Unchecked(object sender, RoutedEventArgs e)
-        {
-            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll"))
-            {
-                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_"))
-                {
-                    File.Delete($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_");
-                }
-                File.Move($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll", $"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_");
-            }
-        }
-
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (Mouse.LeftButton == MouseButtonState.Pressed)
-                this.DragMove();
+            public List<DisplayMode> list;
         }
     }
 }
