@@ -43,24 +43,24 @@ namespace InitSetting
         private const string updateLoc = "/updater.txt";
 
         private const int m_nQualityCount = 3;
-        private readonly bool BackgExists;
-        private readonly bool CharExists;
+        private bool BackgExists;
+        private bool CharExists;
 
         private bool is64bitOS;
-        private readonly bool isBepIn;
+        private bool isBepIn;
 
-        private readonly bool isIPA;
+        private bool isIPA;
         private bool isMainGame;
 
-        private readonly bool isStudio;
+        private bool isStudio;
 
         private string kkman;
-        private readonly bool kkmanExist;
+        private bool kkmanExist;
 
-        private readonly string lang = "en";
-        private readonly bool LangExists;
+        private string lang = "en";
+        private bool LangExists;
 
-        private readonly string[] m_astrQuality;
+        private string[] m_astrQuality;
 
         private readonly List<DisplayModes> m_listCurrentDisplay = new List<DisplayModes>();
 
@@ -140,534 +140,550 @@ namespace InitSetting
             }
         };
 
-        private readonly ConfigSetting m_Setting = new ConfigSetting();
+        private ConfigSetting m_Setting = new ConfigSetting();
 
         private readonly string m_strCurrentDir = Environment.CurrentDirectory + "\\";
         private readonly string m_strGameExe = "AI-Shoujo.exe";
 
         private readonly string m_strGameRegistry = "Software\\illusion\\AI-Shoujo\\AI-Shoujo\\";
-        private readonly string m_strManualDir = "/manual/お読み下さい.html";
+        private string m_strManualDir = "/manual/お読み下さい.html";
         private readonly string m_strStudioExe = "StudioNEOV2.exe";
-        private readonly string m_strStudioManualDir = "/manual_s/お読み下さい.html";
+        private string m_strStudioManualDir = "/manual_s/お読み下さい.html";
         private readonly string m_strStudioRegistry = "Software\\illusion\\AI-Syoujyo\\StudioNEOV2";
-        private readonly string m_strVRManualDir = "/manual_vr/お読み下さい.html";
+        private string m_strVRManualDir = "/manual_vr/お読み下さい.html";
 
 
         private Mutex mutex;
         private readonly bool noTL = false;
 
-        private readonly bool PatreonExists;
+        private bool PatreonExists;
         //string updateURL;
         //string packVersion;
         //string newPackVersion;
 
-        private readonly string patreonURL;
-        private readonly string q_normal = "Normal";
+        private string patreonURL;
+        private string q_normal = "Normal";
 
-        private readonly string q_performance = "Performance";
-        private readonly string q_quality = "Quality";
+        private string q_performance = "Performance";
+        private string q_quality = "Quality";
         private string[] s_EnglishTL;
-        private readonly string s_primarydisplay = "PrimaryDisplay";
-        private readonly string s_subdisplay = "SubDisplay";
-        private readonly bool startup;
-        private readonly string updated = "placeholder";
-        private readonly bool updatelocExists;
+        private string s_primarydisplay = "PrimaryDisplay";
+        private string s_subdisplay = "SubDisplay";
+        private bool startup;
+        private string updated = "placeholder";
+        private bool updatelocExists;
 
-        private readonly bool versionAvail;
-        private readonly bool WarningExists;
+        private bool versionAvail;
+        private bool WarningExists;
 
         public MainWindow()
         {
             InitializeComponent();
+        }
 
+        bool _shown;
+        protected override void OnContentRendered(EventArgs e)
+        {
+            base.OnContentRendered(e);
+
+            if (_shown)
+                return;
+
+            _shown = true;
+
+            try
+            {
+                InitializeFunctions();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Crash on start", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void InitializeFunctions()
+        {
             //if (!DoubleStartCheck())
             //{
             //    System.Windows.Application.Current.MainWindow.Close();
             //    return;
             //}
-            try
+
+            // Check for duplicate launches
+            var process = Process.GetCurrentProcess();
+            var dupl = Process.GetProcessesByName(process.ProcessName);
+            if (true)
+                foreach (var p in dupl)
+                    if (p.Id != process.Id)
+                        p.Kill();
+
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+            startup = true;
+
+            //temp hide unimplemented stuffs
+            CustomRes.Visibility = Visibility.Hidden;
+
+            Directory.CreateDirectory(m_strCurrentDir + m_customDir);
+
+            // Framework test
+            isIPA = File.Exists($"{m_strCurrentDir}\\IPA.exe");
+            isBepIn = Directory.Exists($"{m_strCurrentDir}\\BepInEx");
+
+            if (isIPA && isBepIn)
+                MessageBox.Show(
+                    "Both BepInEx and IPA is detected in the game folder!\n\nApplying both frameworks may lead to problems when running the game!",
+                    "Warning!");
+
+            // Check if console is active
+
+            if (File.Exists(m_strCurrentDir + "/Bepinex/config/BepInEx.cfg"))
             {
-                // Check for duplicate launches
-                var process = Process.GetCurrentProcess();
-                var dupl = Process.GetProcessesByName(process.ProcessName);
-                if (true)
-                    foreach (var p in dupl)
-                        if (p.Id != process.Id)
-                            p.Kill();
+                var ud = Path.Combine(m_strCurrentDir, @"BepInEx\config\BepInEx.cfg");
 
-                WindowStartupLocation = WindowStartupLocation.CenterScreen;
-
-                startup = true;
-
-                //temp hide unimplemented stuffs
-                CustomRes.Visibility = Visibility.Hidden;
-
-                Directory.CreateDirectory(m_strCurrentDir + m_customDir);
-
-                // Framework test
-                isIPA = File.Exists($"{m_strCurrentDir}\\IPA.exe");
-                isBepIn = Directory.Exists($"{m_strCurrentDir}\\BepInEx");
-
-                if (isIPA && isBepIn)
-                    MessageBox.Show(
-                        "Both BepInEx and IPA is detected in the game folder!\n\nApplying both frameworks may lead to problems when running the game!",
-                        "Warning!");
-
-                // Check if console is active
-
-                if (File.Exists(m_strCurrentDir + "/Bepinex/config/BepInEx.cfg"))
+                try
                 {
-                    var ud = Path.Combine(m_strCurrentDir, @"BepInEx\config\BepInEx.cfg");
+                    var contents = File.ReadAllLines(ud).ToList();
 
-                    try
+                    var devmodeEN = contents.FindIndex(s => s.ToLower().Contains("[Logging.Console]".ToLower()));
+                    if (devmodeEN >= 0)
                     {
-                        var contents = File.ReadAllLines(ud).ToList();
+                        var i = contents.FindIndex(devmodeEN, s => s.StartsWith("Enabled = true"));
+                        var n = contents.FindIndex(devmodeEN, s => s.StartsWith("[Logging.Disk]"));
+                        if (i < n) toggleConsole.IsChecked = true;
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Something went wrong: " + e);
+                }
+            }
+            else
+            {
+                toggleConsole.IsEnabled = false;
+            }
 
-                        var devmodeEN = contents.FindIndex(s => s.ToLower().Contains("[Logging.Console]".ToLower()));
-                        if (devmodeEN >= 0)
-                        {
-                            var i = contents.FindIndex(devmodeEN, s => s.StartsWith("Enabled = true"));
-                            var n = contents.FindIndex(devmodeEN, s => s.StartsWith("[Logging.Disk]"));
-                            if (i < n) toggleConsole.IsChecked = true;
-                        }
-                    }
-                    catch (Exception e)
+            // Updater stuffs
+
+            kkmanExist = File.Exists(m_strCurrentDir + m_customDir + kkmdir);
+            updatelocExists = File.Exists(m_strCurrentDir + m_customDir + updateLoc);
+            if (kkmanExist)
+            {
+                var kkmanFileStream = new FileStream(m_strCurrentDir + m_customDir + kkmdir, FileMode.Open,
+                    FileAccess.Read);
+                using (var streamReader = new StreamReader(kkmanFileStream, Encoding.UTF8))
+                {
+                    string line;
+                    while ((line = streamReader.ReadLine()) != null) kkman = line;
+                }
+
+                kkmanFileStream.Close();
+                if (updatelocExists)
+                {
+                    var updFileStream = new FileStream(m_strCurrentDir + m_customDir + updateLoc, FileMode.Open,
+                        FileAccess.Read);
+                    using (var streamReader = new StreamReader(updFileStream, Encoding.UTF8))
                     {
-                        MessageBox.Show("Something went wrong: " + e);
+                        string line;
+                        while ((line = streamReader.ReadLine()) != null) updated = line;
                     }
+
+                    updFileStream.Close();
                 }
                 else
                 {
-                    toggleConsole.IsEnabled = false;
+                    updated = "";
+                }
+            }
+            else
+            {
+                gridUpdate.Visibility = Visibility.Hidden;
+            }
+
+            if (!File.Exists(m_strCurrentDir + m_customDir + kkmdir))
+            {
+            }
+
+            // Mod settings
+
+            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll")) toggleDHH.IsChecked = true;
+
+            if (!File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_") &&
+                !File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll"))
+                toggleDHH.IsEnabled = false;
+
+            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll"))
+                toggleAIGraphics.IsChecked = true;
+
+            if (!File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_") &&
+                !File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll"))
+                toggleAIGraphics.IsEnabled = false;
+
+            if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll") &&
+                File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll"))
+            {
+                toggleDHH.IsChecked = false;
+                toggleAIGraphics.IsChecked = false;
+            }
+
+
+            startup = false;
+
+            LangExists = File.Exists(m_strCurrentDir + m_customDir + decideLang);
+            if (LangExists)
+            {
+                var verFileStream = new FileStream(m_strCurrentDir + m_customDir + decideLang, FileMode.Open,
+                    FileAccess.Read);
+                using (var streamReader = new StreamReader(verFileStream, Encoding.UTF8))
+                {
+                    string line;
+                    while ((line = streamReader.ReadLine()) != null) lang = line;
                 }
 
-                // Updater stuffs
+                verFileStream.Close();
+            }
 
-                kkmanExist = File.Exists(m_strCurrentDir + m_customDir + kkmdir);
-                updatelocExists = File.Exists(m_strCurrentDir + m_customDir + updateLoc);
-                if (kkmanExist)
-                {
-                    var kkmanFileStream = new FileStream(m_strCurrentDir + m_customDir + kkmdir, FileMode.Open,
-                        FileAccess.Read);
-                    using (var streamReader = new StreamReader(kkmanFileStream, Encoding.UTF8))
-                    {
-                        string line;
-                        while ((line = streamReader.ReadLine()) != null) kkman = line;
-                    }
+            labelTranslated.Visibility = Visibility.Hidden;
+            labelTranslatedBorder.Visibility = Visibility.Hidden;
 
-                    kkmanFileStream.Close();
-                    if (updatelocExists)
-                    {
-                        var updFileStream = new FileStream(m_strCurrentDir + m_customDir + updateLoc, FileMode.Open,
-                            FileAccess.Read);
-                        using (var streamReader = new StreamReader(updFileStream, Encoding.UTF8))
-                        {
-                            string line;
-                            while ((line = streamReader.ReadLine()) != null) updated = line;
-                        }
+            // MessageBox.Show($"Chinese is {chnActive}", "Debug");
 
-                        updFileStream.Close();
-                    }
-                    else
-                    {
-                        updated = "";
-                    }
-                }
-                else
-                {
-                    gridUpdate.Visibility = Visibility.Hidden;
-                }
+            // Template for new translations
+            //if (lang == "en-US")
+            //{
+            //    MainWindow.Title = "PH Launcher";
+            //    warnBox.Header = "Notice!";
+            //    warningText.Text = "This game is intended for adult audiences, no person under the age of 18 (or equivalent according to local law) are supposed to play or be in possession of this game.\n\nThis game contains content of a sexual nature, and some of the actions depicted within may be illegal to replicate in real life. Aka, it's all fun and games in the game, let's keep it that way shall we? (~.~)v";
+            //    GameFBox.Header = "Game folders";
+            //    buttonInst.Content = "Install";
+            //    buttonFemaleCard.Content = "Character Cards";
+            //    buttonScenes.Content = "Scenes";
+            //    buttonScreenshot.Content = "ScreenShots";
+            //    AISHousingDirectory.Content = "Hus";
+            //    GameSBox.Header = "Game Startup";
+            //    labelStart.Content = "Start PH";
+            //    labelM.Content = "PH Manual";
+            //    labelStartS.Content = "Start Studio";
+            //    labelMS.Content = "Studio Manual";
+            //    labelStartVR.Content = "Start PH VR";
+            //    labelMV.Content = "VR Manual";
+            //    SettingsBox.Header = "Settings";
+            //    toggleFullscreen.Content = "Run Game in Fullscreen";
+            //    modeDev.Content = "Developer Mode";
+            //    SystemInfo.Content = "System Info";
+            //    buttonClose.Content = "Exit";
+            //    labelDist.Content = "Unknown Install Method";
+            //    labelTranslated.Content = "Launcher translated by: <Insert Name>";
+            //    translationString = "Do you want to restore Japanese language in-game?";
+            //    q_performance = "Performance";
+            //    q_normal = "Normal";
+            //    q_quality = "Quality";
+            //    s_primarydisplay = "PrimaryDisplay";
+            //    s_subdisplay = "SubDisplay";
+            //}
 
-                if (!File.Exists(m_strCurrentDir + m_customDir + kkmdir))
-                {
-                }
+            // Translations
+            if (lang == "ja")
+            {
+                labelTranslated.Visibility = Visibility.Visible;
+                labelTranslatedBorder.Visibility = Visibility.Visible;
 
-                // Mod settings
+                m_strManualDir = "/manual/Japanese/README.html";
+                m_strStudioManualDir = "/manual_s/お読み下さい.html";
+                m_strVRManualDir = "/manual_v/Japanese/README.html";
 
-                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll")) toggleDHH.IsChecked = true;
+                warningText.Text =
+                    "このゲームは成人向けので、18歳未満（または地域の法律によりと同等の年齢）がこのゲームをプレイまたは所有しているができない。\n\nこのゲームには性的内容の内容が含まれます。内に描かれている行動は、実生活で複製することは違法です。つまり、これは面白いゲームです、そうしましょう？(~.~)v";
+                buttonInst.Content = "インストール";
+                buttonFemaleCard.Content = "キャラカード (女性)";
+                buttonMaleCard.Content = "キャラカード (男性)";
+                buttonScenes.Content = "シーン";
+                buttonScreenshot.Content = "SS";
+                buttonUserData.Content = "UserData";
+                labelStart.Content = "ゲーム開始";
+                labelStartS.Content = "スタジオ開始";
+                labelM.Content = "ゲーム";
+                labelMS.Content = "スタジオ";
+                toggleFullscreen.Content = "全画面表示";
+                toggleConsole.Content = "コンソールを有効にする";
+                labelDist.Content = "不明バージョン";
+                labelTranslated.Content = "初期設定翻訳者: Earthship";
+                q_performance = "パフォーマンス";
+                q_normal = "ノーマル";
+                q_quality = "クオリティ";
+                s_primarydisplay = "メインディスプレイ";
+                s_subdisplay = "サブディスプレイ";
+                labelDiscord.Content = "Discordを訪問";
+                labelPatreon.Content = "Patreonを訪問";
+                labelUpdate.Content = "ゲームを更新する";
 
-                if (!File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dl_") &&
-                    !File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll"))
-                    toggleDHH.IsEnabled = false;
+                // AIS Exclusive
+                buttonHousing.Content = "家";
+                toggleDHH.Content = "DHHを有効にする";
+                toggleAIGraphics.Content = "AIGraphicsを有効にする";
+            }
+            else if (lang == "zh-CN") // By @Madevil#1103 & @𝐄𝐀𝐑𝐓𝐇𝐒𝐇𝐈𝐏 💖#4313 
+            {
+                labelTranslated.Visibility = Visibility.Visible;
+                labelTranslatedBorder.Visibility = Visibility.Visible;
 
-                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll"))
-                    toggleAIGraphics.IsChecked = true;
+                m_strManualDir = "/manual/Traditional Chinese/README.html";
+                m_strStudioManualDir = "/manual_s/お読み下さい.html";
+                m_strVRManualDir = "/manual_v/Traditional Chinese/README.html";
 
-                if (!File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_") &&
-                    !File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll"))
-                    toggleAIGraphics.IsEnabled = false;
+                warningText.Text =
+                    "此游戏适用于成人用户，任何未满18岁的人（或根据当地法律规定的同等人）都不得遊玩或拥有此游戏。\n\n这个游戏包含性相关的内容，某些行为在现实生活中可能是非法的。所以，游戏中的所有乐趣请保留在游戏中，让我们保持这种方式吧? (~.~)v";
+                buttonInst.Content = "游戏主目录";
+                buttonFemaleCard.Content = "人物卡 (女)";
+                buttonMaleCard.Content = "人物卡 (男)";
+                buttonScenes.Content = "工作室场景";
+                buttonScreenshot.Content = "截图";
+                buttonUserData.Content = "UserData";
+                labelStart.Content = "开始游戏";
+                labelStartS.Content = "开始工作室";
+                labelM.Content = "游戏手册";
+                labelMS.Content = "工作室手册";
+                toggleFullscreen.Content = "全屏执行";
+                toggleConsole.Content = "激活控制台";
+                labelDist.Content = "未知版本";
+                labelTranslated.Content = "翻译： Madevil & Earthship";
+                q_performance = "性能";
+                q_normal = "标准";
+                q_quality = "高画质";
+                s_primarydisplay = "主显示器";
+                s_subdisplay = "次显示器";
+                labelDiscord.Content = "前往Discord";
+                labelPatreon.Content = "前往Patreon";
+                labelUpdate.Content = "更新游戏";
 
-                if (File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll") &&
-                    File.Exists($"{m_strCurrentDir}\\BepInEx\\Plugins\\DHH_AI4.dll"))
-                {
-                    toggleDHH.IsChecked = false;
-                    toggleAIGraphics.IsChecked = false;
-                }
+                // AIS Exclusive
+                buttonHousing.Content = "房子";
+                toggleDHH.Content = "激活DHH";
+                toggleAIGraphics.Content = "激活AIGraphics";
+            }
+            else if (lang == "zh-TW") // By @𝐄𝐀𝐑𝐓𝐇𝐒𝐇𝐈𝐏 💖#4313 
+            {
+                labelTranslated.Visibility = Visibility.Visible;
+                labelTranslatedBorder.Visibility = Visibility.Visible;
 
+                m_strManualDir = "/manual/Simplified Chinese/README.html";
+                m_strStudioManualDir = "/manual_s/お読み下さい.html";
+                m_strVRManualDir = "/manual_v/Simplified Chinese/README.html";
 
-                startup = false;
+                warningText.Text =
+                    "此遊戲適用於成人用戶，任何未滿18歲的人（或根據當地法律規定的同等人）都不得遊玩或擁有此遊戲。\n\n這個遊戲包含性相關的內容，某些行為在現實生活中可能是非法的。所以，遊戲中的所有樂趣請保留在遊戲中，讓我們保持這種方式吧? (~.~)v";
+                buttonInst.Content = "遊戲主目錄";
+                buttonFemaleCard.Content = "人物卡 (女)";
+                buttonMaleCard.Content = "人物卡 (男)";
+                buttonScenes.Content = "工作室場景";
+                buttonScreenshot.Content = "截圖";
+                buttonUserData.Content = "UserData";
+                labelStart.Content = "開始遊戲";
+                labelStartS.Content = "開始工作室";
+                labelM.Content = "遊戲手冊";
+                labelMS.Content = "工作室手冊";
+                toggleFullscreen.Content = "全螢幕執行";
+                toggleConsole.Content = "啟動控制台";
+                labelDist.Content = "未知版本";
+                labelTranslated.Content = "翻譯： Earthship";
+                q_performance = "性能";
+                q_normal = "標準";
+                q_quality = "高畫質";
+                s_primarydisplay = "主顯示器";
+                s_subdisplay = "次顯示器";
+                labelDiscord.Content = "前往Discord";
+                labelPatreon.Content = "前往Patreon";
+                labelUpdate.Content = "更新遊戲";
 
-                LangExists = File.Exists(m_strCurrentDir + m_customDir + decideLang);
-                if (LangExists)
-                {
-                    var verFileStream = new FileStream(m_strCurrentDir + m_customDir + decideLang, FileMode.Open,
-                        FileAccess.Read);
-                    using (var streamReader = new StreamReader(verFileStream, Encoding.UTF8))
-                    {
-                        string line;
-                        while ((line = streamReader.ReadLine()) != null) lang = line;
-                    }
+                // AIS Exclusive
+                buttonHousing.Content = "房子";
+                toggleDHH.Content = "啟動DHH";
+                toggleAIGraphics.Content = "啟動AIGraphics";
+            }
 
-                    verFileStream.Close();
-                }
-
-                labelTranslated.Visibility = Visibility.Hidden;
-                labelTranslatedBorder.Visibility = Visibility.Hidden;
-
-                // MessageBox.Show($"Chinese is {chnActive}", "Debug");
-
-                // Template for new translations
-                //if (lang == "en-US")
-                //{
-                //    MainWindow.Title = "PH Launcher";
-                //    warnBox.Header = "Notice!";
-                //    warningText.Text = "This game is intended for adult audiences, no person under the age of 18 (or equivalent according to local law) are supposed to play or be in possession of this game.\n\nThis game contains content of a sexual nature, and some of the actions depicted within may be illegal to replicate in real life. Aka, it's all fun and games in the game, let's keep it that way shall we? (~.~)v";
-                //    GameFBox.Header = "Game folders";
-                //    buttonInst.Content = "Install";
-                //    buttonFemaleCard.Content = "Character Cards";
-                //    buttonScenes.Content = "Scenes";
-                //    buttonScreenshot.Content = "ScreenShots";
-                //    AISHousingDirectory.Content = "Hus";
-                //    GameSBox.Header = "Game Startup";
-                //    labelStart.Content = "Start PH";
-                //    labelM.Content = "PH Manual";
-                //    labelStartS.Content = "Start Studio";
-                //    labelMS.Content = "Studio Manual";
-                //    labelStartVR.Content = "Start PH VR";
-                //    labelMV.Content = "VR Manual";
-                //    SettingsBox.Header = "Settings";
-                //    toggleFullscreen.Content = "Run Game in Fullscreen";
-                //    modeDev.Content = "Developer Mode";
-                //    SystemInfo.Content = "System Info";
-                //    buttonClose.Content = "Exit";
-                //    labelDist.Content = "Unknown Install Method";
-                //    labelTranslated.Content = "Launcher translated by: <Insert Name>";
-                //    translationString = "Do you want to restore Japanese language in-game?";
-                //    q_performance = "Performance";
-                //    q_normal = "Normal";
-                //    q_quality = "Quality";
-                //    s_primarydisplay = "PrimaryDisplay";
-                //    s_subdisplay = "SubDisplay";
-                //}
-
-                // Translations
-                if (lang == "ja")
-                {
-                    labelTranslated.Visibility = Visibility.Visible;
-                    labelTranslatedBorder.Visibility = Visibility.Visible;
-
-                    m_strManualDir = "/manual/Japanese/README.html";
-                    m_strStudioManualDir = "/manual_s/お読み下さい.html";
-                    m_strVRManualDir = "/manual_v/Japanese/README.html";
-
-                    warningText.Text =
-                        "このゲームは成人向けので、18歳未満（または地域の法律によりと同等の年齢）がこのゲームをプレイまたは所有しているができない。\n\nこのゲームには性的内容の内容が含まれます。内に描かれている行動は、実生活で複製することは違法です。つまり、これは面白いゲームです、そうしましょう？(~.~)v";
-                    buttonInst.Content = "インストール";
-                    buttonFemaleCard.Content = "キャラカード (女性)";
-                    buttonMaleCard.Content = "キャラカード (男性)";
-                    buttonScenes.Content = "シーン";
-                    buttonScreenshot.Content = "SS";
-                    buttonUserData.Content = "UserData";
-                    labelStart.Content = "ゲーム開始";
-                    labelStartS.Content = "スタジオ開始";
-                    labelM.Content = "ゲーム";
-                    labelMS.Content = "スタジオ";
-                    toggleFullscreen.Content = "全画面表示";
-                    toggleConsole.Content = "コンソールを有効にする";
-                    labelDist.Content = "不明バージョン";
-                    labelTranslated.Content = "初期設定翻訳者: Earthship";
-                    q_performance = "パフォーマンス";
-                    q_normal = "ノーマル";
-                    q_quality = "クオリティ";
-                    s_primarydisplay = "メインディスプレイ";
-                    s_subdisplay = "サブディスプレイ";
-                    labelDiscord.Content = "Discordを訪問";
-                    labelPatreon.Content = "Patreonを訪問";
-                    labelUpdate.Content = "ゲームを更新する";
-
-                    // AIS Exclusive
-                    buttonHousing.Content = "家";
-                    toggleDHH.Content = "DHHを有効にする";
-                    toggleAIGraphics.Content = "AIGraphicsを有効にする";
-                }
-                else if (lang == "zh-CN") // By @Madevil#1103 & @𝐄𝐀𝐑𝐓𝐇𝐒𝐇𝐈𝐏 💖#4313 
-                {
-                    labelTranslated.Visibility = Visibility.Visible;
-                    labelTranslatedBorder.Visibility = Visibility.Visible;
-
-                    m_strManualDir = "/manual/Traditional Chinese/README.html";
-                    m_strStudioManualDir = "/manual_s/お読み下さい.html";
-                    m_strVRManualDir = "/manual_v/Traditional Chinese/README.html";
-
-                    warningText.Text =
-                        "此游戏适用于成人用户，任何未满18岁的人（或根据当地法律规定的同等人）都不得遊玩或拥有此游戏。\n\n这个游戏包含性相关的内容，某些行为在现实生活中可能是非法的。所以，游戏中的所有乐趣请保留在游戏中，让我们保持这种方式吧? (~.~)v";
-                    buttonInst.Content = "游戏主目录";
-                    buttonFemaleCard.Content = "人物卡 (女)";
-                    buttonMaleCard.Content = "人物卡 (男)";
-                    buttonScenes.Content = "工作室场景";
-                    buttonScreenshot.Content = "截图";
-                    buttonUserData.Content = "UserData";
-                    labelStart.Content = "开始游戏";
-                    labelStartS.Content = "开始工作室";
-                    labelM.Content = "游戏手册";
-                    labelMS.Content = "工作室手册";
-                    toggleFullscreen.Content = "全屏执行";
-                    toggleConsole.Content = "激活控制台";
-                    labelDist.Content = "未知版本";
-                    labelTranslated.Content = "翻译： Madevil & Earthship";
-                    q_performance = "性能";
-                    q_normal = "标准";
-                    q_quality = "高画质";
-                    s_primarydisplay = "主显示器";
-                    s_subdisplay = "次显示器";
-                    labelDiscord.Content = "前往Discord";
-                    labelPatreon.Content = "前往Patreon";
-                    labelUpdate.Content = "更新游戏";
-
-                    // AIS Exclusive
-                    buttonHousing.Content = "房子";
-                    toggleDHH.Content = "激活DHH";
-                    toggleAIGraphics.Content = "激活AIGraphics";
-                }
-                else if (lang == "zh-TW") // By @𝐄𝐀𝐑𝐓𝐇𝐒𝐇𝐈𝐏 💖#4313 
-                {
-                    labelTranslated.Visibility = Visibility.Visible;
-                    labelTranslatedBorder.Visibility = Visibility.Visible;
-
-                    m_strManualDir = "/manual/Simplified Chinese/README.html";
-                    m_strStudioManualDir = "/manual_s/お読み下さい.html";
-                    m_strVRManualDir = "/manual_v/Simplified Chinese/README.html";
-
-                    warningText.Text =
-                        "此遊戲適用於成人用戶，任何未滿18歲的人（或根據當地法律規定的同等人）都不得遊玩或擁有此遊戲。\n\n這個遊戲包含性相關的內容，某些行為在現實生活中可能是非法的。所以，遊戲中的所有樂趣請保留在遊戲中，讓我們保持這種方式吧? (~.~)v";
-                    buttonInst.Content = "遊戲主目錄";
-                    buttonFemaleCard.Content = "人物卡 (女)";
-                    buttonMaleCard.Content = "人物卡 (男)";
-                    buttonScenes.Content = "工作室場景";
-                    buttonScreenshot.Content = "截圖";
-                    buttonUserData.Content = "UserData";
-                    labelStart.Content = "開始遊戲";
-                    labelStartS.Content = "開始工作室";
-                    labelM.Content = "遊戲手冊";
-                    labelMS.Content = "工作室手冊";
-                    toggleFullscreen.Content = "全螢幕執行";
-                    toggleConsole.Content = "啟動控制台";
-                    labelDist.Content = "未知版本";
-                    labelTranslated.Content = "翻譯： Earthship";
-                    q_performance = "性能";
-                    q_normal = "標準";
-                    q_quality = "高畫質";
-                    s_primarydisplay = "主顯示器";
-                    s_subdisplay = "次顯示器";
-                    labelDiscord.Content = "前往Discord";
-                    labelPatreon.Content = "前往Patreon";
-                    labelUpdate.Content = "更新遊戲";
-
-                    // AIS Exclusive
-                    buttonHousing.Content = "房子";
-                    toggleDHH.Content = "啟動DHH";
-                    toggleAIGraphics.Content = "啟動AIGraphics";
-                }
-
-                m_astrQuality = new[]
-                {
+            m_astrQuality = new[]
+            {
                 q_performance,
                 q_normal,
                 q_quality
             };
 
-                // Do checks
+            // Do checks
 
-                is64bitOS = Is64BitOS();
-                isStudio = File.Exists(m_strCurrentDir + m_strStudioExe);
-                isMainGame = File.Exists(m_strCurrentDir + m_strGameExe);
+            is64bitOS = Is64BitOS();
+            isStudio = File.Exists(m_strCurrentDir + m_strStudioExe);
+            isMainGame = File.Exists(m_strCurrentDir + m_strGameExe);
 
-                if (m_strCurrentDir.Length >= 75)
-                    MessageBox.Show(
-                        "The game is installed deep in the file system!\n\nThis can cause a variety of errors, so it's recommended that you move it to a shorter path, something like:\n\nC:\\Illusion\\AI.Shoujo",
-                        "Critical warning!");
+            if (m_strCurrentDir.Length >= 75)
+                MessageBox.Show(
+                    "The game is installed deep in the file system!\n\nThis can cause a variety of errors, so it's recommended that you move it to a shorter path, something like:\n\nC:\\Illusion\\AI.Shoujo",
+                    "Critical warning!");
 
 
-                // Customization options
+            // Customization options
 
-                CharExists = File.Exists(m_strCurrentDir + m_customDir + charLoc);
-                BackgExists = File.Exists(m_strCurrentDir + m_customDir + backgLoc);
-                WarningExists = File.Exists(m_strCurrentDir + m_customDir + warningLoc);
-                PatreonExists = File.Exists(m_strCurrentDir + m_customDir + patreonLoc);
+            CharExists = File.Exists(m_strCurrentDir + m_customDir + charLoc);
+            BackgExists = File.Exists(m_strCurrentDir + m_customDir + backgLoc);
+            WarningExists = File.Exists(m_strCurrentDir + m_customDir + warningLoc);
+            PatreonExists = File.Exists(m_strCurrentDir + m_customDir + patreonLoc);
 
-                // Launcher Customization: Grabbing versioning of install method
+            // Launcher Customization: Grabbing versioning of install method
 
-                versionAvail = File.Exists(m_strCurrentDir + "version");
-                if (versionAvail)
+            versionAvail = File.Exists(m_strCurrentDir + "version");
+            if (versionAvail)
+            {
+                var verFileStream = new FileStream(m_strCurrentDir + "version", FileMode.Open, FileAccess.Read);
+                using (var streamReader = new StreamReader(verFileStream, Encoding.UTF8))
                 {
-                    var verFileStream = new FileStream(m_strCurrentDir + "version", FileMode.Open, FileAccess.Read);
-                    using (var streamReader = new StreamReader(verFileStream, Encoding.UTF8))
-                    {
-                        string line;
-                        while ((line = streamReader.ReadLine()) != null) labelDist.Content = line;
-                    }
-
-                    verFileStream.Close();
+                    string line;
+                    while ((line = streamReader.ReadLine()) != null) labelDist.Content = line;
                 }
 
-                // Launcher Customization: Defining Warning, background and character
+                verFileStream.Close();
+            }
 
-                if (WarningExists)
+            // Launcher Customization: Defining Warning, background and character
+
+            if (WarningExists)
+            {
+                var verFileStream = new FileStream(m_strCurrentDir + m_customDir + warningLoc, FileMode.Open,
+                    FileAccess.Read);
+                try
                 {
-                    var verFileStream = new FileStream(m_strCurrentDir + m_customDir + warningLoc, FileMode.Open,
-                        FileAccess.Read);
-                    try
+                    using (var sr = new StreamReader(m_strCurrentDir + m_customDir + warningLoc))
                     {
-                        using (var sr = new StreamReader(m_strCurrentDir + m_customDir + warningLoc))
-                        {
-                            var line = sr.ReadToEnd();
-                            warningText.Text = line;
-                        }
-                    }
-                    catch (IOException e)
-                    {
-                        warningText.Text = e.Message;
+                        var line = sr.ReadToEnd();
+                        warningText.Text = line;
                     }
                 }
-
-                if (CharExists)
+                catch (IOException e)
                 {
-                    var urich = new Uri(m_strCurrentDir + m_customDir + charLoc, UriKind.RelativeOrAbsolute);
-                    PackChara.Source = BitmapFrame.Create(urich);
+                    warningText.Text = e.Message;
+                }
+            }
+
+            if (CharExists)
+            {
+                var urich = new Uri(m_strCurrentDir + m_customDir + charLoc, UriKind.RelativeOrAbsolute);
+                PackChara.Source = BitmapFrame.Create(urich);
+            }
+
+            if (BackgExists)
+            {
+                var uribg = new Uri(m_strCurrentDir + m_customDir + backgLoc, UriKind.RelativeOrAbsolute);
+                appBG.ImageSource = BitmapFrame.Create(uribg);
+            }
+
+            if (PatreonExists)
+            {
+                var verFileStream = new FileStream(m_strCurrentDir + m_customDir + patreonLoc, FileMode.Open,
+                    FileAccess.Read);
+                using (var streamReader = new StreamReader(verFileStream, Encoding.UTF8))
+                {
+                    string line;
+                    while ((line = streamReader.ReadLine()) != null) patreonURL = line;
                 }
 
-                if (BackgExists)
-                {
-                    var uribg = new Uri(m_strCurrentDir + m_customDir + backgLoc, UriKind.RelativeOrAbsolute);
-                    appBG.ImageSource = BitmapFrame.Create(uribg);
-                }
+                verFileStream.Close();
+            }
+            else
+            {
+                linkPatreon.Visibility = Visibility.Collapsed;
+                patreonBorder.Visibility = Visibility.Collapsed;
+                patreonIMG.Visibility = Visibility.Collapsed;
+            }
 
-                if (PatreonExists)
-                {
-                    var verFileStream = new FileStream(m_strCurrentDir + m_customDir + patreonLoc, FileMode.Open,
-                        FileAccess.Read);
-                    using (var streamReader = new StreamReader(verFileStream, Encoding.UTF8))
-                    {
-                        string line;
-                        while ((line = streamReader.ReadLine()) != null) patreonURL = line;
-                    }
-
-                    verFileStream.Close();
-                }
-                else
-                {
-                    linkPatreon.Visibility = Visibility.Collapsed;
-                    patreonBorder.Visibility = Visibility.Collapsed;
-                    patreonIMG.Visibility = Visibility.Collapsed;
-                }
-
-                var num = Screen.AllScreens.Length;
-                getDisplayMode_EnumDisplaySettings(num);
-                m_Setting.m_strSizeChoose = "1600 x 900 (16 : 9)";
-                m_Setting.m_nWidthChoose = 1600;
-                m_Setting.m_nHeightChoose = 900;
-                m_Setting.m_nQualityChoose = 2;
+            var num = Screen.AllScreens.Length;
+            getDisplayMode_EnumDisplaySettings(num);
+            m_Setting.m_strSizeChoose = "1600 x 900 (16 : 9)";
+            m_Setting.m_nWidthChoose = 1600;
+            m_Setting.m_nHeightChoose = 900;
+            m_Setting.m_nQualityChoose = 2;
+            m_Setting.m_nLangChoose = 1;
+            m_Setting.m_nDisplay = 0;
+            m_Setting.m_bFullScreen = false;
+            if (lang == "ja")
+                m_Setting.m_nLangChoose = 0;
+            if (lang == "en")
                 m_Setting.m_nLangChoose = 1;
-                m_Setting.m_nDisplay = 0;
-                m_Setting.m_bFullScreen = false;
-                if (lang == "ja")
-                    m_Setting.m_nLangChoose = 0;
-                if (lang == "en")
-                    m_Setting.m_nLangChoose = 1;
-                if (lang == "zh-CN")
-                    m_Setting.m_nLangChoose = 2;
-                if (num == 2)
+            if (lang == "zh-CN")
+                m_Setting.m_nLangChoose = 2;
+            if (num == 2)
+            {
+                dropDisplay.Items.Add(s_primarydisplay);
+                dropDisplay.Items.Add($"{s_subdisplay} : 1");
+            }
+            else
+            {
+                for (var i = 0; i < num; i++)
                 {
-                    dropDisplay.Items.Add(s_primarydisplay);
-                    dropDisplay.Items.Add($"{s_subdisplay} : 1");
+                    var newItem = i == 0 ? s_primarydisplay : $"{s_subdisplay} : " + i;
+                    dropDisplay.Items.Add(newItem);
                 }
-                else
+            }
+
+            foreach (var newItem2 in m_astrQuality) dropQual.Items.Add(newItem2);
+
+            SetEnableAndVisible();
+
+            var path = m_strCurrentDir + m_strSaveDir;
+            CheckConfigFile:
+            if (File.Exists(path))
+            {
+                try
                 {
-                    for (var i = 0; i < num; i++)
+                    using (var fileStream = new FileStream(path, FileMode.Open))
                     {
-                        var newItem = i == 0 ? s_primarydisplay : $"{s_subdisplay} : " + i;
-                        dropDisplay.Items.Add(newItem);
+                        var xmlSerializer = new XmlSerializer(typeof(ConfigSetting));
+                        m_Setting = (ConfigSetting)xmlSerializer.Deserialize(fileStream);
                     }
-                }
 
-                foreach (var newItem2 in m_astrQuality) dropQual.Items.Add(newItem2);
+                    m_Setting.m_nDisplay = Math.Min(m_Setting.m_nDisplay, num - 1);
+                    setDisplayComboBox(m_Setting.m_bFullScreen);
+                    var flag = false;
+                    for (var k = 0; k < dropRes.Items.Count; k++)
+                        if (dropRes.Items[k].ToString() == m_Setting.m_strSizeChoose)
+                            flag = true;
 
-                SetEnableAndVisible();
-
-                var path = m_strCurrentDir + m_strSaveDir;
-                CheckConfigFile:
-                if (File.Exists(path))
-                {
-                    try
-                    {
-                        using (var fileStream = new FileStream(path, FileMode.Open))
+                    dropRes.Text = flag ? m_Setting.m_strSizeChoose : "1280 x 720 (16 : 9)";
+                    toggleFullscreen.IsChecked = m_Setting.m_bFullScreen;
+                    dropQual.Text = m_astrQuality[m_Setting.m_nQualityChoose];
+                    var text = m_Setting.m_nDisplay == 0
+                        ? s_primarydisplay
+                        : $"{s_subdisplay} : " + m_Setting.m_nDisplay;
+                    if (num == 2)
+                        text = new[]
                         {
-                            var xmlSerializer = new XmlSerializer(typeof(ConfigSetting));
-                            m_Setting = (ConfigSetting)xmlSerializer.Deserialize(fileStream);
-                        }
-
-                        m_Setting.m_nDisplay = Math.Min(m_Setting.m_nDisplay, num - 1);
-                        setDisplayComboBox(m_Setting.m_bFullScreen);
-                        var flag = false;
-                        for (var k = 0; k < dropRes.Items.Count; k++)
-                            if (dropRes.Items[k].ToString() == m_Setting.m_strSizeChoose)
-                                flag = true;
-
-                        dropRes.Text = flag ? m_Setting.m_strSizeChoose : "1280 x 720 (16 : 9)";
-                        toggleFullscreen.IsChecked = m_Setting.m_bFullScreen;
-                        dropQual.Text = m_astrQuality[m_Setting.m_nQualityChoose];
-                        var text = m_Setting.m_nDisplay == 0
-                            ? s_primarydisplay
-                            : $"{s_subdisplay} : " + m_Setting.m_nDisplay;
-                        if (num == 2)
-                            text = new[]
-                            {
                             s_primarydisplay,
                             $"{s_subdisplay} : 1"
                         }[m_Setting.m_nDisplay];
 
-                        if (dropDisplay.Items.Contains(text))
-                        {
-                            dropDisplay.Text = text;
-                        }
-                        else
-                        {
-                            dropDisplay.Text = s_primarydisplay;
-                            m_Setting.m_nDisplay = 0;
-                            m_Setting.m_nLangChoose = 1;
-                            m_Setting.m_strSizeChoose = "1600 x 900 (16 : 9)";
-                            m_Setting.m_nQualityChoose = 2;
-                        }
-                    }
-                    catch (Exception)
+                    if (dropDisplay.Items.Contains(text))
                     {
-                        MessageBox.Show("/UserData/setup.xml file was corrupted, settings will be reset.");
-                        File.Delete(path);
-                        goto CheckConfigFile;
+                        dropDisplay.Text = text;
+                    }
+                    else
+                    {
+                        dropDisplay.Text = s_primarydisplay;
+                        m_Setting.m_nDisplay = 0;
+                        m_Setting.m_nLangChoose = 1;
+                        m_Setting.m_strSizeChoose = "1600 x 900 (16 : 9)";
+                        m_Setting.m_nQualityChoose = 2;
                     }
                 }
-                else
+                catch (Exception)
                 {
-                    setDisplayComboBox(false);
-                    dropRes.Text = m_Setting.m_strSizeChoose;
-                    dropQual.Text = m_astrQuality[m_Setting.m_nQualityChoose];
-                    dropDisplay.Text = s_primarydisplay;
+                    MessageBox.Show("/UserData/setup.xml file was corrupted, settings will be reset.");
+                    File.Delete(path);
+                    goto CheckConfigFile;
                 }
-
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.ToString(), "Crash on start", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                setDisplayComboBox(false);
+                dropRes.Text = m_Setting.m_strSizeChoose;
+                dropQual.Text = m_astrQuality[m_Setting.m_nQualityChoose];
+                dropDisplay.Text = s_primarydisplay;
             }
         }
 
@@ -687,19 +703,6 @@ namespace InitSetting
         [DllImport("user32.dll")]
         private static extern bool EnumDisplayDevices(string lpDevice, uint iDevNum, ref DISPLAY_DEVICE lpDisplayDevice,
             uint dwFlags);
-
-        [DllImport("User32.dll")]
-        private static extern bool EnumDisplayMonitors(IntPtr hdc, IntPtr rect, EnumDisplayMonitorsCallback callback,
-            IntPtr dwData);
-
-        [DllImport("User32.dll")]
-        private static extern bool GetMonitorInfo(IntPtr hMonitor, ref MonitorInfoEx info);
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern bool DeviceIoControl(IntPtr hDevice, uint dwIoControlCode,
-            IntPtr InBuffer, int nInBufferSize,
-            IntPtr OutBuffer, int nOutBufferSize,
-            out int pBytesReturned, IntPtr lpOverlapped);
 
         private void SetEnableAndVisible()
         {
@@ -1141,26 +1144,25 @@ namespace InitSetting
         {
             var display_DEVICE = default(DISPLAY_DEVICE);
             display_DEVICE.cb = Marshal.SizeOf(display_DEVICE);
-            var list = new List<string>();
-            var monitors = GetMonitors();
-            var num = 0u;
-            while (EnumDisplayDevices(null, num, ref display_DEVICE, 1u))
+            var allDisplayNames = new List<string>();
+            var dispNum = 0u;
+            while (EnumDisplayDevices(null, dispNum, ref display_DEVICE, 1u))
             {
                 if ((display_DEVICE.StateFlags & DisplayDeviceStateFlags.AttachedToDesktop) ==
-                    DisplayDeviceStateFlags.AttachedToDesktop) list.Add(display_DEVICE.DeviceName);
-                num += 1u;
+                    DisplayDeviceStateFlags.AttachedToDesktop) allDisplayNames.Add(display_DEVICE.DeviceName);
+                dispNum += 1u;
             }
 
-            var num2 = 0;
-            var num3 = -1;
-            foreach (var text in list)
+            var primaryIndex = -1;
+            for (var currentDisp = 0; currentDisp < allDisplayNames.Count; currentDisp++)
             {
+                var displayName = allDisplayNames[currentDisp];
                 var num4 = 0;
                 var num5 = 0;
                 var devmode = default(DEVMODE);
                 var list2 = new List<DisplayMode>();
                 var num6 = 0;
-                while (EnumDisplaySettings(text, num6, ref devmode))
+                while (EnumDisplaySettings(displayName, num6, ref devmode))
                 {
                     var nXX = devmode.dmPelsWidth;
                     var nYY = devmode.dmPelsHeight;
@@ -1176,25 +1178,24 @@ namespace InitSetting
                 }
 
                 var item = default(DisplayModes);
-                foreach (var monitorInfoEx in monitors)
-                    if (monitorInfoEx.szDevice == text)
+                foreach (var monitorInfoEx in Screen.AllScreens)
+                    if (monitorInfoEx.DeviceName == displayName)
                     {
-                        item.x = monitorInfoEx.rcWork.Left;
-                        item.y = monitorInfoEx.rcWork.Top;
-                        if (monitorInfoEx.dwFlags == 1) num3 = num2;
+                        item.x = monitorInfoEx.WorkingArea.Left;
+                        item.y = monitorInfoEx.WorkingArea.Top;
+                        if (monitorInfoEx.Primary) primaryIndex = currentDisp;
                     }
 
                 item.list = list2;
-                num2++;
                 m_listCurrentDisplay.Add(item);
             }
 
             if (m_listCurrentDisplay.Count == 0 || m_listCurrentDisplay.Count != numDisplay)
                 MessageBox.Show("Failed to list supported resolutions");
 
-            //if (num3 < 0) return;
-            m_listCurrentDisplay.Insert(0, m_listCurrentDisplay[num3]);
-            m_listCurrentDisplay.RemoveAt(num3 + 1);
+            if (primaryIndex < 0) return;
+            m_listCurrentDisplay.Insert(0, m_listCurrentDisplay[primaryIndex]);
+            m_listCurrentDisplay.RemoveAt(primaryIndex + 1);
         }
 
         private static int DisplaySort(DisplayModes a, DisplayModes b)
@@ -1204,22 +1205,6 @@ namespace InitSetting
             if (a.y < b.y) return -1;
             if (a.y > b.y) return 1;
             return 0;
-        }
-
-        private static MonitorInfoEx[] GetMonitors()
-        {
-            var list = new List<MonitorInfoEx>();
-            EnumDisplayMonitors(IntPtr.Zero, IntPtr.Zero,
-                delegate (IntPtr hMonitor, IntPtr hdcMonitor, IntPtr lprcMonitor, IntPtr dwData)
-                {
-                    var item = new MonitorInfoEx
-                    {
-                        cbSize = Marshal.SizeOf(typeof(MonitorInfoEx))
-                    };
-                    GetMonitorInfo(hMonitor, ref item);
-                    list.Add(item);
-                }, IntPtr.Zero);
-            return list.ToArray();
         }
 
         private void setFullScreenDevice()
@@ -1578,10 +1563,6 @@ namespace InitSetting
             }
         }
 
-        private void checkBox_Checked(object sender, RoutedEventArgs e)
-        {
-        }
-
         private void HoneyPotInspector_Run(object sender, RoutedEventArgs e)
         {
             if (File.Exists($"{m_strCurrentDir}\\HoneyPot\\HoneyPotInspector.exe"))
@@ -1642,34 +1623,6 @@ namespace InitSetting
         {
             if (Mouse.LeftButton == MouseButtonState.Pressed)
                 DragMove();
-        }
-
-        private delegate void EnumDisplayMonitorsCallback(IntPtr hMonir, IntPtr hdcMonitor, IntPtr lprcMonitor,
-            IntPtr dwData);
-
-        internal struct MonitorInfoEx
-        {
-            public int cbSize;
-
-            public Rect rcMonitor;
-
-            public Rect rcWork;
-
-            public int dwFlags;
-
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
-            public string szDevice;
-        }
-
-        public struct Rect
-        {
-            public int Left;
-
-            public int Top;
-
-            public int Right;
-
-            public int Bottom;
         }
 
         private struct DisplayMode
