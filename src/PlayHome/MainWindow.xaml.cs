@@ -205,6 +205,14 @@ namespace InitSetting
             {
                 toggleBoneMod.IsEnabled = false;
             }
+            if (File.Exists($"{m_strCurrentDir}\\Plugins\\PlayHomeVR.dll"))
+            {
+                toggleVRMod.IsChecked = true;
+            }
+            if (!File.Exists($"{m_strCurrentDir}\\Plugins\\PlayHomeVR.dl_") && !File.Exists($"{m_strCurrentDir}\\Plugins\\PlayHomeVR.dll"))
+            {
+                toggleVRMod.IsEnabled = false;
+            }
 
 
             startup = false;
@@ -1772,6 +1780,34 @@ namespace InitSetting
                     File.Delete($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_");
                 }
                 File.Move($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll", $"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_");
+            }
+        }
+
+        private void vrmod_Checked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists($"{m_strCurrentDir}\\Plugins\\PlayHomeVR.dl_"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\Plugins\\PlayHomeVR.dll"))
+                {
+                    File.Delete($"{m_strCurrentDir}\\Plugins\\PlayHomeVR.dll");
+                }
+                File.Move($"{m_strCurrentDir}\\Plugins\\PlayHomeVR.dl_", $"{m_strCurrentDir}\\Plugins\\PlayHomeVR.dll");
+            }
+            if(!startup)
+            {
+                MessageBox.Show("To use this mod, open SteamVR before opening either the main game or studio.","Information");
+            }
+        }
+
+        private void vrmod_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists($"{m_strCurrentDir}\\Plugins\\PlayHomeVR.dll"))
+            {
+                if (File.Exists($"{m_strCurrentDir}\\Plugins\\PlayHomeVR.dl_"))
+                {
+                    File.Delete($"{m_strCurrentDir}\\Plugins\\PlayHomeVR.dl_");
+                }
+                File.Move($"{m_strCurrentDir}\\Plugins\\PlayHomeVR.dll", $"{m_strCurrentDir}\\Plugins\\PlayHomeVR.dl_");
             }
         }
 

@@ -204,6 +204,7 @@
             <CheckBox x:Name="toggleHoneyPot" Content="Activate HoneyPot" Foreground="White" VerticalContentAlignment="Center" Margin="58,208.333,30,266.667" Checked="hp_Checked" Unchecked="hp_Unchecked"/>
             <CheckBox x:Name="toggleDHH" Content="Activate DHH" Foreground="White" VerticalContentAlignment="Center" Margin="58,224.333,30,250.667" Checked="dhh_Checked" Unchecked="dhh_Unchecked"/>
             <CheckBox x:Name="toggleBoneMod" Content="Activate BoneMod" Foreground="White" VerticalContentAlignment="Center" Margin="58,240.333,30,234.667" Checked="bonemod_Checked" Unchecked="bonemod_Unchecked"/>
+            <CheckBox x:Name="toggleVRMod" Content="Activate VRMod" Foreground="White" VerticalContentAlignment="Center" Margin="58,256.333,30,218.667" Checked="vrmod_Checked" Unchecked="vrmod_Unchecked"/>
             <Button Style="{StaticResource buttonHover}" MaxWidth="900" FontSize="10" Height="39.21" VerticalAlignment="Top" Margin="0,287.333,34,0" Click="HoneyPotInspector_Run" HorizontalAlignment="Right" Width="104.333">
                 <TextBlock x:Name="HoneyPotInspector" Text="Run HoneyPot inspector" TextWrapping="Wrap" TextAlignment="Center"/>
             </Button>
