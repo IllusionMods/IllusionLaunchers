@@ -197,6 +197,14 @@ namespace InitSetting
                 toggle32.Visibility = Visibility.Hidden;
                 x86 = false;
             }
+            if (File.Exists($"{m_strCurrentDir}\\PlayHome64bit_Data\\modfiles\\boneactive.txt"))
+            {
+                toggleBoneMod.IsChecked = true;
+            }
+            if (!File.Exists($"{m_strCurrentDir}\\PlayHome64bit_Data\\modfiles\\boneactive.txt") && !File.Exists($"{m_strCurrentDir}\\PlayHome64bit_Data\\modfiles\\vanillaactive.txt"))
+            {
+                toggleBoneMod.IsEnabled = false;
+            }
 
 
             startup = false;
@@ -1764,6 +1772,81 @@ namespace InitSetting
                     File.Delete($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_");
                 }
                 File.Move($"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dll", $"{m_strCurrentDir}\\Plugins\\ProjectHighHeel.dl_");
+            }
+        }
+
+        private void bonemod_Checked(object sender, RoutedEventArgs e)
+        {
+            if (!startup)
+            {
+                if (File.Exists($"{m_strCurrentDir}\\PlayHome64bit_Data\\modfiles\\resources.assets-bone") && File.Exists($"{m_strCurrentDir}\\PlayHome64bit_Data\\modfiles\\resources.assets-vanilla"))
+                {
+                    if (File.Exists($"{m_strCurrentDir}\\PlayHome64bit_Data\\modfiles\\vanillaactive.txt"))
+                    {
+                        if (File.Exists($"{m_strCurrentDir}\\PlayHome64bit_Data\\resources.assets"))
+                            File.Delete($"{m_strCurrentDir}\\PlayHome64bit_Data\\resources.assets");
+                        File.Copy($"{m_strCurrentDir}\\PlayHome64bit_Data\\modfiles\\resources.assets-bone", $"{m_strCurrentDir}\\PlayHome64bit_Data\\resources.assets");
+
+                        File.Delete($"{m_strCurrentDir}\\PlayHome64bit_Data\\modfiles\\vanillaactive.txt");
+
+                        using (StreamWriter writetext = new StreamWriter($"{m_strCurrentDir}\\PlayHome64bit_Data\\modfiles\\boneactive.txt"))
+                        {
+                            writetext.WriteLine("enabled");
+                        }
+                    }
+                }
+                if (File.Exists($"{m_strCurrentDir}\\PlayHomeStudio64bit_Data\\modfiles\\resources.assets-bone") && File.Exists($"{m_strCurrentDir}\\PlayHomeStudio64bit_Data\\modfiles\\resources.assets-vanilla"))
+                {
+                    if (File.Exists($"{m_strCurrentDir}\\PlayHomeStudio64bit_Data\\modfiles\\vanillaactive.txt"))
+                    {
+                        if (File.Exists($"{m_strCurrentDir}\\PlayHomeStudio64bit_Data\\resources.assets"))
+                            File.Delete($"{m_strCurrentDir}\\PlayHomeStudio64bit_Data\\resources.assets");
+                        File.Copy($"{m_strCurrentDir}\\PlayHomeStudio64bit_Data\\modfiles\\resources.assets-bone", $"{m_strCurrentDir}\\PlayHomeStudio64bit_Data\\resources.assets");
+
+                        File.Delete($"{m_strCurrentDir}\\PlayHomeStudio64bit_Data\\modfiles\\vanillaactive.txt");
+
+                        using (StreamWriter writetext = new StreamWriter($"{m_strCurrentDir}\\PlayHomeStudio64bit_Data\\modfiles\\boneactive.txt"))
+                        {
+                            writetext.WriteLine("enabled");
+                        }
+                    }
+                }
+            }
+        }
+
+        private void bonemod_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists($"{m_strCurrentDir}\\PlayHome64bit_Data\\modfiles\\resources.assets-vanilla"))
+            {
+                if (!File.Exists($"{m_strCurrentDir}\\PlayHome64bit_Data\\modfiles\\vanillaactive.txt"))
+                {
+                    if (File.Exists($"{m_strCurrentDir}\\PlayHome64bit_Data\\resources.assets"))
+                        File.Delete($"{m_strCurrentDir}\\PlayHome64bit_Data\\resources.assets");
+                    File.Copy($"{m_strCurrentDir}\\PlayHome64bit_Data\\modfiles\\resources.assets-vanilla", $"{m_strCurrentDir}\\PlayHome64bit_Data\\resources.assets");
+
+                    File.Delete($"{m_strCurrentDir}\\PlayHome64bit_Data\\modfiles\\boneactive.txt");
+
+                    using (StreamWriter writetext = new StreamWriter($"{m_strCurrentDir}\\PlayHome64bit_Data\\modfiles\\vanillaactive.txt"))
+                    {
+                        writetext.WriteLine("enabled");
+                    }
+                }
+            }
+            if (File.Exists($"{m_strCurrentDir}\\PlayHomeStudio64bit_Data\\modfiles\\resources.assets-vanilla"))
+            {
+                if (!File.Exists($"{m_strCurrentDir}\\PlayHomeStudio64bit_Data\\modfiles\\vanillaactive.txt"))
+                {
+                    if (File.Exists($"{m_strCurrentDir}\\PlayHomeStudio64bit_Data\\resources.assets"))
+                        File.Delete($"{m_strCurrentDir}\\PlayHomeStudio64bit_Data\\resources.assets");
+                    File.Copy($"{m_strCurrentDir}\\PlayHomeStudio64bit_Data\\modfiles\\resources.assets-vanilla", $"{m_strCurrentDir}\\PlayHomeStudio64bit_Data\\resources.assets");
+
+                    File.Delete($"{m_strCurrentDir}\\PlayHomeStudio64bit_Data\\modfiles\\boneactive.txt");
+
+                    using (StreamWriter writetext = new StreamWriter($"{m_strCurrentDir}\\PlayHomeStudio64bit_Data\\modfiles\\vanillaactive.txt"))
+                    {
+                        writetext.WriteLine("enabled");
+                    }
+                }
             }
         }
 
