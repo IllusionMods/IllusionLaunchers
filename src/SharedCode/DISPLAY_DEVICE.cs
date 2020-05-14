@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
+[StructLayout(LayoutKind.Sequential)]
 public struct DISPLAY_DEVICE
 {
 	[MarshalAs(UnmanagedType.U4)]

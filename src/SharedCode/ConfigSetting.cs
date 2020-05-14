@@ -6,26 +6,25 @@ namespace InitSetting
 	[XmlRoot("Setting")]
 	public class ConfigSetting
 	{
-
         [XmlElement("Size")]
-		public string m_strSizeChoose { get; set; }
+		public string Size { get; set; }
 
 		[XmlElement("Width")]
-		public int m_nWidthChoose { get; set; }
+		public int Width { get; set; }
 
 		[XmlElement("Height")]
-		public int m_nHeightChoose { get; set; }
+		public int Height { get; set; }
 
 		[XmlElement("Quality")]
-		public int m_nQualityChoose { get; set; }
+		public int Quality { get; set; }
 
 		[XmlElement("FullScreen")]
-		public bool m_bFullScreen { get; set; }
+		public bool FullScreen { get; set; }
 
 		[XmlElement("Display")]
-		public int m_nDisplay { get; set; }
+		public int Display { get; set; }
 
 		[XmlElement("Language")]
-		public int m_nLangChoose { get; set; }
+		public int Language { get; set; }
 	}
 }

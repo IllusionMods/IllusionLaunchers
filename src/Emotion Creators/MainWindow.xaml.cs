@@ -528,13 +528,13 @@ namespace InitSetting
 
             int num = Screen.AllScreens.Length;
             getDisplayMode_EnumDisplaySettings(num);
-            m_Setting.m_strSizeChoose = "1280 x 720 (16 : 9)";
-            m_Setting.m_nWidthChoose = 1280;
-            m_Setting.m_nHeightChoose = 720;
-            m_Setting.m_nQualityChoose = 1;
-            m_Setting.m_nLangChoose = 0;
-            m_Setting.m_nDisplay = 0;
-            m_Setting.m_bFullScreen = false;
+            m_Setting.Size = "1280 x 720 (16 : 9)";
+            m_Setting.Width = 1280;
+            m_Setting.Height = 720;
+            m_Setting.Quality = 1;
+            m_Setting.Language = 0;
+            m_Setting.Display = 0;
+            m_Setting.FullScreen = false;
             if (num == 2)
             {
                 dropDisplay.Items.Add(s_primarydisplay);
@@ -567,32 +567,32 @@ namespace InitSetting
                         m_Setting = (ConfigSetting)xmlSerializer.Deserialize(fileStream);
                     }
 
-                    m_Setting.m_nDisplay = Math.Min(m_Setting.m_nDisplay, num - 1);
-                    setDisplayComboBox(m_Setting.m_bFullScreen);
+                    m_Setting.Display = Math.Min(m_Setting.Display, num - 1);
+                    setDisplayComboBox(m_Setting.FullScreen);
                     var flag = false;
                     for (var k = 0; k < dropRes.Items.Count; k++)
                     {
-                        if (dropRes.Items[k].ToString() == m_Setting.m_strSizeChoose)
+                        if (dropRes.Items[k].ToString() == m_Setting.Size)
                             flag = true;
                     }
-                    dropRes.Text = flag ? m_Setting.m_strSizeChoose : "1280 x 720 (16 : 9)";
-                    toggleFullscreen.IsChecked = m_Setting.m_bFullScreen;
-                    dropQual.Text = m_astrQuality[m_Setting.m_nQualityChoose];
-                    string text = m_Setting.m_nDisplay == 0 ? s_primarydisplay : $"{s_subdisplay} : " + m_Setting.m_nDisplay;
+                    dropRes.Text = flag ? m_Setting.Size : "1280 x 720 (16 : 9)";
+                    toggleFullscreen.IsChecked = m_Setting.FullScreen;
+                    dropQual.Text = m_astrQuality[m_Setting.Quality];
+                    string text = m_Setting.Display == 0 ? s_primarydisplay : $"{s_subdisplay} : " + m_Setting.Display;
                     if (num == 2)
                     {
                         text = new[]
                         {
                         s_primarydisplay,
                         $"{s_subdisplay} : 1"
-                        }[m_Setting.m_nDisplay];
+                        }[m_Setting.Display];
                     }
                     if (dropDisplay.Items.Contains(text))
                         dropDisplay.Text = text;
                     else
                     {
                         dropDisplay.Text = s_primarydisplay;
-                        m_Setting.m_nDisplay = 0;
+                        m_Setting.Display = 0;
                     }
                 }
                 catch (Exception)
@@ -605,8 +605,8 @@ namespace InitSetting
             else
             {
                 setDisplayComboBox(false);
-                dropRes.Text = m_Setting.m_strSizeChoose;
-                dropQual.Text = m_astrQuality[m_Setting.m_nQualityChoose];
+                dropRes.Text = m_Setting.Size;
+                dropQual.Text = m_astrQuality[m_Setting.Quality];
                 dropDisplay.Text = s_primarydisplay;
             }
         }
@@ -620,11 +620,11 @@ namespace InitSetting
         {
             using (RegistryKey registryKey = Registry.CurrentUser.CreateSubKey(m_strGameRegistry))
             {
-                registryKey.SetValue("Screenmanager Is Fullscreen mode_h3981298716", m_Setting.m_bFullScreen ? 1 : 0);
-                registryKey.SetValue("Screenmanager Resolution Height_h2627697771", m_Setting.m_nHeightChoose);
-                registryKey.SetValue("Screenmanager Resolution Width_h182942802", m_Setting.m_nWidthChoose);
+                registryKey.SetValue("Screenmanager Is Fullscreen mode_h3981298716", m_Setting.FullScreen ? 1 : 0);
+                registryKey.SetValue("Screenmanager Resolution Height_h2627697771", m_Setting.Height);
+                registryKey.SetValue("Screenmanager Resolution Width_h182942802", m_Setting.Width);
                 registryKey.SetValue("UnityGraphicsQuality_h1669003810", 2);
-                registryKey.SetValue("UnitySelectMonitor_h17969598", m_Setting.m_nDisplay);
+                registryKey.SetValue("UnitySelectMonitor_h17969598", m_Setting.Display);
             }
         }
 
@@ -669,9 +669,9 @@ namespace InitSetting
                 return;
             }
             ComboBoxCustomItem comboBoxCustomItem = (ComboBoxCustomItem)dropRes.SelectedItem;
-            m_Setting.m_strSizeChoose = comboBoxCustomItem.text;
-            m_Setting.m_nWidthChoose = comboBoxCustomItem.width;
-            m_Setting.m_nHeightChoose = comboBoxCustomItem.height;
+            m_Setting.Size = comboBoxCustomItem.text;
+            m_Setting.Width = comboBoxCustomItem.width;
+            m_Setting.Height = comboBoxCustomItem.height;
         }
 
         void Quality_Change(object sender, SelectionChangedEventArgs e)
@@ -679,32 +679,32 @@ namespace InitSetting
             string a = dropQual.SelectedItem.ToString();
             if (a == q_performance)
             {
-                m_Setting.m_nQualityChoose = 0;
+                m_Setting.Quality = 0;
                 return;
             }
             if (a == q_normal)
             {
-                m_Setting.m_nQualityChoose = 1;
+                m_Setting.Quality = 1;
                 return;
             }
             if (!(a == q_quality))
             {
                 return;
             }
-            m_Setting.m_nQualityChoose = 2;
+            m_Setting.Quality = 2;
         }
 
         void windowUnChecked(object sender, RoutedEventArgs e)
         {
             setDisplayComboBox(false);
-            dropRes.Text = m_Setting.m_strSizeChoose;
-            m_Setting.m_bFullScreen = false;
+            dropRes.Text = m_Setting.Size;
+            m_Setting.FullScreen = false;
         }
 
         void windowChecked(object sender, RoutedEventArgs e)
         {
             setDisplayComboBox(true);
-            m_Setting.m_bFullScreen = true;
+            m_Setting.FullScreen = true;
             setFullScreenDevice();
         }
 
@@ -738,8 +738,8 @@ namespace InitSetting
             {
                 return;
             }
-            m_Setting.m_nDisplay = dropDisplay.SelectedIndex;
-            if (m_Setting.m_bFullScreen)
+            m_Setting.Display = dropDisplay.SelectedIndex;
+            if (m_Setting.FullScreen)
             {
                 setDisplayComboBox(true);
                 setFullScreenDevice();
@@ -949,7 +949,7 @@ namespace InitSetting
         void setDisplayComboBox(bool _bFullScreen)
         {
             dropRes.Items.Clear();
-            int nDisplay = m_Setting.m_nDisplay;
+            int nDisplay = m_Setting.Display;
             foreach (MainWindow.DisplayMode displayMode in (_bFullScreen ? m_listCurrentDisplay[nDisplay].list : m_listDefaultDisplay))
             {
                 ComboBoxCustomItem newItem = new ComboBoxCustomItem
@@ -1125,21 +1125,21 @@ namespace InitSetting
 
         void setFullScreenDevice()
         {
-            int nDisplay = m_Setting.m_nDisplay;
+            int nDisplay = m_Setting.Display;
             if (m_listCurrentDisplay[nDisplay].list.Count == 0)
             {
-                m_Setting.m_bFullScreen = false;
+                m_Setting.FullScreen = false;
                 toggleFullscreen.IsChecked = new bool?(false);
                 System.Windows.Forms.MessageBox.Show("This monitor doesn't support fullscreen.");
                 return;
             }
-            if (m_listCurrentDisplay[nDisplay].list.Find((MainWindow.DisplayMode x) => x.text.Contains(m_Setting.m_strSizeChoose)).Width == 0)
+            if (m_listCurrentDisplay[nDisplay].list.Find((MainWindow.DisplayMode x) => x.text.Contains(m_Setting.Size)).Width == 0)
             {
-                m_Setting.m_strSizeChoose = m_listCurrentDisplay[nDisplay].list[0].text;
-                m_Setting.m_nWidthChoose = m_listCurrentDisplay[nDisplay].list[0].Width;
-                m_Setting.m_nHeightChoose = m_listCurrentDisplay[nDisplay].list[0].Height;
+                m_Setting.Size = m_listCurrentDisplay[nDisplay].list[0].text;
+                m_Setting.Width = m_listCurrentDisplay[nDisplay].list[0].Width;
+                m_Setting.Height = m_listCurrentDisplay[nDisplay].list[0].Height;
             }
-            dropRes.Text = m_Setting.m_strSizeChoose;
+            dropRes.Text = m_Setting.Size;
         }
 
         public bool IsWow64()

@@ -143,18 +143,18 @@
         <Image x:Name="PackChara" HorizontalAlignment="Left" Height="378" Margin="322,220,0,0" VerticalAlignment="Top" Width="255" Source="Images/Chara.png"/>
         <Grid HorizontalAlignment="Left" Height="491" Margin="0,107,0,0" VerticalAlignment="Top" Width="322">
             <Border BorderBrush="#FF366EBF" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left" Height="276" Margin="-41,48,0,0" VerticalAlignment="Top" Width="84" CornerRadius="3"/>
-            <Image x:Name="flagEN" HorizontalAlignment="Left" Height="22" Margin="10,60,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/united-kingdom.png" MouseLeftButtonDown="langEnglish"/>
-            <Image x:Name="flagJA" HorizontalAlignment="Left" Height="24" Margin="10,88,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/japan.png" MouseLeftButtonDown="langJapanese"/>
-            <Image x:Name="flagCH" HorizontalAlignment="Left" Height="22" Margin="10,118,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/china.png" MouseLeftButtonDown="langChinese"/>
-            <Image x:Name="flagKO" HorizontalAlignment="Left" Height="24" Margin="10,146,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/south-korea.png" MouseLeftButtonDown="langKorean"/>
-            <Image x:Name="flagSP" HorizontalAlignment="Left" Height="24" Margin="10,176,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/spain.png" MouseLeftButtonDown="langSpanish"/>
-            <Image x:Name="flagBR" HorizontalAlignment="Left" Height="24" Margin="10,204,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/brazil.png" MouseLeftButtonDown="langBrazil"/>
-            <Image x:Name="flagFR" HorizontalAlignment="Left" Height="24" Margin="10,234,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/france.png" MouseLeftButtonDown="langFrench"/>
-            <Image x:Name="flagGE" HorizontalAlignment="Left" Height="24" Margin="10,262,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/germany.png" MouseLeftButtonDown="langGerman"/>
-            <Image x:Name="flagNO" HorizontalAlignment="Left" Height="24" Margin="10,292,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/norway.png" MouseLeftButtonDown="langNorwegian"/>
+            <Image x:Name="flagEN" HorizontalAlignment="Left" Height="22" Margin="10,60,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/united-kingdom.png" MouseLeftButtonDown="LangEnglish"/>
+            <Image x:Name="flagJA" HorizontalAlignment="Left" Height="24" Margin="10,88,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/japan.png" MouseLeftButtonDown="LangJapanese"/>
+            <Image x:Name="flagCH" HorizontalAlignment="Left" Height="22" Margin="10,118,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/china.png" MouseLeftButtonDown="LangChinese"/>
+            <Image x:Name="flagKO" HorizontalAlignment="Left" Height="24" Margin="10,146,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/south-korea.png" MouseLeftButtonDown="LangKorean"/>
+            <Image x:Name="flagSP" HorizontalAlignment="Left" Height="24" Margin="10,176,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/spain.png" MouseLeftButtonDown="LangSpanish"/>
+            <Image x:Name="flagBR" HorizontalAlignment="Left" Height="24" Margin="10,204,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/brazil.png" MouseLeftButtonDown="LangBrazil"/>
+            <Image x:Name="flagFR" HorizontalAlignment="Left" Height="24" Margin="10,234,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/france.png" MouseLeftButtonDown="LangFrench"/>
+            <Image x:Name="flagGE" HorizontalAlignment="Left" Height="24" Margin="10,262,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/germany.png" MouseLeftButtonDown="LangGerman"/>
+            <Image x:Name="flagNO" HorizontalAlignment="Left" Height="24" Margin="10,292,0,0" VerticalAlignment="Top" Width="22" Source="Images/Flags/norway.png" MouseLeftButtonDown="LangNorwegian"/>
             <Border BorderBrush="#FF366EBF" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left" Height="196.333" Margin="52,169,0,0" VerticalAlignment="Top" Width="247" CornerRadius="3">
             </Border>
-            <CheckBox x:Name="toggleFullscreen" Content="Play game in fullscreen" Foreground="White" VerticalContentAlignment="Center" Margin="58,176.333,30,298.667" Checked="windowChecked" Unchecked="windowUnChecked"/>
+            <CheckBox x:Name="toggleFullscreen" Content="Play game in fullscreen" Foreground="White" VerticalContentAlignment="Center" Margin="58,176.333,30,298.667" Checked="WindowChecked" Unchecked="WindowUnChecked"/>
             <CheckBox x:Name="toggleConsole" Content="Activate Console" Foreground="White" VerticalContentAlignment="Center" Margin="58,192.333,30,282.667" Checked="modeDev_Checked" Unchecked="modeDev_Unchecked"/>
             <CheckBox x:Name="toggleDHH" Content="Activate DHH" Foreground="White" VerticalContentAlignment="Center" Margin="58,208.333,30,266.667" Checked="dhh_Checked" Unchecked="dhh_Unchecked"/>
             <CheckBox x:Name="toggleAIGraphics" Content="Activate AI Graphics" Foreground="White" VerticalContentAlignment="Center" Margin="58,224.333,30,250.667" Checked="aigraphics_Checked" Unchecked="aigraphics_Unchecked"/>
