@@ -16,6 +16,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)DevmodeFields.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DisplayDeviceStateFlags.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DISPLAY_DEVICE.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EnvironmentHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)POINTL.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SettingManager.cs" />
   </ItemGroup>
 </Project>
