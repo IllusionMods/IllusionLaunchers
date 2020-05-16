@@ -1,0 +1,91 @@
+﻿<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Disclaimer" xml:space="preserve">
+    <value>このゲームは成人向けので、18歳未満（または地域の法律によりと同等の年齢）がこのゲームをプレイまたは所有しているができない。
+
+このゲームには性的内容の内容が含まれます。内に描かれている行動は、実生活で複製することは違法です。つまり、これは面白いゲームです、そうしましょう？(~.~)v</value>
+  </data>
+  <data name="FolderInstall" xml:space="preserve">
+    <value>インストール</value>
+  </data>
+  <data name="FolderFemaleCard" xml:space="preserve">
+    <value>キャラカード (女性)</value>
+  </data>
+  <data name="FolderMaleCard" xml:space="preserve">
+    <value>キャラカード (男性)</value>
+  </data>
+  <data name="FolderScenes" xml:space="preserve">
+    <value>シーン</value>
+  </data>
+  <data name="FolderScreenshots" xml:space="preserve">
+    <value>SS</value>
+  </data>
+  <data name="FolderUserData" xml:space="preserve">
+    <value>UserData</value>
+  </data>
+  <data name="StartGame" xml:space="preserve">
+    <value>ゲーム開始</value>
+  </data>
+  <data name="StartStudio" xml:space="preserve">
+    <value>スタジオ開始</value>
+  </data>
+  <data name="ManualGame" xml:space="preserve">
+    <value>マニュアル</value>
+  </data>
+  <data name="ManualStudio" xml:space="preserve">
+    <value>マニュアル</value>
+  </data>
+  <data name="ToggleFullscreen" xml:space="preserve">
+    <value>全画面表示</value>
+  </data>
+  <data name="ToggleConsole" xml:space="preserve">
+    <value>コンソールを有効にする</value>
+  </data>
+  <data name="Distribution" xml:space="preserve">
+    <value>不明バージョン</value>
+  </data>
+  <data name="TranslatedByCredit" xml:space="preserve">
+    <value>初期設定翻訳者: Earthship</value>
+  </data>
+  <data name="QualityPerformance" xml:space="preserve">
+    <value>パフォーマンス</value>
+  </data>
+  <data name="QualityNormal" xml:space="preserve">
+    <value>ノーマル</value>
+  </data>
+  <data name="QualityQuality" xml:space="preserve">
+    <value>クオリティ</value>
+  </data>
+  <data name="PrimaryDisplay" xml:space="preserve">
+    <value>メインディスプレイ</value>
+  </data>
+  <data name="SubDisplay" xml:space="preserve">
+    <value>サブディスプレイ</value>
+  </data>
+  <data name="ButtonDiscord" xml:space="preserve">
+    <value>Discordを訪問</value>
+  </data>
+  <data name="ButtonPatreon" xml:space="preserve">
+    <value>Patreonを訪問</value>
+  </data>
+  <data name="ButtonUpdate" xml:space="preserve">
+    <value>ゲームを更新する</value>
+  </data>
+  <data name="FolderHouses" xml:space="preserve">
+    <value>家</value>
+  </data>
+  <data name="ToggleDhh" xml:space="preserve">
+    <value>DHHを有効にする</value>
+  </data>
+</root>

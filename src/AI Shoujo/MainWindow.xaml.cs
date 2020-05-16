@@ -1,133 +1,165 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using MessageBox = System.Windows.Forms.MessageBox;
 using System.Windows.Input;
+using CheckBox = System.Windows.Controls.CheckBox;
 
 namespace InitSetting
 {
     public partial class MainWindow : Window
     {
-        private const string MStrGameRegistry = "Software\\illusion\\AI-Syoujyo\\AI-Syoujyo\\";
+        private const string MStrGameRegistry = "Software\\illusion\\AI-Syoujyo\\AI-Syoujyo";
         private const string MStrStudioRegistry = "Software\\illusion\\AI-Syoujyo\\StudioNEOV2";
-        private string[] _mAstrQuality;
 
         private const string MStrGameExe = "AI-Syoujyo.exe";
         private const string MStrStudioExe = "StudioNEOV2.exe";
 
-        private string _qPerformance = "Performance";
-        private string _qNormal = "Normal";
-        private string _qQuality = "Quality";
-        private string _sPrimarydisplay = "PrimaryDisplay";
-        private string _sSubdisplay = "SubDisplay";
+        // launcher and xua language code
+        private static readonly string[] _builtinLanguages = { "ja" };
+
+        private readonly string _qPerformance;
+        private readonly string _qNormal;
+        private readonly string _qQuality;
+        private readonly string[] _qLevelNames;
+
+        private readonly string _sPrimarydisplay;
+        private readonly string _sSubdisplay;
 
         private readonly SettingManager _settingManager;
         private readonly bool _isStudio;
         private readonly bool _isMainGame;
-        private readonly bool _noTl = false;
         private readonly bool _isDuringStartup;
 
         public MainWindow()
         {
-            InitializeComponent();
-
-            _isDuringStartup = true;
-
-            _settingManager = new SettingManager();
-
-            EnvironmentHelper.Initialize();
-
-            EnvironmentHelper.CheckDuplicateStartup();
-
-            WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            CustomRes.Visibility = Visibility.Hidden;
-            if (!EnvironmentHelper.KKmanExist) gridUpdate.Visibility = Visibility.Hidden;
-
-            switch (EnvironmentHelper.DeveloperModeEnabled)
+            try
             {
-                case null:
-                    toggleConsole.IsEnabled = false;
-                    break;
-                case false:
-                    toggleConsole.IsChecked = false;
-                    break;
-                case true:
-                    toggleConsole.IsChecked = true;
-                    break;
-            }
+                EnvironmentHelper.InitializeDirectories();
+                EnvironmentHelper.InitializeLanguage();
 
-            // Mod settings
-            if (File.Exists($"{EnvironmentHelper.GameRootDirectory}\\BepInEx\\Plugins\\DHH_AI4.dll"))
-            {
-                toggleDHH.IsChecked = true;
-            }
-            if (!File.Exists($"{EnvironmentHelper.GameRootDirectory}\\BepInEx\\Plugins\\DHH_AI4.dl_") && !File.Exists($"{EnvironmentHelper.GameRootDirectory}\\BepInEx\\Plugins\\DHH_AI4.dll"))
-            {
-                toggleDHH.IsEnabled = false;
-            }
-            if (File.Exists($"{EnvironmentHelper.GameRootDirectory}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll"))
-            {
-                toggleAIGraphics.IsChecked = true;
-            }
-            if (!File.Exists($"{EnvironmentHelper.GameRootDirectory}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dl_") && !File.Exists($"{EnvironmentHelper.GameRootDirectory}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll"))
-            {
-                toggleAIGraphics.IsEnabled = false;
-            }
-            if (File.Exists($"{EnvironmentHelper.GameRootDirectory}\\BepInEx\\Plugins\\AIGraphics\\AI_Graphics.dll") && File.Exists($"{EnvironmentHelper.GameRootDirectory}\\BepInEx\\Plugins\\DHH_AI4.dll"))
-            {
-                toggleDHH.IsChecked = false;
-                toggleAIGraphics.IsChecked = false;
-            }
+                InitializeComponent();
 
-            _isDuringStartup = false;
+                _qPerformance = Localizable.QualityPerformance;
+                _qNormal = Localizable.QualityNormal;
+                _qQuality = Localizable.QualityQuality;
+                _qLevelNames = new[] { _qPerformance, _qNormal, _qQuality };
+                _sPrimarydisplay = Localizable.PrimaryDisplay;
+                _sSubdisplay = Localizable.SubDisplay;
 
-            SetupUiLanguage();
-
-            // Launcher Customization: Defining Warning, background and character
-
-            if (!string.IsNullOrEmpty(EnvironmentHelper.VersionString))
-                labelDist.Content = EnvironmentHelper.VersionString;
-
-            _isStudio = File.Exists(EnvironmentHelper.GameRootDirectory + MStrStudioExe);
-            _isMainGame = File.Exists(EnvironmentHelper.GameRootDirectory + MStrGameExe);
-
-            if (!string.IsNullOrEmpty(EnvironmentHelper.WarningString))
-                warningText.Text = EnvironmentHelper.WarningString;
-
-            if (EnvironmentHelper.CustomCharacterImage != null)
-                PackChara.Source = EnvironmentHelper.CustomCharacterImage;
-            if (EnvironmentHelper.CustomBgImage != null)
-                appBG.ImageSource = EnvironmentHelper.CustomBgImage;
-
-            if (string.IsNullOrEmpty(EnvironmentHelper.PatreonUrl))
-            {
-                linkPatreon.Visibility = Visibility.Collapsed;
-                patreonBorder.Visibility = Visibility.Collapsed;
-                patreonIMG.Visibility = Visibility.Collapsed;
-            }
-
-            var num = Screen.AllScreens.Length;
-            if (num == 2)
-            {
-                dropDisplay.Items.Add(_sPrimarydisplay);
-                dropDisplay.Items.Add($"{_sSubdisplay} : 1");
-            }
-            else
-            {
-                for (var i = 0; i < num; i++)
+                if (string.IsNullOrEmpty((string)labelTranslated.Content))
                 {
-                    var newItem = i == 0 ? _sPrimarydisplay : ($"{_sSubdisplay} : " + i);
-                    dropDisplay.Items.Add(newItem);
+                    labelTranslated.Visibility = Visibility.Hidden;
+                    labelTranslatedBorder.Visibility = Visibility.Hidden;
                 }
-            }
-            foreach (var newItem2 in _mAstrQuality)
-            {
-                dropQual.Items.Add(newItem2);
-            }
 
+                Closing += (sender, args) => _settingManager.SaveConfigFile(EnvironmentHelper.GetConfigFilePath());
+
+                _isDuringStartup = true;
+
+                _settingManager = new SettingManager();
+
+                EnvironmentHelper.Initialize();
+
+                EnvironmentHelper.CheckDuplicateStartup();
+
+                WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                CustomRes.Visibility = Visibility.Hidden;
+                if (!EnvironmentHelper.KKmanExist) gridUpdate.Visibility = Visibility.Hidden;
+
+                switch (EnvironmentHelper.DeveloperModeEnabled)
+                {
+                    case null:
+                        toggleConsole.IsEnabled = false;
+                        break;
+                    case false:
+                        toggleConsole.IsChecked = false;
+                        break;
+                    case true:
+                        toggleConsole.IsChecked = true;
+                        break;
+                }
+
+                foreach (var newItem2 in _qLevelNames)
+                {
+                    dropQual.Items.Add(newItem2);
+                }
+
+                // Mod settings
+                SetupPluginToggle(toggleDHH, "DHH_AI4", b =>
+                {
+                    if (b)
+                    {
+                        toggleAIGraphics.IsChecked = false;
+                    }
+                });
+                SetupPluginToggle(toggleAIGraphics, "AI_Graphics", b =>
+                {
+                    if (b)
+                    {
+                        MessageBox.Show("Press F5 ingame for menu.", "Information");
+                        toggleDHH.IsChecked = false;
+                    }
+                });
+
+                _isDuringStartup = false;
+
+                SetupUiLanguage();
+
+                // Launcher Customization: Defining Warning, background and character
+
+                if (!string.IsNullOrEmpty(EnvironmentHelper.VersionString))
+                    labelDist.Content = EnvironmentHelper.VersionString;
+
+                _isStudio = File.Exists(EnvironmentHelper.GameRootDirectory + MStrStudioExe);
+                _isMainGame = File.Exists(EnvironmentHelper.GameRootDirectory + MStrGameExe);
+
+                if (!string.IsNullOrEmpty(EnvironmentHelper.WarningString))
+                    warningText.Text = EnvironmentHelper.WarningString;
+
+                if (EnvironmentHelper.CustomCharacterImage != null)
+                    PackChara.Source = EnvironmentHelper.CustomCharacterImage;
+                if (EnvironmentHelper.CustomBgImage != null)
+                    appBG.ImageSource = EnvironmentHelper.CustomBgImage;
+
+                if (string.IsNullOrEmpty(EnvironmentHelper.PatreonUrl))
+                {
+                    linkPatreon.Visibility = Visibility.Collapsed;
+                    patreonBorder.Visibility = Visibility.Collapsed;
+                    patreonIMG.Visibility = Visibility.Collapsed;
+                }
+
+                // todo ?? is this check necessary?
+                var num = Screen.AllScreens.Length;
+                if (num == 2)
+                {
+                    dropDisplay.Items.Add(_sPrimarydisplay);
+                    dropDisplay.Items.Add($"{_sSubdisplay} : 1");
+                }
+                else
+                {
+                    for (var i = 0; i < num; i++)
+                    {
+                        var newItem = i == 0 ? _sPrimarydisplay : ($"{_sSubdisplay} : " + i);
+                        dropDisplay.Items.Add(newItem);
+                    }
+                }
+
+                ParseGameConfigFile();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+                throw;
+            }
+        }
+
+        private void ParseGameConfigFile()
+        {
+            var num = Screen.AllScreens.Length;
             var configFilePath = EnvironmentHelper.GetConfigFilePath();
             CheckConfigFile:
             if (File.Exists(configFilePath))
@@ -144,18 +176,24 @@ namespace InitSetting
                         if (resItem.ToString() == _settingManager.CurrentSettings.Size)
                             flag = true;
                     }
+
                     dropRes.Text = flag ? _settingManager.CurrentSettings.Size : "1280 x 720 (16 : 9)";
                     toggleFullscreen.IsChecked = _settingManager.CurrentSettings.FullScreen;
-                    dropQual.Text = _mAstrQuality[_settingManager.CurrentSettings.Quality];
-                    var text = _settingManager.CurrentSettings.Display == 0 ? _sPrimarydisplay : $"{_sSubdisplay} : " + _settingManager.CurrentSettings.Display;
+                    dropQual.Text = _qLevelNames[_settingManager.CurrentSettings.Quality];
+                    var text = _settingManager.CurrentSettings.Display == 0
+                        ? _sPrimarydisplay
+                        : $"{_sSubdisplay} : " + _settingManager.CurrentSettings.Display;
+
+                    // todo ?? is this necessary?
                     if (num == 2)
                     {
                         text = new[]
                         {
-                        _sPrimarydisplay,
-                        $"{_sSubdisplay} : 1"
+                            _sPrimarydisplay,
+                            $"{_sSubdisplay} : 1"
                         }[_settingManager.CurrentSettings.Display];
                     }
+
                     if (dropDisplay.Items.Contains(text))
                         dropDisplay.Text = text;
                     else
@@ -175,12 +213,56 @@ namespace InitSetting
             {
                 SetDisplayComboBox(false);
                 dropRes.Text = _settingManager.CurrentSettings.Size;
-                dropQual.Text = _mAstrQuality[_settingManager.CurrentSettings.Quality];
+                dropQual.Text = _qLevelNames[_settingManager.CurrentSettings.Quality];
                 dropDisplay.Text = _sPrimarydisplay;
             }
         }
 
-        private void PlayFunc(string strExe)
+        private void SetupPluginToggle(CheckBox toggle, string pluginName, Action<bool> onSetEnabled)
+        {
+            var pluginFile = Directory.Exists(EnvironmentHelper.BepinPluginsDir) ? Directory.GetFiles(EnvironmentHelper.BepinPluginsDir, pluginName + ".dl*", SearchOption.AllDirectories)
+                .FirstOrDefault() : null;
+
+            if (pluginFile == null)
+            {
+                toggle.IsEnabled = false;
+                toggle.Visibility = Visibility.Collapsed;
+                return;
+            }
+            var f = new FileInfo(pluginFile);
+
+            var enabled = string.Equals(f.Extension, ".dll", StringComparison.OrdinalIgnoreCase);
+
+            toggle.IsEnabled = enabled;
+
+            toggle.Checked += (sender, args) =>
+            {
+                onSetEnabled?.Invoke(true);
+                f.MoveTo(Path.Combine(f.FullName, pluginFile + ".dll"));
+            };
+            toggle.Unchecked += (sender, args) =>
+            {
+                onSetEnabled?.Invoke(false);
+                f.MoveTo(Path.Combine(f.FullName, pluginFile + ".dl_"));
+            };
+        }
+
+        private void LangEnglish(object sender, MouseButtonEventArgs e) => PartyFilter("en");
+        private void LangJapanese(object sender, MouseButtonEventArgs e) => PartyFilter("ja");
+        private void LangChinese(object sender, MouseButtonEventArgs e) => PartyFilter("zh-CN");
+        private void LangKorean(object sender, MouseButtonEventArgs e) => PartyFilter("ko");
+        private void LangSpanish(object sender, MouseButtonEventArgs e) => PartyFilter("es");
+        private void LangBrazil(object sender, MouseButtonEventArgs e) => PartyFilter("pt");
+        private void LangFrench(object sender, MouseButtonEventArgs e) => PartyFilter("fr");
+        private void LangGerman(object sender, MouseButtonEventArgs e) => PartyFilter("de");
+        private void LangNorwegian(object sender, MouseButtonEventArgs e) => PartyFilter("no");
+
+        private void PartyFilter(string language)
+        {
+            EnvironmentHelper.SetLanguage(language, _builtinLanguages, _settingManager);
+        }
+
+        private void StartGame(string strExe)
         {
             _settingManager.SaveConfigFile(EnvironmentHelper.GetConfigFilePath());
 
@@ -190,15 +272,8 @@ namespace InitSetting
             EnvironmentHelper.StartGame(strExe);
         }
 
-        private void buttonStart_Click(object sender, RoutedEventArgs e)
-        {
-            PlayFunc(MStrGameExe);
-        }
-
-        private void buttonStartS_Click(object sender, RoutedEventArgs e)
-        {
-            PlayFunc(MStrStudioExe);
-        }
+        private void buttonStart_Click(object sender, RoutedEventArgs e) => StartGame(MStrGameExe);
+        private void buttonStartS_Click(object sender, RoutedEventArgs e) => StartGame(MStrStudioExe);
 
         private void buttonClose_Click(object sender, RoutedEventArgs e)
         {
@@ -252,20 +327,9 @@ namespace InitSetting
             dropRes.Text = _settingManager.CurrentSettings.Size;
         }
 
-        private void buttonManual_Click(object sender, RoutedEventArgs e)
-        {
-            EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\");
-        }
-
-        private void buttonManualS_Click(object sender, RoutedEventArgs e)
-        {
-            EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_s\\");
-        }
-
-        private void buttonManualV_Click(object sender, RoutedEventArgs e)
-        {
-            EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_vr\\");
-        }
+        private void buttonManual_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\");
+        private void buttonManualS_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_s\\");
+        private void buttonManualV_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_vr\\");
 
         private void Display_Change(object sender, SelectionChangedEventArgs e)
         {
@@ -290,20 +354,6 @@ namespace InitSetting
             }
         }
 
-        private void buttonInst_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.OpenDirectory("");
-
-        private void buttonScenes_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.OpenDirectory("UserData\\Studio\\scene");
-
-        private void buttonUserData_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.OpenDirectory("UserData");
-
-        private void buttonHousing_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.OpenDirectory("UserData\\housing");
-
-        private void buttonScreenshot_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.OpenDirectory("UserData\\cap");
-
-        private void buttonFemaleCard_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.OpenDirectory("UserData\\chara\\female");
-
-        private void buttonMaleCard_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.OpenDirectory("UserData\\chara\\male");
-
         private void SetDisplayComboBox(bool bFullScreen)
         {
             dropRes.Items.Clear();
@@ -320,9 +370,23 @@ namespace InitSetting
             }
         }
 
-        private void discord_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) => Process.Start("https://discord.gg/F3bDEFE");
+        private void buttonInst_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.OpenDirectory("");
 
-        private void patreon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) => Process.Start(EnvironmentHelper.PatreonUrl);
+        private void buttonScenes_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.OpenDirectory("UserData\\Studio\\scene");
+
+        private void buttonUserData_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.OpenDirectory("UserData");
+
+        private void buttonHousing_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.OpenDirectory("UserData\\housing");
+
+        private void buttonScreenshot_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.OpenDirectory("UserData\\cap");
+
+        private void buttonFemaleCard_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.OpenDirectory("UserData\\chara\\female");
+
+        private void buttonMaleCard_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.OpenDirectory("UserData\\chara\\male");
+
+        private void discord_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) => EnvironmentHelper.StartProcess("https://discord.gg/F3bDEFE");
+
+        private void patreon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) => EnvironmentHelper.StartProcess(EnvironmentHelper.PatreonUrl);
 
         private void update_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -331,29 +395,6 @@ namespace InitSetting
             if (_isStudio) _settingManager.SaveRegistry(MStrStudioRegistry);
 
             EnvironmentHelper.StartUpdate();
-        }
-
-        private void LangEnglish(object sender, MouseButtonEventArgs e) => PartyFilter("en");
-
-        private void LangJapanese(object sender, MouseButtonEventArgs e) => PartyFilter("ja");
-
-        private void LangChinese(object sender, MouseButtonEventArgs e) => PartyFilter("zh-CN");
-
-        private void LangKorean(object sender, MouseButtonEventArgs e) => PartyFilter("ko");
-
-        private void LangSpanish(object sender, MouseButtonEventArgs e) => PartyFilter("es");
-
-        private void LangBrazil(object sender, MouseButtonEventArgs e) => PartyFilter("pt");
-
-        private void LangFrench(object sender, MouseButtonEventArgs e) => PartyFilter("fr");
-
-        private void LangGerman(object sender, MouseButtonEventArgs e) => PartyFilter("de");
-
-        private void LangNorwegian(object sender, MouseButtonEventArgs e) => PartyFilter("no");
-
-        private void PartyFilter(string language)
-        {
-            EnvironmentHelper.SetLanguage(language, !_noTl);
         }
 
         private void modeDev_Checked(object sender, RoutedEventArgs e)
@@ -370,30 +411,6 @@ namespace InitSetting
             {
                 EnvironmentHelper.DeveloperModeEnabled = false;
             }
-        }
-
-        private void dhh_Checked(object sender, RoutedEventArgs e)
-        {
-            EnvironmentHelper.EnablePlugin(EnvironmentHelper.BepinPluginsDir + "DHH_AI4.dll");
-            toggleAIGraphics.IsChecked = false;
-        }
-
-        private void dhh_Unchecked(object sender, RoutedEventArgs e)
-        {
-            EnvironmentHelper.DisablePlugin(EnvironmentHelper.BepinPluginsDir + "DHH_AI4.dll");
-        }
-
-        private void aigraphics_Checked(object sender, RoutedEventArgs e)
-        {
-            EnvironmentHelper.EnablePlugin(EnvironmentHelper.BepinPluginsDir + "AIGraphics\\AI_Graphics.dll");
-            toggleDHH.IsChecked = false;
-            if (!_isDuringStartup)
-                MessageBox.Show("Press F5 ingame for menu.", "Information");
-        }
-
-        private void aigraphics_Unchecked(object sender, RoutedEventArgs e)
-        {
-            EnvironmentHelper.DisablePlugin(EnvironmentHelper.BepinPluginsDir + "AIGraphics\\AI_Graphics.dll");
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using Application = System.Windows.Forms.Application;
@@ -129,56 +132,89 @@ namespace InitSetting
             return IntPtr.Size == 8;
         }
 
-        public static void SetLanguage(string langstring, bool alsoXua)
+        public static void SetLanguage(string language, string[] builtinLanguages, SettingManager settingManager)
         {
-            if (alsoXua)
-                WriteLangIni(langstring);
-
-            if (File.Exists(GameRootDirectory + _mCustomDir + _decideLang))
-                File.Delete(GameRootDirectory + _mCustomDir + _decideLang);
-            using (var writetext = new StreamWriter(GameRootDirectory + _mCustomDir + _decideLang))
+            try
             {
-                writetext.WriteLine(langstring);
-            }
+                using (var writetext = new StreamWriter(GameRootDirectory + _mCustomDir + _decideLang, false))
+                    writetext.WriteLine(language);
 
-            Application.Restart();
+                if (System.Windows.MessageBox.Show("Do you want to set the ingame language to the selected language as well?",
+                    "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    var builtinIndex = builtinLanguages.ToList()
+                        .FindIndex(x => language.Equals(x, StringComparison.OrdinalIgnoreCase));
+
+                    // Set built-in game language if supported
+                    if (builtinIndex >= 0)
+                    {
+                        settingManager.CurrentSettings.Language = builtinIndex;
+                        settingManager.SaveConfigFile(GetConfigFilePath());
+                    }
+
+                    WriteAutoTranslatorLangIni(language);
+                }
+
+                Application.Restart();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong when changing language: " + e);
+            }
         }
 
-        private static void WriteLangIni(string language)
+        private static void WriteAutoTranslatorLangIni(string language)
         {
             var configPath = Path.Combine(GameRootDirectory, @"BepInEx/Config/AutoTranslatorConfig.ini");
 
-            if (!File.Exists(configPath)) return;
-
-            if (System.Windows.MessageBox.Show("Do you want the ingame language to reflect this language choice?",
-                "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes) return;
+            var disable = language.Equals("jp", StringComparison.OrdinalIgnoreCase);
 
             try
             {
-                var contents = File.ReadAllLines(configPath).ToList();
+                var contents = (File.Exists(configPath) ? File.ReadAllLines(configPath) : Enumerable.Empty<string>()).ToList();
 
-                // Fix VMD for darkness
-                var setToLanguage = contents.FindIndex(s => s.ToLower().Contains("[General]".ToLower()));
-                if (setToLanguage >= 0)
                 {
-                    var i = contents.FindIndex(setToLanguage, s => s.StartsWith("Language"));
-                    if (i > setToLanguage)
-                        contents[i] = $"Language={language}";
+                    var categoryIndex = contents.FindIndex(s => s.ToLower().Contains("[General]".ToLower()));
+                    if (categoryIndex >= 0)
+                    {
+                        var i = contents.FindIndex(categoryIndex, s => s.StartsWith("Language"));
+                        if (i > categoryIndex)
+                            contents[i] = $"Language={language}";
+                        else
+                            contents.Insert(categoryIndex + 1, $"Language={language}");
+                    }
                     else
-                        contents.Insert(setToLanguage + 1, $"Language={language}");
-                }
-                else
-                {
-                    contents.Add("");
-                    contents.Add("[General]");
-                    contents.Add($"Language={language}");
+                    {
+                        contents.Add("");
+                        contents.Add("[General]");
+                        contents.Add($"Language={language}");
+                    }
                 }
 
+                {
+                    var categoryIndex = contents.FindIndex(s => s.ToLower().Contains("[Service]".ToLower()));
+                    if (categoryIndex >= 0)
+                    {
+                        var i = contents.FindIndex(categoryIndex, s => s.StartsWith("Endpoint"));
+                        if (i > categoryIndex)
+                            contents[i] = disable ? "Endpoint=" : "Endpoint=GoogleTranslate";
+                        else
+                            contents.Insert(categoryIndex + 1, disable ? "Endpoint=" : "Endpoint=GoogleTranslate");
+                    }
+                    else
+                    {
+                        contents.Add("");
+                        contents.Add("[Service]");
+                        contents.Add(disable ? "Endpoint=" : "Endpoint=GoogleTranslate");
+                    }
+                }
+
+                Directory.CreateDirectory(Path.GetDirectoryName(configPath));
                 File.WriteAllLines(configPath, contents.ToArray());
             }
             catch (Exception e)
             {
-                MessageBox.Show("Something went wrong: " + e);
+                MessageBox.Show("Something went wrong when writing AutoTranslator config file: " + e);
             }
         }
 
@@ -194,22 +230,16 @@ namespace InitSetting
 
         public static void Initialize()
         {
-            var currentDirectory = Path.GetDirectoryName(typeof(MainWindow).Assembly.Location) ??
-                                   Environment.CurrentDirectory;
-            GameRootDirectory = currentDirectory + "\\";
-
-            Directory.CreateDirectory(GameRootDirectory + _mCustomDir);
-
-            BepinPluginsDir = $"{GameRootDirectory}\\BepInEx\\Plugins\\";
-
             // Framework test
             IsIpa = File.Exists($"{GameRootDirectory}\\IPA.exe");
             IsBepIn = Directory.Exists($"{GameRootDirectory}\\BepInEx");
 
             if (IsIpa && IsBepIn)
+            {
                 MessageBox.Show(
-                    "Both BepInEx and IPA is detected in the game folder!\n\nApplying both frameworks may lead to problems when running the game!",
+                    "Both BepInEx and IPA is detected in the game folder!\n\nApplying both frameworks may lead to problems when running the game. Consider uninstalling IPA and using the BepInEx.IPALoader plugin to run your IPA plugins instead.",
                     "Warning!");
+            }
 
 
             // Updater stuffs
@@ -243,20 +273,6 @@ namespace InitSetting
                 {
                     _updateSources = "";
                 }
-            }
-
-            _langExists = File.Exists(GameRootDirectory + _mCustomDir + _decideLang);
-            if (_langExists)
-            {
-                var verFileStream = new FileStream(GameRootDirectory + _mCustomDir + _decideLang, FileMode.Open,
-                    FileAccess.Read);
-                using (var streamReader = new StreamReader(verFileStream, Encoding.UTF8))
-                {
-                    string line;
-                    while ((line = streamReader.ReadLine()) != null) Language = line;
-                }
-
-                verFileStream.Close();
             }
 
             if (GameRootDirectory.Length >= 75)
@@ -323,31 +339,45 @@ namespace InitSetting
             }
         }
 
+        public static void InitializeDirectories()
+        {
+            var currentDirectory = Path.GetDirectoryName(typeof(MainWindow).Assembly.Location) ??
+                                   Environment.CurrentDirectory;
+            GameRootDirectory = currentDirectory + "\\";
+
+            Directory.CreateDirectory(GameRootDirectory + _mCustomDir);
+
+            BepinPluginsDir = $"{GameRootDirectory}\\BepInEx\\Plugins\\";
+        }
+
+        public static void InitializeLanguage()
+        {
+            var launcherPath = GameRootDirectory + _mCustomDir + _decideLang;
+            _langExists = File.Exists(launcherPath);
+            if (_langExists)
+            {
+                var verFileStream = new FileStream(launcherPath, FileMode.Open,
+                    FileAccess.Read);
+                using (var streamReader = new StreamReader(verFileStream, Encoding.UTF8))
+                {
+                    string line;
+                    while ((line = streamReader.ReadLine()) != null) Language = line;
+                }
+
+                verFileStream.Close();
+            }
+
+            KeyValuePair<string, string>[] languageLookup = { new KeyValuePair<string, string>("ja", "ja-JP"), new KeyValuePair<string, string>("en", "en-US"), };
+
+            var cultureStr = languageLookup.FirstOrDefault(x => x.Key.Equals(Language));
+            var culture = CultureInfo.GetCultureInfo(cultureStr.Value);
+            Thread.CurrentThread.CurrentUICulture = culture;
+            Thread.CurrentThread.CurrentCulture = culture;
+        }
+
         public static string GetConfigFilePath()
         {
             return GameRootDirectory + _mStrSaveDir;
-        }
-
-        public static void DisablePlugin(string enabledPath)
-        {
-            var disabledPath =
-                enabledPath.Substring(0, enabledPath.LastIndexOf(".dll", StringComparison.OrdinalIgnoreCase)) + ".dl_";
-            if (File.Exists(enabledPath))
-            {
-                if (File.Exists(disabledPath)) File.Delete(disabledPath);
-                File.Move(enabledPath, disabledPath);
-            }
-        }
-
-        public static void EnablePlugin(string enabledPath)
-        {
-            var disabledPath =
-                enabledPath.Substring(0, enabledPath.LastIndexOf(".dll", StringComparison.OrdinalIgnoreCase)) + ".dl_";
-            if (File.Exists(disabledPath))
-            {
-                if (File.Exists(enabledPath)) File.Delete(enabledPath);
-                File.Move(disabledPath, enabledPath);
-            }
         }
 
         public static void ShowManual(string manualRoot)
@@ -356,39 +386,62 @@ namespace InitSetting
             var manualLang = manualRoot + $"manual_{Language}.html";
             var manualJa = manualRoot + "お読み下さい.html";
 
+            Exception ex = null;
             if (File.Exists(manualLang))
             {
-                Process.Start(manualLang);
+                try { Process.Start(manualLang); }
+                catch (Exception e)
+                {
+                    ex = e;
+                }
+                return;
             }
-            else if (File.Exists(manualEn))
+            if (File.Exists(manualEn))
             {
-                Process.Start(manualEn);
+                try
+                {
+                    Process.Start(manualEn);
+                    return;
+                }
+                catch (Exception e) { ex = e; }
             }
-            else if (File.Exists(manualJa))
+            if (File.Exists(manualJa))
             {
-                Process.Start(manualJa);
+                try
+                {
+                    Process.Start(manualJa);
+                    return;
+                }
+                catch (Exception e) { ex = e; }
             }
-            else
+
+            var x = Directory.GetFiles(manualRoot, "*.html", SearchOption.TopDirectoryOnly).FirstOrDefault();
+            if (x != null)
             {
-                var x = Directory.GetFiles(manualRoot, "*.html", SearchOption.TopDirectoryOnly).FirstOrDefault();
-                if (x != null)
+                try
+                {
                     Process.Start(x);
-                else
-                    MessageBox.Show("Manual could not be found.", "Warning!");
+                    return;
+                }
+                catch (Exception e) { ex = e; }
             }
+
+            MessageBox.Show("Manual could not be found." + (ex != null ? "\n\n" + ex : ""), "Warning!");
         }
 
         public static void OpenDirectory(string subDirectory)
         {
-            var fullPath = Path.Combine(GameRootDirectory, subDirectory ?? "");
-            fullPath = Path.GetFullPath(fullPath);
-            if (Directory.Exists(fullPath))
+            try
             {
+                var fullPath = Path.Combine(GameRootDirectory, subDirectory ?? "");
+                fullPath = Path.GetFullPath(fullPath);
+                if (!Directory.Exists(fullPath)) throw new DirectoryNotFoundException("Could not find directory");
                 Process.Start("explorer.exe", fullPath);
-                return;
             }
-
-            MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Could not open the folder: {subDirectory}\n\n{ex.Message}", "Warning!");
+            }
         }
 
         public static void StartUpdate()
@@ -446,5 +499,17 @@ namespace InitSetting
         //    }
         //    MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
         //}
+        public static Process StartProcess(string execString)
+        {
+            try
+            {
+                return Process.Start(execString);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to start the command: {execString}\n\nError: {ex}");
+                return null;
+            }
+        }
     }
 }

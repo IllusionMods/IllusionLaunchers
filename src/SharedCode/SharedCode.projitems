@@ -17,7 +17,19 @@
     <Compile Include="$(MSBuildThisFileDirectory)DisplayDeviceStateFlags.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DISPLAY_DEVICE.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EnvironmentHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Localizable.Designer.cs">
+      <DependentUpon>Localizable.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)POINTL.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SettingManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.ja.resx" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.resx">
+      <LastGenOutput>Localizable.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
