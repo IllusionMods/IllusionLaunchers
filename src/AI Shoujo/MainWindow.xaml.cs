@@ -19,7 +19,7 @@ namespace InitSetting
         private const string MStrStudioExe = "StudioNEOV2.exe";
 
         // launcher and xua language code
-        private static readonly string[] _builtinLanguages = { "ja" };
+        private static readonly string[] _builtinLanguages = { "ja-JP" };
 
         private readonly string _qPerformance;
         private readonly string _qNormal;
@@ -247,15 +247,15 @@ namespace InitSetting
             };
         }
 
-        private void LangEnglish(object sender, MouseButtonEventArgs e) => PartyFilter("en");
-        private void LangJapanese(object sender, MouseButtonEventArgs e) => PartyFilter("ja");
+        private void LangEnglish(object sender, MouseButtonEventArgs e) => PartyFilter("en-US");
+        private void LangJapanese(object sender, MouseButtonEventArgs e) => PartyFilter("ja-JP");
         private void LangChinese(object sender, MouseButtonEventArgs e) => PartyFilter("zh-CN");
-        private void LangKorean(object sender, MouseButtonEventArgs e) => PartyFilter("ko");
-        private void LangSpanish(object sender, MouseButtonEventArgs e) => PartyFilter("es");
-        private void LangBrazil(object sender, MouseButtonEventArgs e) => PartyFilter("pt");
-        private void LangFrench(object sender, MouseButtonEventArgs e) => PartyFilter("fr");
-        private void LangGerman(object sender, MouseButtonEventArgs e) => PartyFilter("de");
-        private void LangNorwegian(object sender, MouseButtonEventArgs e) => PartyFilter("no");
+        private void LangKorean(object sender, MouseButtonEventArgs e) => PartyFilter("ko-KR");
+        private void LangSpanish(object sender, MouseButtonEventArgs e) => PartyFilter("es-ES");
+        private void LangBrazil(object sender, MouseButtonEventArgs e) => PartyFilter("pt-PT");
+        private void LangFrench(object sender, MouseButtonEventArgs e) => PartyFilter("fr-FR");
+        private void LangGerman(object sender, MouseButtonEventArgs e) => PartyFilter("de-DE");
+        private void LangNorwegian(object sender, MouseButtonEventArgs e) => PartyFilter("no-NB");
 
         private void PartyFilter(string language)
         {

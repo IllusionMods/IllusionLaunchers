@@ -26,10 +26,18 @@
     <Compile Include="$(MSBuildThisFileDirectory)SettingManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.de.resx" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.es.resx" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.fr.resx" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.ja.resx" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.ko.resx" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.no.resx" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.pt.resx" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.resx">
       <LastGenOutput>Localizable.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.zh-Hans.resx" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.zh-Hant.resx" />
   </ItemGroup>
 </Project>

@@ -31,7 +31,7 @@ namespace InitSetting
         private static string _kkman;
         private static string _updateSources = "placeholder";
 
-        public static string Language { get; private set; } = "en";
+        public static CultureInfo Language { get; private set; }
 
         public static bool KKmanExist { get; private set; }
         public static bool IsIpa { get; private set; }
@@ -44,6 +44,7 @@ namespace InitSetting
 
         public static string BepinPluginsDir { get; private set; }
         public static string GameRootDirectory { get; private set; }
+
 
         public static bool? DeveloperModeEnabled
         {
@@ -167,7 +168,9 @@ namespace InitSetting
         {
             var configPath = Path.Combine(GameRootDirectory, @"BepInEx/Config/AutoTranslatorConfig.ini");
 
-            var disable = language.Equals("jp", StringComparison.OrdinalIgnoreCase);
+            var disable = language.Equals("jp-JP", StringComparison.OrdinalIgnoreCase);
+
+            language = language.Split('-')[0];
 
             try
             {
@@ -363,23 +366,14 @@ namespace InitSetting
             _langExists = File.Exists(launcherPath);
             if (_langExists)
             {
-                var verFileStream = new FileStream(launcherPath, FileMode.Open,
-                    FileAccess.Read);
-                using (var streamReader = new StreamReader(verFileStream, Encoding.UTF8))
-                {
-                    string line;
-                    while ((line = streamReader.ReadLine()) != null) Language = line;
-                }
+                try { Language = CultureInfo.GetCultureInfo(File.ReadAllLines(launcherPath)[0]); }
+                catch { }
 
-                verFileStream.Close();
             }
 
-            KeyValuePair<string, string>[] languageLookup = { new KeyValuePair<string, string>("ja", "ja-JP"), new KeyValuePair<string, string>("en", "en-US"), };
-
-            var cultureStr = languageLookup.FirstOrDefault(x => x.Key.Equals(Language));
-            var culture = CultureInfo.GetCultureInfo(cultureStr.Value);
-            Thread.CurrentThread.CurrentUICulture = culture;
-            Thread.CurrentThread.CurrentCulture = culture;
+            if (Language == null) Language = CultureInfo.GetCultureInfo("en-US");
+            Thread.CurrentThread.CurrentUICulture = Language;
+            Thread.CurrentThread.CurrentCulture = Language;
         }
 
         public static string GetConfigFilePath()
