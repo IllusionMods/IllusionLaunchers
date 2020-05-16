@@ -207,4 +207,7 @@
   <data name="toggleHoneyPot" xml:space="preserve">
     <value>HoneyPot 활성화</value>
   </data>
+  <data name="FolderHouses" xml:space="preserve">
+    <value>하우징 폴더</value>
+  </data>
 </root>

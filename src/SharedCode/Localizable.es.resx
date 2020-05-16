@@ -208,4 +208,7 @@ HoneyPot Inspector</value>
   <data name="toggleHoneyPot" xml:space="preserve">
     <value>Activar HoneyPot</value>
   </data>
+  <data name="FolderHouses" xml:space="preserve">
+    <value>Casas</value>
+  </data>
 </root>

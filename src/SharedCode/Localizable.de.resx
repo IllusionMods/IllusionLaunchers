@@ -118,96 +118,96 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="StartGame" xml:space="preserve">
-    <value>开始游戏</value>
+    <value>Starte Spiel</value>
   </data>
   <data name="StartStudio" xml:space="preserve">
-    <value>开始工作室</value>
+    <value>Starte Studio</value>
   </data>
   <data name="ManualStudio" xml:space="preserve">
-    <value>工作室手册</value>
+    <value>Studio Bedienungsanleitung</value>
   </data>
   <data name="ManualGame" xml:space="preserve">
-    <value>游戏手册</value>
+    <value>Spiel Bedienungsanleitung</value>
   </data>
   <data name="ToggleFullscreen" xml:space="preserve">
-    <value>全屏执行</value>
+    <value>Starte Spiel in Vollbildmodus</value>
   </data>
   <data name="ToggleConsole" xml:space="preserve">
-    <value>激活控制台</value>
+    <value>Konsole umschalten</value>
   </data>
   <data name="ToggleDhh" xml:space="preserve">
-    <value>激活DHH</value>
+    <value>DHH umschalten</value>
   </data>
   <data name="ToggleAiGraphics" xml:space="preserve">
-    <value>激活AI Graphics</value>
+    <value>AI Graphics umschalten</value>
   </data>
   <data name="FolderInstall" xml:space="preserve">
-    <value>游戏主目录</value>
+    <value>Installieren</value>
   </data>
   <data name="FolderScenes" xml:space="preserve">
-    <value>工作室场景</value>
+    <value>Scenen</value>
   </data>
   <data name="FolderScreenshots" xml:space="preserve">
-    <value>截图</value>
+    <value>ScreenShots</value>
   </data>
   <data name="FolderFemaleCard" xml:space="preserve">
-    <value>人物卡 (女)</value>
+    <value>Charakter Karten (F)</value>
   </data>
   <data name="FolderMaleCard" xml:space="preserve">
-    <value>人物卡 (男)</value>
+    <value>Charakter Karten (M)</value>
   </data>
   <data name="FolderUserData" xml:space="preserve">
     <value>UserData</value>
   </data>
   <data name="ButtonUpdate" xml:space="preserve">
-    <value>更新游戏</value>
+    <value>Aktualisieren</value>
   </data>
   <data name="ButtonPatreon" xml:space="preserve">
-    <value>前往Patreon</value>
+    <value>Besuche die Patreon</value>
   </data>
   <data name="ButtonDiscord" xml:space="preserve">
-    <value>前往Discord</value>
+    <value>Besuche die Discord</value>
   </data>
   <data name="Distribution" xml:space="preserve">
-    <value>未知版本</value>
+    <value>Unbekannte Installationsmethode</value>
   </data>
   <data name="Disclaimer" xml:space="preserve">
-    <value>此游戏适用于成人用户，任何未满18岁的人（或根据当地法律规定的同等人）都不得遊玩或拥有此游戏。
+    <value>Dieses Spiel ist ausschließlich für erwachsenes Publikum vorgesehen. Niemand unter 18 Jahren ( Oder entsprechend deiner örtlichen Gesetze ) ist vorgesehen dieses Spiel zu spielen, oder es zu besitzen.
 
-这个游戏包含性相关的内容，某些行为在现实生活中可能是非法的。所以，游戏中的所有乐趣请保留在游戏中，让我们保持这种方式吧? (~.~)v</value>
+Dieses Spiel enthällt sexuelle Inhalte welche bei Ausführung im realen Leben strafbar sein könnten. Dinge die im Spiel geschehen sollten also auch im Spiel bleiben in Ordnung? (~.~)v</value>
   </data>
   <data name="TranslatedByCredit" xml:space="preserve">
-    <value>翻译： Madevil &amp; Earthship</value>
+    <value>Übersetzt von: &lt;HyD&gt;</value>
     <comment>Launcher translated by: Name (leave empty to hide)</comment>
   </data>
   <data name="QualityPerformance" xml:space="preserve">
-    <value>性能</value>
+    <value>Leistung</value>
   </data>
   <data name="QualityNormal" xml:space="preserve">
-    <value>标准</value>
+    <value>Normal</value>
   </data>
   <data name="QualityQuality" xml:space="preserve">
-    <value>高画质</value>
+    <value>Qualität</value>
   </data>
   <data name="PrimaryDisplay" xml:space="preserve">
-    <value>主显示器</value>
+    <value>Primär Bildschirm</value>
   </data>
   <data name="SubDisplay" xml:space="preserve">
-    <value>次显示器</value>
+    <value>Neben Bildschrim</value>
   </data>
   <data name="StartVR" xml:space="preserve">
-    <value>开始VR</value>
+    <value>Starte VR</value>
   </data>
   <data name="ManualVR" xml:space="preserve">
-    <value>VR手册</value>
-  </data>
-  <data name="AppHPInspector" xml:space="preserve">
-    <value>运行 HoneyPot Inspector</value>
+    <value>VR Bedienungsanleitung</value>
   </data>
   <data name="toggleHoneyPot" xml:space="preserve">
-    <value>激活 HoneyPot</value>
+    <value>HoneyPot umschalten</value>
   </data>
   <data name="FolderHouses" xml:space="preserve">
-    <value>房子</value>
+    <value>Häuser</value>
+  </data>
+  <data name="AppHPInspector" xml:space="preserve">
+    <value>HoneyPot Inspector starten</value>
   </data>
 </root>
