@@ -220,12 +220,19 @@ namespace InitSetting
 
         public static void CheckDuplicateStartup()
         {
-            var process = Process.GetCurrentProcess();
-            var dupl = Process.GetProcessesByName(process.ProcessName);
-            if (true)
-                foreach (var p in dupl)
-                    if (p.Id != process.Id)
-                        p.Kill();
+            try
+            {
+                var process = Process.GetCurrentProcess();
+                var dupl = Process.GetProcessesByName(process.ProcessName);
+                if (true)
+                    foreach (var p in dupl)
+                        if (p.Id != process.Id)
+                            p.Kill();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("{0} Exception occurred:", e);
+            }
         }
 
         public static void Initialize()
