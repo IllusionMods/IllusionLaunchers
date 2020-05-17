@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Resources;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
-using MessageBox = System.Windows.Forms.MessageBox;
 using System.Windows.Input;
 using System.Windows.Media;
+using Application = System.Windows.Application;
 using CheckBox = System.Windows.Controls.CheckBox;
+using MessageBox = System.Windows.Forms.MessageBox;
 using Orientation = System.Windows.Controls.Orientation;
 
 namespace InitSetting
@@ -24,20 +22,20 @@ namespace InitSetting
         private const string MStrStudioExe = "StudioNEOV2.exe";
 
         // launcher and xua language code
-        private static readonly string[] _builtinLanguages = { "ja-JP" };
+        private static readonly string[] _builtinLanguages = {"ja-JP"};
+        private readonly bool _isDuringStartup;
+        private readonly bool _isMainGame;
+        private readonly bool _isStudio;
+        private readonly string[] _qLevelNames;
+        private readonly string _qNormal;
 
         private readonly string _qPerformance;
-        private readonly string _qNormal;
         private readonly string _qQuality;
-        private readonly string[] _qLevelNames;
+
+        private readonly SettingManager _settingManager;
 
         private readonly string _sPrimarydisplay;
         private readonly string _sSubdisplay;
-
-        private readonly SettingManager _settingManager;
-        private readonly bool _isStudio;
-        private readonly bool _isMainGame;
-        private readonly bool _isDuringStartup;
 
         public MainWindow()
         {
@@ -51,11 +49,11 @@ namespace InitSetting
                 _qPerformance = Localizable.QualityPerformance;
                 _qNormal = Localizable.QualityNormal;
                 _qQuality = Localizable.QualityQuality;
-                _qLevelNames = new[] { _qPerformance, _qNormal, _qQuality };
+                _qLevelNames = new[] {_qPerformance, _qNormal, _qQuality};
                 _sPrimarydisplay = Localizable.PrimaryDisplay;
                 _sSubdisplay = Localizable.SubDisplay;
 
-                if (string.IsNullOrEmpty((string)labelTranslated.Content))
+                if (string.IsNullOrEmpty((string) labelTranslated.Content))
                 {
                     labelTranslated.Visibility = Visibility.Hidden;
                     labelTranslatedBorder.Visibility = Visibility.Hidden;
@@ -88,32 +86,14 @@ namespace InitSetting
                         break;
                 }
 
-                foreach (var newItem2 in _qLevelNames)
-                {
-                    dropQual.Items.Add(newItem2);
-                }
+                foreach (var newItem2 in _qLevelNames) dropQual.Items.Add(newItem2);
 
-                // Mod settings
-                GeneratePluginToggles();
-                SetupPluginToggle(toggleDHH, "DHH_AI4", b =>
-                {
-                    if (b)
-                    {
-                        toggleAIGraphics.IsChecked = false;
-                    }
-                });
-                SetupPluginToggle(toggleAIGraphics, "AI_Graphics", b =>
-                {
-                    if (b)
-                    {
-                        MessageBox.Show("Press F5 ingame for menu.", "Information");
-                        toggleDHH.IsChecked = false;
-                    }
-                });
 
                 _isDuringStartup = false;
 
                 SetupUiLanguage();
+
+                GeneratePluginToggles();
 
                 // Launcher Customization: Defining Warning, background and character
 
@@ -149,7 +129,7 @@ namespace InitSetting
                 {
                     for (var i = 0; i < num; i++)
                     {
-                        var newItem = i == 0 ? _sPrimarydisplay : ($"{_sSubdisplay} : " + i);
+                        var newItem = i == 0 ? _sPrimarydisplay : $"{_sSubdisplay} : " + i;
                         dropDisplay.Items.Add(newItem);
                     }
                 }
@@ -167,11 +147,8 @@ namespace InitSetting
         {
             var innerStack = new StackPanel
             {
-                Orientation = Orientation.Vertical,
+                Orientation = Orientation.Vertical
             };
-            IList<string> BoxList = new List<string>();
-            BoxList.Add("test1");
-            BoxList.Add("test2");
 
             toggleFullscreen.Margin = new Thickness(0, 0, 0, 0);
             ToggleBox.Children.Remove(toggleFullscreen);
@@ -181,12 +158,18 @@ namespace InitSetting
             ToggleBox.Children.Remove(toggleConsole);
             innerStack.Children.Add(toggleConsole);
 
-            foreach (string c in BoxList)
+            ToggleablesMan.SetupModList();
+
+            foreach (var c in ToggleablesMan.Modlist)
             {
-                CheckBox cb = new CheckBox();
-                cb.Name = c;
-                cb.Content = c;
+                var cb = new CheckBox();
+
+                cb.Name = c.CodeName;
+                cb.Content = c.ModName;
                 cb.Foreground = Brushes.White;
+
+                SetupPluginToggle(cb, c.PluginDLL, c.OnAction, c.IsIPA);
+
                 innerStack.Children.Add(cb);
             }
 
@@ -204,14 +187,13 @@ namespace InitSetting
                 {
                     _settingManager.LoadSettings(configFilePath);
 
-                    _settingManager.CurrentSettings.Display = Math.Min(_settingManager.CurrentSettings.Display, num - 1);
+                    _settingManager.CurrentSettings.Display =
+                        Math.Min(_settingManager.CurrentSettings.Display, num - 1);
                     SetDisplayComboBox(_settingManager.CurrentSettings.FullScreen);
                     var flag = false;
                     foreach (var resItem in dropRes.Items)
-                    {
                         if (resItem.ToString() == _settingManager.CurrentSettings.Size)
                             flag = true;
-                    }
 
                     dropRes.Text = flag ? _settingManager.CurrentSettings.Size : "1280 x 720 (16 : 9)";
                     toggleFullscreen.IsChecked = _settingManager.CurrentSettings.FullScreen;
@@ -222,16 +204,16 @@ namespace InitSetting
 
                     // todo ?? is this necessary?
                     if (num == 2)
-                    {
                         text = new[]
                         {
                             _sPrimarydisplay,
                             $"{_sSubdisplay} : 1"
                         }[_settingManager.CurrentSettings.Display];
-                    }
 
                     if (dropDisplay.Items.Contains(text))
+                    {
                         dropDisplay.Text = text;
+                    }
                     else
                     {
                         dropDisplay.Text = _sPrimarydisplay;
@@ -254,10 +236,20 @@ namespace InitSetting
             }
         }
 
-        private void SetupPluginToggle(CheckBox toggle, string pluginName, Action<bool> onSetEnabled)
+        private void SetupPluginToggle(CheckBox toggle, string pluginName, Action<bool> onSetEnabled, bool IsIPA)
         {
-            var pluginFile = Directory.Exists(EnvironmentHelper.BepinPluginsDir) ? Directory.GetFiles(EnvironmentHelper.BepinPluginsDir, pluginName + ".dl*", SearchOption.AllDirectories)
-                .FirstOrDefault() : null;
+            var pluginFile = "";
+
+            if (!IsIPA)
+                pluginFile = Directory.Exists(EnvironmentHelper.BepinPluginsDir)
+                    ? Directory.GetFiles(EnvironmentHelper.BepinPluginsDir, pluginName + ".dl*",
+                        SearchOption.AllDirectories).FirstOrDefault()
+                    : null;
+            else
+                pluginFile = Directory.Exists(EnvironmentHelper.IPAPluginsDir)
+                    ? Directory.GetFiles(EnvironmentHelper.IPAPluginsDir, pluginName + ".dl*",
+                        SearchOption.AllDirectories).FirstOrDefault()
+                    : null;
 
             if (pluginFile == null)
             {
@@ -265,33 +257,68 @@ namespace InitSetting
                 toggle.Visibility = Visibility.Collapsed;
                 return;
             }
+
             var f = new FileInfo(pluginFile);
+            var name = pluginFile.Substring(0, f.FullName.Length - f.Extension.Length + 1);
 
-            var enabled = string.Equals(f.Extension, ".dll", StringComparison.OrdinalIgnoreCase);
-
-            toggle.IsEnabled = enabled;
+            toggle.IsChecked = f.Extension == ".dll";
 
             toggle.Checked += (sender, args) =>
             {
                 onSetEnabled?.Invoke(true);
-                f.MoveTo(Path.Combine(f.FullName, pluginFile + ".dll"));
+                f.MoveTo(Path.Combine(f.FullName, name + ".dll"));
             };
             toggle.Unchecked += (sender, args) =>
             {
                 onSetEnabled?.Invoke(false);
-                f.MoveTo(Path.Combine(f.FullName, pluginFile + ".dl_"));
+                f.MoveTo(Path.Combine(f.FullName, name + ".dl_"));
             };
         }
 
-        private void LangEnglish(object sender, MouseButtonEventArgs e) => PartyFilter("en-US");
-        private void LangJapanese(object sender, MouseButtonEventArgs e) => PartyFilter("ja-JP");
-        private void LangChinese(object sender, MouseButtonEventArgs e) => PartyFilter("zh-CN");
-        private void LangKorean(object sender, MouseButtonEventArgs e) => PartyFilter("ko-KR");
-        private void LangSpanish(object sender, MouseButtonEventArgs e) => PartyFilter("es-ES");
-        private void LangBrazil(object sender, MouseButtonEventArgs e) => PartyFilter("pt-PT");
-        private void LangFrench(object sender, MouseButtonEventArgs e) => PartyFilter("fr-FR");
-        private void LangGerman(object sender, MouseButtonEventArgs e) => PartyFilter("de-DE");
-        private void LangNorwegian(object sender, MouseButtonEventArgs e) => PartyFilter("no-NB");
+        private void LangEnglish(object sender, MouseButtonEventArgs e)
+        {
+            PartyFilter("en-US");
+        }
+
+        private void LangJapanese(object sender, MouseButtonEventArgs e)
+        {
+            PartyFilter("ja-JP");
+        }
+
+        private void LangChinese(object sender, MouseButtonEventArgs e)
+        {
+            PartyFilter("zh-CN");
+        }
+
+        private void LangKorean(object sender, MouseButtonEventArgs e)
+        {
+            PartyFilter("ko-KR");
+        }
+
+        private void LangSpanish(object sender, MouseButtonEventArgs e)
+        {
+            PartyFilter("es-ES");
+        }
+
+        private void LangBrazil(object sender, MouseButtonEventArgs e)
+        {
+            PartyFilter("pt-PT");
+        }
+
+        private void LangFrench(object sender, MouseButtonEventArgs e)
+        {
+            PartyFilter("fr-FR");
+        }
+
+        private void LangGerman(object sender, MouseButtonEventArgs e)
+        {
+            PartyFilter("de-DE");
+        }
+
+        private void LangNorwegian(object sender, MouseButtonEventArgs e)
+        {
+            PartyFilter("no-NB");
+        }
 
         private void PartyFilter(string language)
         {
@@ -308,20 +335,27 @@ namespace InitSetting
             EnvironmentHelper.StartGame(strExe);
         }
 
-        private void buttonStart_Click(object sender, RoutedEventArgs e) => StartGame(MStrGameExe);
-        private void buttonStartS_Click(object sender, RoutedEventArgs e) => StartGame(MStrStudioExe);
+        private void buttonStart_Click(object sender, RoutedEventArgs e)
+        {
+            StartGame(MStrGameExe);
+        }
+
+        private void buttonStartS_Click(object sender, RoutedEventArgs e)
+        {
+            StartGame(MStrStudioExe);
+        }
 
         private void buttonClose_Click(object sender, RoutedEventArgs e)
         {
             _settingManager.SaveConfigFile(EnvironmentHelper.GetConfigFilePath());
-            System.Windows.Application.Current.MainWindow?.Close();
+            Application.Current.MainWindow?.Close();
         }
 
         private void Resolution_Change(object sender, SelectionChangedEventArgs e)
         {
             if (-1 == dropRes.SelectedIndex) return;
 
-            var comboBoxCustomItem = (ComboBoxCustomItem)dropRes.SelectedItem;
+            var comboBoxCustomItem = (ComboBoxCustomItem) dropRes.SelectedItem;
             _settingManager.CurrentSettings.Size = comboBoxCustomItem.text;
             _settingManager.CurrentSettings.Width = comboBoxCustomItem.width;
             _settingManager.CurrentSettings.Height = comboBoxCustomItem.height;
@@ -335,15 +369,14 @@ namespace InitSetting
                 _settingManager.CurrentSettings.Quality = 0;
                 return;
             }
+
             if (a == _qNormal)
             {
                 _settingManager.CurrentSettings.Quality = 1;
                 return;
             }
-            if (a != _qQuality)
-            {
-                return;
-            }
+
+            if (a != _qQuality) return;
 
             _settingManager.CurrentSettings.Quality = 2;
         }
@@ -363,16 +396,24 @@ namespace InitSetting
             dropRes.Text = _settingManager.CurrentSettings.Size;
         }
 
-        private void buttonManual_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\");
-        private void buttonManualS_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_s\\");
-        private void buttonManualV_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_vr\\");
+        private void buttonManual_Click(object sender, RoutedEventArgs e)
+        {
+            EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\");
+        }
+
+        private void buttonManualS_Click(object sender, RoutedEventArgs e)
+        {
+            EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_s\\");
+        }
+
+        private void buttonManualV_Click(object sender, RoutedEventArgs e)
+        {
+            EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_vr\\");
+        }
 
         private void Display_Change(object sender, SelectionChangedEventArgs e)
         {
-            if (-1 == dropDisplay.SelectedIndex)
-            {
-                return;
-            }
+            if (-1 == dropDisplay.SelectedIndex) return;
 
             _settingManager.CurrentSettings.Display = dropDisplay.SelectedIndex;
             if (_settingManager.CurrentSettings.FullScreen)
@@ -394,7 +435,9 @@ namespace InitSetting
         {
             dropRes.Items.Clear();
             var nDisplay = _settingManager.CurrentSettings.Display;
-            foreach (var displayMode in (bFullScreen ? _settingManager.GetDisplayModes(nDisplay).list : _settingManager.DefaultSettingList))
+            foreach (var displayMode in bFullScreen
+                ? _settingManager.GetDisplayModes(nDisplay).list
+                : _settingManager.DefaultSettingList)
             {
                 var newItem = new ComboBoxCustomItem
                 {
@@ -406,23 +449,50 @@ namespace InitSetting
             }
         }
 
-        private void buttonInst_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.OpenDirectory("");
+        private void buttonInst_Click(object sender, RoutedEventArgs e)
+        {
+            EnvironmentHelper.OpenDirectory("");
+        }
 
-        private void buttonScenes_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.OpenDirectory("UserData\\Studio\\scene");
+        private void buttonScenes_Click(object sender, RoutedEventArgs e)
+        {
+            EnvironmentHelper.OpenDirectory("UserData\\Studio\\scene");
+        }
 
-        private void buttonUserData_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.OpenDirectory("UserData");
+        private void buttonUserData_Click(object sender, RoutedEventArgs e)
+        {
+            EnvironmentHelper.OpenDirectory("UserData");
+        }
 
-        private void buttonHousing_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.OpenDirectory("UserData\\housing");
+        private void buttonHousing_Click(object sender, RoutedEventArgs e)
+        {
+            EnvironmentHelper.OpenDirectory("UserData\\housing");
+        }
 
-        private void buttonScreenshot_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.OpenDirectory("UserData\\cap");
+        private void buttonScreenshot_Click(object sender, RoutedEventArgs e)
+        {
+            EnvironmentHelper.OpenDirectory("UserData\\cap");
+        }
 
-        private void buttonFemaleCard_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.OpenDirectory("UserData\\chara\\female");
+        private void buttonFemaleCard_Click(object sender, RoutedEventArgs e)
+        {
+            EnvironmentHelper.OpenDirectory("UserData\\chara\\female");
+        }
 
-        private void buttonMaleCard_Click(object sender, RoutedEventArgs e) => EnvironmentHelper.OpenDirectory("UserData\\chara\\male");
+        private void buttonMaleCard_Click(object sender, RoutedEventArgs e)
+        {
+            EnvironmentHelper.OpenDirectory("UserData\\chara\\male");
+        }
 
-        private void discord_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) => EnvironmentHelper.StartProcess("https://discord.gg/F3bDEFE");
+        private void discord_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            EnvironmentHelper.StartProcess("https://discord.gg/F3bDEFE");
+        }
 
-        private void patreon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) => EnvironmentHelper.StartProcess(EnvironmentHelper.PatreonUrl);
+        private void patreon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            EnvironmentHelper.StartProcess(EnvironmentHelper.PatreonUrl);
+        }
 
         private void update_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -435,18 +505,12 @@ namespace InitSetting
 
         private void modeDev_Checked(object sender, RoutedEventArgs e)
         {
-            if (!_isDuringStartup)
-            {
-                EnvironmentHelper.DeveloperModeEnabled = true;
-            }
+            if (!_isDuringStartup) EnvironmentHelper.DeveloperModeEnabled = true;
         }
 
         private void modeDev_Unchecked(object sender, RoutedEventArgs e)
         {
-            if (!_isDuringStartup)
-            {
-                EnvironmentHelper.DeveloperModeEnabled = false;
-            }
+            if (!_isDuringStartup) EnvironmentHelper.DeveloperModeEnabled = false;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

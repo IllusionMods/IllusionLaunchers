@@ -43,6 +43,7 @@ namespace InitSetting
         public static BitmapFrame CustomCharacterImage { get; private set; }
 
         public static string BepinPluginsDir { get; private set; }
+        public static string IPAPluginsDir { get; private set; }
         public static string GameRootDirectory { get; private set; }
 
 
@@ -358,6 +359,7 @@ namespace InitSetting
             Directory.CreateDirectory(GameRootDirectory + _mCustomDir);
 
             BepinPluginsDir = $"{GameRootDirectory}\\BepInEx\\Plugins\\";
+            IPAPluginsDir = $"{GameRootDirectory}\\Plugins\\";
         }
 
         public static void InitializeLanguage()

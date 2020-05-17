@@ -24,6 +24,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)POINTL.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SettingManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ToggleAdder.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.de.resx" />

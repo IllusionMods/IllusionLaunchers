@@ -204,15 +204,11 @@
             </Border>
 
             <CheckBox x:Name="toggleFullscreen" Content="{x:Static local:Localizable.ToggleFullscreen}"
-                      Foreground="White" Margin="58.667,135,29.333,340"
+                      Foreground="White" Margin="58.667,231,29.333,244"
                       Checked="WindowChecked" Unchecked="WindowUnChecked" />
             <CheckBox x:Name="toggleConsole" Content="{x:Static local:Localizable.ToggleConsole}" Foreground="White"
                       VerticalContentAlignment="Center" Margin="58.667,247,29.333,228" Checked="modeDev_Checked"
                       Unchecked="modeDev_Unchecked" />
-            <CheckBox x:Name="toggleDHH" Content="{x:Static local:Localizable.ToggleDhh}" Foreground="White"
-                      VerticalContentAlignment="Center" Margin="58.667,263,29.333,212" />
-            <CheckBox x:Name="toggleAIGraphics" Content="{x:Static local:Localizable.ToggleAiGraphics}"
-                      Foreground="White" VerticalContentAlignment="Center" Margin="58.667,279,29.333,196" />
         </Grid>
         <Grid HorizontalAlignment="Left" Height="491" Margin="576,107,0,0" VerticalAlignment="Top" Width="322"
               Grid.RowSpan="2">
