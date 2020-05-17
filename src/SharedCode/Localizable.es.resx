@@ -205,10 +205,22 @@ Este juego contiene escenas de carácter sexual, y algunas de las acciones repre
     <value>Ejecutar la
 HoneyPot Inspector</value>
   </data>
-  <data name="toggleHoneyPot" xml:space="preserve">
-    <value>Activar HoneyPot</value>
-  </data>
   <data name="FolderHouses" xml:space="preserve">
     <value>Casas</value>
+  </data>
+  <data name="ToggleStiletto" xml:space="preserve">
+    <value>Activar Stiletto</value>
+  </data>
+  <data name="ToggleHoneyPot" xml:space="preserve">
+    <value>Activar HoneyPot</value>
+  </data>
+  <data name="ToggleRimRemover" xml:space="preserve">
+    <value>Activar RimRemover</value>
+  </data>
+  <data name="ToggleVRMod" xml:space="preserve">
+    <value>Activar VRMod</value>
+  </data>
+  <data name="ToggleBonemod" xml:space="preserve">
+    <value>Activar Bonemod</value>
   </data>
 </root>

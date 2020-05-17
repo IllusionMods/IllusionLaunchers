@@ -173,25 +173,25 @@
                Width="255" Source="Images/Chara.png" Grid.RowSpan="2" />
 
         <Border BorderBrush="#FF366EBF" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left"
-                Height="276" Margin="-41,48,0,0" VerticalAlignment="Top" Width="84" CornerRadius="3" />
-        <Image x:Name="flagEN" HorizontalAlignment="Left" Height="22" Margin="10,60,0,0" VerticalAlignment="Top"
+                Height="276" Margin="-41,137,0,0" VerticalAlignment="Top" Width="84" CornerRadius="3" Grid.RowSpan="2" />
+        <Image x:Name="flagEN" HorizontalAlignment="Left" Height="22" Margin="10,149,0,0" VerticalAlignment="Top"
                Width="22" Source="Images/Flags/united-kingdom.png" MouseLeftButtonDown="LangEnglish" />
-        <Image x:Name="flagJA" HorizontalAlignment="Left" Height="24" Margin="10,88,0,0" VerticalAlignment="Top"
+        <Image x:Name="flagJA" HorizontalAlignment="Left" Height="24" Margin="10,177,0,0" VerticalAlignment="Top"
                Width="22" Source="Images/Flags/japan.png" MouseLeftButtonDown="LangJapanese" />
-        <Image x:Name="flagCH" HorizontalAlignment="Left" Height="22" Margin="10,118,0,0" VerticalAlignment="Top"
+        <Image x:Name="flagCH" HorizontalAlignment="Left" Height="22" Margin="10,207,0,0" VerticalAlignment="Top"
                Width="22" Source="Images/Flags/china.png" MouseLeftButtonDown="LangChinese" />
-        <Image x:Name="flagKO" HorizontalAlignment="Left" Height="24" Margin="10,146,0,0" VerticalAlignment="Top"
+        <Image x:Name="flagKO" HorizontalAlignment="Left" Height="24" Margin="10,235,0,0" VerticalAlignment="Top"
                Width="22" Source="Images/Flags/south-korea.png" MouseLeftButtonDown="LangKorean" />
-        <Image x:Name="flagSP" HorizontalAlignment="Left" Height="24" Margin="10,176,0,0" VerticalAlignment="Top"
+        <Image x:Name="flagSP" HorizontalAlignment="Left" Height="24" Margin="10,265,0,0" VerticalAlignment="Top"
                Width="22" Source="Images/Flags/spain.png" MouseLeftButtonDown="LangSpanish" />
-        <Image x:Name="flagBR" HorizontalAlignment="Left" Height="24" Margin="10,204,0,0" VerticalAlignment="Top"
+        <Image x:Name="flagBR" HorizontalAlignment="Left" Height="24" Margin="10,293,0,0" VerticalAlignment="Top"
                Width="22" Source="Images/Flags/brazil.png" MouseLeftButtonDown="LangBrazil" />
-        <Image x:Name="flagFR" HorizontalAlignment="Left" Height="24" Margin="10,234,0,0" VerticalAlignment="Top"
+        <Image x:Name="flagFR" HorizontalAlignment="Left" Height="24" Margin="10,323,0,0" VerticalAlignment="Top"
                Width="22" Source="Images/Flags/france.png" MouseLeftButtonDown="LangFrench" />
-        <Image x:Name="flagGE" HorizontalAlignment="Left" Height="24" Margin="10,262,0,0" VerticalAlignment="Top"
+        <Image x:Name="flagGE" HorizontalAlignment="Left" Height="24" Margin="10,351,0,0" VerticalAlignment="Top"
                Width="22" Source="Images/Flags/germany.png" MouseLeftButtonDown="LangGerman" />
-        <Image x:Name="flagNO" HorizontalAlignment="Left" Height="24" Margin="10,292,0,0" VerticalAlignment="Top"
-               Width="22" Source="Images/Flags/norway.png" MouseLeftButtonDown="LangNorwegian" />
+        <Image x:Name="flagNO" HorizontalAlignment="Left" Height="24" Margin="10,381,0,0" VerticalAlignment="Top"
+               Width="22" Source="Images/Flags/norway.png" MouseLeftButtonDown="LangNorwegian" Grid.RowSpan="2" />
 
 
         <Grid x:Name="ToggleBox" HorizontalAlignment="Left" Height="491" Margin="0,107,0,0" VerticalAlignment="Top" Width="322"
@@ -248,7 +248,9 @@
                 </Border>
             </Grid>
             <Border BorderBrush="#FF366EBF" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left"
-                    Height="131.333" Margin="21,231,0,0" VerticalAlignment="Top" Width="282" CornerRadius="3" />
+                    Height="131.333" Margin="21,231,0,0" VerticalAlignment="Top" Width="282" CornerRadius="3" >
+                <Grid x:Name="FolderGrid"/>
+            </Border>
             <Button Style="{StaticResource buttonHover}" x:Name="buttonInst" FontSize="10"
                     Content="{x:Static local:Localizable.FolderInstall}" HorizontalAlignment="Left" Height="24"
                     VerticalAlignment="Top" Width="129.516" Margin="28.625,241.71,0,0" Click="buttonInst_Click" />

@@ -204,10 +204,22 @@
   <data name="AppHPInspector" xml:space="preserve">
     <value>运行 HoneyPot Inspector</value>
   </data>
-  <data name="toggleHoneyPot" xml:space="preserve">
-    <value>激活 HoneyPot</value>
-  </data>
   <data name="FolderHouses" xml:space="preserve">
     <value>房子</value>
+  </data>
+  <data name="ToggleStiletto" xml:space="preserve">
+    <value>激活 Stiletto</value>
+  </data>
+  <data name="ToggleHoneyPot" xml:space="preserve">
+    <value>激活 HoneyPot</value>
+  </data>
+  <data name="ToggleRimRemover" xml:space="preserve">
+    <value>激活 RimRemover</value>
+  </data>
+  <data name="ToggleVRMod" xml:space="preserve">
+    <value>激活 VRMod</value>
+  </data>
+  <data name="ToggleBonemod" xml:space="preserve">
+    <value>激活 Bonemod</value>
   </data>
 </root>

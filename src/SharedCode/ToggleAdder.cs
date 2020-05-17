@@ -6,12 +6,6 @@ namespace InitSetting
 {
     public class Toggleables
     {
-        public string CodeName { get; private set; }
-        public string ModName { get; private set; }
-        public string PluginDLL { get; private set; } 
-        public Action<bool> OnAction { get; private set; }
-        public bool IsIPA { get; private set; }
-
         public Toggleables(string _CodeName, string _ModName, string _PluginDLL, Action<bool> _OnAction, bool _IsIPA)
         {
             CodeName = _CodeName;
@@ -20,6 +14,12 @@ namespace InitSetting
             OnAction = _OnAction;
             IsIPA = _IsIPA;
         }
+
+        public string CodeName { get; }
+        public string ModName { get; }
+        public string PluginDLL { get; }
+        public Action<bool> OnAction { get; }
+        public bool IsIPA { get; }
     }
 
     public static class ToggleablesMan
@@ -28,13 +28,24 @@ namespace InitSetting
 
         public static void SetupModList()
         {
-            Modlist.Add(new Toggleables("AI_Graphics", "AI Graphics", "AI_Graphics", null, false));
-            Modlist.Add(new Toggleables("DHH", "DHH", "DHH_AI4", null, false));
-            
+            Modlist.Add(new Toggleables("AI_Graphics", Localizable.ToggleAiGraphics, "AI_Graphics", null, false));
+            Modlist.Add(new Toggleables("DHH", Localizable.ToggleDhh, "DHH_AI4", null, false));
+            Modlist.Add(new Toggleables("DHHPH", Localizable.ToggleDhh, "ProjectHighHeel", null, true));
+            Modlist.Add(new Toggleables("HoneyPot", "HoneyPot", "HoneyPot", null, true));
+            Modlist.Add(new Toggleables("RimRemover", "RimRemover", "RimRemover", null, false));
+            Modlist.Add(new Toggleables("Stiletto", "Stiletto", "Stiletto", null, false));
+            Modlist.Add(new Toggleables("VRMod", "VRMod", "PlayHomeVR", delegate(bool b)
+            {
+                if (b)
+                    MessageBox.Show("To use this mod, open SteamVR before opening either the main game or studio.", "Usage");
+            }, true));
+
+            /*
             Modlist.Add(new Toggleables("Test", "test test", "ProjectHighHeel", delegate (bool b)
             {
                 MessageBox.Show(b ? "selected" : "Unselected");
             }, true));
+            */
         }
     }
 }

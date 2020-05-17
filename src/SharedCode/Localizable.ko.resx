@@ -204,10 +204,22 @@
   <data name="AppHPInspector" xml:space="preserve">
     <value>HoneyPot Inspector 시작</value>
   </data>
-  <data name="toggleHoneyPot" xml:space="preserve">
-    <value>HoneyPot 활성화</value>
-  </data>
   <data name="FolderHouses" xml:space="preserve">
     <value>하우징 폴더</value>
+  </data>
+  <data name="ToggleStiletto" xml:space="preserve">
+    <value>Stiletto 활성화</value>
+  </data>
+  <data name="ToggleHoneyPot" xml:space="preserve">
+    <value>HoneyPot 활성화</value>
+  </data>
+  <data name="ToggleRimRemover" xml:space="preserve">
+    <value>RimRemover 활성화</value>
+  </data>
+  <data name="ToggleVRMod" xml:space="preserve">
+    <value>VRMod 활성화</value>
+  </data>
+  <data name="ToggleBonemod" xml:space="preserve">
+    <value>Bonemod 활성화</value>
   </data>
 </root>

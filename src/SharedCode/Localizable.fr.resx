@@ -204,10 +204,22 @@ Ce jeu contient des scènes matures, et certaines actions du jeu peuvent être c
   <data name="AppHPInspector" xml:space="preserve">
     <value>Lancer HoneyPot Inspector</value>
   </data>
-  <data name="toggleHoneyPot" xml:space="preserve">
-    <value>Activer HoneyPot</value>
-  </data>
   <data name="FolderHouses" xml:space="preserve">
     <value>Plans des maisons</value>
+  </data>
+  <data name="ToggleStiletto" xml:space="preserve">
+    <value>Activer Stiletto</value>
+  </data>
+  <data name="ToggleHoneyPot" xml:space="preserve">
+    <value>Activer HoneyPot</value>
+  </data>
+  <data name="ToggleRimRemover" xml:space="preserve">
+    <value>Activer RimRemover</value>
+  </data>
+  <data name="ToggleVRMod" xml:space="preserve">
+    <value>Activer VRMod</value>
+  </data>
+  <data name="ToggleBonemod" xml:space="preserve">
+    <value>Activer Bonemod</value>
   </data>
 </root>

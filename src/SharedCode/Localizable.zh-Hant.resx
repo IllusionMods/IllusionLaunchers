@@ -207,7 +207,19 @@
   <data name="AppHPInspector" xml:space="preserve">
     <value>啟動 HoneyPot Inspector</value>
   </data>
-  <data name="toggleHoneyPot" xml:space="preserve">
+  <data name="ToggleStiletto" xml:space="preserve">
+    <value>啟動Stiletto</value>
+  </data>
+  <data name="ToggleHoneyPot" xml:space="preserve">
     <value>啟動HoneyPot</value>
+  </data>
+  <data name="ToggleRimRemover" xml:space="preserve">
+    <value>啟動RimRemover</value>
+  </data>
+  <data name="ToggleVRMod" xml:space="preserve">
+    <value>啟動VRMod</value>
+  </data>
+  <data name="ToggleBonemod" xml:space="preserve">
+    <value>啟動Bonemod</value>
   </data>
 </root>

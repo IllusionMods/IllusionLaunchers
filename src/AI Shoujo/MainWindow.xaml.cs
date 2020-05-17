@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -7,6 +8,7 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using Application = System.Windows.Application;
+using Button = System.Windows.Forms.Button;
 using CheckBox = System.Windows.Controls.CheckBox;
 using MessageBox = System.Windows.Forms.MessageBox;
 using Orientation = System.Windows.Controls.Orientation;
@@ -93,6 +95,7 @@ namespace InitSetting
 
                 SetupUiLanguage();
 
+                // Generating UI Elements programatically
                 GeneratePluginToggles();
 
                 // Launcher Customization: Defining Warning, background and character

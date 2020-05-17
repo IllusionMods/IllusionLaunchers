@@ -201,13 +201,25 @@ Dieses Spiel enthällt sexuelle Inhalte welche bei Ausführung im realen Leben s
   <data name="ManualVR" xml:space="preserve">
     <value>VR Bedienungsanleitung</value>
   </data>
-  <data name="toggleHoneyPot" xml:space="preserve">
-    <value>HoneyPot umschalten</value>
-  </data>
   <data name="FolderHouses" xml:space="preserve">
     <value>Häuser</value>
   </data>
   <data name="AppHPInspector" xml:space="preserve">
     <value>HoneyPot Inspector starten</value>
+  </data>
+  <data name="ToggleStiletto" xml:space="preserve">
+    <value>Stiletto umschalten</value>
+  </data>
+  <data name="ToggleHoneyPot" xml:space="preserve">
+    <value>HoneyPot umschalten</value>
+  </data>
+  <data name="ToggleRimRemover" xml:space="preserve">
+    <value>RimRemover umschalten</value>
+  </data>
+  <data name="ToggleVRMod" xml:space="preserve">
+    <value>VRMod umschalten</value>
+  </data>
+  <data name="ToggleBonemod" xml:space="preserve">
+    <value>Bonemod umschalten</value>
   </data>
 </root>

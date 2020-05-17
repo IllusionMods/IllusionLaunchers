@@ -207,7 +207,19 @@ Dette spillet inneholder innhold av en seksuell natur, og noen av handlingene av
   <data name="AppHPInspector" xml:space="preserve">
     <value>Start HoneyPot Inspector</value>
   </data>
-  <data name="toggleHoneyPot" xml:space="preserve">
+  <data name="ToggleStiletto" xml:space="preserve">
+    <value>Aktiver Stiletto</value>
+  </data>
+  <data name="ToggleHoneyPot" xml:space="preserve">
     <value>Aktiver HoneyPot</value>
+  </data>
+  <data name="ToggleRimRemover" xml:space="preserve">
+    <value>Aktiver RimRemover</value>
+  </data>
+  <data name="ToggleVRMod" xml:space="preserve">
+    <value>Aktiver VRMod</value>
+  </data>
+  <data name="ToggleBonemod" xml:space="preserve">
+    <value>Aktiver Bonemod</value>
   </data>
 </root>

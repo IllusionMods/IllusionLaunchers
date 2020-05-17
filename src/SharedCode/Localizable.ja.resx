@@ -207,7 +207,19 @@
   <data name="AppHPInspector" xml:space="preserve">
     <value>HoneyPot Inspectorを実行する</value>
   </data>
-  <data name="toggleHoneyPot" xml:space="preserve">
+  <data name="ToggleStiletto" xml:space="preserve">
+    <value>Stilettoを有効にする</value>
+  </data>
+  <data name="ToggleHoneyPot" xml:space="preserve">
     <value>HoneyPotを有効にする</value>
+  </data>
+  <data name="ToggleRimRemover" xml:space="preserve">
+    <value>RimRemoverを有効にす</value>
+  </data>
+  <data name="ToggleVRMod" xml:space="preserve">
+    <value>VRModを有効にす</value>
+  </data>
+  <data name="ToggleBonemod" xml:space="preserve">
+    <value>Bonemodを有効にす</value>
   </data>
 </root>

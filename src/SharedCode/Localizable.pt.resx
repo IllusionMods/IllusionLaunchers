@@ -204,10 +204,22 @@ Algumas das ações presentes nessa obra de ficção podem ser ilegais ao serem 
   <data name="AppHPInspector" xml:space="preserve">
     <value>Executar HoneyPot Inspector</value>
   </data>
-  <data name="toggleHoneyPot" xml:space="preserve">
-    <value>Ativar HoneyPot</value>
-  </data>
   <data name="FolderHouses" xml:space="preserve">
     <value>Casas</value>
+  </data>
+  <data name="ToggleStiletto" xml:space="preserve">
+    <value>Ativar Stiletto</value>
+  </data>
+  <data name="ToggleHoneyPot" xml:space="preserve">
+    <value>Ativar HoneyPot</value>
+  </data>
+  <data name="ToggleRimRemover" xml:space="preserve">
+    <value>Ativar RimRemover</value>
+  </data>
+  <data name="ToggleVRMod" xml:space="preserve">
+    <value>Ativar VRMod</value>
+  </data>
+  <data name="ToggleBonemod" xml:space="preserve">
+    <value>Ativar Bonemod</value>
   </data>
 </root>
