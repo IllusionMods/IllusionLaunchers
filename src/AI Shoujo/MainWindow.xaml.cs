@@ -1,12 +1,17 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Resources;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using MessageBox = System.Windows.Forms.MessageBox;
 using System.Windows.Input;
+using System.Windows.Media;
 using CheckBox = System.Windows.Controls.CheckBox;
+using Orientation = System.Windows.Controls.Orientation;
 
 namespace InitSetting
 {
@@ -89,6 +94,7 @@ namespace InitSetting
                 }
 
                 // Mod settings
+                GeneratePluginToggles();
                 SetupPluginToggle(toggleDHH, "DHH_AI4", b =>
                 {
                     if (b)
@@ -155,6 +161,36 @@ namespace InitSetting
                 MessageBox.Show(e.ToString());
                 throw;
             }
+        }
+
+        private void GeneratePluginToggles()
+        {
+            var innerStack = new StackPanel
+            {
+                Orientation = Orientation.Vertical,
+            };
+            IList<string> BoxList = new List<string>();
+            BoxList.Add("test1");
+            BoxList.Add("test2");
+
+            toggleFullscreen.Margin = new Thickness(0, 0, 0, 0);
+            ToggleBox.Children.Remove(toggleFullscreen);
+            innerStack.Children.Add(toggleFullscreen);
+
+            toggleConsole.Margin = new Thickness(0, 0, 0, 0);
+            ToggleBox.Children.Remove(toggleConsole);
+            innerStack.Children.Add(toggleConsole);
+
+            foreach (string c in BoxList)
+            {
+                CheckBox cb = new CheckBox();
+                cb.Name = c;
+                cb.Content = c;
+                cb.Foreground = Brushes.White;
+                innerStack.Children.Add(cb);
+            }
+
+            Toggleables.Children.Add(innerStack);
         }
 
         private void ParseGameConfigFile()

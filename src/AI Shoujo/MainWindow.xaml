@@ -194,45 +194,39 @@
                Width="22" Source="Images/Flags/norway.png" MouseLeftButtonDown="LangNorwegian" />
 
 
-        <Grid HorizontalAlignment="Left" Height="491" Margin="0,107,0,0" VerticalAlignment="Top" Width="322"
+        <Grid x:Name="ToggleBox" HorizontalAlignment="Left" Height="491" Margin="0,107,0,0" VerticalAlignment="Top" Width="322"
               Grid.RowSpan="2">
             <Border BorderBrush="#FF366EBF" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left"
-                    Height="196.333" Margin="52,169,0,0" VerticalAlignment="Top" Width="247" CornerRadius="3" />
+                    Height="230.333" Margin="52,135,0,0" VerticalAlignment="Top" Width="247" CornerRadius="3">
+                <Grid Margin="5,5,5,5">
+                    <Grid x:Name="Toggleables"/>
+                </Grid>
+            </Border>
+
             <CheckBox x:Name="toggleFullscreen" Content="{x:Static local:Localizable.ToggleFullscreen}"
-                      Foreground="White" VerticalContentAlignment="Center" Margin="58,176.333,30,298.667"
+                      Foreground="White" Margin="58.667,135,29.333,340"
                       Checked="WindowChecked" Unchecked="WindowUnChecked" />
             <CheckBox x:Name="toggleConsole" Content="{x:Static local:Localizable.ToggleConsole}" Foreground="White"
-                      VerticalContentAlignment="Center" Margin="58,192.333,30,282.667" Checked="modeDev_Checked"
+                      VerticalContentAlignment="Center" Margin="58.667,247,29.333,228" Checked="modeDev_Checked"
                       Unchecked="modeDev_Unchecked" />
             <CheckBox x:Name="toggleDHH" Content="{x:Static local:Localizable.ToggleDhh}" Foreground="White"
-                      VerticalContentAlignment="Center" Margin="58,208.333,30,266.667" />
+                      VerticalContentAlignment="Center" Margin="58.667,263,29.333,212" />
             <CheckBox x:Name="toggleAIGraphics" Content="{x:Static local:Localizable.ToggleAiGraphics}"
-                      Foreground="White" VerticalContentAlignment="Center" Margin="58,224.333,30,250.667" />
+                      Foreground="White" VerticalContentAlignment="Center" Margin="58.667,279,29.333,196" />
         </Grid>
         <Grid HorizontalAlignment="Left" Height="491" Margin="576,107,0,0" VerticalAlignment="Top" Width="322"
               Grid.RowSpan="2">
             <Grid HorizontalAlignment="Left" Height="156" Margin="-533,19,0,0" VerticalAlignment="Top" Width="265">
                 <Border BorderBrush="#FF366EBF" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left"
-                        Height="136" Margin="10,10,0,0" VerticalAlignment="Top" Width="246" CornerRadius="3">
-                    <Grid x:Name="CustomRes" Margin="0,88,0,8">
-                        <TextBox x:Name="boxHeight" IsEnabled="False" HorizontalContentAlignment="Center"
-                                 HorizontalAlignment="Left" Height="23" Margin="10.667,4.501,0,0" TextWrapping="Wrap"
-                                 Text="{x:Static local:Localizable.ResHeight}" VerticalAlignment="Top" Width="92" />
-                        <TextBox x:Name="boxWidth" IsEnabled="False" HorizontalContentAlignment="Center"
-                                 HorizontalAlignment="Left" Height="23" Margin="136.667,4.501,0,0" TextWrapping="Wrap"
-                                 Text="{x:Static local:Localizable.ResWidth}" VerticalAlignment="Top" Width="91" />
-                        <Label x:Name="labelCustRes" Foreground="#FF366EBF" Content="X"
-                               VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
-                               HorizontalAlignment="Left" Margin="108.667,4.501,0,0" VerticalAlignment="Top"
-                               Height="23" Width="22" />
-                    </Grid>
+                        Height="101" Margin="10,10,0,0" VerticalAlignment="Top" Width="245" CornerRadius="3">
+                    <Grid x:Name="CustomRes" Margin="0,88,0,8"/>
                 </Border>
                 <ComboBox x:Name="dropQual" HorizontalAlignment="Left" Margin="23,23,0,0" VerticalAlignment="Top"
-                          Width="217" SelectionChanged="Quality_Change" />
+                          Width="219" SelectionChanged="Quality_Change" />
                 <ComboBox x:Name="dropDisplay" HorizontalAlignment="Left" Margin="23,50,0,0" VerticalAlignment="Top"
-                          Width="217" SelectionChanged="Display_Change" />
+                          Width="219" SelectionChanged="Display_Change" />
                 <ComboBox x:Name="dropRes" HorizontalAlignment="Left" Margin="23,77,0,0" VerticalAlignment="Top"
-                          Width="217" SelectionChanged="Resolution_Change" />
+                          Width="219" SelectionChanged="Resolution_Change" />
 
             </Grid>
             <Grid HorizontalAlignment="Left" Height="329" Margin="10,19,0,0" VerticalAlignment="Top" Width="302">
