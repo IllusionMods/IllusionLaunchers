@@ -30,6 +30,7 @@ namespace InitSetting
         private static bool _updatelocExists;
         private static string _kkman;
         private static string _updateSources = "placeholder";
+        private static string[] _builtinLanguages;
 
         public static CultureInfo Language { get; private set; }
 
@@ -134,7 +135,7 @@ namespace InitSetting
             return IntPtr.Size == 8;
         }
 
-        public static void SetLanguage(string language, string[] builtinLanguages, SettingManager settingManager)
+        public static void SetLanguage(string language)
         {
             try
             {
@@ -144,14 +145,14 @@ namespace InitSetting
                 if (System.Windows.MessageBox.Show("Do you want to set the ingame language to the selected language as well?",
                     "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    var builtinIndex = builtinLanguages.ToList()
+                    var builtinIndex = _builtinLanguages.ToList()
                         .FindIndex(x => language.Equals(x, StringComparison.OrdinalIgnoreCase));
 
                     // Set built-in game language if supported
                     if (builtinIndex >= 0)
                     {
-                        settingManager.CurrentSettings.Language = builtinIndex;
-                        settingManager.SaveConfigFile(GetConfigFilePath());
+                        SettingManager.CurrentSettings.Language = builtinIndex;
+                        SettingManager.SaveSettings();
                     }
 
                     WriteAutoTranslatorLangIni(language);
@@ -222,7 +223,7 @@ namespace InitSetting
             }
         }
 
-        public static void CheckDuplicateStartup()
+        private static void CheckDuplicateStartup()
         {
             try
             {
@@ -239,8 +240,14 @@ namespace InitSetting
             }
         }
 
-        public static void Initialize()
+        public static void Initialize(string[] builtinLanguages)
         {
+            _builtinLanguages = builtinLanguages ?? throw new ArgumentNullException(nameof(builtinLanguages));
+
+            InitializeDirectories();
+            InitializeLanguage();
+            CheckDuplicateStartup();
+
             // Framework test
             IsIpa = File.Exists($"{GameRootDirectory}\\IPA.exe");
             IsBepIn = Directory.Exists($"{GameRootDirectory}\\BepInEx");
@@ -350,7 +357,7 @@ namespace InitSetting
             }
         }
 
-        public static void InitializeDirectories()
+        private static void InitializeDirectories()
         {
             var currentDirectory = Path.GetDirectoryName(typeof(MainWindow).Assembly.Location) ??
                                    Environment.CurrentDirectory;
@@ -362,7 +369,7 @@ namespace InitSetting
             IPAPluginsDir = $"{GameRootDirectory}\\Plugins\\";
         }
 
-        public static void InitializeLanguage()
+        private static void InitializeLanguage()
         {
             var launcherPath = GameRootDirectory + _mCustomDir + _decideLang;
             _langExists = File.Exists(launcherPath);
@@ -418,18 +425,18 @@ namespace InitSetting
                 catch (Exception e) { ex = e; }
             }
 
-            var x = Directory.GetFiles(manualRoot, "*.html", SearchOption.TopDirectoryOnly).FirstOrDefault();
-            if (x != null)
+            try
             {
-                try
+                var x = Directory.GetFiles(manualRoot, "*.html", SearchOption.TopDirectoryOnly).FirstOrDefault();
+                if (x != null)
                 {
                     Process.Start(x);
                     return;
                 }
-                catch (Exception e) { ex = e; }
             }
+            catch (Exception e) { ex = e; }
 
-            MessageBox.Show("Manual could not be found." + (ex != null ? "\n\n" + ex : ""), "Warning!");
+            MessageBox.Show("Manual could not be found." + (ex != null ? "\n\n" + ex.Message : ""), "Warning!");
         }
 
         public static void OpenDirectory(string subDirectory)
@@ -447,7 +454,7 @@ namespace InitSetting
             }
         }
 
-        public static void StartUpdate()
+        public static bool StartUpdate()
         {
             var gameRoot = GameRootDirectory.TrimEnd('\\', '/', ' ');
             var kkmanPath = _kkman.TrimEnd('\\', '/', ' ');
@@ -465,30 +472,27 @@ namespace InitSetting
             if (!_updatelocExists)
                 args = $"{argdir}";
 
-            if (File.Exists(text))
-                Process.Start(new ProcessStartInfo(text) { WorkingDirectory = $@"{finaldir}", Arguments = args });
+            return StartProcess(new ProcessStartInfo(text) { WorkingDirectory = $@"{finaldir}", Arguments = args }) != null;
         }
 
-        public static void StartGame(string gameExeRelativePath)
+        public static bool StartGame(string gameExeRelativePath)
         {
             var exePath = Path.GetFullPath(GameRootDirectory + gameExeRelativePath);
-            if (File.Exists(exePath) && IsIpa)
+            if (IsIpa)
             {
-                var ipa = "\u0022" + GameRootDirectory + "IPA.exe" + "\u0022";
-                var ipaArgs = "\u0022" + exePath + "\u0022" + " --launch";
-                Process.Start(new ProcessStartInfo(ipa) { WorkingDirectory = GameRootDirectory, Arguments = ipaArgs });
+                if (File.Exists(exePath))
+                {
+                    var ipa = "\u0022" + GameRootDirectory + "IPA.exe" + "\u0022";
+                    var ipaArgs = "\u0022" + exePath + "\u0022" + " --launch";
+                    return StartProcess(new ProcessStartInfo(ipa) { WorkingDirectory = GameRootDirectory, Arguments = ipaArgs }) != null;
+                }
             }
             else if (File.Exists(exePath))
             {
-                Process.Start(new ProcessStartInfo(exePath) { WorkingDirectory = GameRootDirectory });
+                return StartProcess(new ProcessStartInfo(exePath) { WorkingDirectory = GameRootDirectory }) != null;
             }
-            else
-            {
-                MessageBox.Show("Executable can't be located", "Warning!");
-                return;
-            }
-
-            System.Windows.Application.Current.MainWindow?.Close();
+            MessageBox.Show("Executable can't be located", "Warning!");
+            return false;
         }
 
         //todo readd?
@@ -511,6 +515,19 @@ namespace InitSetting
             catch (Exception ex)
             {
                 MessageBox.Show($"Failed to start the command: {execString}\n\nError: {ex}");
+                return null;
+            }
+        }
+
+        public static Process StartProcess(ProcessStartInfo startInfo)
+        {
+            try
+            {
+                return Process.Start(startInfo);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to start the command: {startInfo.FileName + " " + startInfo.Arguments}\n\nError: {ex}");
                 return null;
             }
         }

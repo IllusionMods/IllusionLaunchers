@@ -10,11 +10,11 @@ using Microsoft.Win32;
 
 namespace InitSetting
 {
-    public class SettingManager
+    public static class SettingManager
     {
-        public ConfigSetting CurrentSettings { get; private set; } = new ConfigSetting();
+        public static ConfigSetting CurrentSettings { get; private set; } = new ConfigSetting();
 
-        public IEnumerable<DisplayMode> DefaultSettingList = new List<DisplayMode>
+        public static IEnumerable<DisplayMode> DefaultSettingList = new List<DisplayMode>
         {
             new DisplayMode
             {
@@ -90,8 +90,10 @@ namespace InitSetting
             }
         };
 
-        private readonly List<DisplayModes> _displayModes = new List<DisplayModes>();
-        public DisplayModes GetDisplayModes(int nDisplay) => _displayModes[nDisplay];
+        private static readonly List<DisplayModes> _displayModes = new List<DisplayModes>();
+        private static string _configFilePath;
+        private static string[] _registryConfigPaths;
+        public static DisplayModes GetDisplayModes(int nDisplay) => _displayModes[nDisplay];
 
         [DllImport("user32.dll")]
         private static extern bool EnumDisplaySettings(string deviceName, int modeNum, ref DEVMODE devMode);
@@ -99,23 +101,32 @@ namespace InitSetting
         [DllImport("user32.dll")]
         private static extern bool EnumDisplayDevices(string lpDevice, uint iDevNum, ref DISPLAY_DEVICE lpDisplayDevice, uint dwFlags);
 
-        public void SaveRegistry(string keyPath)
+        public static void SaveSettings()
         {
-            using (var registryKey = Registry.CurrentUser.CreateSubKey(keyPath))
+            SaveConfigFile();
+            SaveRegistry();
+        }
+
+        private static void SaveRegistry()
+        {
+            foreach (var keyPath in _registryConfigPaths)
             {
-                registryKey.SetValue("Screenmanager Is Fullscreen mode_h3981298716", CurrentSettings.FullScreen ? 1 : 0);
-                registryKey.SetValue("Screenmanager Resolution Height_h2627697771", CurrentSettings.Height);
-                registryKey.SetValue("Screenmanager Resolution Width_h182942802", CurrentSettings.Width);
-                registryKey.SetValue("UnityGraphicsQuality_h1669003810", 2);
-                registryKey.SetValue("UnitySelectMonitor_h17969598", CurrentSettings.Display);
+                using (var registryKey = Registry.CurrentUser.CreateSubKey(keyPath))
+                {
+                    registryKey.SetValue("Screenmanager Is Fullscreen mode_h3981298716", CurrentSettings.FullScreen ? 1 : 0);
+                    registryKey.SetValue("Screenmanager Resolution Height_h2627697771", CurrentSettings.Height);
+                    registryKey.SetValue("Screenmanager Resolution Width_h182942802", CurrentSettings.Width);
+                    registryKey.SetValue("UnityGraphicsQuality_h1669003810", 2);
+                    registryKey.SetValue("UnitySelectMonitor_h17969598", CurrentSettings.Display);
+                }
             }
         }
 
-        public void SaveConfigFile(string configFilePath)
+        private static void SaveConfigFile()
         {
-            Directory.CreateDirectory(Path.GetDirectoryName(configFilePath) ?? throw new InvalidOperationException("Invalid config path " + configFilePath));
+            Directory.CreateDirectory(Path.GetDirectoryName(_configFilePath) ?? throw new InvalidOperationException("Invalid config path " + _configFilePath));
 
-            using (var fileStream = new FileStream(configFilePath, FileMode.Create))
+            using (var fileStream = new FileStream(_configFilePath, FileMode.Create))
             using (var streamWriter = new StreamWriter(fileStream, Encoding.GetEncoding("UTF-16")))
             {
                 var xmlSerializerNamespaces = new XmlSerializerNamespaces();
@@ -124,7 +135,7 @@ namespace InitSetting
             }
         }
 
-        private void getDisplayMode_EnumDisplaySettings(int numDisplay)
+        private static void getDisplayMode_EnumDisplaySettings(int numDisplay)
         {
             // todo this method needs cleanup
 
@@ -184,7 +195,7 @@ namespace InitSetting
             _displayModes.RemoveAt(primaryIndex + 1);
         }
 
-        public bool SetFullScreen(bool fullScreenEnabled)
+        public static bool SetFullScreen(bool fullScreenEnabled)
         {
             var currentSettingsDisplay = CurrentSettings.Display;
             if (_displayModes[currentSettingsDisplay].list.Count == 0)
@@ -220,8 +231,11 @@ namespace InitSetting
             public List<DisplayMode> list;
         }
 
-        public SettingManager()
+        public static void Initialize(string configFilePath, params string[] registryConfigPaths)
         {
+            _configFilePath = configFilePath ?? throw new ArgumentNullException(nameof(configFilePath));
+            _registryConfigPaths = registryConfigPaths ?? throw new ArgumentNullException(nameof(registryConfigPaths));
+
             var num = Screen.AllScreens.Length;
             getDisplayMode_EnumDisplaySettings(num);
             CurrentSettings.Size = "1280 x 720 (16 : 9)";
@@ -233,9 +247,9 @@ namespace InitSetting
             CurrentSettings.FullScreen = false;
         }
 
-        public void LoadSettings(string path)
+        public static void LoadSettings()
         {
-            using (var fileStream = new FileStream(path, FileMode.Open))
+            using (var fileStream = new FileStream(_configFilePath, FileMode.Open))
             {
                 var xmlSerializer = new XmlSerializer(typeof(ConfigSetting));
                 CurrentSettings = (ConfigSetting)xmlSerializer.Deserialize(fileStream);

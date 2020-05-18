@@ -1,41 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Media;
-using Application = System.Windows.Application;
-using Button = System.Windows.Forms.Button;
-using CheckBox = System.Windows.Controls.CheckBox;
 using MessageBox = System.Windows.Forms.MessageBox;
-using Orientation = System.Windows.Controls.Orientation;
 
 namespace InitSetting
 {
     public partial class MainWindow : Window
     {
-        private const string MStrGameRegistry = "Software\\illusion\\AI-Syoujyo\\AI-Syoujyo";
-        private const string MStrStudioRegistry = "Software\\illusion\\AI-Syoujyo\\StudioNEOV2";
+        // Game-specific constants -------------------------------------------------------------------
+        private const string RegistryKeyGame = "Software\\illusion\\AI-Syoujyo\\AI-Syoujyo";
+        private const string RegistryKeyStudio = "Software\\illusion\\AI-Syoujyo\\StudioNEOV2";
+        private const string ExecutableGame = "AI-Syoujyo.exe";
+        private const string ExecutableStudio = "StudioNEOV2.exe";
+        // Languages built into the game itself
+        private static readonly string[] _builtinLanguages = { "ja-JP" };
 
-        private const string MStrGameExe = "AI-Syoujyo.exe";
-        private const string MStrStudioExe = "StudioNEOV2.exe";
-
-        // launcher and xua language code
-        private static readonly string[] _builtinLanguages = {"ja-JP"};
+        // Normal fields, don't fill in --------------------------------------------------------------
         private readonly bool _isDuringStartup;
-        private readonly bool _isMainGame;
-        private readonly bool _isStudio;
+        private readonly bool _mainGameExists;
+        private readonly bool _studioExists;
         private readonly string[] _qLevelNames;
         private readonly string _qNormal;
-
         private readonly string _qPerformance;
         private readonly string _qQuality;
-
-        private readonly SettingManager _settingManager;
-
         private readonly string _sPrimarydisplay;
         private readonly string _sSubdisplay;
 
@@ -43,68 +33,45 @@ namespace InitSetting
         {
             try
             {
-                EnvironmentHelper.InitializeDirectories();
-                EnvironmentHelper.InitializeLanguage();
+                _isDuringStartup = true;
 
+                // Initialize code -------------------------------------
+                EnvironmentHelper.Initialize(_builtinLanguages);
+
+                _mainGameExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableGame);
+                _studioExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableStudio);
+
+                if (_studioExists)
+                    SettingManager.Initialize(EnvironmentHelper.GetConfigFilePath(), RegistryKeyGame, RegistryKeyStudio);
+                else
+                    SettingManager.Initialize(EnvironmentHelper.GetConfigFilePath(), RegistryKeyGame);
+
+                // Initialize interface --------------------------------
                 InitializeComponent();
 
                 _qPerformance = Localizable.QualityPerformance;
                 _qNormal = Localizable.QualityNormal;
                 _qQuality = Localizable.QualityQuality;
-                _qLevelNames = new[] {_qPerformance, _qNormal, _qQuality};
+                _qLevelNames = new[] { _qPerformance, _qNormal, _qQuality };
                 _sPrimarydisplay = Localizable.PrimaryDisplay;
                 _sSubdisplay = Localizable.SubDisplay;
+                foreach (var qalName in _qLevelNames) dropQual.Items.Add(qalName);
 
-                if (string.IsNullOrEmpty((string) labelTranslated.Content))
+                WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                CustomRes.Visibility = Visibility.Hidden;
+
+                if (string.IsNullOrEmpty((string)labelTranslated.Content))
                 {
                     labelTranslated.Visibility = Visibility.Hidden;
                     labelTranslatedBorder.Visibility = Visibility.Hidden;
                 }
 
-                Closing += (sender, args) => _settingManager.SaveConfigFile(EnvironmentHelper.GetConfigFilePath());
-
-                _isDuringStartup = true;
-
-                _settingManager = new SettingManager();
-
-                EnvironmentHelper.Initialize();
-
-                EnvironmentHelper.CheckDuplicateStartup();
-
-                WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                CustomRes.Visibility = Visibility.Hidden;
-                if (!EnvironmentHelper.KKmanExist) gridUpdate.Visibility = Visibility.Hidden;
-
-                switch (EnvironmentHelper.DeveloperModeEnabled)
-                {
-                    case null:
-                        toggleConsole.IsEnabled = false;
-                        break;
-                    case false:
-                        toggleConsole.IsChecked = false;
-                        break;
-                    case true:
-                        toggleConsole.IsChecked = true;
-                        break;
-                }
-
-                foreach (var newItem2 in _qLevelNames) dropQual.Items.Add(newItem2);
-
-
-                _isDuringStartup = false;
-
-                SetupUiLanguage();
-
-                // Generating UI Elements programatically
-                GeneratePluginToggles();
+                if (!EnvironmentHelper.KKmanExist)
+                    gridUpdate.Visibility = Visibility.Hidden;
 
                 // Launcher Customization: Defining Warning, background and character
-
                 if (!string.IsNullOrEmpty(EnvironmentHelper.VersionString))
                     labelDist.Content = EnvironmentHelper.VersionString;
-
-                _isStudio = File.Exists(EnvironmentHelper.GameRootDirectory + MStrStudioExe);
-                _isMainGame = File.Exists(EnvironmentHelper.GameRootDirectory + MStrGameExe);
 
                 if (!string.IsNullOrEmpty(EnvironmentHelper.WarningString))
                     warningText.Text = EnvironmentHelper.WarningString;
@@ -120,6 +87,8 @@ namespace InitSetting
                     patreonBorder.Visibility = Visibility.Collapsed;
                     patreonIMG.Visibility = Visibility.Collapsed;
                 }
+
+                PluginToggleManager.CreatePluginToggles(Toggleables);
 
                 // todo ?? is this check necessary?
                 var num = Screen.AllScreens.Length;
@@ -138,45 +107,17 @@ namespace InitSetting
                 }
 
                 ParseGameConfigFile();
+
+                Closed += (sender, args) => SettingManager.SaveSettings();
+
+                _isDuringStartup = false;
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString());
-                throw;
+                MessageBox.Show("Failed to start the launcher, please consider reporting this error to the developers.\n\nError that caused the crash: " + e, "Launcher crash", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                File.WriteAllText(Path.Combine(EnvironmentHelper.GameRootDirectory, "launcher_crash.log"), e.ToString());
+                Close();
             }
-        }
-
-        private void GeneratePluginToggles()
-        {
-            var innerStack = new StackPanel
-            {
-                Orientation = Orientation.Vertical
-            };
-
-            toggleFullscreen.Margin = new Thickness(0, 0, 0, 0);
-            ToggleBox.Children.Remove(toggleFullscreen);
-            innerStack.Children.Add(toggleFullscreen);
-
-            toggleConsole.Margin = new Thickness(0, 0, 0, 0);
-            ToggleBox.Children.Remove(toggleConsole);
-            innerStack.Children.Add(toggleConsole);
-
-            ToggleablesMan.SetupModList();
-
-            foreach (var c in ToggleablesMan.Modlist)
-            {
-                var cb = new CheckBox();
-
-                cb.Name = c.CodeName;
-                cb.Content = c.ModName;
-                cb.Foreground = Brushes.White;
-
-                SetupPluginToggle(cb, c.PluginDLL, c.OnAction, c.IsIPA);
-
-                innerStack.Children.Add(cb);
-            }
-
-            Toggleables.Children.Add(innerStack);
         }
 
         private void ParseGameConfigFile()
@@ -188,22 +129,22 @@ namespace InitSetting
             {
                 try
                 {
-                    _settingManager.LoadSettings(configFilePath);
+                    SettingManager.LoadSettings();
 
-                    _settingManager.CurrentSettings.Display =
-                        Math.Min(_settingManager.CurrentSettings.Display, num - 1);
-                    SetDisplayComboBox(_settingManager.CurrentSettings.FullScreen);
+                    SettingManager.CurrentSettings.Display =
+                        Math.Min(SettingManager.CurrentSettings.Display, num - 1);
+                    SetDisplayComboBox(SettingManager.CurrentSettings.FullScreen);
                     var flag = false;
                     foreach (var resItem in dropRes.Items)
-                        if (resItem.ToString() == _settingManager.CurrentSettings.Size)
+                        if (resItem.ToString() == SettingManager.CurrentSettings.Size)
                             flag = true;
 
-                    dropRes.Text = flag ? _settingManager.CurrentSettings.Size : "1280 x 720 (16 : 9)";
-                    toggleFullscreen.IsChecked = _settingManager.CurrentSettings.FullScreen;
-                    dropQual.Text = _qLevelNames[_settingManager.CurrentSettings.Quality];
-                    var text = _settingManager.CurrentSettings.Display == 0
+                    dropRes.Text = flag ? SettingManager.CurrentSettings.Size : "1280 x 720 (16 : 9)";
+                    toggleFullscreen.IsChecked = SettingManager.CurrentSettings.FullScreen;
+                    dropQual.Text = _qLevelNames[SettingManager.CurrentSettings.Quality];
+                    var text = SettingManager.CurrentSettings.Display == 0
                         ? _sPrimarydisplay
-                        : $"{_sSubdisplay} : " + _settingManager.CurrentSettings.Display;
+                        : $"{_sSubdisplay} : " + SettingManager.CurrentSettings.Display;
 
                     // todo ?? is this necessary?
                     if (num == 2)
@@ -211,7 +152,7 @@ namespace InitSetting
                         {
                             _sPrimarydisplay,
                             $"{_sSubdisplay} : 1"
-                        }[_settingManager.CurrentSettings.Display];
+                        }[SettingManager.CurrentSettings.Display];
 
                     if (dropDisplay.Items.Contains(text))
                     {
@@ -220,7 +161,7 @@ namespace InitSetting
                     else
                     {
                         dropDisplay.Text = _sPrimarydisplay;
-                        _settingManager.CurrentSettings.Display = 0;
+                        SettingManager.CurrentSettings.Display = 0;
                     }
                 }
                 catch (Exception)
@@ -233,170 +174,122 @@ namespace InitSetting
             else
             {
                 SetDisplayComboBox(false);
-                dropRes.Text = _settingManager.CurrentSettings.Size;
-                dropQual.Text = _qLevelNames[_settingManager.CurrentSettings.Quality];
+                dropRes.Text = SettingManager.CurrentSettings.Size;
+                dropQual.Text = _qLevelNames[SettingManager.CurrentSettings.Quality];
                 dropDisplay.Text = _sPrimarydisplay;
             }
         }
 
-        private void SetupPluginToggle(CheckBox toggle, string pluginName, Action<bool> onSetEnabled, bool IsIPA)
-        {
-            var pluginFile = "";
-
-            if (!IsIPA)
-                pluginFile = Directory.Exists(EnvironmentHelper.BepinPluginsDir)
-                    ? Directory.GetFiles(EnvironmentHelper.BepinPluginsDir, pluginName + ".dl*",
-                        SearchOption.AllDirectories).FirstOrDefault()
-                    : null;
-            else
-                pluginFile = Directory.Exists(EnvironmentHelper.IPAPluginsDir)
-                    ? Directory.GetFiles(EnvironmentHelper.IPAPluginsDir, pluginName + ".dl*",
-                        SearchOption.AllDirectories).FirstOrDefault()
-                    : null;
-
-            if (pluginFile == null)
-            {
-                toggle.IsEnabled = false;
-                toggle.Visibility = Visibility.Collapsed;
-                return;
-            }
-
-            var f = new FileInfo(pluginFile);
-            var name = pluginFile.Substring(0, f.FullName.Length - f.Extension.Length + 1);
-
-            toggle.IsChecked = f.Extension == ".dll";
-
-            toggle.Checked += (sender, args) =>
-            {
-                onSetEnabled?.Invoke(true);
-                f.MoveTo(Path.Combine(f.FullName, name + ".dll"));
-            };
-            toggle.Unchecked += (sender, args) =>
-            {
-                onSetEnabled?.Invoke(false);
-                f.MoveTo(Path.Combine(f.FullName, name + ".dl_"));
-            };
-        }
-
         private void LangEnglish(object sender, MouseButtonEventArgs e)
         {
-            PartyFilter("en-US");
+            EnvironmentHelper.SetLanguage("en-US");
         }
 
         private void LangJapanese(object sender, MouseButtonEventArgs e)
         {
-            PartyFilter("ja-JP");
+            EnvironmentHelper.SetLanguage("ja-JP");
         }
 
         private void LangChinese(object sender, MouseButtonEventArgs e)
         {
-            PartyFilter("zh-CN");
+            EnvironmentHelper.SetLanguage("zh-CN");
         }
 
         private void LangKorean(object sender, MouseButtonEventArgs e)
         {
-            PartyFilter("ko-KR");
+            EnvironmentHelper.SetLanguage("ko-KR");
         }
 
         private void LangSpanish(object sender, MouseButtonEventArgs e)
         {
-            PartyFilter("es-ES");
+            EnvironmentHelper.SetLanguage("es-ES");
         }
 
         private void LangBrazil(object sender, MouseButtonEventArgs e)
         {
-            PartyFilter("pt-PT");
+            EnvironmentHelper.SetLanguage("pt-PT");
         }
 
         private void LangFrench(object sender, MouseButtonEventArgs e)
         {
-            PartyFilter("fr-FR");
+            EnvironmentHelper.SetLanguage("fr-FR");
         }
 
         private void LangGerman(object sender, MouseButtonEventArgs e)
         {
-            PartyFilter("de-DE");
+            EnvironmentHelper.SetLanguage("de-DE");
         }
 
         private void LangNorwegian(object sender, MouseButtonEventArgs e)
         {
-            PartyFilter("no-NB");
-        }
-
-        private void PartyFilter(string language)
-        {
-            EnvironmentHelper.SetLanguage(language, _builtinLanguages, _settingManager);
+            EnvironmentHelper.SetLanguage("no-NB");
         }
 
         private void StartGame(string strExe)
         {
-            _settingManager.SaveConfigFile(EnvironmentHelper.GetConfigFilePath());
-
-            _settingManager.SaveRegistry(MStrGameRegistry);
-            if (_isStudio) _settingManager.SaveRegistry(MStrStudioRegistry);
-
-            EnvironmentHelper.StartGame(strExe);
+            SettingManager.SaveSettings();
+            if (EnvironmentHelper.StartGame(strExe))
+                Close();
         }
 
         private void buttonStart_Click(object sender, RoutedEventArgs e)
         {
-            StartGame(MStrGameExe);
+            StartGame(ExecutableGame);
         }
 
         private void buttonStartS_Click(object sender, RoutedEventArgs e)
         {
-            StartGame(MStrStudioExe);
+            StartGame(ExecutableStudio);
         }
 
         private void buttonClose_Click(object sender, RoutedEventArgs e)
         {
-            _settingManager.SaveConfigFile(EnvironmentHelper.GetConfigFilePath());
-            Application.Current.MainWindow?.Close();
+            Close();
         }
 
-        private void Resolution_Change(object sender, SelectionChangedEventArgs e)
+        private void ResolutionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (-1 == dropRes.SelectedIndex) return;
 
-            var comboBoxCustomItem = (ComboBoxCustomItem) dropRes.SelectedItem;
-            _settingManager.CurrentSettings.Size = comboBoxCustomItem.text;
-            _settingManager.CurrentSettings.Width = comboBoxCustomItem.width;
-            _settingManager.CurrentSettings.Height = comboBoxCustomItem.height;
+            var comboBoxCustomItem = (ComboBoxCustomItem)dropRes.SelectedItem;
+            SettingManager.CurrentSettings.Size = comboBoxCustomItem.text;
+            SettingManager.CurrentSettings.Width = comboBoxCustomItem.width;
+            SettingManager.CurrentSettings.Height = comboBoxCustomItem.height;
         }
 
-        private void Quality_Change(object sender, SelectionChangedEventArgs e)
+        private void QualityChanged(object sender, SelectionChangedEventArgs e)
         {
             var a = dropQual.SelectedItem.ToString();
             if (a == _qPerformance)
             {
-                _settingManager.CurrentSettings.Quality = 0;
+                SettingManager.CurrentSettings.Quality = 0;
                 return;
             }
 
             if (a == _qNormal)
             {
-                _settingManager.CurrentSettings.Quality = 1;
+                SettingManager.CurrentSettings.Quality = 1;
                 return;
             }
 
             if (a != _qQuality) return;
 
-            _settingManager.CurrentSettings.Quality = 2;
+            SettingManager.CurrentSettings.Quality = 2;
         }
 
-        private void WindowUnChecked(object sender, RoutedEventArgs e)
+        private void FullscreenUnChecked(object sender, RoutedEventArgs e)
         {
             SetDisplayComboBox(false);
-            dropRes.Text = _settingManager.CurrentSettings.Size;
-            _settingManager.CurrentSettings.FullScreen = false;
+            dropRes.Text = SettingManager.CurrentSettings.Size;
+            SettingManager.CurrentSettings.FullScreen = false;
         }
 
-        private void WindowChecked(object sender, RoutedEventArgs e)
+        private void FullscreenChecked(object sender, RoutedEventArgs e)
         {
             SetDisplayComboBox(true);
-            if (!_settingManager.SetFullScreen(_settingManager.CurrentSettings.FullScreen))
+            if (!SettingManager.SetFullScreen(SettingManager.CurrentSettings.FullScreen))
                 toggleFullscreen.IsChecked = false;
-            dropRes.Text = _settingManager.CurrentSettings.Size;
+            dropRes.Text = SettingManager.CurrentSettings.Size;
         }
 
         private void buttonManual_Click(object sender, RoutedEventArgs e)
@@ -414,22 +307,22 @@ namespace InitSetting
             EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_vr\\");
         }
 
-        private void Display_Change(object sender, SelectionChangedEventArgs e)
+        private void DisplayChanged(object sender, SelectionChangedEventArgs e)
         {
             if (-1 == dropDisplay.SelectedIndex) return;
 
-            _settingManager.CurrentSettings.Display = dropDisplay.SelectedIndex;
-            if (_settingManager.CurrentSettings.FullScreen)
+            SettingManager.CurrentSettings.Display = dropDisplay.SelectedIndex;
+            if (SettingManager.CurrentSettings.FullScreen)
             {
                 SetDisplayComboBox(true);
-                if (!_settingManager.SetFullScreen(true))
+                if (!SettingManager.SetFullScreen(true))
                 {
                     toggleFullscreen.IsChecked = false;
                     MessageBox.Show("This monitor doesn't support fullscreen.");
                 }
                 else
                 {
-                    dropRes.Text = _settingManager.CurrentSettings.Size;
+                    dropRes.Text = SettingManager.CurrentSettings.Size;
                 }
             }
         }
@@ -437,10 +330,10 @@ namespace InitSetting
         private void SetDisplayComboBox(bool bFullScreen)
         {
             dropRes.Items.Clear();
-            var nDisplay = _settingManager.CurrentSettings.Display;
+            var nDisplay = SettingManager.CurrentSettings.Display;
             foreach (var displayMode in bFullScreen
-                ? _settingManager.GetDisplayModes(nDisplay).list
-                : _settingManager.DefaultSettingList)
+                ? SettingManager.GetDisplayModes(nDisplay).list
+                : SettingManager.DefaultSettingList)
             {
                 var newItem = new ComboBoxCustomItem
                 {
@@ -499,21 +392,7 @@ namespace InitSetting
 
         private void update_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            _settingManager.SaveConfigFile(EnvironmentHelper.GetConfigFilePath());
-            _settingManager.SaveRegistry(MStrGameRegistry);
-            if (_isStudio) _settingManager.SaveRegistry(MStrStudioRegistry);
-
             EnvironmentHelper.StartUpdate();
-        }
-
-        private void modeDev_Checked(object sender, RoutedEventArgs e)
-        {
-            if (!_isDuringStartup) EnvironmentHelper.DeveloperModeEnabled = true;
-        }
-
-        private void modeDev_Unchecked(object sender, RoutedEventArgs e)
-        {
-            if (!_isDuringStartup) EnvironmentHelper.DeveloperModeEnabled = false;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
