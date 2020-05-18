@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{561F2722-A3EA-40ED-A5D0-982ED26118B9}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>InitDialog</RootNamespace>
+    <RootNamespace>InitSetting</RootNamespace>
     <AssemblyName>InitSetting</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -70,11 +70,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MainWindow.Languages.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MessageWindow.xaml.cs">
-      <DependentUpon>MessageWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -107,10 +105,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MessageWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\icon.ico" />
@@ -136,8 +130,6 @@
     <Resource Include="images\ButtonBG\manual.png" />
     <Resource Include="images\ButtonBG\startGame.png" />
     <Resource Include="images\ButtonBG\startStudio.png" />
-    <Resource Include="images\ButtonBG\startVR.png" />
-    <Resource Include="images\PHLogo.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
@@ -145,6 +137,10 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\ButtonBG\startVR.png" />
+    <Content Include="images\PHLogo.png" />
   </ItemGroup>
   <Import Project="..\SharedCode\SharedCode.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
