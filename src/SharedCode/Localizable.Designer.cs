@@ -23,24 +23,24 @@ namespace InitSetting {
 	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
 	[global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
 	[global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-	internal class Localizable {
+    public class Localizable {
 		
 		private static global::System.Resources.ResourceManager resourceMan;
 		
 		private static global::System.Globalization.CultureInfo resourceCulture;
 		
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-		internal Localizable() {
+        public Localizable() {
 		}
 		
 		/// <summary>
 		///   Returns the cached ResourceManager instance used by this class.
 		/// </summary>
 		[global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-		internal static global::System.Resources.ResourceManager ResourceManager {
+		public static global::System.Resources.ResourceManager ResourceManager {
 			get {
 				if (object.ReferenceEquals(resourceMan, null)) {
-					global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Localizable", typeof(Localizable).Assembly);
+					global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("InitSetting.Localizable", typeof(Localizable).Assembly);
 					resourceMan = temp;
 				}
 				return resourceMan;
@@ -52,7 +52,7 @@ namespace InitSetting {
 		///   resource lookups using this strongly typed resource class.
 		/// </summary>
 		[global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-		internal static global::System.Globalization.CultureInfo Culture {
+		public static global::System.Globalization.CultureInfo Culture {
 			get {
 				return resourceCulture;
 			}
@@ -64,7 +64,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Run HoneyPot Inspector.
 		/// </summary>
-		internal static string AppHPInspector {
+		public static string AppHPInspector {
 			get {
 				return ResourceManager.GetString("AppHPInspector", resourceCulture);
 			}
@@ -73,7 +73,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Visit Discord.
 		/// </summary>
-		internal static string ButtonDiscord {
+		public static string ButtonDiscord {
 			get {
 				return ResourceManager.GetString("ButtonDiscord", resourceCulture);
 			}
@@ -82,7 +82,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Visit Patreon.
 		/// </summary>
-		internal static string ButtonPatreon {
+		public static string ButtonPatreon {
 			get {
 				return ResourceManager.GetString("ButtonPatreon", resourceCulture);
 			}
@@ -91,7 +91,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Update.
 		/// </summary>
-		internal static string ButtonUpdate {
+		public static string ButtonUpdate {
 			get {
 				return ResourceManager.GetString("ButtonUpdate", resourceCulture);
 			}
@@ -102,7 +102,7 @@ namespace InitSetting {
 		///
 		///This game contains content of a sexual nature, and some of the actions depicted within may be illegal to replicate in real life. Aka, it&apos;s all fun and games in the game, let&apos;s keep it that way shall we? (~.~)v.
 		/// </summary>
-		internal static string Disclaimer {
+		public static string Disclaimer {
 			get {
 				return ResourceManager.GetString("Disclaimer", resourceCulture);
 			}
@@ -111,7 +111,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Unknown distribution.
 		/// </summary>
-		internal static string Distribution {
+		public static string Distribution {
 			get {
 				return ResourceManager.GetString("Distribution", resourceCulture);
 			}
@@ -120,7 +120,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Female Card Folder.
 		/// </summary>
-		internal static string FolderFemaleCard {
+		public static string FolderFemaleCard {
 			get {
 				return ResourceManager.GetString("FolderFemaleCard", resourceCulture);
 			}
@@ -129,7 +129,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Houses Folder.
 		/// </summary>
-		internal static string FolderHouses {
+		public static string FolderHouses {
 			get {
 				return ResourceManager.GetString("FolderHouses", resourceCulture);
 			}
@@ -138,7 +138,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Install Folder.
 		/// </summary>
-		internal static string FolderInstall {
+		public static string FolderInstall {
 			get {
 				return ResourceManager.GetString("FolderInstall", resourceCulture);
 			}
@@ -147,7 +147,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Male Card Folder.
 		/// </summary>
-		internal static string FolderMaleCard {
+		public static string FolderMaleCard {
 			get {
 				return ResourceManager.GetString("FolderMaleCard", resourceCulture);
 			}
@@ -156,7 +156,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Scenes Folder.
 		/// </summary>
-		internal static string FolderScenes {
+		public static string FolderScenes {
 			get {
 				return ResourceManager.GetString("FolderScenes", resourceCulture);
 			}
@@ -165,7 +165,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Screenshots Folder.
 		/// </summary>
-		internal static string FolderScreenshots {
+		public static string FolderScreenshots {
 			get {
 				return ResourceManager.GetString("FolderScreenshots", resourceCulture);
 			}
@@ -174,7 +174,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to UserData Folder.
 		/// </summary>
-		internal static string FolderUserData {
+		public static string FolderUserData {
 			get {
 				return ResourceManager.GetString("FolderUserData", resourceCulture);
 			}
@@ -183,7 +183,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Game Manual.
 		/// </summary>
-		internal static string ManualGame {
+		public static string ManualGame {
 			get {
 				return ResourceManager.GetString("ManualGame", resourceCulture);
 			}
@@ -192,7 +192,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Studio Manual.
 		/// </summary>
-		internal static string ManualStudio {
+		public static string ManualStudio {
 			get {
 				return ResourceManager.GetString("ManualStudio", resourceCulture);
 			}
@@ -201,7 +201,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to VR Manual.
 		/// </summary>
-		internal static string ManualVR {
+		public static string ManualVR {
 			get {
 				return ResourceManager.GetString("ManualVR", resourceCulture);
 			}
@@ -210,7 +210,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to PrimaryDisplay.
 		/// </summary>
-		internal static string PrimaryDisplay {
+		public static string PrimaryDisplay {
 			get {
 				return ResourceManager.GetString("PrimaryDisplay", resourceCulture);
 			}
@@ -219,7 +219,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Normal.
 		/// </summary>
-		internal static string QualityNormal {
+		public static string QualityNormal {
 			get {
 				return ResourceManager.GetString("QualityNormal", resourceCulture);
 			}
@@ -228,7 +228,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Performance.
 		/// </summary>
-		internal static string QualityPerformance {
+		public static string QualityPerformance {
 			get {
 				return ResourceManager.GetString("QualityPerformance", resourceCulture);
 			}
@@ -237,7 +237,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Quality.
 		/// </summary>
-		internal static string QualityQuality {
+		public static string QualityQuality {
 			get {
 				return ResourceManager.GetString("QualityQuality", resourceCulture);
 			}
@@ -246,7 +246,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Height.
 		/// </summary>
-		internal static string ResHeight {
+		public static string ResHeight {
 			get {
 				return ResourceManager.GetString("ResHeight", resourceCulture);
 			}
@@ -255,7 +255,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Width.
 		/// </summary>
-		internal static string ResWidth {
+		public static string ResWidth {
 			get {
 				return ResourceManager.GetString("ResWidth", resourceCulture);
 			}
@@ -264,7 +264,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Start Game.
 		/// </summary>
-		internal static string StartGame {
+		public static string StartGame {
 			get {
 				return ResourceManager.GetString("StartGame", resourceCulture);
 			}
@@ -273,7 +273,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Start Studio.
 		/// </summary>
-		internal static string StartStudio {
+		public static string StartStudio {
 			get {
 				return ResourceManager.GetString("StartStudio", resourceCulture);
 			}
@@ -282,7 +282,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Start VR.
 		/// </summary>
-		internal static string StartVR {
+		public static string StartVR {
 			get {
 				return ResourceManager.GetString("StartVR", resourceCulture);
 			}
@@ -291,7 +291,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to SubDisplay.
 		/// </summary>
-		internal static string SubDisplay {
+		public static string SubDisplay {
 			get {
 				return ResourceManager.GetString("SubDisplay", resourceCulture);
 			}
@@ -300,7 +300,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Activate AI Graphics.
 		/// </summary>
-		internal static string ToggleAiGraphics {
+		public static string ToggleAiGraphics {
 			get {
 				return ResourceManager.GetString("ToggleAiGraphics", resourceCulture);
 			}
@@ -309,7 +309,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Activate Bonemod.
 		/// </summary>
-		internal static string ToggleBonemod {
+		public static string ToggleBonemod {
 			get {
 				return ResourceManager.GetString("ToggleBonemod", resourceCulture);
 			}
@@ -318,7 +318,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Activate Console.
 		/// </summary>
-		internal static string ToggleConsole {
+		public static string ToggleConsole {
 			get {
 				return ResourceManager.GetString("ToggleConsole", resourceCulture);
 			}
@@ -327,7 +327,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Activate DHH.
 		/// </summary>
-		internal static string ToggleDhh {
+		public static string ToggleDhh {
 			get {
 				return ResourceManager.GetString("ToggleDhh", resourceCulture);
 			}
@@ -336,7 +336,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Play game in fullscreen.
 		/// </summary>
-		internal static string ToggleFullscreen {
+		public static string ToggleFullscreen {
 			get {
 				return ResourceManager.GetString("ToggleFullscreen", resourceCulture);
 			}
@@ -345,7 +345,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Activate HoneyPot.
 		/// </summary>
-		internal static string ToggleHoneyPot {
+		public static string ToggleHoneyPot {
 			get {
 				return ResourceManager.GetString("ToggleHoneyPot", resourceCulture);
 			}
@@ -354,7 +354,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Activate RimRemover.
 		/// </summary>
-		internal static string ToggleRimRemover {
+		public static string ToggleRimRemover {
 			get {
 				return ResourceManager.GetString("ToggleRimRemover", resourceCulture);
 			}
@@ -363,7 +363,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Activate Stiletto.
 		/// </summary>
-		internal static string ToggleStiletto {
+		public static string ToggleStiletto {
 			get {
 				return ResourceManager.GetString("ToggleStiletto", resourceCulture);
 			}
@@ -372,7 +372,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to Activate VRMod.
 		/// </summary>
-		internal static string ToggleVRMod {
+		public static string ToggleVRMod {
 			get {
 				return ResourceManager.GetString("ToggleVRMod", resourceCulture);
 			}
@@ -381,7 +381,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to .
 		/// </summary>
-		internal static string TranslatedByCredit {
+		public static string TranslatedByCredit {
 			get {
 				return ResourceManager.GetString("TranslatedByCredit", resourceCulture);
 			}
@@ -390,7 +390,7 @@ namespace InitSetting {
 		/// <summary>
 		///   Looks up a localized string similar to AI Shoujo Launcher.
 		/// </summary>
-		internal static string WindowTitle {
+		public static string WindowTitle {
 			get {
 				return ResourceManager.GetString("WindowTitle", resourceCulture);
 			}
