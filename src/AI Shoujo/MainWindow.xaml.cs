@@ -92,6 +92,8 @@ namespace InitSetting
                 UpdateDisplaySettings(SettingManager.CurrentSettings.FullScreen);
 
                 Closed += (sender, args) => SettingManager.SaveSettings();
+                MouseDown += (sender, args) => { if (args.ChangedButton == MouseButton.Left) DragMove(); };
+                buttonClose.Click += (sender, args) => Close();
             }
             catch (Exception e)
             {
@@ -100,6 +102,132 @@ namespace InitSetting
                 Close();
             }
         }
+
+        #region Display settings
+
+        private void ResolutionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (-1 == dropRes.SelectedIndex) return;
+
+            var comboBoxCustomItem = (ComboBoxCustomItem)dropRes.SelectedItem;
+            SettingManager.CurrentSettings.Size = comboBoxCustomItem.text;
+            SettingManager.CurrentSettings.Width = comboBoxCustomItem.width;
+            SettingManager.CurrentSettings.Height = comboBoxCustomItem.height;
+        }
+
+        private void QualityChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SettingManager.CurrentSettings.Quality = dropQual.SelectedIndex;
+        }
+
+        private void FullscreenUnChecked(object sender, RoutedEventArgs e)
+        {
+            UpdateDisplaySettings(false);
+        }
+
+        private void FullscreenChecked(object sender, RoutedEventArgs e)
+        {
+            UpdateDisplaySettings(true);
+        }
+
+        private void DisplayChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dropDisplay.SelectedIndex < 0) return;
+
+            SettingManager.CurrentSettings.Display = dropDisplay.SelectedIndex;
+            UpdateDisplaySettings(SettingManager.CurrentSettings.FullScreen);
+        }
+
+        private void UpdateDisplaySettings(bool bFullScreen)
+        {
+            if (_suppressEvents) return;
+            _suppressEvents = true;
+
+            toggleFullscreen.IsChecked = bFullScreen;
+            if (!SettingManager.SetFullScreen(bFullScreen))
+            {
+                toggleFullscreen.IsChecked = false;
+                MessageBox.Show("This monitor doesn't support fullscreen.");
+            }
+
+            dropRes.Items.Clear();
+            foreach (var displayMode in SettingManager.GetCurrentDisplayModes())
+            {
+                var newItem = new ComboBoxCustomItem
+                {
+                    text = displayMode.text,
+                    width = displayMode.Width,
+                    height = displayMode.Height
+                };
+                dropRes.Items.Add(newItem);
+            }
+
+            dropRes.Text = SettingManager.CurrentSettings.Size;
+
+            dropDisplay.SelectedIndex = SettingManager.CurrentSettings.Display;
+            dropQual.SelectedIndex = Math.Max(Math.Min(SettingManager.CurrentSettings.Quality, dropQual.Items.Count), 0);
+
+            _suppressEvents = false;
+        }
+
+        #endregion
+
+        #region Start game buttons and manuals
+
+        private void StartGame(string strExe)
+        {
+            SettingManager.SaveSettings();
+            if (EnvironmentHelper.StartGame(strExe))
+                Close();
+        }
+
+        private void buttonStart_Click(object sender, RoutedEventArgs e)
+        {
+            StartGame(ExecutableGame);
+        }
+
+        private void buttonStartS_Click(object sender, RoutedEventArgs e)
+        {
+            StartGame(ExecutableStudio);
+        }
+
+        private void buttonManual_Click(object sender, RoutedEventArgs e)
+        {
+            EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\");
+        }
+
+        private void buttonManualS_Click(object sender, RoutedEventArgs e)
+        {
+            EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_s\\");
+        }
+
+        private void buttonManualV_Click(object sender, RoutedEventArgs e)
+        {
+            EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_vr\\");
+        }
+
+        #endregion
+
+        #region Discord button block
+
+        private void discord_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            EnvironmentHelper.StartProcess("https://discord.gg/F3bDEFE");
+        }
+
+        private void patreon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            EnvironmentHelper.StartProcess(EnvironmentHelper.PatreonUrl);
+        }
+
+        private void update_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            EnvironmentHelper.StartUpdate();
+        }
+
+        #endregion
+
+        #region Language buttons
 
         private void LangEnglish(object sender, MouseButtonEventArgs e)
         {
@@ -146,107 +274,9 @@ namespace InitSetting
             EnvironmentHelper.SetLanguage("no-NB");
         }
 
-        private void StartGame(string strExe)
-        {
-            SettingManager.SaveSettings();
-            if (EnvironmentHelper.StartGame(strExe))
-                Close();
-        }
+        #endregion
 
-        private void buttonStart_Click(object sender, RoutedEventArgs e)
-        {
-            StartGame(ExecutableGame);
-        }
-
-        private void buttonStartS_Click(object sender, RoutedEventArgs e)
-        {
-            StartGame(ExecutableStudio);
-        }
-
-        private void buttonClose_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void ResolutionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (-1 == dropRes.SelectedIndex) return;
-
-            var comboBoxCustomItem = (ComboBoxCustomItem)dropRes.SelectedItem;
-            SettingManager.CurrentSettings.Size = comboBoxCustomItem.text;
-            SettingManager.CurrentSettings.Width = comboBoxCustomItem.width;
-            SettingManager.CurrentSettings.Height = comboBoxCustomItem.height;
-        }
-
-        private void QualityChanged(object sender, SelectionChangedEventArgs e)
-        {
-            SettingManager.CurrentSettings.Quality = dropQual.SelectedIndex;
-        }
-
-        private void FullscreenUnChecked(object sender, RoutedEventArgs e)
-        {
-            UpdateDisplaySettings(false);
-        }
-
-        private void FullscreenChecked(object sender, RoutedEventArgs e)
-        {
-            UpdateDisplaySettings(true);
-        }
-
-        private void buttonManual_Click(object sender, RoutedEventArgs e)
-        {
-            EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\");
-        }
-
-        private void buttonManualS_Click(object sender, RoutedEventArgs e)
-        {
-            EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_s\\");
-        }
-
-        private void buttonManualV_Click(object sender, RoutedEventArgs e)
-        {
-            EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_vr\\");
-        }
-
-        private void DisplayChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (dropDisplay.SelectedIndex < 0) return;
-
-            SettingManager.CurrentSettings.Display = dropDisplay.SelectedIndex;
-            UpdateDisplaySettings(SettingManager.CurrentSettings.FullScreen);
-        }
-
-        private void UpdateDisplaySettings(bool bFullScreen)
-        {
-            if (_suppressEvents) return;
-            _suppressEvents = true;
-
-            toggleFullscreen.IsChecked = bFullScreen;
-            if (!SettingManager.SetFullScreen(bFullScreen))
-            {
-                toggleFullscreen.IsChecked = false;
-                MessageBox.Show("This monitor doesn't support fullscreen.");
-            }
-
-            dropRes.Items.Clear();
-            foreach (var displayMode in SettingManager.GetCurrentDisplayModes())
-            {
-                var newItem = new ComboBoxCustomItem
-                {
-                    text = displayMode.text,
-                    width = displayMode.Width,
-                    height = displayMode.Height
-                };
-                dropRes.Items.Add(newItem);
-            }
-
-            dropRes.Text = SettingManager.CurrentSettings.Size;
-
-            dropDisplay.SelectedIndex = SettingManager.CurrentSettings.Display;
-            dropQual.SelectedIndex = Math.Max(Math.Min(SettingManager.CurrentSettings.Quality, dropQual.Items.Count), 0);
-
-            _suppressEvents = false;
-        }
+        #region Directory open buttons
 
         private void buttonInst_Click(object sender, RoutedEventArgs e)
         {
@@ -283,25 +313,6 @@ namespace InitSetting
             EnvironmentHelper.OpenDirectory("UserData\\chara\\male");
         }
 
-        private void discord_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            EnvironmentHelper.StartProcess("https://discord.gg/F3bDEFE");
-        }
-
-        private void patreon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            EnvironmentHelper.StartProcess(EnvironmentHelper.PatreonUrl);
-        }
-
-        private void update_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            EnvironmentHelper.StartUpdate();
-        }
-
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-                DragMove();
-        }
+        #endregion
     }
 }

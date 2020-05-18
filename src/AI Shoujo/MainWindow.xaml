@@ -10,7 +10,6 @@
         Width="900"
         ResizeMode="NoResize"
         WindowStyle="None"
-        MouseLeftButtonDown="Window_MouseDown"
         BorderBrush="Black"
         BorderThickness="1">
     <Window.Resources>
@@ -273,8 +272,7 @@
         <Image x:Name="image2" HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="262"
                Source="images/AILogo.png" Margin="318,102,318,0" />
         <Button Style="{StaticResource buttonHover}" x:Name="buttonClose" Content="X" HorizontalAlignment="Left"
-                Margin="856,10,0,0" VerticalAlignment="Top" Width="32" Height="28" Click="buttonClose_Click"
-                IsCancel="true" />
+                Margin="856,10,0,0" VerticalAlignment="Top" Width="32" Height="28" IsCancel="true" />
         <Grid x:Name="gridDiscord" HorizontalAlignment="Left" Height="36.333" Margin="-40.584,160.952,0,0"
               VerticalAlignment="Top" Width="189.917" Grid.Row="1">
             <Border BorderBrush="#FF366EBF" Background="Black" BorderThickness="2" HorizontalAlignment="Left"
