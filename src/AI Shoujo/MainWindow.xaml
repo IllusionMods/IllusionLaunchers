@@ -211,7 +211,11 @@
                     <Grid x:Name="CustomRes" Margin="0,88,0,8"/>
                 </Border>
                 <ComboBox x:Name="dropQual" HorizontalAlignment="Left" Margin="23,23,0,0" VerticalAlignment="Top"
-                          Width="219" SelectionChanged="QualityChanged" />
+                          Width="219" SelectionChanged="QualityChanged">
+                    <ComboBoxItem Content="{x:Static local:Localizable.QualityPerformance}"/>
+                    <ComboBoxItem Content="{x:Static local:Localizable.QualityNormal}"/>
+                    <ComboBoxItem Content="{x:Static local:Localizable.QualityQuality}"/>
+                </ComboBox>
                 <ComboBox x:Name="dropDisplay" HorizontalAlignment="Left" Margin="23,50,0,0" VerticalAlignment="Top"
                           Width="219" SelectionChanged="DisplayChanged" />
                 <ComboBox x:Name="dropRes" HorizontalAlignment="Left" Margin="23,77,0,0" VerticalAlignment="Top"

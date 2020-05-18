@@ -94,7 +94,8 @@ namespace InitSetting
         private static readonly List<DisplayModes> _displayModes = new List<DisplayModes>();
         private static string _configFilePath;
         private static string[] _registryConfigPaths;
-        public static DisplayModes GetDisplayModes(int nDisplay) => _displayModes[nDisplay];
+        public static List<DisplayMode> GetDisplayModes(int nDisplay, bool fullScreen) => fullScreen ? _displayModes[nDisplay].fullscreenList : _displayModes[nDisplay].windowedList;
+        public static List<DisplayMode> GetCurrentDisplayModes() => GetDisplayModes(CurrentSettings.Display, CurrentSettings.FullScreen);
 
         [DllImport("user32.dll")]
         private static extern bool EnumDisplaySettings(string deviceName, int modeNum, ref DEVMODE devMode);
@@ -154,40 +155,42 @@ namespace InitSetting
             var primaryIndex = -1;
             for (var currentDisp = 0; currentDisp < allDisplayNames.Count; currentDisp++)
             {
-                var displayName = allDisplayNames[currentDisp];
-                var num4 = 0;
-                var num5 = 0;
-                var devmode = default(DEVMODE);
-                var list2 = new List<DisplayMode>();
-                var num6 = 0;
-                while (EnumDisplaySettings(displayName, num6, ref devmode))
-                {
-                    var w = devmode.dmPelsWidth;
-                    var h = devmode.dmPelsHeight;
-                    if ((num4 != w || num5 != h) && devmode.dmBitsPerPel == 32)
-                    {
-                        var displayMode = DefaultSettingList.FirstOrDefault(dis => dis.Width == w && dis.Height == h);
-                        if (displayMode.Width != 0) list2.Add(displayMode);
-                        num4 = w;
-                        num5 = h;
-                    }
-
-                    num6++;
-                }
-
                 var item = default(DisplayModes);
-                foreach (var monitorInfoEx in Screen.AllScreens)
-                    if (monitorInfoEx.DeviceName == displayName)
+                var displayName = allDisplayNames[currentDisp];
+
+                var lastWidth = 0;
+                var lastHeight = 0;
+                var devmode = default(DEVMODE);
+                var fullscreenList = new List<DisplayMode>();
+                var count = 0;
+                while (EnumDisplaySettings(displayName, count, ref devmode))
+                {
+                    var devWidth = devmode.dmPelsWidth;
+                    var devHeight = devmode.dmPelsHeight;
+                    if ((lastWidth != devWidth || lastHeight != devHeight) && devmode.dmBitsPerPel == 32)
                     {
-                        item.x = monitorInfoEx.WorkingArea.Left;
-                        item.y = monitorInfoEx.WorkingArea.Top;
-                        item.screen = monitorInfoEx;
-                        if (monitorInfoEx.Primary) primaryIndex = currentDisp;
+                        var displayMode = DefaultSettingList.FirstOrDefault(dis => dis.Width == devWidth && dis.Height == devHeight);
+                        if (displayMode.Width != 0) fullscreenList.Add(displayMode);
+                        lastWidth = devWidth;
+                        lastHeight = devHeight;
                     }
 
-                item.fullscreenList = list2;
+                    count++;
+                }
+                item.fullscreenList = fullscreenList;
 
-                item.windowedList = DefaultSettingList.Where(x => x.Height <= item.screen.Bounds.Height && x.Width <= item.screen.Bounds.Width).ToList();
+                foreach (var screen in Screen.AllScreens)
+                {
+                    if (screen.DeviceName == displayName)
+                    {
+                        //item.x = screen.WorkingArea.Left;
+                        //item.y = screen.WorkingArea.Top;
+                        //item.screen = screen;
+                        if (screen.Primary) primaryIndex = currentDisp;
+
+                        item.windowedList = DefaultSettingList.Where(x => x.Height <= screen.Bounds.Height && x.Width <= screen.Bounds.Width).ToList();
+                    }
+                }
 
                 _displayModes.Add(item);
             }
@@ -200,33 +203,26 @@ namespace InitSetting
             _displayModes.RemoveAt(primaryIndex + 1);
         }
 
+        /// <summary>
+        /// Returns false if fullscreen is not supported on the current display and it could not be enabled
+        /// </summary>
         public static bool SetFullScreen(bool fullScreenEnabled)
         {
-            var displayModes = _displayModes[CurrentSettings.Display];
-            if (!fullScreenEnabled || displayModes.fullscreenList.Count == 0)
+            var displayModes = GetDisplayModes(CurrentSettings.Display, fullScreenEnabled);
+            CurrentSettings.FullScreen = fullScreenEnabled && displayModes.Any();
+
+            displayModes = GetDisplayModes(CurrentSettings.Display, CurrentSettings.FullScreen);
+            // See if the resolution is available
+            if (displayModes.Find(x => x.text.Contains(CurrentSettings.Size)).Width == 0)
             {
-                CurrentSettings.FullScreen = false;
-
-                if (displayModes.windowedList.Find(x => x.text.Contains(CurrentSettings.Size)).Width == 0)
-                {
-                    var displayMode = displayModes.windowedList.OrderBy(x => Math.Abs(x.Width - CurrentSettings.Width) + Math.Abs(x.Height - CurrentSettings.Height)).First();
-                    //var displayMode = displayModes.windowedList[0];
-                    CurrentSettings.Size = displayMode.text;
-                    CurrentSettings.Width = displayMode.Width;
-                    CurrentSettings.Height = displayMode.Height;
-                }
-
-                return !fullScreenEnabled;
+                // if not, find the closest available resolution
+                var displayMode = displayModes.OrderBy(x => Math.Abs(x.Width - CurrentSettings.Width) + Math.Abs(x.Height - CurrentSettings.Height)).First();
+                CurrentSettings.Size = displayMode.text;
+                CurrentSettings.Width = displayMode.Width;
+                CurrentSettings.Height = displayMode.Height;
             }
 
-            CurrentSettings.FullScreen = true;
-            if (displayModes.fullscreenList.Find(x => x.text.Contains(CurrentSettings.Size)).Width == 0)
-            {
-                CurrentSettings.Size = displayModes.fullscreenList[0].text;
-                CurrentSettings.Width = displayModes.fullscreenList[0].Width;
-                CurrentSettings.Height = displayModes.fullscreenList[0].Height;
-            }
-            return true;
+            return fullScreenEnabled == CurrentSettings.FullScreen;
         }
 
         public struct DisplayMode
@@ -240,11 +236,11 @@ namespace InitSetting
 
         public struct DisplayModes
         {
-            public int x;
-
-            public int y;
-
-            public Screen screen;
+            //public int x;
+            //
+            //public int y;
+            //
+            //public Screen screen;
 
             public List<DisplayMode> fullscreenList;
             public List<DisplayMode> windowedList;
@@ -269,11 +265,24 @@ namespace InitSetting
         public static void LoadSettings()
         {
             if (!File.Exists(_configFilePath)) return;
-            using (var fileStream = new FileStream(_configFilePath, FileMode.Open))
+
+            try
             {
-                var xmlSerializer = new XmlSerializer(typeof(ConfigSetting));
-                CurrentSettings = (ConfigSetting)xmlSerializer.Deserialize(fileStream);
+                using (var fileStream = new FileStream(_configFilePath, FileMode.Open))
+                {
+                    var xmlSerializer = new XmlSerializer(typeof(ConfigSetting));
+                    CurrentSettings = (ConfigSetting)xmlSerializer.Deserialize(fileStream);
+                }
             }
+            catch (Exception)
+            {
+                MessageBox.Show("/UserData/setup.xml file was corrupted, settings will be reset.");
+                File.Delete(_configFilePath);
+            }
+
+            // Reset invalid display to primary
+            if (CurrentSettings.Display >= Screen.AllScreens.Length || CurrentSettings.Display < 0)
+                CurrentSettings.Display = 0;
         }
     }
 }

@@ -22,12 +22,6 @@ namespace InitSetting
         private bool _suppressEvents;
         private readonly bool _mainGameExists;
         private readonly bool _studioExists;
-        private readonly string[] _qLevelNames;
-        private readonly string _qNormal;
-        private readonly string _qPerformance;
-        private readonly string _qQuality;
-        private readonly string _sPrimarydisplay;
-        private readonly string _sSubdisplay;
 
         public MainWindow()
         {
@@ -46,16 +40,10 @@ namespace InitSetting
                 else
                     SettingManager.Initialize(EnvironmentHelper.GetConfigFilePath(), RegistryKeyGame);
 
+                SettingManager.LoadSettings();
+
                 // Initialize interface --------------------------------
                 InitializeComponent();
-
-                _qPerformance = Localizable.QualityPerformance;
-                _qNormal = Localizable.QualityNormal;
-                _qQuality = Localizable.QualityQuality;
-                _qLevelNames = new[] { _qPerformance, _qNormal, _qQuality };
-                _sPrimarydisplay = Localizable.PrimaryDisplay;
-                _sSubdisplay = Localizable.SubDisplay;
-                foreach (var qalName in _qLevelNames) dropQual.Items.Add(qalName);
 
                 WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 CustomRes.Visibility = Visibility.Hidden;
@@ -88,18 +76,20 @@ namespace InitSetting
                     patreonIMG.Visibility = Visibility.Collapsed;
                 }
 
-                PluginToggleManager.CreatePluginToggles(Toggleables);
-
+                var primaryDisplay = Localizable.PrimaryDisplay;
+                var subDisplay = Localizable.SubDisplay;
                 for (var i = 0; i < Screen.AllScreens.Length; i++)
                 {
                     // 0 is primary
-                    var newItem = i == 0 ? _sPrimarydisplay : $"{_sSubdisplay} : " + i;
+                    var newItem = i == 0 ? primaryDisplay : $"{subDisplay} : " + i;
                     dropDisplay.Items.Add(newItem);
                 }
 
+                PluginToggleManager.CreatePluginToggles(Toggleables);
+
                 _suppressEvents = false;
 
-                ParseGameConfigFile();
+                UpdateDisplaySettings(SettingManager.CurrentSettings.FullScreen);
 
                 Closed += (sender, args) => SettingManager.SaveSettings();
             }
@@ -108,58 +98,6 @@ namespace InitSetting
                 MessageBox.Show("Failed to start the launcher, please consider reporting this error to the developers.\n\nError that caused the crash: " + e, "Launcher crash", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 File.WriteAllText(Path.Combine(EnvironmentHelper.GameRootDirectory, "launcher_crash.log"), e.ToString());
                 Close();
-            }
-        }
-
-        private void ParseGameConfigFile()
-        {
-            var num = Screen.AllScreens.Length;
-            var configFilePath = EnvironmentHelper.GetConfigFilePath();
-            CheckConfigFile:
-            if (File.Exists(configFilePath))
-            {
-                try
-                {
-                    SettingManager.LoadSettings();
-
-                    SettingManager.CurrentSettings.Display =
-                        Math.Min(SettingManager.CurrentSettings.Display, num - 1);
-                    UpdateDisplaySettings(SettingManager.CurrentSettings.FullScreen);
-                    var flag = false;
-                    foreach (var resItem in dropRes.Items)
-                        if (resItem.ToString() == SettingManager.CurrentSettings.Size)
-                            flag = true;
-
-                    dropRes.Text = flag ? SettingManager.CurrentSettings.Size : "1280 x 720 (16 : 9)";
-                    toggleFullscreen.IsChecked = SettingManager.CurrentSettings.FullScreen;
-                    dropQual.Text = _qLevelNames[SettingManager.CurrentSettings.Quality];
-                    var text = SettingManager.CurrentSettings.Display == 0
-                        ? _sPrimarydisplay
-                        : $"{_sSubdisplay} : " + SettingManager.CurrentSettings.Display;
-
-                    if (dropDisplay.Items.Contains(text))
-                    {
-                        dropDisplay.Text = text;
-                    }
-                    else
-                    {
-                        dropDisplay.Text = _sPrimarydisplay;
-                        SettingManager.CurrentSettings.Display = 0;
-                    }
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("/UserData/setup.xml file was corrupted, settings will be reset.");
-                    File.Delete(configFilePath);
-                    goto CheckConfigFile;
-                }
-            }
-            else
-            {
-                UpdateDisplaySettings(false);
-                dropRes.Text = SettingManager.CurrentSettings.Size;
-                dropQual.Text = _qLevelNames[SettingManager.CurrentSettings.Quality];
-                dropDisplay.Text = _sPrimarydisplay;
             }
         }
 
@@ -242,10 +180,7 @@ namespace InitSetting
 
         private void QualityChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selectedQuality = dropQual.SelectedItem.ToString();
-            if (selectedQuality == _qPerformance) SettingManager.CurrentSettings.Quality = 0;
-            else if (selectedQuality == _qNormal) SettingManager.CurrentSettings.Quality = 1;
-            else if (selectedQuality == _qQuality) SettingManager.CurrentSettings.Quality = 2;
+            SettingManager.CurrentSettings.Quality = dropQual.SelectedIndex;
         }
 
         private void FullscreenUnChecked(object sender, RoutedEventArgs e)
@@ -275,7 +210,7 @@ namespace InitSetting
 
         private void DisplayChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (-1 == dropDisplay.SelectedIndex) return;
+            if (dropDisplay.SelectedIndex < 0) return;
 
             SettingManager.CurrentSettings.Display = dropDisplay.SelectedIndex;
             UpdateDisplaySettings(SettingManager.CurrentSettings.FullScreen);
@@ -286,6 +221,7 @@ namespace InitSetting
             if (_suppressEvents) return;
             _suppressEvents = true;
 
+            toggleFullscreen.IsChecked = bFullScreen;
             if (!SettingManager.SetFullScreen(bFullScreen))
             {
                 toggleFullscreen.IsChecked = false;
@@ -293,10 +229,7 @@ namespace InitSetting
             }
 
             dropRes.Items.Clear();
-            var nDisplay = SettingManager.CurrentSettings.Display;
-            var modes = SettingManager.GetDisplayModes(nDisplay);
-            var displayModes = SettingManager.CurrentSettings.FullScreen ? modes.fullscreenList : modes.windowedList;
-            foreach (var displayMode in displayModes)
+            foreach (var displayMode in SettingManager.GetCurrentDisplayModes())
             {
                 var newItem = new ComboBoxCustomItem
                 {
@@ -308,6 +241,9 @@ namespace InitSetting
             }
 
             dropRes.Text = SettingManager.CurrentSettings.Size;
+
+            dropDisplay.SelectedIndex = SettingManager.CurrentSettings.Display;
+            dropQual.SelectedIndex = Math.Max(Math.Min(SettingManager.CurrentSettings.Quality, dropQual.Items.Count), 0);
 
             _suppressEvents = false;
         }
