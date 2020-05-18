@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -180,10 +181,14 @@ namespace InitSetting
                     {
                         item.x = monitorInfoEx.WorkingArea.Left;
                         item.y = monitorInfoEx.WorkingArea.Top;
+                        item.screen = monitorInfoEx;
                         if (monitorInfoEx.Primary) primaryIndex = currentDisp;
                     }
 
-                item.list = list2;
+                item.fullscreenList = list2;
+
+                item.windowedList = DefaultSettingList.Where(x => x.Height <= item.screen.Bounds.Height && x.Width <= item.screen.Bounds.Width).ToList();
+
                 _displayModes.Add(item);
             }
 
@@ -197,18 +202,29 @@ namespace InitSetting
 
         public static bool SetFullScreen(bool fullScreenEnabled)
         {
-            var currentSettingsDisplay = CurrentSettings.Display;
-            if (_displayModes[currentSettingsDisplay].list.Count == 0)
+            var displayModes = _displayModes[CurrentSettings.Display];
+            if (!fullScreenEnabled || displayModes.fullscreenList.Count == 0)
             {
                 CurrentSettings.FullScreen = false;
-                return false;
+
+                if (displayModes.windowedList.Find(x => x.text.Contains(CurrentSettings.Size)).Width == 0)
+                {
+                    var displayMode = displayModes.windowedList.OrderBy(x => Math.Abs(x.Width - CurrentSettings.Width) + Math.Abs(x.Height - CurrentSettings.Height)).First();
+                    //var displayMode = displayModes.windowedList[0];
+                    CurrentSettings.Size = displayMode.text;
+                    CurrentSettings.Width = displayMode.Width;
+                    CurrentSettings.Height = displayMode.Height;
+                }
+
+                return !fullScreenEnabled;
             }
-            CurrentSettings.FullScreen = fullScreenEnabled;
-            if (_displayModes[currentSettingsDisplay].list.Find((DisplayMode x) => x.text.Contains(CurrentSettings.Size)).Width == 0)
+
+            CurrentSettings.FullScreen = true;
+            if (displayModes.fullscreenList.Find(x => x.text.Contains(CurrentSettings.Size)).Width == 0)
             {
-                CurrentSettings.Size = _displayModes[currentSettingsDisplay].list[0].text;
-                CurrentSettings.Width = _displayModes[currentSettingsDisplay].list[0].Width;
-                CurrentSettings.Height = _displayModes[currentSettingsDisplay].list[0].Height;
+                CurrentSettings.Size = displayModes.fullscreenList[0].text;
+                CurrentSettings.Width = displayModes.fullscreenList[0].Width;
+                CurrentSettings.Height = displayModes.fullscreenList[0].Height;
             }
             return true;
         }
@@ -228,7 +244,10 @@ namespace InitSetting
 
             public int y;
 
-            public List<DisplayMode> list;
+            public Screen screen;
+
+            public List<DisplayMode> fullscreenList;
+            public List<DisplayMode> windowedList;
         }
 
         public static void Initialize(string configFilePath, params string[] registryConfigPaths)
@@ -249,6 +268,7 @@ namespace InitSetting
 
         public static void LoadSettings()
         {
+            if (!File.Exists(_configFilePath)) return;
             using (var fileStream = new FileStream(_configFilePath, FileMode.Open))
             {
                 var xmlSerializer = new XmlSerializer(typeof(ConfigSetting));

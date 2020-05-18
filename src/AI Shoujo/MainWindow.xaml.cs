@@ -19,7 +19,7 @@ namespace InitSetting
         private static readonly string[] _builtinLanguages = { "ja-JP" };
 
         // Normal fields, don't fill in --------------------------------------------------------------
-        private readonly bool _isDuringStartup;
+        private bool _suppressEvents;
         private readonly bool _mainGameExists;
         private readonly bool _studioExists;
         private readonly string[] _qLevelNames;
@@ -33,7 +33,7 @@ namespace InitSetting
         {
             try
             {
-                _isDuringStartup = true;
+                _suppressEvents = true;
 
                 // Initialize code -------------------------------------
                 EnvironmentHelper.Initialize(_builtinLanguages);
@@ -90,27 +90,18 @@ namespace InitSetting
 
                 PluginToggleManager.CreatePluginToggles(Toggleables);
 
-                // todo ?? is this check necessary?
-                var num = Screen.AllScreens.Length;
-                if (num == 2)
+                for (var i = 0; i < Screen.AllScreens.Length; i++)
                 {
-                    dropDisplay.Items.Add(_sPrimarydisplay);
-                    dropDisplay.Items.Add($"{_sSubdisplay} : 1");
+                    // 0 is primary
+                    var newItem = i == 0 ? _sPrimarydisplay : $"{_sSubdisplay} : " + i;
+                    dropDisplay.Items.Add(newItem);
                 }
-                else
-                {
-                    for (var i = 0; i < num; i++)
-                    {
-                        var newItem = i == 0 ? _sPrimarydisplay : $"{_sSubdisplay} : " + i;
-                        dropDisplay.Items.Add(newItem);
-                    }
-                }
+
+                _suppressEvents = false;
 
                 ParseGameConfigFile();
 
                 Closed += (sender, args) => SettingManager.SaveSettings();
-
-                _isDuringStartup = false;
             }
             catch (Exception e)
             {
@@ -133,7 +124,7 @@ namespace InitSetting
 
                     SettingManager.CurrentSettings.Display =
                         Math.Min(SettingManager.CurrentSettings.Display, num - 1);
-                    SetDisplayComboBox(SettingManager.CurrentSettings.FullScreen);
+                    UpdateDisplaySettings(SettingManager.CurrentSettings.FullScreen);
                     var flag = false;
                     foreach (var resItem in dropRes.Items)
                         if (resItem.ToString() == SettingManager.CurrentSettings.Size)
@@ -145,14 +136,6 @@ namespace InitSetting
                     var text = SettingManager.CurrentSettings.Display == 0
                         ? _sPrimarydisplay
                         : $"{_sSubdisplay} : " + SettingManager.CurrentSettings.Display;
-
-                    // todo ?? is this necessary?
-                    if (num == 2)
-                        text = new[]
-                        {
-                            _sPrimarydisplay,
-                            $"{_sSubdisplay} : 1"
-                        }[SettingManager.CurrentSettings.Display];
 
                     if (dropDisplay.Items.Contains(text))
                     {
@@ -173,7 +156,7 @@ namespace InitSetting
             }
             else
             {
-                SetDisplayComboBox(false);
+                UpdateDisplaySettings(false);
                 dropRes.Text = SettingManager.CurrentSettings.Size;
                 dropQual.Text = _qLevelNames[SettingManager.CurrentSettings.Quality];
                 dropDisplay.Text = _sPrimarydisplay;
@@ -259,37 +242,20 @@ namespace InitSetting
 
         private void QualityChanged(object sender, SelectionChangedEventArgs e)
         {
-            var a = dropQual.SelectedItem.ToString();
-            if (a == _qPerformance)
-            {
-                SettingManager.CurrentSettings.Quality = 0;
-                return;
-            }
-
-            if (a == _qNormal)
-            {
-                SettingManager.CurrentSettings.Quality = 1;
-                return;
-            }
-
-            if (a != _qQuality) return;
-
-            SettingManager.CurrentSettings.Quality = 2;
+            var selectedQuality = dropQual.SelectedItem.ToString();
+            if (selectedQuality == _qPerformance) SettingManager.CurrentSettings.Quality = 0;
+            else if (selectedQuality == _qNormal) SettingManager.CurrentSettings.Quality = 1;
+            else if (selectedQuality == _qQuality) SettingManager.CurrentSettings.Quality = 2;
         }
 
         private void FullscreenUnChecked(object sender, RoutedEventArgs e)
         {
-            SetDisplayComboBox(false);
-            dropRes.Text = SettingManager.CurrentSettings.Size;
-            SettingManager.CurrentSettings.FullScreen = false;
+            UpdateDisplaySettings(false);
         }
 
         private void FullscreenChecked(object sender, RoutedEventArgs e)
         {
-            SetDisplayComboBox(true);
-            if (!SettingManager.SetFullScreen(SettingManager.CurrentSettings.FullScreen))
-                toggleFullscreen.IsChecked = false;
-            dropRes.Text = SettingManager.CurrentSettings.Size;
+            UpdateDisplaySettings(true);
         }
 
         private void buttonManual_Click(object sender, RoutedEventArgs e)
@@ -312,28 +278,25 @@ namespace InitSetting
             if (-1 == dropDisplay.SelectedIndex) return;
 
             SettingManager.CurrentSettings.Display = dropDisplay.SelectedIndex;
-            if (SettingManager.CurrentSettings.FullScreen)
-            {
-                SetDisplayComboBox(true);
-                if (!SettingManager.SetFullScreen(true))
-                {
-                    toggleFullscreen.IsChecked = false;
-                    MessageBox.Show("This monitor doesn't support fullscreen.");
-                }
-                else
-                {
-                    dropRes.Text = SettingManager.CurrentSettings.Size;
-                }
-            }
+            UpdateDisplaySettings(SettingManager.CurrentSettings.FullScreen);
         }
 
-        private void SetDisplayComboBox(bool bFullScreen)
+        private void UpdateDisplaySettings(bool bFullScreen)
         {
+            if (_suppressEvents) return;
+            _suppressEvents = true;
+
+            if (!SettingManager.SetFullScreen(bFullScreen))
+            {
+                toggleFullscreen.IsChecked = false;
+                MessageBox.Show("This monitor doesn't support fullscreen.");
+            }
+
             dropRes.Items.Clear();
             var nDisplay = SettingManager.CurrentSettings.Display;
-            foreach (var displayMode in bFullScreen
-                ? SettingManager.GetDisplayModes(nDisplay).list
-                : SettingManager.DefaultSettingList)
+            var modes = SettingManager.GetDisplayModes(nDisplay);
+            var displayModes = SettingManager.CurrentSettings.FullScreen ? modes.fullscreenList : modes.windowedList;
+            foreach (var displayMode in displayModes)
             {
                 var newItem = new ComboBoxCustomItem
                 {
@@ -343,6 +306,10 @@ namespace InitSetting
                 };
                 dropRes.Items.Add(newItem);
             }
+
+            dropRes.Text = SettingManager.CurrentSettings.Size;
+
+            _suppressEvents = false;
         }
 
         private void buttonInst_Click(object sender, RoutedEventArgs e)
