@@ -139,7 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\ButtonBG\startVR.png" />
-    <Content Include="images\PHLogo.png" />
+    <Resource Include="images\PHLogo.png" />
   </ItemGroup>
   <Import Project="..\SharedCode\SharedCode.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

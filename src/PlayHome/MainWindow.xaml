@@ -140,9 +140,9 @@
                 </Image>
             </Border>
 
-            <Label Style="{StaticResource GameButtonsLabel}" x:Name="labelStart" Content="Start Game" HorizontalAlignment="Left" Margin="125,24,0,0" VerticalAlignment="Top" Width="190" Height="34"/>
-            <Label Style="{StaticResource ResourceKey=GameButtonsLabel}" x:Name="labelStartS" Content="Start Studio" HorizontalAlignment="Left" Margin="352,24,0,0" VerticalAlignment="Top" Width="190" Height="34"/>
-            <Label Style="{StaticResource ResourceKey=GameButtonsLabel}" x:Name="labelStartVR" Content="Start VR" HorizontalAlignment="Left" Margin="579,24,0,0" VerticalAlignment="Top" Width="190" Height="34"/>
+            <Label Style="{StaticResource GameButtonsLabel}" x:Name="labelStart" Content="{x:Static local:Localizable.StartGame}" HorizontalAlignment="Left" Margin="125,24,0,0" VerticalAlignment="Top" Width="190" Height="34"/>
+            <Label Style="{StaticResource ResourceKey=GameButtonsLabel}" x:Name="labelStartS" Content="{x:Static local:Localizable.StartStudio}" HorizontalAlignment="Left" Margin="352,24,0,0" VerticalAlignment="Top" Width="190" Height="34"/>
+            <Label Style="{StaticResource ResourceKey=GameButtonsLabel}" x:Name="labelStartVR" Content="{x:Static local:Localizable.StartVR}" HorizontalAlignment="Left" Margin="579,24,0,0" VerticalAlignment="Top" Width="190" Height="34"/>
             <Button Style="{StaticResource buttonHover}" x:Name="buttonStart" Content="" HorizontalAlignment="Left" Height="36" Margin="124,23,0,0" VerticalAlignment="Top" Width="223" Click="buttonStart_Click">
                 <Button.RenderTransform>
                     <TransformGroup>
@@ -176,17 +176,17 @@
             <Border  HorizontalAlignment="Left" Height="20.333" Margin="581.167,64.75,0,0" VerticalAlignment="Top" Width="170.083" Background="Black">
                 <Image x:Name="idmssage" Source="Images/ButtonBG/manual.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right"/>
             </Border>
-            <Label x:Name="labelMV" Foreground="White" VerticalContentAlignment="Center" Content="VR Manual" HorizontalAlignment="Left" Margin="583,63,0,0" VerticalAlignment="Top" Height="24" Width="98"/>
+            <Label x:Name="labelMV" Foreground="White" VerticalContentAlignment="Center" Content="{x:Static local:Localizable.ManualVR}" HorizontalAlignment="Left" Margin="583,63,0,0" VerticalAlignment="Top" Height="24" Width="98"/>
             <Button Style="{StaticResource buttonHover}" x:Name="buttonManualV" Content="" HorizontalAlignment="Left" Height="24" Margin="579,63,0,0" VerticalAlignment="Top" Width="174" Click="buttonManualV_Click"/>
             <Border  HorizontalAlignment="Left" Height="20.333" Margin="360.083,64.75,0,0" VerticalAlignment="Top" Width="169.917" Background="Black">
                 <Image x:Name="idmssage1" Source="Images/ButtonBG/manual.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right"/>
             </Border>
-            <Label x:Name="labelMS" Foreground="White" VerticalContentAlignment="Center" Content="Studio Manual" HorizontalAlignment="Left" Margin="364,63,0,0" VerticalAlignment="Top" Height="24" Width="122"/>
+            <Label x:Name="labelMS" Foreground="White" VerticalContentAlignment="Center" Content="{x:Static local:Localizable.ManualStudio}" HorizontalAlignment="Left" Margin="364,63,0,0" VerticalAlignment="Top" Height="24" Width="122"/>
             <Button Style="{StaticResource buttonHover}" x:Name="buttonManualS" Content="" HorizontalAlignment="Left" Height="24" Margin="358,63,0,0" VerticalAlignment="Top" Width="174" Click="buttonManualS_Click"/>
             <Border  HorizontalAlignment="Left" Height="20.333" Margin="132.833,64.75,0,0" VerticalAlignment="Top" Width="170.417" Background="Black">
                 <Image x:Name="idmssage2" Source="Images/ButtonBG/manual.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right"/>
             </Border>
-            <Label x:Name="labelM" Foreground="White" VerticalContentAlignment="Center" Content="Game Manual" HorizontalAlignment="Left" Margin="137,63,0,0" VerticalAlignment="Top" Height="24" Width="134"/>
+            <Label x:Name="labelM" Foreground="White" VerticalContentAlignment="Center" Content="{x:Static local:Localizable.ManualGame}" HorizontalAlignment="Left" Margin="137,63,0,0" VerticalAlignment="Top" Height="24" Width="134"/>
             <Button Style="{StaticResource buttonHover}" x:Name="buttonManual" Content="" HorizontalAlignment="Left" Height="24" Margin="131,63,0,0" VerticalAlignment="Top" Width="174" Click="buttonManual_Click"/>
         </Grid>
 
@@ -220,7 +220,7 @@
                 <StackPanel Margin="5,5,5,29.5" x:Name="Toggleables" Orientation="Vertical">
                     <CheckBox x:Name="toggleFullscreen" Content="{x:Static local:Localizable.ToggleFullscreen}"
                               Foreground="White"  Checked="FullscreenChecked" Unchecked="FullscreenUnChecked" />
-                    <CheckBox x:Name="toggleBoneMod" Content="Activate BoneMod" Foreground="White" VerticalContentAlignment="Center" Checked="bonemod_Checked" Unchecked="bonemod_Unchecked"/>
+                    <CheckBox x:Name="toggleBoneMod" Content="{x:Static local:Localizable.ToggleBonemod}" Foreground="White" VerticalContentAlignment="Center" Checked="bonemod_Checked" Unchecked="bonemod_Unchecked"/>
                 </StackPanel>
             </Border>
             <Button x:Name="HPIButton" Style="{StaticResource buttonHover}" MaxWidth="900" FontSize="10" Height="21.21" VerticalAlignment="Top" Margin="0,339.583,28,0" Click="HoneyPotInspector_Run" HorizontalAlignment="Right" Width="237">

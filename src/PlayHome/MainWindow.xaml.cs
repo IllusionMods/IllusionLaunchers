@@ -18,15 +18,17 @@ namespace InitSetting
         private const string ExecutableGame32 = "PlayHome32bit.exe";
         private const string ExecutableStudio = "PlayHomeStudio64bit.exe";
         private const string ExecutableStudio32 = "PlayHomeStudio32bit.exe";
+
         private const string ExecutableVR = "VR GEDOU.exe";
+
         // Languages built into the game itself
-        private static readonly string[] _builtinLanguages = { "ja-JP" };
+        private static readonly string[] _builtinLanguages = {"ja-JP"};
+        private readonly bool _mainGameExists;
+        private readonly bool _studioExists;
+        private bool _is32;
 
         // Normal fields, don't fill in --------------------------------------------------------------
         private bool _suppressEvents;
-        private bool _is32;
-        private readonly bool _mainGameExists;
-        private readonly bool _studioExists;
 
         public MainWindow()
         {
@@ -41,12 +43,12 @@ namespace InitSetting
                 _studioExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableStudio);
 
                 if (_studioExists)
-                    SettingManager.Initialize(EnvironmentHelper.GetConfigFilePath(), RegistryKeyGame, RegistryKeyStudio);
+                    SettingManager.Initialize(EnvironmentHelper.GetConfigFilePath(), RegistryKeyGame,
+                        RegistryKeyStudio);
                 else
                     SettingManager.Initialize(EnvironmentHelper.GetConfigFilePath(), RegistryKeyGame);
 
                 SettingManager.LoadSettings();
-
 
 
                 // Initialize interface --------------------------------
@@ -55,7 +57,7 @@ namespace InitSetting
                 WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 CustomRes.Visibility = Visibility.Hidden;
 
-                if (string.IsNullOrEmpty((string)labelTranslated.Content))
+                if (string.IsNullOrEmpty((string) labelTranslated.Content))
                 {
                     labelTranslated.Visibility = Visibility.Hidden;
                     labelTranslatedBorder.Visibility = Visibility.Hidden;
@@ -101,13 +103,19 @@ namespace InitSetting
                 UpdateDisplaySettings(SettingManager.CurrentSettings.FullScreen);
 
                 Closed += (sender, args) => SettingManager.SaveSettings();
-                MouseDown += (sender, args) => { if (args.ChangedButton == MouseButton.Left) DragMove(); };
+                MouseDown += (sender, args) =>
+                {
+                    if (args.ChangedButton == MouseButton.Left) DragMove();
+                };
                 buttonClose.Click += (sender, args) => Close();
             }
             catch (Exception e)
             {
-                MessageBox.Show("Failed to start the launcher, please consider reporting this error to the developers.\n\nError that caused the crash: " + e, "Launcher crash", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                File.WriteAllText(Path.Combine(EnvironmentHelper.GameRootDirectory, "launcher_crash.log"), e.ToString());
+                MessageBox.Show(
+                    "Failed to start the launcher, please consider reporting this error to the developers.\n\nError that caused the crash: " +
+                    e, "Launcher crash", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                File.WriteAllText(Path.Combine(EnvironmentHelper.GameRootDirectory, "launcher_crash.log"),
+                    e.ToString());
                 Close();
             }
         }
@@ -118,7 +126,7 @@ namespace InitSetting
         {
             _is32 = true;
             if (File.Exists($"{EnvironmentHelper.GameRootDirectory}/UserData/LauncherEN/toggle32.txt")) return;
-            using (StreamWriter writetext = new StreamWriter($"/UserData/LauncherEN/toggle32.txt"))
+            using (var writetext = new StreamWriter("/UserData/LauncherEN/toggle32.txt"))
             {
                 writetext.WriteLine("x86");
             }
@@ -141,82 +149,117 @@ namespace InitSetting
         {
             if (!_suppressEvents)
             {
-                if (File.Exists($"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\modfiles\\resources.assets-bone") && File.Exists($"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\modfiles\\resources.assets-vanilla"))
-                {
-                    if (File.Exists($"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\modfiles\\vanillaactive.txt"))
+                if (File.Exists(
+                        $"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\modfiles\\resources.assets-bone") &&
+                    File.Exists(
+                        $"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\modfiles\\resources.assets-vanilla")
+                )
+                    if (File.Exists(
+                        $"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\modfiles\\vanillaactive.txt"))
                     {
                         if (File.Exists($"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\resources.assets"))
                             File.Delete($"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\resources.assets");
-                        File.Copy($"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\modfiles\\resources.assets-bone", $"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\resources.assets");
+                        File.Copy(
+                            $"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\modfiles\\resources.assets-bone",
+                            $"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\resources.assets");
 
-                        File.Delete($"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\modfiles\\vanillaactive.txt");
+                        File.Delete(
+                            $"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\modfiles\\vanillaactive.txt");
 
-                        using (StreamWriter writetext = new StreamWriter($"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\modfiles\\boneactive.txt"))
+                        using (var writetext =
+                            new StreamWriter(
+                                $"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\modfiles\\boneactive.txt"))
                         {
                             writetext.WriteLine("enabled");
                         }
                     }
-                }
-                if (File.Exists($"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\modfiles\\resources.assets-bone") && File.Exists($"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\modfiles\\resources.assets-vanilla"))
-                {
-                    if (File.Exists($"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\modfiles\\vanillaactive.txt"))
+
+                if (File.Exists(
+                        $"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\modfiles\\resources.assets-bone") &&
+                    File.Exists(
+                        $"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\modfiles\\resources.assets-vanilla")
+                )
+                    if (File.Exists(
+                        $"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\modfiles\\vanillaactive.txt")
+                    )
                     {
-                        if (File.Exists($"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\resources.assets"))
-                            File.Delete($"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\resources.assets");
-                        File.Copy($"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\modfiles\\resources.assets-bone", $"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\resources.assets");
+                        if (File.Exists(
+                            $"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\resources.assets"))
+                            File.Delete(
+                                $"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\resources.assets");
+                        File.Copy(
+                            $"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\modfiles\\resources.assets-bone",
+                            $"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\resources.assets");
 
-                        File.Delete($"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\modfiles\\vanillaactive.txt");
+                        File.Delete(
+                            $"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\modfiles\\vanillaactive.txt");
 
-                        using (StreamWriter writetext = new StreamWriter($"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\modfiles\\boneactive.txt"))
+                        using (var writetext =
+                            new StreamWriter(
+                                $"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\modfiles\\boneactive.txt")
+                        )
                         {
                             writetext.WriteLine("enabled");
                         }
                     }
-                }
             }
         }
 
         private void bonemod_Unchecked(object sender, RoutedEventArgs e)
         {
-            if (File.Exists($"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\modfiles\\resources.assets-vanilla"))
-            {
-                if (!File.Exists($"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\modfiles\\vanillaactive.txt"))
+            if (File.Exists(
+                $"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\modfiles\\resources.assets-vanilla"))
+                if (!File.Exists(
+                    $"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\modfiles\\vanillaactive.txt"))
                 {
                     if (File.Exists($"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\resources.assets"))
                         File.Delete($"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\resources.assets");
-                    File.Copy($"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\modfiles\\resources.assets-vanilla", $"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\resources.assets");
+                    File.Copy(
+                        $"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\modfiles\\resources.assets-vanilla",
+                        $"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\resources.assets");
 
                     File.Delete($"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\modfiles\\boneactive.txt");
 
-                    using (StreamWriter writetext = new StreamWriter($"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\modfiles\\vanillaactive.txt"))
+                    using (var writetext =
+                        new StreamWriter(
+                            $"{EnvironmentHelper.GameRootDirectory}\\PlayHome64bit_Data\\modfiles\\vanillaactive.txt"))
                     {
                         writetext.WriteLine("enabled");
                     }
                 }
-            }
-            if (File.Exists($"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\modfiles\\resources.assets-vanilla"))
-            {
-                if (!File.Exists($"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\modfiles\\vanillaactive.txt"))
+
+            if (File.Exists(
+                $"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\modfiles\\resources.assets-vanilla"))
+                if (!File.Exists(
+                    $"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\modfiles\\vanillaactive.txt"))
                 {
-                    if (File.Exists($"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\resources.assets"))
-                        File.Delete($"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\resources.assets");
-                    File.Copy($"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\modfiles\\resources.assets-vanilla", $"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\resources.assets");
+                    if (File.Exists(
+                        $"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\resources.assets"))
+                        File.Delete(
+                            $"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\resources.assets");
+                    File.Copy(
+                        $"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\modfiles\\resources.assets-vanilla",
+                        $"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\resources.assets");
 
-                    File.Delete($"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\modfiles\\boneactive.txt");
+                    File.Delete(
+                        $"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\modfiles\\boneactive.txt");
 
-                    using (StreamWriter writetext = new StreamWriter($"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\modfiles\\vanillaactive.txt"))
+                    using (var writetext =
+                        new StreamWriter(
+                            $"{EnvironmentHelper.GameRootDirectory}\\PlayHomeStudio64bit_Data\\modfiles\\vanillaactive.txt")
+                    )
                     {
                         writetext.WriteLine("enabled");
                     }
                 }
-            }
         }
 
         private void PlayHomeStartup()
         {
             if (!File.Exists($"{EnvironmentHelper.GameRootDirectory}/{ExecutableGame32}"))
                 toggle32.Visibility = Visibility.Collapsed;
-            if (File.Exists($"{EnvironmentHelper.GameRootDirectory}/UserData/LauncherEN/toggle32.txt") && File.Exists($"{EnvironmentHelper.GameRootDirectory}/{ExecutableGame32}"))
+            if (File.Exists($"{EnvironmentHelper.GameRootDirectory}/UserData/LauncherEN/toggle32.txt") &&
+                File.Exists($"{EnvironmentHelper.GameRootDirectory}/{ExecutableGame32}"))
                 toggle32.IsChecked = true;
             if (!File.Exists($"{EnvironmentHelper.GameRootDirectory}HoneyPot\\HoneyPotInspector.exe"))
                 HPIButton.Visibility = Visibility.Collapsed;
@@ -224,10 +267,7 @@ namespace InitSetting
                     $"{EnvironmentHelper.GameRootDirectory}PlayHome64bit_Data\\modfiles\\resources.assets-bone") ||
                 !File.Exists(
                     $"{EnvironmentHelper.GameRootDirectory}PlayHome64bit_Data\\modfiles\\resources.assets-vanilla"))
-            {
                 Toggleables.Children.Remove(toggleBoneMod);
-            }
-
         }
 
         #endregion
@@ -238,7 +278,7 @@ namespace InitSetting
         {
             if (-1 == dropRes.SelectedIndex) return;
 
-            var comboBoxCustomItem = (ComboBoxCustomItem)dropRes.SelectedItem;
+            var comboBoxCustomItem = (ComboBoxCustomItem) dropRes.SelectedItem;
             SettingManager.CurrentSettings.Size = comboBoxCustomItem.text;
             SettingManager.CurrentSettings.Width = comboBoxCustomItem.width;
             SettingManager.CurrentSettings.Height = comboBoxCustomItem.height;
@@ -294,7 +334,8 @@ namespace InitSetting
             dropRes.Text = SettingManager.CurrentSettings.Size;
 
             dropDisplay.SelectedIndex = SettingManager.CurrentSettings.Display;
-            dropQual.SelectedIndex = Math.Max(Math.Min(SettingManager.CurrentSettings.Quality, dropQual.Items.Count), 0);
+            dropQual.SelectedIndex =
+                Math.Max(Math.Min(SettingManager.CurrentSettings.Quality, dropQual.Items.Count), 0);
 
             _suppressEvents = false;
         }
@@ -312,7 +353,7 @@ namespace InitSetting
 
         private void buttonStart_Click(object sender, RoutedEventArgs e)
         {
-            if(_is32)
+            if (_is32)
                 StartGame(ExecutableGame32);
             else
                 StartGame(ExecutableGame);
