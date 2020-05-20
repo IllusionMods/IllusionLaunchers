@@ -474,11 +474,6 @@ namespace InitSetting
             EnvironmentHelper.OpenDirectory("UserData");
         }
 
-        private void buttonHousing_Click(object sender, RoutedEventArgs e)
-        {
-            EnvironmentHelper.OpenDirectory("UserData\\housing");
-        }
-
         private void buttonScreenshot_Click(object sender, RoutedEventArgs e)
         {
             EnvironmentHelper.OpenDirectory("UserData\\cap");
