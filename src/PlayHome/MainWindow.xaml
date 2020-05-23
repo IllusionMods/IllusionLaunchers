@@ -44,7 +44,7 @@
                                 <Setter Property="BorderThickness" Value="3" />
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#BF366EBF" />
+                                <Setter Property="Background" Value="#33FF0000" />
                                 <Setter Property="BorderThickness" Value="3" />
                                 <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
                             </Trigger>
