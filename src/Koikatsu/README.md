@@ -1,13 +1,12 @@
-# KoikatsuLaucher
-A launcher for the Japanese adult game Koikatsu
+# AIShoujoLaucher
+A launcher for the Japanese adult game AI Shoujo
 
-![Screenshot](https://i.imgur.com/P9A0RoI.jpg "Screenshot")
+![Screenshot](https://i.imgur.com/5CN3mmR.png "Screenshot")
 
 # Features
 - Fixes corrupt setup.xml on launch.
 - Launcher has options to open all key folders, instead of just character like the vanilla one.
 - Launcher has multiple language options.
-- If files are placed appropriately, the launcher is able to assist with swapping ingame translations.
 - If you plan to bundle it with mods or such, there is customization options available.
 
 # Customization
@@ -32,22 +31,6 @@ Create a folder in UserData named LauncherEN, and place a file named patreon.txt
 Languages can be switched at any time in the launcher. The following languages are supported:
 
 English, Chinese, Korean, Spanish, Brazilian, French, German and Norwegian (Bokmål)
-
-### Change the ingame language via the launcher
-[Only for Japanese version, not Party]
-
-If you wish to use the launcher functionality to swap ingame language, please create a file named 'TLSwap' in /UserData/LauncherEN.
-
-### Swapping Ingame Languages
-
-To prepare Chinese Translation:
-
-- Download the translation from https://www.zodgame.us/forum.php?mod=viewthread&tid=201179
-- Extract to the game folder
-
-To prepare Korean translation:
-
-- Place the korean translations into BepInEx/translationKO (Create folder if it doesn't exist)
 
 # CREDITS
 SmokeOfC & ScrewThisNoise: Coding, translator communication/coordination and translation (English and Norwegian)
