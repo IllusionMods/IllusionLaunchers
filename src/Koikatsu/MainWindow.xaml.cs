@@ -11,11 +11,11 @@ namespace InitSetting
     public partial class MainWindow : Window
     {
         // Game-specific constants -------------------------------------------------------------------
-        private const string RegistryKeyGame = "Software\\illusion\\Koikatsu\\Koikatsu Party\\";
-        private const string RegistryKeyStudio = "Software\\illusion\\Koikatu\\CharaStudio\\";
+        private const string RegistryKeyGame = "Software\\illusion\\Koikatu\\Koikatu";
+        private const string RegistryKeyStudio = "Software\\illusion\\Koikatu\\CharaStudio";
         private const string ExecutableGame = "Koikatu.exe";
         private const string ExecutableStudio = "CharaStudio.exe";
-        private const string ExecutableVR = "";
+        private const string ExecutableVR = "KoikatuVR.exe";
         // Languages built into the game itself
         private static readonly string[] _builtinLanguages = { "ja-JP" };
 
