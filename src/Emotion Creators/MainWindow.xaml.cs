@@ -11,11 +11,12 @@ namespace InitSetting
     public partial class MainWindow : Window
     {
         // Game-specific constants -------------------------------------------------------------------
-        private const string RegistryKeyGame = "Software\\illusion\\AI-Syoujyo\\AI-Syoujyo";
-        private const string RegistryKeyStudio = "Software\\illusion\\AI-Syoujyo\\StudioNEOV2";
+        private const string RegistryKeyGame = "Software\\illusion\\EmotionCreators\\EmotionCreators";
+        private const string RegistryKeyStudio = "";
         private const string ExecutableGame = "EmotionCreators.exe";
         private const string ExecutableStudio = "";
         private const string ExecutableVR = "";
+        private const string SupportDiscord = "https://discord.gg/hevygx6";
         // Languages built into the game itself
         private static readonly string[] _builtinLanguages = { "ja-JP" };
 
@@ -237,7 +238,7 @@ namespace InitSetting
 
         private void discord_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            EnvironmentHelper.StartProcess("https://discord.gg/F3bDEFE");
+            EnvironmentHelper.StartProcess(SupportDiscord);
         }
 
         private void patreon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

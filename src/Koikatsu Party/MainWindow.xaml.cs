@@ -16,8 +16,9 @@ namespace InitSetting
         private const string ExecutableGame = "Koikatsu Party.exe";
         private const string ExecutableStudio = "CharaStudio.exe";
         private const string ExecutableVR = "Koikatsu Party VR";
+        private const string SupportDiscord = "https://discord.gg/hevygx6";
         // Languages built into the game itself
-        private static readonly string[] _builtinLanguages = { "ja-JP" };
+        private static readonly string[] _builtinLanguages = { "ja-JP", "en-US", "zh-CN", "zh-TW" };
 
         // Normal fields, don't fill in --------------------------------------------------------------
         private bool _suppressEvents;
@@ -252,7 +253,7 @@ namespace InitSetting
 
         private void discord_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            EnvironmentHelper.StartProcess("https://discord.gg/F3bDEFE");
+            EnvironmentHelper.StartProcess(SupportDiscord);
         }
 
         private void patreon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

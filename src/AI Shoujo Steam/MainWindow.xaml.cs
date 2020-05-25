@@ -16,6 +16,7 @@ namespace InitSetting
         private const string ExecutableGame = "AI-Shoujo.exe";
         private const string ExecutableStudio = "StudioNEOV2.exe";
         private const string ExecutableVR = "";
+        private const string SupportDiscord = "https://discord.gg/F3bDEFE";
         // Languages built into the game itself
         private static readonly string[] _builtinLanguages = { "ja-JP","en-US","zh-CN","zh-TW" };
 
@@ -213,7 +214,7 @@ namespace InitSetting
 
         private void discord_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            EnvironmentHelper.StartProcess("https://discord.gg/F3bDEFE");
+            EnvironmentHelper.StartProcess(SupportDiscord);
         }
 
         private void patreon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

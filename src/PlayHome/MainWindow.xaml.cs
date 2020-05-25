@@ -18,8 +18,8 @@ namespace InitSetting
         private const string ExecutableGame32 = "PlayHome32bit.exe";
         private const string ExecutableStudio = "PlayHomeStudio64bit.exe";
         private const string ExecutableStudio32 = "PlayHomeStudio32bit.exe";
-
         private const string ExecutableVR = "VR GEDOU.exe";
+        private const string SupportDiscord = "https://discord.gg/F3bDEFE";
 
         // Languages built into the game itself
         private static readonly string[] _builtinLanguages = {"ja-JP"};
@@ -393,7 +393,7 @@ namespace InitSetting
 
         private void discord_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            EnvironmentHelper.StartProcess("https://discord.gg/F3bDEFE");
+            EnvironmentHelper.StartProcess(SupportDiscord);
         }
 
         private void patreon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

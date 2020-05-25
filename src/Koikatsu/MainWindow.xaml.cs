@@ -16,6 +16,7 @@ namespace InitSetting
         private const string ExecutableGame = "Koikatu.exe";
         private const string ExecutableStudio = "CharaStudio.exe";
         private const string ExecutableVR = "KoikatuVR.exe";
+        private const string SupportDiscord = "https://discord.gg/hevygx6";
         // Languages built into the game itself
         private static readonly string[] _builtinLanguages = { "ja-JP" };
 
@@ -252,7 +253,7 @@ namespace InitSetting
 
         private void discord_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            EnvironmentHelper.StartProcess("https://discord.gg/F3bDEFE");
+            EnvironmentHelper.StartProcess(SupportDiscord);
         }
 
         private void patreon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
