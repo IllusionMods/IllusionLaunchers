@@ -12,15 +12,15 @@ namespace InitSetting
     public partial class MainWindow : Window
     {
         // Game-specific constants -------------------------------------------------------------------
-        private const string RegistryKeyGame = "Software\\illusion\\PlayHome\\";
-        private const string RegistryKeyStudio = "Software\\illusion\\PlayHomeStudio\\";
+        private const string RegistryKeyGame = "Software\\illusion\\PlayHome";
+        private const string RegistryKeyStudio = "Software\\illusion\\PlayHomeStudio";
+        private const string RegistryKeyVR = "Software\\illusion\\VR Gedo";
         private const string ExecutableGame = "PlayHome64bit.exe";
         private const string ExecutableGame32 = "PlayHome32bit.exe";
         private const string ExecutableStudio = "PlayHomeStudio64bit.exe";
         private const string ExecutableStudio32 = "PlayHomeStudio32bit.exe";
         private const string ExecutableVR = "VR GEDOU.exe";
         private const string SupportDiscord = "https://discord.gg/F3bDEFE";
-
         // Languages built into the game itself
         private static readonly string[] _builtinLanguages = {"ja-JP"};
         private readonly bool _mainGameExists;
@@ -44,7 +44,7 @@ namespace InitSetting
 
                 if (_studioExists)
                     SettingManager.Initialize(EnvironmentHelper.GetConfigFilePath(), RegistryKeyGame,
-                        RegistryKeyStudio);
+                        RegistryKeyStudio, RegistryKeyVR);
                 else
                     SettingManager.Initialize(EnvironmentHelper.GetConfigFilePath(), RegistryKeyGame);
 
