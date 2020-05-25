@@ -425,6 +425,11 @@ namespace InitSetting
             EnvironmentHelper.SetLanguage("zh-CN");
         }
 
+        private void LangChineseTW(object sender, MouseButtonEventArgs e)
+        {
+            EnvironmentHelper.SetLanguage("zh-TW");
+        }
+
         private void LangKorean(object sender, MouseButtonEventArgs e)
         {
             EnvironmentHelper.SetLanguage("ko-KR");

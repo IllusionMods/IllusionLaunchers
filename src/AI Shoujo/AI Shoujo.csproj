@@ -141,6 +141,9 @@
   <ItemGroup>
     <Resource Include="images\AILogo.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\Flags\taiwan.png" />
+  </ItemGroup>
   <Import Project="..\SharedCode\SharedCode.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

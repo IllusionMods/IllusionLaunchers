@@ -141,6 +141,9 @@
     <Resource Include="images\ButtonBG\startVR.png" />
     <Resource Include="images\PHLogo.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\Flags\taiwan.png" />
+  </ItemGroup>
   <Import Project="..\SharedCode\SharedCode.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
