@@ -142,8 +142,55 @@ namespace InitSetting
                 using (var writetext = new StreamWriter(GameRootDirectory + _mCustomDir + _decideLang, false))
                     writetext.WriteLine(language);
 
-                if (System.Windows.MessageBox.Show("Do you want to set the ingame language to the selected language as well?",
-                    "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                string LangQ_a = "Do you want to set the ingame language to the selected language as well?";
+                string LangQ_b = "Question";
+
+                switch (language)
+                {
+                    case "ja-JP":
+                        LangQ_a = "ゲームにこの言語の選択を反映させたいですか？";
+                        LangQ_b = "質問";
+                        break;
+                    case "zh-CN":
+                        LangQ_a = "您是否希望游戏中的语言反映这项语言选择？";
+                        LangQ_b = "问题";
+                        break;
+                    case "zh-TW":
+                        LangQ_a = "您是否希望遊戲中的語言反映這項語言選擇？";
+                        LangQ_b = "問題";
+                        break;
+                    case "ko-KR":
+                        LangQ_a = "게임 언어를 선택한 언어로 설정 하시겠습니까?";
+                        LangQ_b = "질문";
+                        break;
+                    case "es-ES":
+                        LangQ_a = "¿Desea configurar el idioma del juego al idioma seleccionado también?";
+                        LangQ_b = "Pregunta";
+                        break;
+                    case "pt-PT":
+                        LangQ_a = "Deseja também definir o idioma do jogo para o idioma selecionado?";
+                        LangQ_b = "Questão";
+                        break;
+                    case "fr-FR":
+                        LangQ_a = "Voulez-vous également définir la langue du jeu sur la langue sélectionnée?";
+                        LangQ_b = "Question";
+                        break;
+                    case "de-DE":
+                        LangQ_a = "Möchten Sie die Spielsprache auch auf die ausgewählte Sprache einstellen?";
+                        LangQ_b = "Frage";
+                        break;
+                    case "no-NB":
+                        LangQ_a = "Ønsker du å endre språket i spillet også?";
+                        LangQ_b = "Spørsmål";
+                        break;
+                    default:
+                        LangQ_a = "Do you want to set the ingame language to the selected language as well?";
+                        LangQ_b = "Question";
+                        break;
+                }
+
+                if (System.Windows.MessageBox.Show(LangQ_a,
+                    LangQ_b, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
                     var builtinIndex = _builtinLanguages.ToList()
                         .FindIndex(x => language.Equals(x, StringComparison.OrdinalIgnoreCase));
