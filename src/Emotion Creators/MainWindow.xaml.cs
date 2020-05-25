@@ -15,6 +15,7 @@ namespace InitSetting
         private const string RegistryKeyStudio = "Software\\illusion\\AI-Syoujyo\\StudioNEOV2";
         private const string ExecutableGame = "EmotionCreators.exe";
         private const string ExecutableStudio = "";
+        private const string ExecutableVR = "";
         // Languages built into the game itself
         private static readonly string[] _builtinLanguages = { "ja-JP" };
 

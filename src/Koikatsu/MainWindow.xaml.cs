@@ -11,10 +11,11 @@ namespace InitSetting
     public partial class MainWindow : Window
     {
         // Game-specific constants -------------------------------------------------------------------
-        private const string RegistryKeyGame = "Software\\illusion\\AI-Syoujyo\\AI-Syoujyo";
-        private const string RegistryKeyStudio = "Software\\illusion\\AI-Syoujyo\\StudioNEOV2";
-        private const string ExecutableGame = "AI-Syoujyo.exe";
-        private const string ExecutableStudio = "StudioNEOV2.exe";
+        private const string RegistryKeyGame = "Software\\illusion\\Koikatsu\\Koikatsu Party\\";
+        private const string RegistryKeyStudio = "Software\\illusion\\Koikatu\\CharaStudio\\";
+        private const string ExecutableGame = "Koikatu.exe";
+        private const string ExecutableStudio = "CharaStudio.exe";
+        private const string ExecutableVR = "";
         // Languages built into the game itself
         private static readonly string[] _builtinLanguages = { "ja-JP" };
 
@@ -104,7 +105,7 @@ namespace InitSetting
             }
         }
 
-        #region PlayHome Speciffic code
+        #region Koikatsu Speciffic code
 
         private void KoikatsuStartup()
         {
@@ -223,6 +224,11 @@ namespace InitSetting
         private void buttonStartS_Click(object sender, RoutedEventArgs e)
         {
             StartGame(ExecutableStudio);
+        }
+
+        private void buttonStartV_Click(object sender, RoutedEventArgs e)
+        {
+            StartGame(ExecutableVR);
         }
 
         private void buttonManual_Click(object sender, RoutedEventArgs e)
