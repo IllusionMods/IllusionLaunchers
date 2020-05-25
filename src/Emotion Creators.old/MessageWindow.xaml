@@ -1,0 +1,47 @@
+<windows:Window
+	x:Class="InitDialog.MessageWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:InitDialog"
+	Title="MessageWindow"
+	Height="160"
+	Width="363"
+	ResizeMode="NoResize"
+	WindowStartupLocation="CenterScreen" xmlns:windows="clr-namespace:System.Windows;assembly=PresentationFramework">
+	<Grid>
+		<Panel.Background>
+			<LinearGradientBrush
+				EndPoint="0.5,1"
+				StartPoint="0.5,0">
+				<GradientStop
+					Color="White"
+					Offset="0" />
+				<GradientStop
+					Color="#FFDEEFFB"
+					Offset="1" />
+			</LinearGradientBrush>
+		</Panel.Background>
+		<Canvas
+			HorizontalAlignment="Left"
+			Height="78"
+			VerticalAlignment="Top"
+			Width="357"
+			Background="#FFFFFFFF" />
+		<Button
+			Content="OK"
+			HorizontalAlignment="Center"
+			Height="30"
+			Margin="136.5,0,136.5,12"
+			VerticalAlignment="Bottom"
+			Width="84"
+			FontFamily="Meiryo UI"
+			Click="Button_Click" />
+        <TextBlock
+			x:Name="textMsg"
+			HorizontalAlignment="Left"
+			Height="59"
+			Margin="24,10,0,0"
+			TextWrapping="Wrap"
+			VerticalAlignment="Top"
+			Width="307"
+			FontFamily="MS UI Gothic"
+			FontSize="20" TextAlignment="Center" Text="test" />
+    </Grid>
+</windows:Window>
