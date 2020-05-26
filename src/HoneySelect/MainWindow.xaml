@@ -114,7 +114,7 @@
             <Label x:Name="labelMV_Copy" Foreground="White" VerticalContentAlignment="Center" Content="{x:Static local:Localizable.ManualBattle}"
                 HorizontalAlignment="Left" Margin="613.167,73,0,0" VerticalAlignment="Top" Height="24" Width="98" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonManualV_Copy" Content="" HorizontalAlignment="Left"
-                Height="24" Margin="609.167,73,0,0" VerticalAlignment="Top" Width="174" Click="buttonManualV_Click" />
+                Height="24" Margin="609.167,73,0,0" VerticalAlignment="Top" Width="174" Click="buttonManualB_Click" />
             <Border HorizontalAlignment="Left" Height="34" Margin="95.161,31,0,0" VerticalAlignment="Top"
                 Width="173.677" ClipToBounds="True" Background="Black">
                 <Border.RenderTransform>

@@ -226,7 +226,7 @@
                     VerticalAlignment="Top" Width="129.516" Margin="28.625,241.71,0,0" Click="buttonInst_Click" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonUserData" FontSize="10"
                     Content="{x:Static local:Localizable.FolderUserData}" HorizontalAlignment="Left" Height="24"
-                    VerticalAlignment="Top" Width="129.517" Margin="164.358,241.71,0,0" Click="buttonMaps_Click" />
+                    VerticalAlignment="Top" Width="129.517" Margin="164.358,241.71,0,0" Click="buttonUserData_Click" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonScreenshot" FontSize="10"
                     Content="{x:Static local:Localizable.FolderScreenshots}" HorizontalAlignment="Left" Height="24"
                     VerticalAlignment="Top" Width="129.516" Margin="28.625,270.71,0,0" Click="buttonScreenshot_Click" />

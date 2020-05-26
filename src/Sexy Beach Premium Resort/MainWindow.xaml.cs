@@ -130,9 +130,9 @@ namespace InitSetting
             }
 
             if (File.Exists(Path.GetFileNameWithoutExtension(exeFile) + "_Patched.exe"))
-                text = EnvironmentHelper.GameRootDirectory + Path.GetFileNameWithoutExtension(exeFile) + "_Patched.exe";
+                text = Path.GetFileNameWithoutExtension(exeFile) + "_Patched.exe";
             else
-                text = EnvironmentHelper.GameRootDirectory + exeFile;
+                text = exeFile;
 
             StartGame(text);
         }

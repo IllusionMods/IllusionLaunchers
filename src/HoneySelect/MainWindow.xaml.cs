@@ -288,7 +288,12 @@ namespace InitSetting
 
         private void buttonManualV_Click(object sender, RoutedEventArgs e)
         {
-            EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_vr\\");
+            EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_v\\");
+        }
+
+        private void buttonManualB_Click(object sender, RoutedEventArgs e)
+        {
+            EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_b\\");
         }
 
         #endregion
@@ -375,7 +380,7 @@ namespace InitSetting
 
         private void buttonScenes_Click(object sender, RoutedEventArgs e)
         {
-            EnvironmentHelper.OpenDirectory("UserData\\Studio\\scene");
+            EnvironmentHelper.OpenDirectory("UserData\\StudioNEO\\scene");
         }
 
         private void buttonUserData_Click(object sender, RoutedEventArgs e)

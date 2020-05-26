@@ -234,24 +234,7 @@ namespace InitSetting
 
         private void buttonManual_Click(object sender, RoutedEventArgs e)
         {
-            switch (EnvironmentHelper.Language.ToString())
-            {
-                case "en":
-                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\English\\");
-                    break;
-                case "zh-CN":
-                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\Simplified Chinese\\");
-                    break;
-                case "zh-TW":
-                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\Traditional Chinese\\");
-                    break;
-                case "ja-JP":
-                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\Japanese\\");
-                    break;
-                default:
-                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\");
-                    break;
-            }
+            EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\");
         }
 
         private void buttonManualS_Click(object sender, RoutedEventArgs e)
@@ -261,7 +244,7 @@ namespace InitSetting
 
         private void buttonManualV_Click(object sender, RoutedEventArgs e)
         {
-            EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_vr\\");
+            EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_v\\");
         }
 
         #endregion

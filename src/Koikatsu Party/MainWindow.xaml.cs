@@ -15,7 +15,7 @@ namespace InitSetting
         private const string RegistryKeyStudio = "Software\\illusion\\Koikatu\\CharaStudio";
         private const string ExecutableGame = "Koikatsu Party.exe";
         private const string ExecutableStudio = "CharaStudio.exe";
-        private const string ExecutableVR = "Koikatsu Party VR";
+        private const string ExecutableVR = "Koikatsu Party VR.exe";
         private const string SupportDiscord = "https://discord.gg/hevygx6";
         // Languages built into the game itself
         private static readonly string[] _builtinLanguages = { "ja-JP", "en-US", "zh-CN", "zh-TW" };
@@ -234,7 +234,27 @@ namespace InitSetting
 
         private void buttonManual_Click(object sender, RoutedEventArgs e)
         {
-            EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\");
+            switch (EnvironmentHelper.Language.ToString())
+            {
+                case "en":
+                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\English\\");
+                    break;
+                case "en-US":
+                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\English\\");
+                    break;
+                case "zh-CN":
+                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\Simplified Chinese\\");
+                    break;
+                case "zh-TW":
+                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\Traditional Chinese\\");
+                    break;
+                case "ja-JP":
+                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\Japanese\\");
+                    break;
+                default:
+                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\");
+                    break;
+            }
         }
 
         private void buttonManualS_Click(object sender, RoutedEventArgs e)
@@ -244,7 +264,27 @@ namespace InitSetting
 
         private void buttonManualV_Click(object sender, RoutedEventArgs e)
         {
-            EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_vr\\");
+            switch (EnvironmentHelper.Language.ToString())
+            {
+                case "en":
+                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_v\\English\\");
+                    break;
+                case "en-US":
+                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\English\\");
+                    break;
+                case "zh-CN":
+                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_v\\Simplified Chinese\\");
+                    break;
+                case "zh-TW":
+                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_v\\Traditional Chinese\\");
+                    break;
+                case "ja-JP":
+                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_v\\Japanese\\");
+                    break;
+                default:
+                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_v\\");
+                    break;
+            }
         }
 
         #endregion
