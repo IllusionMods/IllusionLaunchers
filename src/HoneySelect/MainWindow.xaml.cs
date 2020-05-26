@@ -38,6 +38,7 @@ namespace InitSetting
 
         public MainWindow()
         {
+            CloseWindow.WinObject = (Window)this;
             try
             {
                 _suppressEvents = true;
@@ -152,6 +153,23 @@ namespace InitSetting
             _is32 = false;
             if (File.Exists($"{EnvironmentHelper.GameRootDirectory}/UserData/LauncherEN/toggle32.txt"))
                 File.Delete($"{EnvironmentHelper.GameRootDirectory}/UserData/LauncherEN/toggle32.txt");
+        }
+
+        public static class CloseWindow
+        {
+            public static Window WinObject;
+
+            public static void CloseParent()
+            {
+                try
+                {
+                    ((Window)WinObject).Close();
+                }
+                catch (Exception e)
+                {
+                    string value = e.Message.ToString(); // do whatever with this
+                }
+            }
         }
 
         private void HoneySelectStartup()
@@ -365,9 +383,9 @@ namespace InitSetting
             EnvironmentHelper.OpenDirectory("UserData");
         }
 
-        private void buttonHousing_Click(object sender, RoutedEventArgs e)
+        private void buttonCCenes_Click(object sender, RoutedEventArgs e)
         {
-            EnvironmentHelper.OpenDirectory("UserData\\housing");
+            EnvironmentHelper.OpenDirectory("UserData\\studio");
         }
 
         private void buttonScreenshot_Click(object sender, RoutedEventArgs e)

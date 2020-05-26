@@ -20,6 +20,7 @@ namespace InitSetting
     {
         public BootChoice()
         {
+            MainWindow.CloseWindow.CloseParent();
             InitializeComponent();
         }
 
@@ -73,16 +74,20 @@ namespace InitSetting
         {
             SettingManager.SaveSettings();
             if (EnvironmentHelper.StartGame(strExe))
+            {
                 Close();
+            }
         }
 
         private void SetupVR()
         {
+            MainGrid.Children.Remove(StudioGrid);
             VRGrid.Visibility = Visibility.Visible;
         }
 
         private void SetupStudio()
         {
+            MainGrid.Children.Remove(VRGrid);
             StudioGrid.Visibility = Visibility.Visible;
         }
 

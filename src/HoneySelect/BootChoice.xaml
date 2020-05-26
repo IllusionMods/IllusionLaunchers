@@ -7,19 +7,53 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         WindowStyle="None"
+        Background="Black"
         Title="Window1" Height="450" Width="800">
-    <Grid>
-        <Button x:Name="buttonClose" Content="X" HorizontalAlignment="Left"
-                Margin="758,10,0,0" VerticalAlignment="Top" Width="32" Height="28" IsCancel="true" />
-        <Grid x:Name="VRGrid" Visibility="Hidden">
-            <Image x:Name="backgroundIMGVR" HorizontalAlignment="Left" Height="450" VerticalAlignment="Top" Width="800" Source="images/LaunchBG/VR.png"/>
-            <Rectangle x:Name="StartOculus" HorizontalAlignment="Left" Height="356.667" Margin="57.692,83.333,0,0" VerticalAlignment="Top" Width="278.205" MouseLeftButtonDown="StartOculus_OnMouseRightButtonDown"/>
-            <Rectangle x:Name="StartVive" HorizontalAlignment="Left" Height="356.667" Margin="489.743,83.333,0,0" VerticalAlignment="Top" Width="278.205" MouseLeftButtonDown="StartVive_OnMouseRightButtonDown"/>
+    <Window.Resources>
+        <Style x:Key="buttonHover" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="3" />
+            <Setter Property="BorderBrush" Value="#FFF0C658" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" Background="{TemplateBinding Background}" BorderThickness="2"
+                                BorderBrush="#FFF0C658" CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsPressed" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#FFF0C658" />
+                                <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                <Setter Property="BorderThickness" Value="3" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#7FF0C658" />
+                                <Setter Property="BorderThickness" Value="3" />
+                                <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+        <Grid x:Name="MainGrid">
+        <TextBlock x:Name="ChooseVariantStudio" TextAlignment="Center" HorizontalAlignment="center" Margin="66.666,25,66.666,0" TextWrapping="Wrap" Text="Choose Variant" VerticalAlignment="Top" Height="45.488" Width="666.668" FontSize="36" FontFamily="Yu Gothic UI" Foreground="#FFF0C658"/>
+
+        <Grid x:Name="VRGrid">
+            <Image x:Name="StartOculus" HorizontalAlignment="Left" Height="331" Width="250" Margin="70.513,98.718,0,0" VerticalAlignment="Top" Source="images/LaunchBG/oculusBTN.png" MouseLeftButtonDown="StartOculus_OnMouseRightButtonDown"/>
+            <Image x:Name="StartVive" Height="331" Margin="487.18,98.718,62.82,0" VerticalAlignment="Top" Source="images/LaunchBG/viveBTN.png" MouseLeftButtonDown="StartVive_OnMouseRightButtonDown"/>
         </Grid>
-        <Grid x:Name="StudioGrid" Visibility="Hidden">
-            <Image x:Name="backgroundIMGStudio" HorizontalAlignment="Left" Height="450" VerticalAlignment="Top" Width="800" Source="images/LaunchBG/VR.png"/>
-            <Rectangle x:Name="StartStudio" HorizontalAlignment="Left" Height="356.667" Margin="57.692,83.333,0,0" VerticalAlignment="Top" Width="278.205" MouseLeftButtonDown="StartStudio_OnMouseRightButtonDown"/>
-            <Rectangle x:Name="StartNeo" HorizontalAlignment="Left" Height="356.667" Margin="489.743,83.333,0,0" VerticalAlignment="Top" Width="278.205" MouseLeftButtonDown="StartNeo_OnMouseRightButtonDown"/>
+        <Grid x:Name="StudioGrid" Visibility="Collapsed">
+            <Image x:Name="StartClassic" HorizontalAlignment="Left" Height="331" Width="250" Margin="70.513,98.718,0,0" VerticalAlignment="Top" Source="images/LaunchBG/classicBTN.png" MouseLeftButtonDown="StartStudio_OnMouseRightButtonDown"/>
+            <Image x:Name="StartNeo" Height="331" Margin="487.18,98.718,62.82,0" VerticalAlignment="Top" Source="images/LaunchBG/neoBTN.png" MouseLeftButtonDown="StartNeo_OnMouseRightButtonDown"/>
         </Grid>
+        <Button Style="{StaticResource buttonHover}" x:Name="buttonClose" Content="X" HorizontalAlignment="Left"
+                Margin="758,10,0,0" VerticalAlignment="Top" Width="32" Height="28" IsCancel="true" Foreground="#FFF0C658" />
     </Grid>
 </Window>
