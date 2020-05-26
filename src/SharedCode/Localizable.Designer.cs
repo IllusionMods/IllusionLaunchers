@@ -214,6 +214,17 @@ namespace InitSetting {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to The language you've choosen does not have translations in your installation. Translation will be done by Google Translate..
+		/// </summary>
+		public static string InstructDecideLang
+		{
+            get
+            {
+                return ResourceManager.GetString("InstructDecideLang", resourceCulture);
+            }
+        }
+
+		/// <summary>
 		///   Looks up a localized string similar to Choose Variant.
 		/// </summary>
 		public static string InstructDecideVariant

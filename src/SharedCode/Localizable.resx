@@ -267,4 +267,10 @@ This game contains content of a sexual nature, and some of the actions depicted 
   <data name="ManualGameOnline" xml:space="preserve">
     <value>Online Manual</value>
   </data>
+  <data name="InstructLang" xml:space="preserve">
+    <value>The language you have choosen</value>
+  </data>
+  <data name="InstructDecideLang" xml:space="preserve">
+    <value>The language you've choosen does not have translations in your installation. Translation will be done by Google Translate.</value>
+  </data>
 </root>
