@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI Shoujo Steam", "src\AI S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SBPR", "src\Sexy Beach Premium Resort\SBPR.csproj", "{1D2166E2-4DA0-4FD6-A28D-7EBBEF40955B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoneySelect 2", "src\HoneySelect 2\HoneySelect 2.csproj", "{7C713600-69B2-48AE-B805-A7BBF3408D69}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\SharedCode\SharedCode.projitems*{1d2166e2-4da0-4fd6-a28d-7ebbef40955b}*SharedItemsImports = 4
@@ -29,6 +31,7 @@ Global
 		src\SharedCode\SharedCode.projitems*{687a6b4f-f433-40b0-b1f5-cc15f7437b14}*SharedItemsImports = 4
 		src\SharedCode\SharedCode.projitems*{6f62cf98-eb11-4ff2-8370-0b946ca337e5}*SharedItemsImports = 4
 		src\SharedCode\SharedCode.projitems*{719350ad-52f8-4752-8360-35c1ea196d42}*SharedItemsImports = 4
+		src\SharedCode\SharedCode.projitems*{7c713600-69b2-48ae-b805-a7bbf3408d69}*SharedItemsImports = 4
 		src\SharedCode\SharedCode.projitems*{8bf2798d-fd00-4483-95ee-dc37a599e6fd}*SharedItemsImports = 13
 		src\SharedCode\SharedCode.projitems*{91f6b54e-6a85-486f-8bf3-5920d838f030}*SharedItemsImports = 4
 		src\SharedCode\SharedCode.projitems*{ed03c79c-7b7d-4db5-b3a4-17586925f12d}*SharedItemsImports = 4
@@ -70,6 +73,10 @@ Global
 		{1D2166E2-4DA0-4FD6-A28D-7EBBEF40955B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D2166E2-4DA0-4FD6-A28D-7EBBEF40955B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D2166E2-4DA0-4FD6-A28D-7EBBEF40955B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C713600-69B2-48AE-B805-A7BBF3408D69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C713600-69B2-48AE-B805-A7BBF3408D69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C713600-69B2-48AE-B805-A7BBF3408D69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C713600-69B2-48AE-B805-A7BBF3408D69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
