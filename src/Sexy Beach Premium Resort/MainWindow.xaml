@@ -145,11 +145,11 @@
                     </Image.RenderTransform>
                 </Image>
             </Border>
-            <Label Style="{StaticResource GameButtonsLabel}" x:Name="labelStart" Content="Start Game"
+            <Label Style="{StaticResource GameButtonsLabel}" x:Name="labelStart" Content="{x:Static local:Localizable.StartGame}"
                    HorizontalAlignment="Left" Margin="125,24,0,0" VerticalAlignment="Top" Width="190" Height="34" />
-            <Label Style="{StaticResource ResourceKey=GameButtonsLabel}" x:Name="labelStartS" Content="Start Studio"
+            <Label Style="{StaticResource ResourceKey=GameButtonsLabel}" x:Name="labelStartS" Content="{x:Static local:Localizable.StartStudio}"
                    HorizontalAlignment="Left" Margin="352,24,0,0" VerticalAlignment="Top" Width="190" Height="34" />
-            <Label Style="{StaticResource ResourceKey=GameButtonsLabel}" x:Name="labelStartVR" Content="Start VR"
+            <Label Style="{StaticResource ResourceKey=GameButtonsLabel}" x:Name="labelStartVR" Content="{x:Static local:Localizable.StartVR}"
                    HorizontalAlignment="Left" Margin="579,24,0,0" VerticalAlignment="Top" Width="190" Height="34" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonStart_Copy" Content=""
                     HorizontalAlignment="Left" Height="36" Margin="124,23,0,0" VerticalAlignment="Top" Width="223"
@@ -191,7 +191,7 @@
                 <Image x:Name="idmssage" Source="/InitSetting;component/images/ButtonBG/manual.png"
                        RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" />
             </Border>
-            <Label x:Name="labelMV" Foreground="White" VerticalContentAlignment="Center" Content="VR Manual"
+            <Label x:Name="labelMV" Foreground="White" VerticalContentAlignment="Center" Content="{x:Static local:Localizable.ManualVR}"
                    HorizontalAlignment="Left" Margin="583,63,0,0" VerticalAlignment="Top" Height="24" Width="98" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonManualV" Content="" HorizontalAlignment="Left"
                     Height="24" Margin="579,63,0,0" VerticalAlignment="Top" Width="174" Click="buttonManualV_Click" />
@@ -200,7 +200,7 @@
                 <Image x:Name="idmssage3" Source="/InitSetting;component/images/ButtonBG/manual.png"
                        RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" />
             </Border>
-            <Label x:Name="labelMS" Foreground="White" VerticalContentAlignment="Center" Content="Studio Manual"
+            <Label x:Name="labelMS" Foreground="White" VerticalContentAlignment="Center" Content="{x:Static local:Localizable.ManualStudio}"
                    HorizontalAlignment="Left" Margin="364,63,0,0" VerticalAlignment="Top" Height="24" Width="122" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonManualS_Copy" Content=""
                     HorizontalAlignment="Left" Height="24" Margin="358,63,0,0" VerticalAlignment="Top" Width="174"
@@ -210,7 +210,7 @@
                 <Image x:Name="idmssage4" Source="/InitSetting;component/images/ButtonBG/manual.png"
                        RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" />
             </Border>
-            <Label x:Name="labelM" Foreground="White" VerticalContentAlignment="Center" Content="Game Manual"
+            <Label x:Name="labelM" Foreground="White" VerticalContentAlignment="Center" Content="{x:Static local:Localizable.ManualGame}"
                    HorizontalAlignment="Left" Margin="137,63,0,0" VerticalAlignment="Top" Height="24" Width="134" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonManual" Content="" HorizontalAlignment="Left"
                     Height="24" Margin="131,63,0,0" VerticalAlignment="Top" Width="174" Click="buttonManual_Click" />

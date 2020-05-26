@@ -223,4 +223,25 @@ HoneyPot Inspector</value>
   <data name="ToggleBonemod" xml:space="preserve">
     <value>Activar Bonemod</value>
   </data>
+  <data name="ToggleShortcutHS" xml:space="preserve">
+    <value>Activar Shortcut Plugin</value>
+  </data>
+  <data name="ToggleGGmod" xml:space="preserve">
+    <value>Activar Ggmod (main game)</value>
+  </data>
+  <data name="ToggleGGmodstudio" xml:space="preserve">
+    <value>Activar Ggmod (studio classic)</value>
+  </data>
+  <data name="ToggleGGmodneo" xml:space="preserve">
+    <value>Activar Ggmod (studio neo)</value>
+  </data>
+  <data name="StartBattle" xml:space="preserve">
+    <value>Iniciar Battle Arena</value>
+  </data>
+  <data name="ManualBattle" xml:space="preserve">
+    <value>Manual de Battle</value>
+  </data>
+  <data name="FolderStudioClassic" xml:space="preserve">
+    <value>Classic Escenas</value>
+  </data>
 </root>

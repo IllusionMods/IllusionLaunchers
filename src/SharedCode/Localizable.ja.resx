@@ -222,4 +222,25 @@
   <data name="ToggleBonemod" xml:space="preserve">
     <value>Bonemodを有効にす</value>
   </data>
+  <data name="ToggleShortcutHS" xml:space="preserve">
+    <value>Shortcut Pluginを有効にす</value>
+  </data>
+  <data name="ToggleGGmod" xml:space="preserve">
+    <value>Ggmod (main game)を有効にす</value>
+  </data>
+  <data name="ToggleGGmodstudio" xml:space="preserve">
+    <value>Ggmod (studio classic)を有効にす</value>
+  </data>
+  <data name="ToggleGGmodneo" xml:space="preserve">
+    <value>Ggmod (studio neo)を有効にす</value>
+  </data>
+  <data name="StartBattle" xml:space="preserve">
+    <value>Battle Arena開始</value>
+  </data>
+  <data name="ManualBattle" xml:space="preserve">
+    <value>マニュアル</value>
+  </data>
+  <data name="FolderStudioClassic" xml:space="preserve">
+    <value>シーン (CLASSIC)</value>
+  </data>
 </root>

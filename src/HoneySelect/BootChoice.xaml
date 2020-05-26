@@ -43,7 +43,7 @@
         </Style>
     </Window.Resources>
         <Grid x:Name="MainGrid">
-        <TextBlock x:Name="ChooseVariantStudio" TextAlignment="Center" HorizontalAlignment="center" Margin="66.666,25,66.666,0" TextWrapping="Wrap" Text="Choose Variant" VerticalAlignment="Top" Height="45.488" Width="666.668" FontSize="36" FontFamily="Yu Gothic UI" Foreground="#FFF0C658"/>
+        <TextBlock x:Name="ChooseVariantStudio" TextAlignment="Center" HorizontalAlignment="center" Margin="66.666,25,66.666,0" TextWrapping="Wrap" Text="{x:Static local:Localizable.InstructDecideVariant}" VerticalAlignment="Top" Height="45.488" Width="666.668" FontSize="36" FontFamily="Yu Gothic UI" Foreground="#FFF0C658"/>
 
         <Grid x:Name="VRGrid">
             <Image x:Name="StartOculus" HorizontalAlignment="Left" Height="331" Width="250" Margin="70.513,98.718,0,0" VerticalAlignment="Top" Source="images/LaunchBG/oculusBTN.png" MouseLeftButtonDown="StartOculus_OnMouseRightButtonDown"/>

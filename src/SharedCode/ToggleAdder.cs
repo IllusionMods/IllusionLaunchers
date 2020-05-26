@@ -35,12 +35,12 @@ namespace InitSetting
             new PluginToggle("AI_Graphics", Localizable.ToggleAiGraphics, "AI_Graphics", null, false),
             new PluginToggle("DHH", Localizable.ToggleDhh, "DHH_AI4", null, false),
             new PluginToggle("DHHPH", Localizable.ToggleDhh, "ProjectHighHeel", null, true),
-            new PluginToggle("GGmod", "Enable Ggmod (main game)", "GgmodForHS", null, true),
-            new PluginToggle("GGmodstudio", "Enable Ggmod (studio classic)", "GgmodForHS_Studio", null, true),
-            new PluginToggle("GGmodneo", "Enable Ggmod (studio neo)", "GgmodForHS_NEO", null, true),
+            new PluginToggle("GGmod", Localizable.ToggleGGmod, "GgmodForHS", null, true),
+            new PluginToggle("GGmodstudio", Localizable.ToggleGGmodstudio, "GgmodForHS_Studio", null, true),
+            new PluginToggle("GGmodneo", Localizable.ToggleGGmodneo, "GgmodForHS_NEO", null, true),
             new PluginToggle("HoneyPot", Localizable.ToggleHoneyPot, "HoneyPot", null, true),
             new PluginToggle("RimRemover", Localizable.ToggleRimRemover, "RimRemover", null, false),
-            new PluginToggle("ShortcutPlugin", "Enable Shortcut Plugin", "ShortcutHSParty", null, true),
+            new PluginToggle("ShortcutPlugin", Localizable.ToggleShortcutHS, "ShortcutHSParty", null, true),
             new PluginToggle("Stiletto", Localizable.ToggleStiletto, "Stiletto", null, false),
             new PluginToggle("VRMod", Localizable.ToggleVRMod, "PlayHomeVR", delegate (bool b)
             {

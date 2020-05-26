@@ -222,4 +222,25 @@
   <data name="ToggleBonemod" xml:space="preserve">
     <value>Bonemod 활성화</value>
   </data>
+  <data name="ToggleShortcutHS" xml:space="preserve">
+    <value>Shortcut Plugin 활성화</value>
+  </data>
+  <data name="ToggleGGmod" xml:space="preserve">
+    <value>Ggmod (main game) 활성화</value>
+  </data>
+  <data name="ToggleGGmodstudio" xml:space="preserve">
+    <value>Ggmod (studio classic) 활성화</value>
+  </data>
+  <data name="ToggleGGmodneo" xml:space="preserve">
+    <value>Ggmod (studio neo) 활성화</value>
+  </data>
+  <data name="StartBattle" xml:space="preserve">
+    <value>Battle Arena 시작</value>
+  </data>
+  <data name="ManualBattle" xml:space="preserve">
+    <value>Battle 메뉴얼</value>
+  </data>
+  <data name="FolderStudioClassic" xml:space="preserve">
+    <value>Classic 장면</value>
+  </data>
 </root>

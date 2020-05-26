@@ -222,4 +222,25 @@
   <data name="ToggleBonemod" xml:space="preserve">
     <value>激活 Bonemod</value>
   </data>
+  <data name="ToggleShortcutHS" xml:space="preserve">
+    <value>激活 Shortcut Plugin</value>
+  </data>
+  <data name="ToggleGGmod" xml:space="preserve">
+    <value>激活 Ggmod (main game)</value>
+  </data>
+  <data name="ToggleGGmodstudio" xml:space="preserve">
+    <value>激活 Ggmod (studio classic)</value>
+  </data>
+  <data name="ToggleGGmodneo" xml:space="preserve">
+    <value>激活 Ggmod (studio neo)</value>
+  </data>
+  <data name="StartBattle" xml:space="preserve">
+    <value>开始Battle Arena</value>
+  </data>
+  <data name="ManualBattle" xml:space="preserve">
+    <value>Battle手册</value>
+  </data>
+  <data name="FolderStudioClassic" xml:space="preserve">
+    <value>Classic 工作室场景</value>
+  </data>
 </root>

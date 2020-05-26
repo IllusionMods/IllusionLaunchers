@@ -222,4 +222,25 @@ Dieses Spiel enthällt sexuelle Inhalte welche bei Ausführung im realen Leben s
   <data name="ToggleBonemod" xml:space="preserve">
     <value>Bonemod umschalten</value>
   </data>
+  <data name="ToggleShortcutHS" xml:space="preserve">
+    <value>Shortcut Plugin umschalten</value>
+  </data>
+  <data name="ToggleGGmod" xml:space="preserve">
+    <value>Ggmod (main game) umschalten</value>
+  </data>
+  <data name="ToggleGGmodstudio" xml:space="preserve">
+    <value>Ggmod (studio classic) umschalten</value>
+  </data>
+  <data name="ToggleGGmodneo" xml:space="preserve">
+    <value>Ggmod (studio neo) umschalten</value>
+  </data>
+  <data name="StartBattle" xml:space="preserve">
+    <value>Starte Battle Arena</value>
+  </data>
+  <data name="ManualBattle" xml:space="preserve">
+    <value>Battle Bedienungsanleitung</value>
+  </data>
+  <data name="FolderStudioClassic" xml:space="preserve">
+    <value>Classic Scenen</value>
+  </data>
 </root>

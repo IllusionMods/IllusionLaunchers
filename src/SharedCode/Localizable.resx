@@ -186,7 +186,7 @@
 This game contains content of a sexual nature, and some of the actions depicted within may be illegal to replicate in real life. Aka, it's all fun and games in the game, let's keep it that way shall we? (~.~)v</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>AI Shoujo Launcher</value>
+    <value>IllusionLaunchers</value>
   </data>
   <data name="TranslatedByCredit" xml:space="preserve">
     <value />
@@ -230,5 +230,41 @@ This game contains content of a sexual nature, and some of the actions depicted 
   </data>
   <data name="ToggleBonemod" xml:space="preserve">
     <value>Activate Bonemod</value>
+  </data>
+  <data name="ToggleShortcutHS" xml:space="preserve">
+    <value>Enable Shortcut Plugin</value>
+  </data>
+  <data name="ToggleGGmod" xml:space="preserve">
+    <value>Enable Ggmod (main game)</value>
+  </data>
+  <data name="ToggleGGmodstudio" xml:space="preserve">
+    <value>Enable Ggmod (studio classic)</value>
+  </data>
+  <data name="ToggleGGmodneo" xml:space="preserve">
+    <value>Enable Ggmod (studio neo)</value>
+  </data>
+  <data name="ToggleNSFW" xml:space="preserve">
+    <value>Disable NSFW Content</value>
+  </data>
+  <data name="StartBattle" xml:space="preserve">
+    <value>Start Battle Arena</value>
+  </data>
+  <data name="ManualBattle" xml:space="preserve">
+    <value>Battle Manual</value>
+  </data>
+  <data name="FolderStudioClassic" xml:space="preserve">
+    <value>Classic Scenes</value>
+  </data>
+  <data name="FolderMaps" xml:space="preserve">
+    <value>Maps Folder</value>
+  </data>
+  <data name="FolderPoses" xml:space="preserve">
+    <value>Poses Folder</value>
+  </data>
+  <data name="InstructDecideVariant" xml:space="preserve">
+    <value>Choose Variant</value>
+  </data>
+  <data name="ManualGameOnline" xml:space="preserve">
+    <value>Online Manual</value>
   </data>
 </root>

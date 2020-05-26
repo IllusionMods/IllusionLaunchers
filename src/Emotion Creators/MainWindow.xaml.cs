@@ -109,7 +109,7 @@ namespace InitSetting
 
         private void EmotionCreatorsStartup()
         {
-            string maps = "Maps Folder";
+
         }
 
         private void buttonManualOnline_Click(object sender, RoutedEventArgs e)

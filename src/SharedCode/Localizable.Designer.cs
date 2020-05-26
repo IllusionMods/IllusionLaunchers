@@ -161,7 +161,40 @@ namespace InitSetting {
 				return ResourceManager.GetString("FolderScenes", resourceCulture);
 			}
 		}
-		
+
+        /// <summary>
+        ///   Looks up a localized string similar to Poses Folder.
+        /// </summary>
+        public static string FolderPoses
+        {
+            get
+            {
+                return ResourceManager.GetString("FolderPoses", resourceCulture);
+            }
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Maps Folder.
+		/// </summary>
+		public static string FolderMaps
+		{
+            get
+            {
+                return ResourceManager.GetString("FolderMaps", resourceCulture);
+            }
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Classic Scenes.
+		/// </summary>
+		public static string FolderStudioClassic
+		{
+            get
+            {
+                return ResourceManager.GetString("FolderStudioClassic", resourceCulture);
+            }
+        }
+
 		/// <summary>
 		///   Looks up a localized string similar to Screenshots Folder.
 		/// </summary>
@@ -179,7 +212,18 @@ namespace InitSetting {
 				return ResourceManager.GetString("FolderUserData", resourceCulture);
 			}
 		}
-		
+
+		/// <summary>
+		///   Looks up a localized string similar to Choose Variant.
+		/// </summary>
+		public static string InstructDecideVariant
+		{
+            get
+            {
+                return ResourceManager.GetString("InstructDecideVariant", resourceCulture);
+            }
+        }
+
 		/// <summary>
 		///   Looks up a localized string similar to Game Manual.
 		/// </summary>
@@ -188,7 +232,18 @@ namespace InitSetting {
 				return ResourceManager.GetString("ManualGame", resourceCulture);
 			}
 		}
-		
+
+		/// <summary>
+		///   Looks up a localized string similar to Online Manual.
+		/// </summary>
+		public static string ManualGameOnline
+		{
+            get
+            {
+                return ResourceManager.GetString("ManualGameOnline", resourceCulture);
+            }
+        }
+
 		/// <summary>
 		///   Looks up a localized string similar to Studio Manual.
 		/// </summary>
@@ -206,7 +261,18 @@ namespace InitSetting {
 				return ResourceManager.GetString("ManualVR", resourceCulture);
 			}
 		}
-		
+
+		/// <summary>
+		///   Looks up a localized string similar to Battle Manual.
+		/// </summary>
+		public static string ManualBattle
+		{
+            get
+            {
+                return ResourceManager.GetString("ManualBattle", resourceCulture);
+            }
+        }
+
 		/// <summary>
 		///   Looks up a localized string similar to PrimaryDisplay.
 		/// </summary>
@@ -287,7 +353,18 @@ namespace InitSetting {
 				return ResourceManager.GetString("StartVR", resourceCulture);
 			}
 		}
-		
+
+		/// <summary>
+		///   Looks up a localized string similar to Start Battle Arena.
+		/// </summary>
+		public static string StartBattle
+		{
+            get
+            {
+                return ResourceManager.GetString("StartBattle", resourceCulture);
+            }
+        }
+
 		/// <summary>
 		///   Looks up a localized string similar to SubDisplay.
 		/// </summary>
@@ -341,7 +418,40 @@ namespace InitSetting {
 				return ResourceManager.GetString("ToggleFullscreen", resourceCulture);
 			}
 		}
-		
+
+		/// <summary>
+		///   Looks up a localized string similar to Enable Ggmod (main game).
+		/// </summary>
+		public static string ToggleGGmod
+		{
+            get
+            {
+                return ResourceManager.GetString("ToggleGGmod", resourceCulture);
+            }
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Enable Ggmod (studio classic).
+		/// </summary>
+		public static string ToggleGGmodstudio
+		{
+            get
+            {
+                return ResourceManager.GetString("ToggleGGmodstudio", resourceCulture);
+            }
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Enable Ggmod (studio neo).
+		/// </summary>
+		public static string ToggleGGmodneo
+		{
+            get
+            {
+                return ResourceManager.GetString("ToggleGGmodneo", resourceCulture);
+            }
+        }
+
 		/// <summary>
 		///   Looks up a localized string similar to Activate HoneyPot.
 		/// </summary>
@@ -350,7 +460,18 @@ namespace InitSetting {
 				return ResourceManager.GetString("ToggleHoneyPot", resourceCulture);
 			}
 		}
-		
+
+		/// <summary>
+		///   Looks up a localized string similar to Disable NSFW Content.
+		/// </summary>
+		public static string ToggleNSFW
+		{
+            get
+            {
+                return ResourceManager.GetString("ToggleNSFW", resourceCulture);
+            }
+        }
+
 		/// <summary>
 		///   Looks up a localized string similar to Activate RimRemover.
 		/// </summary>
@@ -359,7 +480,18 @@ namespace InitSetting {
 				return ResourceManager.GetString("ToggleRimRemover", resourceCulture);
 			}
 		}
-		
+
+		/// <summary>
+		///   Looks up a localized string similar to Enable Shortcut Plugin.
+		/// </summary>
+		public static string ToggleShortcutHS
+		{
+            get
+            {
+                return ResourceManager.GetString("ToggleShortcutHS", resourceCulture);
+            }
+        }
+
 		/// <summary>
 		///   Looks up a localized string similar to Activate Stiletto.
 		/// </summary>

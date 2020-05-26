@@ -193,7 +193,7 @@
         <Image x:Name="PackChara" HorizontalAlignment="Left" Height="378" Margin="322,220,0,0" VerticalAlignment="Top"
                Width="255" Source="Images/Chara.png" Grid.RowSpan="2" />
 
-        <Border BorderBrush="#FF366EBF" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left"
+        <Border BorderBrush="#33FF0000" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left"
                 Height="301.5" Margin="-41,137,0,0" VerticalAlignment="Top" Width="84" CornerRadius="3" Grid.RowSpan="2" />
         <Image x:Name="flagEN" HorizontalAlignment="Left" Height="22" Margin="10,149,0,0" VerticalAlignment="Top"
                Width="22" Source="Images/Flags/united-kingdom.png" MouseLeftButtonDown="LangEnglish" ToolTip="Change language to English"/>

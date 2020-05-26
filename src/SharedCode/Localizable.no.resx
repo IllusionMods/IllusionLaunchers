@@ -222,4 +222,25 @@ Dette spillet inneholder innhold av en seksuell natur, og noen av handlingene av
   <data name="ToggleBonemod" xml:space="preserve">
     <value>Aktiver Bonemod</value>
   </data>
+  <data name="ToggleShortcutHS" xml:space="preserve">
+    <value>Aktiver Shortcut Plugin</value>
+  </data>
+  <data name="ToggleGGmod" xml:space="preserve">
+    <value>Aktiver Ggmod (main game)</value>
+  </data>
+  <data name="ToggleGGmodstudio" xml:space="preserve">
+    <value>Aktiver Ggmod (studio classic)</value>
+  </data>
+  <data name="ToggleGGmodneo" xml:space="preserve">
+    <value>Aktiver Ggmod (studio neo)</value>
+  </data>
+  <data name="StartBattle" xml:space="preserve">
+    <value>Start Battle Arena</value>
+  </data>
+  <data name="ManualBattle" xml:space="preserve">
+    <value>Battle Manual</value>
+  </data>
+  <data name="FolderStudioClassic" xml:space="preserve">
+    <value>Classic Scener</value>
+  </data>
 </root>

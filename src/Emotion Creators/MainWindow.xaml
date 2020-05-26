@@ -93,7 +93,7 @@
                 </Image>
             </Border>
 
-            <Label Style="{StaticResource GameButtonsLabel}" x:Name="labelStart" Content="Start Game"
+            <Label Style="{StaticResource GameButtonsLabel}" x:Name="labelStart" Content="{x:Static local:Localizable.StartGame}"
                    HorizontalAlignment="Left" Margin="351.833,22.333,0,0" VerticalAlignment="Top" Width="190"
                    Height="34" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonStart" Content="" HorizontalAlignment="Left"
@@ -113,7 +113,7 @@
                 <Image x:Name="idmssage2" Source="Images/ButtonBG/manual.png" RenderTransformOrigin="0.5,0.5"
                        HorizontalAlignment="Right" />
             </Border>
-            <Label x:Name="labelM" Foreground="White" VerticalContentAlignment="Center" Content="Game Manual"
+            <Label x:Name="labelM" Foreground="White" VerticalContentAlignment="Center" Content="{x:Static local:Localizable.ManualGame}"
                    HorizontalAlignment="Left" Margin="273.833,64.833,0,0" VerticalAlignment="Top" Height="24"
                    Width="134" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonManual" Content="" HorizontalAlignment="Left"
@@ -124,7 +124,7 @@
                 <Image x:Name="idmssage1" Source="images/ButtonBG/manual.png" RenderTransformOrigin="0.5,0.5"
                        HorizontalAlignment="Right" />
             </Border>
-            <Label x:Name="labelMO" Foreground="White" VerticalContentAlignment="Center" Content="Online Manual"
+            <Label x:Name="labelMO" Foreground="White" VerticalContentAlignment="Center" Content="{x:Static local:Localizable.ManualGameOnline}"
                    HorizontalAlignment="Left" Margin="452.833,64.833,0,0" VerticalAlignment="Top" Height="24"
                    Width="134" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonManual_Online" Content=""
@@ -240,10 +240,10 @@
                     Content="{x:Static local:Localizable.FolderMaleCard}" HorizontalAlignment="Left" Height="24"
                     VerticalAlignment="Top" Width="129.517" Margin="164.358,299.71,0,0" Click="buttonMaleCard_Click" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonMaps" FontSize="10"
-                    Content="Maps Folder" HorizontalAlignment="Left" Height="24"
+                    Content="{x:Static local:Localizable.FolderMaps}" HorizontalAlignment="Left" Height="24"
                     VerticalAlignment="Top" Width="129.517" Margin="28.625,328.71,0,0" Click="buttonMaps_Click" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonPoses" FontSize="10"
-                    Content="Poses Folder" HorizontalAlignment="Left" Height="24"
+                    Content="{x:Static local:Localizable.FolderPoses}" HorizontalAlignment="Left" Height="24"
                     VerticalAlignment="Top" Width="129.517" Margin="164.358,328.71,0,0" Click="buttonPoses_Click" />
         </Grid>
         <Image x:Name="image2" HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="289.35"

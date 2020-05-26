@@ -222,4 +222,25 @@ Ce jeu contient des scènes matures, et certaines actions du jeu peuvent être c
   <data name="ToggleBonemod" xml:space="preserve">
     <value>Activer Bonemod</value>
   </data>
+  <data name="ToggleShortcutHS" xml:space="preserve">
+    <value>Activer Shortcut Plugin</value>
+  </data>
+  <data name="ToggleGGmod" xml:space="preserve">
+    <value>Activer Ggmod (main game)</value>
+  </data>
+  <data name="ToggleGGmodstudio" xml:space="preserve">
+    <value>Activer Ggmod (studio classic)</value>
+  </data>
+  <data name="ToggleGGmodneo" xml:space="preserve">
+    <value>Activer Ggmod (studio neo)</value>
+  </data>
+  <data name="StartBattle" xml:space="preserve">
+    <value>Lancer le Battle Arena</value>
+  </data>
+  <data name="ManualBattle" xml:space="preserve">
+    <value>Manuel de Battle</value>
+  </data>
+  <data name="FolderStudioClassic" xml:space="preserve">
+    <value>Classic Scènes</value>
+  </data>
 </root>

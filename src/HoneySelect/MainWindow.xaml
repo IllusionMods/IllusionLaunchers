@@ -111,7 +111,7 @@
                 <Image x:Name="idmssage1" Source="images/ButtonBG/manual.png"
                     RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" />
             </Border>
-            <Label x:Name="labelMV_Copy" Foreground="White" VerticalContentAlignment="Center" Content="Battle Manual"
+            <Label x:Name="labelMV_Copy" Foreground="White" VerticalContentAlignment="Center" Content="{x:Static local:Localizable.ManualBattle}"
                 HorizontalAlignment="Left" Margin="613.167,73,0,0" VerticalAlignment="Top" Height="24" Width="98" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonManualV_Copy" Content="" HorizontalAlignment="Left"
                 Height="24" Margin="609.167,73,0,0" VerticalAlignment="Top" Width="174" Click="buttonManualV_Click" />
@@ -201,7 +201,7 @@
                     </TransformGroup>
                 </Border.RenderTransform>
             </Border>
-            <Label Style="{StaticResource GameButtonsLabel}" x:Name="labelStart_Copy7" Content="Start Battle"
+            <Label Style="{StaticResource GameButtonsLabel}" x:Name="labelStart_Copy7" Content="{x:Static local:Localizable.StartBattle}"
                 HorizontalAlignment="Left" Margin="634.833,31,0,0" VerticalAlignment="Top" Width="145.083" Height="34" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonStart_Copy8" Content=""
                 HorizontalAlignment="Left" Height="36" Margin="633.833,30,0,0" VerticalAlignment="Top" Width="176.797"
@@ -310,7 +310,7 @@
                     Content="{x:Static local:Localizable.FolderInstall}" HorizontalAlignment="Left" Height="24"
                     VerticalAlignment="Top" Width="129.516" Margin="28.625,241.71,0,0" Click="buttonInst_Click" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonCCenes" FontSize="10"
-                    Content="Classic Scenes" HorizontalAlignment="Left" Height="24"
+                    Content="{x:Static local:Localizable.FolderStudioClassic}" HorizontalAlignment="Left" Height="24"
                     VerticalAlignment="Top" Width="129.517" Margin="164.358,241.71,0,0" Click="buttonCCenes_Click" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonScenes" FontSize="10"
                     Content="{x:Static local:Localizable.FolderScenes}" HorizontalAlignment="Left" Height="24"
