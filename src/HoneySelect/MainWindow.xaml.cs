@@ -98,7 +98,7 @@ namespace InitSetting
                     dropDisplay.Items.Add(newItem);
                 }
 
-                SBPRStartup();
+                HoneySelectStartup();
                 PluginToggleManager.CreatePluginToggles(Toggleables);
 
                 _suppressEvents = false;
@@ -117,12 +117,10 @@ namespace InitSetting
             }
         }
 
-        #region SBPR Speciffic code
+        #region HoneySelect Speciffic code
 
         private void StartupFilter(string exeFile)
         {
-            string text;
-
             if (_is32)
             {
                 switch (exeFile)
@@ -136,12 +134,7 @@ namespace InitSetting
                 }
             }
 
-            if (File.Exists(Path.GetFileNameWithoutExtension(exeFile) + "_Patched.exe"))
-                text = EnvironmentHelper.GameRootDirectory + Path.GetFileNameWithoutExtension(exeFile) + "_Patched.exe";
-            else
-                text = EnvironmentHelper.GameRootDirectory + exeFile;
-
-            StartGame(text);
+            StartGame(exeFile);
         }
 
         private void toggle32_Checked(object sender, RoutedEventArgs e)
@@ -161,7 +154,7 @@ namespace InitSetting
                 File.Delete($"{EnvironmentHelper.GameRootDirectory}/UserData/LauncherEN/toggle32.txt");
         }
 
-        private void SBPRStartup()
+        private void HoneySelectStartup()
         {
             if (!File.Exists($"{EnvironmentHelper.GameRootDirectory}/{ExecutableGame32}"))
                 toggle32.Visibility = Visibility.Collapsed;
@@ -257,12 +250,12 @@ namespace InitSetting
 
         private void buttonStartS_Click(object sender, RoutedEventArgs e)
         {
-            StartupFilter(ExecutableStudio);
+            new BootChoice().SetupWindow(Localizable.StartVR, "studio", _is32);
         }
 
         private void buttonStartV_Click(object sender, RoutedEventArgs e)
         {
-            StartupFilter(ExecutableVR);
+            new BootChoice().SetupWindow(Localizable.StartVR, "vr", _is32);
         }
 
         private void buttonManual_Click(object sender, RoutedEventArgs e)
