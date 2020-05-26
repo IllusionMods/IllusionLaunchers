@@ -16,7 +16,7 @@
             <Rectangle x:Name="StartOculus" HorizontalAlignment="Left" Height="356.667" Margin="57.692,83.333,0,0" VerticalAlignment="Top" Width="278.205" MouseLeftButtonDown="StartOculus_OnMouseRightButtonDown"/>
             <Rectangle x:Name="StartVive" HorizontalAlignment="Left" Height="356.667" Margin="489.743,83.333,0,0" VerticalAlignment="Top" Width="278.205" MouseLeftButtonDown="StartVive_OnMouseRightButtonDown"/>
         </Grid>
-        <Grid x:Name="StudioGrid">
+        <Grid x:Name="StudioGrid" Visibility="Hidden">
             <Image x:Name="backgroundIMGStudio" HorizontalAlignment="Left" Height="450" VerticalAlignment="Top" Width="800" Source="images/LaunchBG/VR.png"/>
             <Rectangle x:Name="StartStudio" HorizontalAlignment="Left" Height="356.667" Margin="57.692,83.333,0,0" VerticalAlignment="Top" Width="278.205" MouseLeftButtonDown="StartStudio_OnMouseRightButtonDown"/>
             <Rectangle x:Name="StartNeo" HorizontalAlignment="Left" Height="356.667" Margin="489.743,83.333,0,0" VerticalAlignment="Top" Width="278.205" MouseLeftButtonDown="StartNeo_OnMouseRightButtonDown"/>

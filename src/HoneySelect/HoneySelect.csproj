@@ -150,7 +150,9 @@
   <ItemGroup>
     <Resource Include="images\HSLogo.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="images\ButtonBG\startVR.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="images\LaunchBG\VR.png" />
   </ItemGroup>
