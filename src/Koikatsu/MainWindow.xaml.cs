@@ -234,7 +234,25 @@ namespace InitSetting
 
         private void buttonManual_Click(object sender, RoutedEventArgs e)
         {
-            EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\");
+            MessageBox.Show(EnvironmentHelper.Language.ToString());
+            switch (EnvironmentHelper.Language.ToString())
+            {
+                case "en-US":
+                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\English\\manual\\");
+                    break;
+                case "zh-CN":
+                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\Simplified Chinese\\manual\\");
+                    break;
+                case "zh-TW":
+                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\Traditional Chinese\\manual\\");
+                    break;
+                case "ja-JP":
+                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\Japanese\\manual\\");
+                    break;
+                default:
+                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\");
+                    break;
+            }
         }
 
         private void buttonManualS_Click(object sender, RoutedEventArgs e)
