@@ -234,20 +234,19 @@ namespace InitSetting
 
         private void buttonManual_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(EnvironmentHelper.Language.ToString());
             switch (EnvironmentHelper.Language.ToString())
             {
-                case "en-US":
-                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\English\\manual\\");
+                case "en":
+                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\English\\");
                     break;
                 case "zh-CN":
-                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\Simplified Chinese\\manual\\");
+                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\Simplified Chinese\\");
                     break;
                 case "zh-TW":
-                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\Traditional Chinese\\manual\\");
+                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\Traditional Chinese\\");
                     break;
                 case "ja-JP":
-                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\Japanese\\manual\\");
+                    EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\Japanese\\");
                     break;
                 default:
                     EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\");
