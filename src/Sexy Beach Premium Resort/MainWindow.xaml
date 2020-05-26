@@ -328,7 +328,7 @@
                     VerticalAlignment="Top" Width="265.25" Margin="28.625,328.71,0,0" Click="buttonUserData_Click" />
         </Grid>
         <Image x:Name="image2" HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="262"
-               Source="images/KKLogo.png" Margin="318,102,318,0" />
+               Source="images/SBPRLogo.png" Margin="318,102,318,0" />
         <Button Style="{StaticResource buttonHover}" x:Name="buttonClose" Content="X" HorizontalAlignment="Left"
                 Margin="856,10,0,0" VerticalAlignment="Top" Width="32" Height="28" IsCancel="true" />
         <Grid x:Name="gridDiscord" HorizontalAlignment="Left" Height="36.333" Margin="-40.584,160.952,0,0"

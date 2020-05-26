@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace InitDialog.Properties {
+namespace InitSetting.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
