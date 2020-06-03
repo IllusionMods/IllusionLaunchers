@@ -273,4 +273,7 @@ This game contains content of a sexual nature, and some of the actions depicted 
   <data name="InstructDecideLang" xml:space="preserve">
     <value>The language you've choosen does not have translations in your installation. Translation will be done by Google Translate.</value>
   </data>
+  <data name="ToggleGraphicsMod" xml:space="preserve">
+    <value>Enable GraphicsMod</value>
+  </data>
 </root>

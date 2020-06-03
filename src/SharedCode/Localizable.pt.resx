@@ -243,4 +243,7 @@ Algumas das ações presentes nessa obra de ficção podem ser ilegais ao serem 
   <data name="FolderStudioClassic" xml:space="preserve">
     <value>Cenas Classic </value>
   </data>
+  <data name="ToggleGraphicsMod" xml:space="preserve">
+    <value>Ativar GraphicsMod</value>
+  </data>
 </root>

@@ -243,4 +243,7 @@
   <data name="FolderStudioClassic" xml:space="preserve">
     <value>シーン (CLASSIC)</value>
   </data>
+  <data name="ToggleGraphicsMod" xml:space="preserve">
+    <value>GraphicsModを有効にす</value>
+  </data>
 </root>

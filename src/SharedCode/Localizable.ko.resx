@@ -153,7 +153,7 @@
 이게임에는 성적인 내용이 포함되어있으며 그안에 묘사된 행동중 일부는 실제에서 행동하면 법적인 처벌을 받습니다</value>
   </data>
   <data name="StartVR" xml:space="preserve">
-    <value>코이카츠 VR 시작</value>
+    <value>허니셀렉트2 VR 시작</value>
   </data>
   <data name="ManualVR" xml:space="preserve">
     <value>VR 메뉴얼</value>
@@ -242,5 +242,8 @@
   </data>
   <data name="FolderStudioClassic" xml:space="preserve">
     <value>Classic 장면</value>
+  </data>
+  <data name="ToggleGraphicsMod" xml:space="preserve">
+    <value>GraphicsMod 활성화</value>
   </data>
 </root>

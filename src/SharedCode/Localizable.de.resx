@@ -243,4 +243,7 @@ Dieses Spiel enthällt sexuelle Inhalte welche bei Ausführung im realen Leben s
   <data name="FolderStudioClassic" xml:space="preserve">
     <value>Classic Scenen</value>
   </data>
+  <data name="ToggleGraphicsMod" xml:space="preserve">
+    <value>GraphicsMod umschalten</value>
+  </data>
 </root>

@@ -243,4 +243,7 @@ Dette spillet inneholder innhold av en seksuell natur, og noen av handlingene av
   <data name="FolderStudioClassic" xml:space="preserve">
     <value>Classic Scener</value>
   </data>
+  <data name="ToggleGraphicsMod" xml:space="preserve">
+    <value>Aktiver GraphicsMod</value>
+  </data>
 </root>

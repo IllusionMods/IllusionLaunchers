@@ -243,4 +243,7 @@ Ce jeu contient des scènes matures, et certaines actions du jeu peuvent être c
   <data name="FolderStudioClassic" xml:space="preserve">
     <value>Classic Scènes</value>
   </data>
+  <data name="ToggleGraphicsMod" xml:space="preserve">
+    <value>Activer GraphicsMod</value>
+  </data>
 </root>

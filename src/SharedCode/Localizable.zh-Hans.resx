@@ -243,4 +243,7 @@
   <data name="FolderStudioClassic" xml:space="preserve">
     <value>Classic 工作室场景</value>
   </data>
+  <data name="ToggleGraphicsMod" xml:space="preserve">
+    <value>激活 GraphicsMod</value>
+  </data>
 </root>

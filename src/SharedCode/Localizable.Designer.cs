@@ -461,6 +461,17 @@ namespace InitSetting {
             {
                 return ResourceManager.GetString("ToggleGGmodneo", resourceCulture);
             }
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Enable GraphicsMod.
+		/// </summary>
+		public static string ToggleGraphicsMod
+        {
+            get
+            {
+                return ResourceManager.GetString("ToggleGraphicsMod", resourceCulture);
+            }
         }
 
 		/// <summary>

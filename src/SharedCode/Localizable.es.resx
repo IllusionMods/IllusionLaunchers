@@ -244,4 +244,7 @@ HoneyPot Inspector</value>
   <data name="FolderStudioClassic" xml:space="preserve">
     <value>Classic Escenas</value>
   </data>
+  <data name="ToggleGraphicsMod" xml:space="preserve">
+    <value>Activar GraphicsMod</value>
+  </data>
 </root>

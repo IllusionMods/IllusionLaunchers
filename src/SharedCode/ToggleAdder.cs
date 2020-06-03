@@ -38,6 +38,7 @@ namespace InitSetting
             new PluginToggle("GGmod", Localizable.ToggleGGmod, "GgmodForHS", null, true),
             new PluginToggle("GGmodstudio", Localizable.ToggleGGmodstudio, "GgmodForHS_Studio", null, true),
             new PluginToggle("GGmodneo", Localizable.ToggleGGmodneo, "GgmodForHS_NEO", null, true),
+            new PluginToggle("AIHS2Graphics", Localizable.ToggleGraphicsMod, "Graphics", null, false),
             new PluginToggle("HoneyPot", Localizable.ToggleHoneyPot, "HoneyPot", null, true),
             new PluginToggle("RimRemover", Localizable.ToggleRimRemover, "RimRemover", null, false),
             new PluginToggle("ShortcutPlugin", Localizable.ToggleShortcutHS, "ShortcutHSParty", null, true),
