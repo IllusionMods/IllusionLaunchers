@@ -48,63 +48,61 @@ namespace InitSetting
         public static string GameRootDirectory { get; private set; }
 
 
-        public static bool? DeveloperModeEnabled
+        public static bool DeveloperModeEnabled
         {
             get
             {
-                if (File.Exists(GameRootDirectory + "/Bepinex/config/BepInEx.cfg"))
+                var configPath = Path.Combine(GameRootDirectory, @"BepInEx\config\BepInEx.cfg");
+                if (!File.Exists(configPath)) return false;
+                try
                 {
-                    var ud = Path.Combine(GameRootDirectory, @"BepInEx\config\BepInEx.cfg");
+                    var contents = File.ReadAllLines(configPath).ToList();
 
-                    try
+                    var devmodeCatIndex = contents.FindIndex(s => s.ToLower().Contains("[Logging.Console]".ToLower()));
+                    if (devmodeCatIndex >= 0)
                     {
-                        var contents = File.ReadAllLines(ud).ToList();
-
-                        var devmodeEn = contents.FindIndex(s => s.ToLower().Contains("[Logging.Console]".ToLower()));
-                        if (devmodeEn >= 0)
-                        {
-                            var i = contents.FindIndex(devmodeEn, s => s.StartsWith("Enabled = true"));
-                            var n = contents.FindIndex(devmodeEn, s => s.StartsWith("[Logging.Disk]"));
-                            if (i < n) return true;
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        MessageBox.Show("Something went wrong: " + e);
+                        var toCheck = contents.Skip(devmodeCatIndex);
+                        var nextCatIndex = contents.FindIndex(devmodeCatIndex + 1, s => s.StartsWith("["));
+                        if (nextCatIndex > 0) toCheck = toCheck.Take(nextCatIndex - devmodeCatIndex);
+                        return toCheck.Any(s => s.StartsWith("Enabled = true", StringComparison.OrdinalIgnoreCase));
                     }
                 }
-                else
+                catch (Exception e)
                 {
-                    return null;
+                    MessageBox.Show("Something went wrong: " + e);
                 }
 
                 return false;
             }
             set
             {
-                if (value == null) return;
-
-                var ud = Path.Combine(GameRootDirectory, @"BepInEx\config\BepInEx.cfg");
-
                 try
                 {
-                    var contents = File.ReadAllLines(ud).ToList();
+                    var configPath = Path.Combine(GameRootDirectory, @"BepInEx\config\BepInEx.cfg");
+                    var contents = File.Exists(configPath) ? File.ReadAllLines(configPath).ToList() : new List<string>();
 
-                    var setToLanguage = contents.FindIndex(s => s.ToLower().Contains("[Logging.Console]".ToLower()));
-                    if (setToLanguage >= 0 && value.Value)
+                    var devmodeCatIndex = contents.FindIndex(s => s.ToLower().Contains("[Logging.Console]".ToLower()));
+                    if (devmodeCatIndex >= 0)
                     {
-                        var i = contents.FindIndex(setToLanguage, s => s.StartsWith("Enabled"));
-                        if (i > setToLanguage)
-                            contents[i] = "Enabled = true";
+                        var nextCatIndex = contents.FindIndex(devmodeCatIndex + 1, s => s.StartsWith("["));
+                        int enabledIndex;
+                        if (nextCatIndex > 0)
+                            enabledIndex = contents.FindIndex(devmodeCatIndex, nextCatIndex - devmodeCatIndex, s => s.StartsWith("Enabled"));
+                        else
+                            enabledIndex = contents.FindIndex(devmodeCatIndex, s => s.StartsWith("Enabled"));
+
+                        if (enabledIndex > 0)
+                            contents[enabledIndex] = "Enabled = " + (value ? "true" : "false");
+                        else
+                            contents.Insert(devmodeCatIndex + 1, "Enabled = " + (value ? "true" : "false"));
                     }
                     else
                     {
-                        var i = contents.FindIndex(setToLanguage, s => s.StartsWith("Enabled"));
-                        if (i > setToLanguage)
-                            contents[i] = "Enabled = false";
+                        contents.Add("[Logging.Console]");
+                        contents.Add("Enabled = " + (value ? "true" : "false"));
                     }
 
-                    File.WriteAllLines(ud, contents.ToArray());
+                    File.WriteAllLines(configPath, contents.ToArray());
                 }
                 catch (Exception e)
                 {
