@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using CheckBox = System.Windows.Controls.CheckBox;
@@ -26,62 +25,68 @@ namespace InitSetting
         public string PluginDllWithoutExtension { get; }
         public Action<bool> EnabledChangedAction { get; }
         public bool IsIPA { get; }
+
+        internal CheckBox _toggle;
+        public void SetIsChecked(bool? newValue)
+        {
+            if (_toggle != null)
+                _toggle.IsChecked = newValue;
+        }
     }
 
     public static class PluginToggleManager
     {
-        private static readonly List<PluginToggle> _toggleList = new List<PluginToggle>
+        private static readonly List<PluginToggle> _toggleList;
+
+        static PluginToggleManager()
         {
-            new PluginToggle("AI_Graphics", Localizable.ToggleAiGraphics, "AI_Graphics", delegate (bool b)
+            PluginToggle aighs2, aig, dhh = null;
+            aig = new PluginToggle("AI_Graphics", Localizable.ToggleAiGraphics, "AI_Graphics", delegate (bool b)
             {
                 if (b)
                 {
-                    if(File.Exists(EnvironmentHelper.BepinPluginsDir + "DHH_AI4.dll"))
-                        File.Move(EnvironmentHelper.BepinPluginsDir + "DHH_AI4.dll", EnvironmentHelper.BepinPluginsDir + "DHH_AI4.dl_");
-                    
+                    dhh.SetIsChecked(false);
                     MessageBox.Show("To use this mod, Press F5 during the game.", "Usage");
                 }
-
-            }, false),
-            new PluginToggle("DHH", Localizable.ToggleDhh, "DHH_AI4", delegate (bool b)
+            }, false);
+            aighs2 = new PluginToggle("AIHS2Graphics", Localizable.ToggleGraphicsMod, "Graphics", delegate (bool b)
             {
                 if (b)
                 {
-                    if(File.Exists(EnvironmentHelper.BepinPluginsDir + "AIGraphics\\AI_Graphics.dll"))
-                        File.Move(EnvironmentHelper.BepinPluginsDir + "AIGraphics\\AI_Graphics.dll", EnvironmentHelper.BepinPluginsDir + "AIGraphics\\AI_Graphics.dl_");
-
-                    if(File.Exists(EnvironmentHelper.BepinPluginsDir + "Graphics\\Graphics.dll"))
-                        File.Move(EnvironmentHelper.BepinPluginsDir + "Graphics\\Graphics.dll", EnvironmentHelper.BepinPluginsDir + "Graphics\\Graphics.dl_");
-
+                    dhh.SetIsChecked(false);
+                    MessageBox.Show("To use this mod, Press F5 during the game.", "Usage");
+                }
+            }, false);
+            dhh = new PluginToggle("DHH", Localizable.ToggleDhh, "DHH_AI4", delegate (bool b)
+            {
+                if (b)
+                {
+                    aig.SetIsChecked(false);
+                    aighs2.SetIsChecked(false);
                     MessageBox.Show("To use this mod, Press P during the game.", "Usage");
                 }
+            }, false);
 
-            }, false),
-            new PluginToggle("DHHPH", Localizable.ToggleDhh, "ProjectHighHeel", null, true),
-            new PluginToggle("GGmod", Localizable.ToggleGGmod, "GgmodForHS", null, true),
-            new PluginToggle("GGmodstudio", Localizable.ToggleGGmodstudio, "GgmodForHS_Studio", null, true),
-            new PluginToggle("GGmodneo", Localizable.ToggleGGmodneo, "GgmodForHS_NEO", null, true),
-            new PluginToggle("AIHS2Graphics", Localizable.ToggleGraphicsMod, "Graphics", delegate (bool b)
+            _toggleList = new List<PluginToggle>
             {
-                if (b)
+                aig,
+                aighs2,
+                dhh,
+                new PluginToggle("DHHPH", Localizable.ToggleDhh, "ProjectHighHeel", null, true),
+                new PluginToggle("GGmod", Localizable.ToggleGGmod, "GgmodForHS", null, true),
+                new PluginToggle("GGmodstudio", Localizable.ToggleGGmodstudio, "GgmodForHS_Studio", null, true),
+                new PluginToggle("GGmodneo", Localizable.ToggleGGmodneo, "GgmodForHS_NEO", null, true),
+                new PluginToggle("HoneyPot", Localizable.ToggleHoneyPot, "HoneyPot", null, true),
+                new PluginToggle("RimRemover", Localizable.ToggleRimRemover, "RimRemover", null, false),
+                new PluginToggle("ShortcutPlugin", Localizable.ToggleShortcutHS, "ShortcutHSParty", null, true),
+                new PluginToggle("Stiletto", Localizable.ToggleStiletto, "Stiletto", null, false),
+                new PluginToggle("VRMod", Localizable.ToggleVRMod, "PlayHomeVR", delegate (bool b)
                 {
-                    if(File.Exists(EnvironmentHelper.BepinPluginsDir + "DHH_AI4.dll"))
-                        File.Move(EnvironmentHelper.BepinPluginsDir + "DHH_AI4.dll", EnvironmentHelper.BepinPluginsDir + "DHH_AI4.dl_");
-
-                    MessageBox.Show("To use this mod, Press F5 during the game.", "Usage");
-                }
-
-            }, false),
-            new PluginToggle("HoneyPot", Localizable.ToggleHoneyPot, "HoneyPot", null, true),
-            new PluginToggle("RimRemover", Localizable.ToggleRimRemover, "RimRemover", null, false),
-            new PluginToggle("ShortcutPlugin", Localizable.ToggleShortcutHS, "ShortcutHSParty", null, true),
-            new PluginToggle("Stiletto", Localizable.ToggleStiletto, "Stiletto", null, false),
-            new PluginToggle("VRMod", Localizable.ToggleVRMod, "PlayHomeVR", delegate (bool b)
-            {
-                if (b)
-                    MessageBox.Show("To use this mod, open SteamVR before opening either the main game or studio.", "Usage");
-            }, true)
-        };
+                    if (b)
+                        MessageBox.Show("To use this mod, open SteamVR before opening either the main game or studio.", "Usage");
+                }, true)
+            };
+        }
 
         public static void AddToggle(PluginToggle tgl) => _toggleList.Add(tgl);
 
@@ -132,6 +137,8 @@ namespace InitSetting
                     c.EnabledChangedAction?.Invoke(false);
                     f.MoveTo(Path.Combine(f.FullName, name + ".dl_"));
                 };
+
+                c._toggle = toggle;
 
                 togglePanel.Children.Add(toggle);
             }
