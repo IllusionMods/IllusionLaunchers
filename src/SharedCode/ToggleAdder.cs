@@ -32,13 +32,46 @@ namespace InitSetting
     {
         private static readonly List<PluginToggle> _toggleList = new List<PluginToggle>
         {
-            new PluginToggle("AI_Graphics", Localizable.ToggleAiGraphics, "AI_Graphics", null, false),
-            new PluginToggle("DHH", Localizable.ToggleDhh, "DHH_AI4", null, false),
+            new PluginToggle("AI_Graphics", Localizable.ToggleAiGraphics, "AI_Graphics", delegate (bool b)
+            {
+                if (b)
+                {
+                    if(File.Exists(EnvironmentHelper.BepinPluginsDir + "DHH_AI4.dll"))
+                        File.Move(EnvironmentHelper.BepinPluginsDir + "DHH_AI4.dll", EnvironmentHelper.BepinPluginsDir + "DHH_AI4.dl_");
+                    
+                    MessageBox.Show("To use this mod, Press F5 during the game.", "Usage");
+                }
+
+            }, false),
+            new PluginToggle("DHH", Localizable.ToggleDhh, "DHH_AI4", delegate (bool b)
+            {
+                if (b)
+                {
+                    if(File.Exists(EnvironmentHelper.BepinPluginsDir + "AIGraphics\\AI_Graphics.dll"))
+                        File.Move(EnvironmentHelper.BepinPluginsDir + "AIGraphics\\AI_Graphics.dll", EnvironmentHelper.BepinPluginsDir + "AIGraphics\\AI_Graphics.dl_");
+
+                    if(File.Exists(EnvironmentHelper.BepinPluginsDir + "Graphics\\Graphics.dll"))
+                        File.Move(EnvironmentHelper.BepinPluginsDir + "Graphics\\Graphics.dll", EnvironmentHelper.BepinPluginsDir + "Graphics\\Graphics.dl_");
+
+                    MessageBox.Show("To use this mod, Press P during the game.", "Usage");
+                }
+
+            }, false),
             new PluginToggle("DHHPH", Localizable.ToggleDhh, "ProjectHighHeel", null, true),
             new PluginToggle("GGmod", Localizable.ToggleGGmod, "GgmodForHS", null, true),
             new PluginToggle("GGmodstudio", Localizable.ToggleGGmodstudio, "GgmodForHS_Studio", null, true),
             new PluginToggle("GGmodneo", Localizable.ToggleGGmodneo, "GgmodForHS_NEO", null, true),
-            new PluginToggle("AIHS2Graphics", Localizable.ToggleGraphicsMod, "Graphics", null, false),
+            new PluginToggle("AIHS2Graphics", Localizable.ToggleGraphicsMod, "Graphics", delegate (bool b)
+            {
+                if (b)
+                {
+                    if(File.Exists(EnvironmentHelper.BepinPluginsDir + "DHH_AI4.dll"))
+                        File.Move(EnvironmentHelper.BepinPluginsDir + "DHH_AI4.dll", EnvironmentHelper.BepinPluginsDir + "DHH_AI4.dl_");
+
+                    MessageBox.Show("To use this mod, Press F5 during the game.", "Usage");
+                }
+
+            }, false),
             new PluginToggle("HoneyPot", Localizable.ToggleHoneyPot, "HoneyPot", null, true),
             new PluginToggle("RimRemover", Localizable.ToggleRimRemover, "RimRemover", null, false),
             new PluginToggle("ShortcutPlugin", Localizable.ToggleShortcutHS, "ShortcutHSParty", null, true),
