@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Media.Imaging;
 using Application = System.Windows.Forms.Application;
 using MessageBox = System.Windows.Forms.MessageBox;
@@ -27,14 +28,16 @@ namespace InitSetting
         private static readonly string _kkmdir = "/kkman.txt";
         private static readonly string _updateLoc = "/updater.txt";
         private static bool _langExists;
-        private static bool _updatelocExists;
-        private static string _kkman;
-        private static string _updateSources = "placeholder";
+        /// <summary>
+        /// Absolute path to kkmanager
+        /// </summary>
+        private static string _kkmanagerDirectory;
+        private static string _updateSourcesOverride;
         private static string[] _builtinLanguages;
 
         public static CultureInfo Language { get; private set; }
 
-        public static bool KKmanExist { get; private set; }
+        public static bool KKmanExist => !string.IsNullOrEmpty(_kkmanagerDirectory);
         public static bool IsIpa { get; private set; }
         public static bool IsBepIn { get; private set; }
         public static string PatreonUrl { get; private set; }
@@ -311,38 +314,50 @@ namespace InitSetting
                     "Warning!");
             }
 
-
-            // Updater stuffs
-
-            KKmanExist = File.Exists(GameRootDirectory + _mCustomDir + _kkmdir);
-            _updatelocExists = File.Exists(GameRootDirectory + _mCustomDir + _updateLoc);
-            if (KKmanExist)
+            // Updater / kkmanager
+            try
             {
-                var kkmanFileStream = new FileStream(GameRootDirectory + _mCustomDir + _kkmdir, FileMode.Open,
-                    FileAccess.Read);
-                using (var streamReader = new StreamReader(kkmanFileStream, Encoding.UTF8))
+                var kkmanFileDir = Path.GetFullPath(GameRootDirectory + _mCustomDir + _kkmdir);
+                // If config file doesn't exist try to find kkmanager inside of game directory
+                if (!File.Exists(kkmanFileDir))
                 {
-                    string line;
-                    while ((line = streamReader.ReadLine()) != null) _kkman = line;
+                    var f = Directory.GetFiles(GameRootDirectory, "KKManager.exe", SearchOption.AllDirectories)
+                        .Select(Path.GetDirectoryName).FirstOrDefault();
+                    File.WriteAllText(kkmanFileDir, f ?? string.Empty, Encoding.UTF8);
                 }
 
-                kkmanFileStream.Close();
-                if (_updatelocExists)
+                // Figure out where kkmanager is installed
+                var kkmanpath = File.ReadAllLines(kkmanFileDir, Encoding.UTF8)
+                    .FirstOrDefault(x => !string.IsNullOrEmpty(x));
+                if (!string.IsNullOrEmpty(kkmanpath))
                 {
-                    var updFileStream = new FileStream(GameRootDirectory + _mCustomDir + _updateLoc, FileMode.Open,
-                        FileAccess.Read);
-                    using (var streamReader = new StreamReader(updFileStream, Encoding.UTF8))
+                    if (!Path.IsPathRooted(kkmanpath))
                     {
-                        string line;
-                        while ((line = streamReader.ReadLine()) != null) _updateSources = line;
+                        var rootedPath = Path.GetFullPath(kkmanpath);
+                        kkmanpath = Directory.Exists(rootedPath)
+                            ? rootedPath
+                            : Path.GetFullPath(GameRootDirectory + kkmanpath);
                     }
+                }
 
-                    updFileStream.Close();
-                }
+                if (Directory.Exists(kkmanpath))
+                    _kkmanagerDirectory = kkmanpath;
                 else
+                    File.Delete(kkmanFileDir);
+
+                if (KKmanExist)
                 {
-                    _updateSources = "";
+                    var updatecfgPath = Path.Combine(GameRootDirectory, _mCustomDir + _updateLoc);
+                    _updateSourcesOverride = File.Exists(updatecfgPath)
+                        ? File.ReadAllLines(updatecfgPath, Encoding.UTF8).FirstOrDefault(x => !string.IsNullOrEmpty(x))
+                        : null;
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Failed to initialize KKManager, please consider reporting this error to developers.\n\n" + ex,
+                    "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
             if (GameRootDirectory.Length >= 75)
@@ -508,23 +523,23 @@ namespace InitSetting
 
         public static bool StartUpdate()
         {
-            var gameRoot = GameRootDirectory.TrimEnd('\\', '/', ' ');
-            var kkmanPath = _kkman.TrimEnd('\\', '/', ' ');
+            try
+            {
+                var gameRoot = Path.GetFullPath(GameRootDirectory).TrimEnd('\\', '/', ' ');
+                var updaterPath = Path.Combine(_kkmanagerDirectory, "StandaloneUpdater.exe");
 
-            var finaldir = !File.Exists($@"{kkmanPath}\StandaloneUpdater.exe")
-                ? $@"{GameRootDirectory}{kkmanPath}"
-                : kkmanPath;
+                if (!File.Exists(updaterPath))
+                    throw new FileNotFoundException("Coult not find the updater", updaterPath);
 
-            var text = $@"{finaldir}\StandaloneUpdater.exe";
+                var args = $"\"{gameRoot}\" {_updateSourcesOverride}";
 
-            var argdir = $"\u0022{gameRoot}\u0022";
-            var argloc = _updateSources;
-            var args = $"{argdir} {argloc}";
-
-            if (!_updatelocExists)
-                args = $"{argdir}";
-
-            return StartProcess(new ProcessStartInfo(text) { WorkingDirectory = $@"{finaldir}", Arguments = args }) != null;
+                return StartProcess(new ProcessStartInfo(updaterPath) { WorkingDirectory = $@"{_kkmanagerDirectory}", Arguments = args }) != null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to start the updater: " + ex, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
         }
 
         public static bool StartGame(string gameExeRelativePath)
