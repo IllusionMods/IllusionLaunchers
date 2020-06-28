@@ -227,7 +227,7 @@ namespace InitSetting
 
             var disable = language.Equals("jp-JP", StringComparison.OrdinalIgnoreCase);
 
-            if(language != "zh-CN" && language != "zh-TW")
+            if (language != "zh-CN" && language != "zh-TW")
                 language = language.Split('-')[0];
 
             try
@@ -323,7 +323,9 @@ namespace InitSetting
                 if (!File.Exists(kkmanFileDir))
                 {
                     var f = Directory.GetFiles(GameRootDirectory, "KKManager.exe", SearchOption.AllDirectories)
-                        .Select(Path.GetDirectoryName).FirstOrDefault();
+                        .Select(Path.GetDirectoryName)
+                        .Select(x => x.Substring(GameRootDirectory.Length).Trim('\\', '/'))
+                        .FirstOrDefault();
                     File.WriteAllText(kkmanFileDir, f ?? string.Empty, Encoding.UTF8);
                 }
 
@@ -335,10 +337,8 @@ namespace InitSetting
                     kkmanpath = kkmanpath.Trim('\\', '/');
                     if (!Path.IsPathRooted(kkmanpath))
                     {
-                        var rootedPath = Path.GetFullPath(kkmanpath);
-                        kkmanpath = Directory.Exists(rootedPath)
-                            ? rootedPath
-                            : Path.GetFullPath(GameRootDirectory + kkmanpath);
+                        var rootedPath = Path.GetFullPath(GameRootDirectory + '\\' + kkmanpath);
+                        kkmanpath = Directory.Exists(rootedPath) ? rootedPath : Path.GetFullPath(kkmanpath);
                     }
                 }
 
