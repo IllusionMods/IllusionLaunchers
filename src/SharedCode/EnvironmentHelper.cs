@@ -227,7 +227,8 @@ namespace InitSetting
 
             var disable = language.Equals("jp-JP", StringComparison.OrdinalIgnoreCase);
 
-            language = language.Split('-')[0];
+            if(language != "zh-CN" && language != "zh-TW")
+                language = language.Split('-')[0];
 
             try
             {
