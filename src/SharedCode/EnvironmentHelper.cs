@@ -332,6 +332,7 @@ namespace InitSetting
                     .FirstOrDefault(x => !string.IsNullOrEmpty(x));
                 if (!string.IsNullOrEmpty(kkmanpath))
                 {
+                    kkmanpath = kkmanpath.Trim('\\', '/');
                     if (!Path.IsPathRooted(kkmanpath))
                     {
                         var rootedPath = Path.GetFullPath(kkmanpath);
