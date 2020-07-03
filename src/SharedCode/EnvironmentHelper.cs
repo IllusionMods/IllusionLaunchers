@@ -202,13 +202,10 @@ namespace InitSetting
                         SettingManager.CurrentSettings.Language = builtinIndex;
                         SettingManager.SaveSettings();
                     }
-
-                    //if (!Directory.Exists($"{GameRootDirectory}\\BepInEx\\Translation\\{language}") && !_builtinLanguages.Contains(language))
-                    //{
-                    //    MessageBox.Show(Localizable.InstructDecideLang, "Warning!");
-                    //}
-
-                    MessageBox.Show(Localizable.InstructDecideLang);
+                    else
+                    {
+                        MessageBox.Show(Localizable.InstructDecideLang);
+                    }
 
                     WriteAutoTranslatorLangIni(language);
                 }
