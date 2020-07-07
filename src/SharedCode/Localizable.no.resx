@@ -246,4 +246,7 @@ Dette spillet inneholder innhold av en seksuell natur, og noen av handlingene av
   <data name="ToggleGraphicsMod" xml:space="preserve">
     <value>Aktiver GraphicsMod</value>
   </data>
+  <data name="TogglePHIBL" xml:space="preserve">
+    <value>Aktiver PHIBL GraphicsMod</value>
+  </data>
 </root>

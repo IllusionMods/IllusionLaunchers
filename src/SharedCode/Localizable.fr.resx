@@ -246,4 +246,7 @@ Ce jeu contient des scènes matures, et certaines actions du jeu peuvent être c
   <data name="ToggleGraphicsMod" xml:space="preserve">
     <value>Activer GraphicsMod</value>
   </data>
+  <data name="TogglePHIBL" xml:space="preserve">
+    <value>Activer PHIBL GraphicsMod</value>
+  </data>
 </root>

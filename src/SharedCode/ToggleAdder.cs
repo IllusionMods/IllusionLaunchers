@@ -76,7 +76,25 @@ namespace InitSetting
                 new PluginToggle("GGmod", Localizable.ToggleGGmod, "GgmodForHS", null, true),
                 new PluginToggle("GGmodstudio", Localizable.ToggleGGmodstudio, "GgmodForHS_Studio", null, true),
                 new PluginToggle("GGmodneo", Localizable.ToggleGGmodneo, "GgmodForHS_NEO", null, true),
-                new PluginToggle("HoneyPot", Localizable.ToggleHoneyPot, "HoneyPot", null, true),
+                new PluginToggle("HoneyPot", Localizable.ToggleHoneyPot, "HoneyPot", delegate (bool b)
+                {
+                    if (b)
+                        MessageBox.Show("When HoneyPot is enabled, the game will use a bit longer to load in some scenes due to checking for HoneySelect assets, making it appear to be freezing for a few seconds. This is completely normal.\n\nJust disable this option again if you would rather not have that freeze.", "Usage");
+                }, true),
+                new PluginToggle("PHIBL", Localizable.TogglePHIBL, "PHIBL", delegate (bool b)
+                {
+                    if (b)
+                    {
+                        MessageBox.Show("To use this mod, Press F5 during the game.", "Usage");
+                        DisableHelper("PH_PHIBL_PresetLoad_Nyaacho",true,false);
+                        DisableHelper("PH_PHIBL_PresetLoad_Original",true,false);
+                    }
+                    else
+                    {
+                        DisableHelper("PH_PHIBL_PresetLoad_Nyaacho",true,true);
+                        DisableHelper("PH_PHIBL_PresetLoad_Original",true,true);
+                    }
+                }, true),
                 new PluginToggle("RimRemover", Localizable.ToggleRimRemover, "RimRemover", null, false),
                 new PluginToggle("ShortcutPlugin", Localizable.ToggleShortcutHS, "ShortcutHSParty", null, true),
                 new PluginToggle("Stiletto", Localizable.ToggleStiletto, "Stiletto", null, false),
@@ -86,6 +104,32 @@ namespace InitSetting
                         MessageBox.Show("To use this mod, open SteamVR before opening either the main game or studio.", "Usage");
                 }, true)
             };
+        }
+
+        private static void DisableHelper(string DllName, bool isIPA, bool disable)
+        {
+            string folder;
+            switch(isIPA)
+            {
+                case true:
+                    folder = EnvironmentHelper.GameRootDirectory + "Plugins\\";
+                    break;
+                default:
+                    folder = EnvironmentHelper.BepinPluginsDir;
+                    break;
+            }
+
+            switch(disable)
+            {
+                case true:
+                    if (File.Exists(folder + DllName + ".dll"))
+                        File.Move(folder + DllName + ".dll", folder + DllName + ".dl_");
+                    break;
+                case false:
+                    if (File.Exists(folder + DllName + ".dl_"))
+                        File.Move(folder + DllName + ".dl_", folder + DllName + ".dll");
+                    break;
+            }
         }
 
         public static void AddToggle(PluginToggle tgl) => _toggleList.Add(tgl);

@@ -247,4 +247,7 @@ HoneyPot Inspector</value>
   <data name="ToggleGraphicsMod" xml:space="preserve">
     <value>Activar GraphicsMod</value>
   </data>
+  <data name="TogglePHIBL" xml:space="preserve">
+    <value>Activar PHIBL GraphicsMod</value>
+  </data>
 </root>

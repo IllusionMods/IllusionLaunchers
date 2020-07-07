@@ -492,7 +492,18 @@ namespace InitSetting {
             {
                 return ResourceManager.GetString("ToggleNSFW", resourceCulture);
             }
-        }
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Activate PHIBL GraphicsMod.
+		/// </summary>
+		public static string TogglePHIBL
+		{
+			get
+			{
+				return ResourceManager.GetString("TogglePHIBL", resourceCulture);
+			}
+		}
 
 		/// <summary>
 		///   Looks up a localized string similar to Activate RimRemover.

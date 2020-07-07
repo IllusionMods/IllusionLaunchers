@@ -246,4 +246,7 @@ Dieses Spiel enthällt sexuelle Inhalte welche bei Ausführung im realen Leben s
   <data name="ToggleGraphicsMod" xml:space="preserve">
     <value>GraphicsMod umschalten</value>
   </data>
+  <data name="TogglePHIBL" xml:space="preserve">
+    <value>PHIBL GraphicsMod umschalten</value>
+  </data>
 </root>

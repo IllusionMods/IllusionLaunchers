@@ -246,4 +246,7 @@
   <data name="ToggleGraphicsMod" xml:space="preserve">
     <value>激活 GraphicsMod</value>
   </data>
+  <data name="TogglePHIBL" xml:space="preserve">
+    <value>激活 PHIBL GraphicsMod</value>
+  </data>
 </root>

@@ -276,4 +276,7 @@ This game contains content of a sexual nature, and some of the actions depicted 
   <data name="ToggleGraphicsMod" xml:space="preserve">
     <value>Enable GraphicsMod</value>
   </data>
+  <data name="TogglePHIBL" xml:space="preserve">
+    <value>Activate PHIBL GraphicsMod</value>
+  </data>
 </root>
