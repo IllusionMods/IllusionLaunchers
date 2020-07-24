@@ -1,23 +1,27 @@
 ﻿using System.Resources;
-using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
 
-[assembly: AssemblyVersion("2.0.0.0")]
-[assembly: CompilationRelaxations(8)]
+[assembly: ComVisible(false)]
+[assembly: CompilationRelaxations(CompilationRelaxations.NoStringInterning)]
 [assembly: RuntimeCompatibility(WrapNonExceptionThrows = true)]
 [assembly: Debuggable(DebuggableAttribute.DebuggingModes.IgnoreSymbolStoreSequencePoints)]
-[assembly: AssemblyTitle("IllusionLaunchers")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("ScrewThisNoise")]
-[assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("ScrewThisNoise")]
-[assembly: AssemblyTrademark("")]
-[assembly: ComVisible(false)]
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
-[assembly: AssemblyFileVersion("2.0.0.0")]
 [assembly: NeutralResourcesLanguage("en-GB")]
+
+[assembly: AssemblyTitle("Custom Illusion Game Launcher")]
+[assembly: AssemblyDescription("Custom launcher used as a more powerful alternative to the original launcher made by Illusion")]
+[assembly: AssemblyCompany("https://github.com/IllusionMods/IllusionLaunchers")]
+[assembly: AssemblyProduct("IllusionLaunchers")]
+[assembly: AssemblyCopyright("GPL-3.0")]
+[assembly: AssemblyTrademark("")]
+
+[assembly: AssemblyVersion("2.1.0"
+#if DEBUG
+    + ".*")]
+#else
+    )]
+#endif
