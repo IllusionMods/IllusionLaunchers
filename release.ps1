@@ -23,7 +23,7 @@ function CreateZip ($subfolder)
 
     Copy-Item -Path $patreonFile -Destination $launcherDir -Force -ErrorAction Ignore
 
-    Compress-Archive -Path ($subfolder.FullName + "\*") -Force -CompressionLevel "Optimal" -DestinationPath ($subfolder.Parent.FullName + "\IllusionLaunchers." + $name + "_" + $ver + ".zip")
+    Compress-Archive -Path ($subfolder.FullName + "\*") -Force -CompressionLevel "Optimal" -DestinationPath ($subfolder.Parent.FullName + "\IllusionLaunchers_" + $name + "_" + $ver + ".zip")
 }
 
 $subfolders = Get-ChildItem -Path $dir -Directory -Force -Exclude out
