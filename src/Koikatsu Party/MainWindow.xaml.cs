@@ -135,6 +135,12 @@ namespace InitSetting
             if (!File.Exists(
                 Path.Combine(EnvironmentHelper.GameRootDirectory, @"BepInEx\patchers\KK_SFW_Patcher.dll")))
                 Toggleables.Children.Remove(toggleSFW);
+
+            if (File.Exists(Path.Combine(EnvironmentHelper.GameRootDirectory, @"abdata\localize\translate\1\ui\00\config.unity3d")) && File.Exists(Path.Combine(EnvironmentHelper.GameRootDirectory, @"abdata\localize\translate\1\ui\00\config.disabled")))
+                File.Delete(EnvironmentHelper.GameRootDirectory + @"abdata\localize\translate\1\ui\00\config.unity3d");
+
+            if (File.Exists(Path.Combine(EnvironmentHelper.GameRootDirectory, @"abdata\localize\translate\1\ui\00\config.unity3d")))
+                File.Move(EnvironmentHelper.GameRootDirectory + @"abdata\localize\translate\1\ui\00\config.unity3d", EnvironmentHelper.GameRootDirectory + @"abdata\localize\translate\1\ui\00\config.unity3d.disabled");
         }
 
         #endregion
