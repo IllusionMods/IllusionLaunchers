@@ -136,11 +136,16 @@ namespace InitSetting
                 Path.Combine(EnvironmentHelper.GameRootDirectory, @"BepInEx\patchers\KK_SFW_Patcher.dll")))
                 Toggleables.Children.Remove(toggleSFW);
 
-            if (File.Exists(Path.Combine(EnvironmentHelper.GameRootDirectory, @"abdata\localize\translate\1\ui\00\config.unity3d")) && File.Exists(Path.Combine(EnvironmentHelper.GameRootDirectory, @"abdata\localize\translate\1\ui\00\config.disabled")))
-                File.Delete(EnvironmentHelper.GameRootDirectory + @"abdata\localize\translate\1\ui\00\config.unity3d");
+            bool PartyFixExists = File.Exists(EnvironmentHelper.GameRootDirectory + @"BepInEx\plugins\2155X\KK_FixPartySettings.dll");
+            bool PartyFixConfig = File.Exists(EnvironmentHelper.GameRootDirectory + @"abdata\localize\translate\1\ui\00\config.unity3d");
+            bool PartyFixConfigDis = File.Exists(EnvironmentHelper.GameRootDirectory + @"abdata\localize\translate\1\ui\00\config.disabled");
 
-            if (File.Exists(Path.Combine(EnvironmentHelper.GameRootDirectory, @"abdata\localize\translate\1\ui\00\config.unity3d")))
-                File.Move(EnvironmentHelper.GameRootDirectory + @"abdata\localize\translate\1\ui\00\config.unity3d", EnvironmentHelper.GameRootDirectory + @"abdata\localize\translate\1\ui\00\config.unity3d.disabled");
+            if (PartyFixConfig && PartyFixConfigDis)
+                File.Delete(EnvironmentHelper.GameRootDirectory + @"abdata\localize\translate\1\ui\00\config.unity3d.disabled");
+
+            if (PartyFixConfig && PartyFixExists)
+                File.Move(EnvironmentHelper.GameRootDirectory + @"abdata\localize\translate\1\ui\00\config.unity3d", 
+                    EnvironmentHelper.GameRootDirectory + @"abdata\localize\translate\1\ui\00\config.unity3d.disabled");
         }
 
         #endregion
