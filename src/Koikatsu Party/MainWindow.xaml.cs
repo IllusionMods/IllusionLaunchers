@@ -141,11 +141,15 @@ namespace InitSetting
             bool PartyFixConfigDis = File.Exists(EnvironmentHelper.GameRootDirectory + @"abdata\localize\translate\1\ui\00\config.disabled");
 
             if (PartyFixConfig && PartyFixConfigDis)
-                File.Delete(EnvironmentHelper.GameRootDirectory + @"abdata\localize\translate\1\ui\00\config.unity3d.disabled");
+                File.Delete(EnvironmentHelper.GameRootDirectory + @"abdata\localize\translate\1\ui\00\config.disabled");
 
             if (PartyFixConfig && PartyFixExists)
                 File.Move(EnvironmentHelper.GameRootDirectory + @"abdata\localize\translate\1\ui\00\config.unity3d", 
-                    EnvironmentHelper.GameRootDirectory + @"abdata\localize\translate\1\ui\00\config.unity3d.disabled");
+                    EnvironmentHelper.GameRootDirectory + @"abdata\localize\translate\1\ui\00\config.disabled");
+
+            if (!PartyFixExists && PartyFixConfigDis)
+                File.Move(EnvironmentHelper.GameRootDirectory + @"abdata\localize\translate\1\ui\00\config.disabled",
+                    EnvironmentHelper.GameRootDirectory + @"abdata\localize\translate\1\ui\00\config.unity3d");
         }
 
         #endregion
