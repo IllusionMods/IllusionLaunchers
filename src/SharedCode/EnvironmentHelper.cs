@@ -308,8 +308,10 @@ namespace InitSetting
             if (IsIpa && IsBepIn)
             {
                 MessageBox.Show(
-                    "Both BepInEx and IPA is detected in the game folder!\n\nApplying both frameworks may lead to problems when running the game. Consider uninstalling IPA and using the BepInEx.IPALoader plugin to run your IPA plugins instead.",
-                    "Warning!");
+                    "Both BepInEx and IPA is detected in the game folder!\n\nApplying both frameworks may cause permanent problems when running the game, making a reinstall needed. Consider uninstalling IPA and using the BepInEx.IPALoader plugin to run your IPA plugins instead.\n\nExiting launcher.",
+                    "Critical!");
+
+                System.Windows.Application.Current.Shutdown();
             }
 
             // Updater / kkmanager
