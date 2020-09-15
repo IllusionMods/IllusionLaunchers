@@ -360,5 +360,10 @@ namespace InitSetting
         }
 
         #endregion
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            new advMode().Start();
+        }
     }
 }

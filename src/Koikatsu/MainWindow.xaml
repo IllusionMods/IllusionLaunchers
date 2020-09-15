@@ -317,6 +317,7 @@
             <Button Style="{StaticResource buttonHover}" x:Name="buttonMaleCard" FontSize="10"
                     Content="{x:Static local:Localizable.FolderMaleCard}" HorizontalAlignment="Left" Height="24"
                     VerticalAlignment="Top" Width="129.517" Margin="164.358,299.71,0,0" Click="buttonMaleCard_Click" />
+            <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="47,367,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
         </Grid>
         <Image x:Name="image2" HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="262"
                Source="images/KKLogo.png" Margin="318,102,318,0" />

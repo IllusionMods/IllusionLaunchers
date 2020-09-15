@@ -1,0 +1,42 @@
+﻿<Window x:Class="InitSetting.advMode"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InitSetting"
+        mc:Ignorable="d"
+        Title="Advanced Mode" Height="572.082" Width="432.828">
+    <Grid>
+        <Label x:Name="labelDist" Content="{x:Static local:Localizable.Distribution}" Foreground="Black" HorizontalAlignment="Right" Width="405" Height="23" VerticalAlignment="Top" Margin="0,10,10,0" />
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="253.333" Margin="10,269,0,0" VerticalAlignment="Top" Width="203" CornerRadius="5">
+            <StackPanel Margin="5,5,5,8.667" x:Name="Toggleables" Orientation="Vertical">
+                <CheckBox x:Name="toggleFullscreen" Content="{x:Static local:Localizable.ToggleFullscreen}"
+                              Foreground="Black" />
+                <CheckBox x:Name="toggleSFW" Content="Disable NSFW Content"
+                              Foreground="Black" />
+            </StackPanel>
+        </Border>
+        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="219.605,34.667,0,0" VerticalAlignment="Top" Width="186.864" Height="32"/>
+        <Grid Margin="10,0,212.531,298.73" Height="216.039" VerticalAlignment="Bottom">
+            <Rectangle Height="216.042" Margin="3.815,16.96,-2.963,-16.964" Stroke="#FFF90000">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="images/LauncherBG.png" Stretch="None"/>
+                </Rectangle.Fill>
+
+            </Rectangle>
+            <Image x:Name="image" HorizontalAlignment="Right" Height="214.63" Margin="0,16.96,26.671,-15.552" Width="145.694" Source="images/Chara.png"/>
+        </Grid>
+        <Button x:Name="button_Copy" Content="Button" HorizontalAlignment="Left" Margin="219.605,71.667,0,0" VerticalAlignment="Top" Width="186.864" Height="32"/>
+        <Button x:Name="button_Copy1" Content="Button" HorizontalAlignment="Left" Margin="219.605,108.667,0,0" VerticalAlignment="Top" Width="186.864" Height="32"/>
+        <Button x:Name="button_Copy2" Content="Button" HorizontalAlignment="Left" Margin="219.605,145.417,0,0" VerticalAlignment="Top" Width="186.864" Height="32"/>
+        <Button x:Name="button_Copy3" Content="Button" HorizontalAlignment="Left" Margin="219.605,182.417,0,0" VerticalAlignment="Top" Width="186.864" Height="32"/>
+        <Button x:Name="button_Copy4" Content="Button" HorizontalAlignment="Left" Margin="219.605,219.417,0,0" VerticalAlignment="Top" Width="186.864" Height="32"/>
+        <Label x:Name="label" Content="Folders:" HorizontalAlignment="Left" Margin="219.605,269,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Button x:Name="button_Copy5" Content="Button" HorizontalAlignment="Left" Margin="219.605,305.583,0,0" VerticalAlignment="Top" Width="186.864" Height="32"/>
+        <Button x:Name="button_Copy6" Content="Button" HorizontalAlignment="Left" Margin="219.605,342.583,0,0" VerticalAlignment="Top" Width="186.864" Height="32"/>
+        <Button x:Name="button_Copy7" Content="Button" HorizontalAlignment="Left" Margin="219.605,379.583,0,0" VerticalAlignment="Top" Width="186.864" Height="32"/>
+        <Button x:Name="button_Copy8" Content="Button" HorizontalAlignment="Left" Margin="219.605,416.333,0,0" VerticalAlignment="Top" Width="186.864" Height="32"/>
+        <Button x:Name="button_Copy9" Content="Button" HorizontalAlignment="Left" Margin="219.605,453.333,0,0" VerticalAlignment="Top" Width="186.864" Height="32"/>
+        <Button x:Name="button_Copy10" Content="Button" HorizontalAlignment="Left" Margin="219.605,490.333,0,0" VerticalAlignment="Top" Width="186.864" Height="32"/>
+    </Grid>
+</Window>
