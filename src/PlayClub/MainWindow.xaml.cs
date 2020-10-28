@@ -11,7 +11,7 @@ namespace InitSetting
     public partial class MainWindow : Window
     {
         // Game-specific constants -------------------------------------------------------------------
-        private const string RegistryKeyGame = "Software\\illusion\\PlayClubv";
+        private const string RegistryKeyGame = "Software\\illusion\\PlayClub";
         private const string RegistryKeyStudio = "Software\\illusion\\PlayClubStudio";
         private const string ExecutableGame = "PlayClub.exe";
         private const string ExecutableStudio = "PlayClubStudio.exe";
