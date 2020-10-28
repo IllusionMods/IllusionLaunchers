@@ -23,9 +23,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SBPR", "src\Sexy Beach Prem
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoneySelect 2", "src\HoneySelect 2\HoneySelect 2.csproj", "{7C713600-69B2-48AE-B805-A7BBF3408D69}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayClub", "src\PlayClub\PlayClub.csproj", "{47A3BE13-4CB4-4322-83F7-A4703CACEED9}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\SharedCode\SharedCode.projitems*{1d2166e2-4da0-4fd6-a28d-7ebbef40955b}*SharedItemsImports = 4
+		src\SharedCode\SharedCode.projitems*{47a3be13-4cb4-4322-83f7-a4703caceed9}*SharedItemsImports = 4
 		src\SharedCode\SharedCode.projitems*{561f2722-a3ea-40ed-a5d0-982ed26118b9}*SharedItemsImports = 4
 		src\SharedCode\SharedCode.projitems*{5af75ec6-4b19-4507-af25-742afbcbf45d}*SharedItemsImports = 4
 		src\SharedCode\SharedCode.projitems*{687a6b4f-f433-40b0-b1f5-cc15f7437b14}*SharedItemsImports = 4
@@ -77,6 +80,10 @@ Global
 		{7C713600-69B2-48AE-B805-A7BBF3408D69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C713600-69B2-48AE-B805-A7BBF3408D69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C713600-69B2-48AE-B805-A7BBF3408D69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47A3BE13-4CB4-4322-83F7-A4703CACEED9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47A3BE13-4CB4-4322-83F7-A4703CACEED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47A3BE13-4CB4-4322-83F7-A4703CACEED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47A3BE13-4CB4-4322-83F7-A4703CACEED9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
