@@ -109,7 +109,7 @@ namespace InitSetting
         private static void DisableHelper(string DllName, bool isIPA, bool disable)
         {
             string folder;
-            switch(isIPA)
+            switch (isIPA)
             {
                 case true:
                     folder = EnvironmentHelper.GameRootDirectory + "Plugins\\";
@@ -119,7 +119,7 @@ namespace InitSetting
                     break;
             }
 
-            switch(disable)
+            switch (disable)
             {
                 case true:
                     if (File.Exists(folder + DllName + ".dll"))
@@ -137,19 +137,16 @@ namespace InitSetting
         public static void CreatePluginToggles(StackPanel togglePanel)
         {
             // Add developer mode toggle ------------------------------------
-            if (EnvironmentHelper.IsBepIn)
+            var toggleConsole = new CheckBox
             {
-                var toggleConsole = new CheckBox
-                {
-                    Name = "toggleConsole",
-                    Content = Localizable.ToggleConsole,
-                    Foreground = Brushes.White,
-                    IsChecked = EnvironmentHelper.DeveloperModeEnabled
-                };
-                toggleConsole.Checked += (sender, args) => EnvironmentHelper.DeveloperModeEnabled = true;
-                toggleConsole.Unchecked += (sender, args) => EnvironmentHelper.DeveloperModeEnabled = false;
-                togglePanel.Children.Add(toggleConsole);
-            }
+                Name = "toggleConsole",
+                Content = Localizable.ToggleConsole,
+                Foreground = Brushes.White,
+                IsChecked = EnvironmentHelper.DeveloperModeEnabled
+            };
+            toggleConsole.Checked += (sender, args) => EnvironmentHelper.DeveloperModeEnabled = true;
+            toggleConsole.Unchecked += (sender, args) => EnvironmentHelper.DeveloperModeEnabled = false;
+            togglePanel.Children.Add(toggleConsole);
 
             // Add toggles from the list ------------------------------------
             foreach (var c in _toggleList)

@@ -190,24 +190,28 @@ namespace InitSetting
                         break;
                 }
 
-                if (System.Windows.MessageBox.Show(LangQ_a,
-                    LangQ_b, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                if (EnvironmentHelper.IsBepIn)
                 {
-                    var builtinIndex = _builtinLanguages.ToList()
-                        .FindIndex(x => language.Equals(x, StringComparison.OrdinalIgnoreCase));
 
-                    // Set built-in game language if supported
-                    if (builtinIndex >= 0)
+                    if (System.Windows.MessageBox.Show(LangQ_a,
+                        LangQ_b, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
-                        SettingManager.CurrentSettings.Language = builtinIndex;
-                        SettingManager.SaveSettings();
-                    }
-                    else
-                    {
-                        MessageBox.Show(Localizable.InstructDecideLang);
-                    }
+                        var builtinIndex = _builtinLanguages.ToList()
+                            .FindIndex(x => language.Equals(x, StringComparison.OrdinalIgnoreCase));
 
-                    WriteAutoTranslatorLangIni(language);
+                        // Set built-in game language if supported
+                        if (builtinIndex >= 0)
+                        {
+                            SettingManager.CurrentSettings.Language = builtinIndex;
+                            SettingManager.SaveSettings();
+                        }
+                        else
+                        {
+                            MessageBox.Show(Localizable.InstructDecideLang);
+                        }
+
+                        WriteAutoTranslatorLangIni(language);
+                    }
                 }
 
                 Application.Restart();

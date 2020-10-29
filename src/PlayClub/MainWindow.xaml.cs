@@ -83,20 +83,20 @@ namespace InitSetting
                     gridDiscord.Visibility = Visibility.Collapsed;
                 }
 
-                if (!EnvironmentHelper.IsBepIn)
-                {
-                    languageborder.Visibility = Visibility.Collapsed;
-                    flagEN.Visibility = Visibility.Collapsed;
-                    flagJA.Visibility = Visibility.Collapsed;
-                    flagCH.Visibility = Visibility.Collapsed;
-                    flagCH_Copy.Visibility = Visibility.Collapsed;
-                    flagKO.Visibility = Visibility.Collapsed;
-                    flagSP.Visibility = Visibility.Collapsed;
-                    flagBR.Visibility = Visibility.Collapsed;
-                    flagFR.Visibility = Visibility.Collapsed;
-                    flagGE.Visibility = Visibility.Collapsed;
-                    flagNO.Visibility = Visibility.Collapsed;
-                }
+                //if (!EnvironmentHelper.IsBepIn)
+                //{
+                //    languageborder.Visibility = Visibility.Collapsed;
+                //    flagEN.Visibility = Visibility.Collapsed;
+                //    flagJA.Visibility = Visibility.Collapsed;
+                //    flagCH.Visibility = Visibility.Collapsed;
+                //    flagCH_Copy.Visibility = Visibility.Collapsed;
+                //    flagKO.Visibility = Visibility.Collapsed;
+                //    flagSP.Visibility = Visibility.Collapsed;
+                //    flagBR.Visibility = Visibility.Collapsed;
+                //    flagFR.Visibility = Visibility.Collapsed;
+                //    flagGE.Visibility = Visibility.Collapsed;
+                //    flagNO.Visibility = Visibility.Collapsed;
+                //}
 
                 var primaryDisplay = Localizable.PrimaryDisplay;
                 var subDisplay = Localizable.SubDisplay;
