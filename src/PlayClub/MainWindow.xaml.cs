@@ -220,7 +220,7 @@ namespace InitSetting
 
         private void buttonManualS_Click(object sender, RoutedEventArgs e)
         {
-            EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_s\\");
+            EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_studio\\");
         }
 
         private void buttonManualV_Click(object sender, RoutedEventArgs e)
