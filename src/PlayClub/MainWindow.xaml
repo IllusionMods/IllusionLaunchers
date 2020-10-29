@@ -246,15 +246,12 @@
                 </Border>
             </Grid>
             <Border BorderBrush="#33FF0000" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left"
-                    Height="131.333" Margin="21,231,0,0" VerticalAlignment="Top" Width="282" CornerRadius="3" >
+                    Height="106" Margin="21,231,0,0" VerticalAlignment="Top" Width="282" CornerRadius="3" >
                 <Grid x:Name="FolderGrid"/>
             </Border>
             <Button Style="{StaticResource buttonHover}" x:Name="buttonInst" FontSize="10"
                     Content="{x:Static local:Localizable.FolderInstall}" HorizontalAlignment="Left" Height="24"
                     VerticalAlignment="Top" Width="129.516" Margin="28.625,241.71,0,0" Click="buttonInst_Click" />
-            <Button Style="{StaticResource buttonHover}" x:Name="buttonHousing" FontSize="10"
-                    Content="{x:Static local:Localizable.FolderHouses}" HorizontalAlignment="Left" Height="24"
-                    VerticalAlignment="Top" Width="129.517" Margin="164.358,241.71,0,0" Click="buttonHousing_Click" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonScenes" FontSize="10"
                     Content="{x:Static local:Localizable.FolderScenes}" HorizontalAlignment="Left" Height="24"
                     VerticalAlignment="Top" Width="129.516" Margin="28.625,270.71,0,0" Click="buttonScenes_Click" />
@@ -263,13 +260,10 @@
                     VerticalAlignment="Top" Width="129.517" Margin="164.358,270.71,0,0" Click="buttonScreenshot_Click" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonFemaleCard" FontSize="10"
                     Content="{x:Static local:Localizable.FolderFemaleCard}" HorizontalAlignment="Left" Height="24"
-                    VerticalAlignment="Top" Width="129.516" Margin="28.625,299.71,0,0" Click="buttonFemaleCard_Click" />
-            <Button Style="{StaticResource buttonHover}" x:Name="buttonMaleCard" FontSize="10"
-                    Content="{x:Static local:Localizable.FolderMaleCard}" HorizontalAlignment="Left" Height="24"
-                    VerticalAlignment="Top" Width="129.517" Margin="164.358,299.71,0,0" Click="buttonMaleCard_Click" />
+                    VerticalAlignment="Top" Width="129.516" Margin="164.359,241.71,0,0" Click="buttonFemaleCard_Click" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonUserData" FontSize="10"
                     Content="{x:Static local:Localizable.FolderUserData}" HorizontalAlignment="Left" Height="24"
-                    VerticalAlignment="Top" Width="265.25" Margin="28.625,328.71,0,0" Click="buttonUserData_Click" />
+                    VerticalAlignment="Top" Width="265.25" Margin="28.625,299.71,0,0" Click="buttonUserData_Click" />
         </Grid>
         <Image x:Name="image2" HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="262"
                Source="images/PCLogo.png" Margin="318,102,318,0" />

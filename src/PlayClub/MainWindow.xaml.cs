@@ -16,7 +16,7 @@ namespace InitSetting
         private const string ExecutableGame = "PlayClub.exe";
         private const string ExecutableStudio = "PlayClubStudio.exe";
         private const string ExecutableVR = "";
-        private const string SupportDiscord = "";
+        private const string SupportDiscord = "https://discord.gg/pSGZ4uz";
         // Languages built into the game itself
         private static readonly string[] _builtinLanguages = { "ja-JP" };
 
@@ -313,17 +313,12 @@ namespace InitSetting
 
         private void buttonScenes_Click(object sender, RoutedEventArgs e)
         {
-            EnvironmentHelper.OpenDirectory("UserData\\Studio\\scene");
+            EnvironmentHelper.OpenDirectory("UserData\\save\\Studio");
         }
 
         private void buttonUserData_Click(object sender, RoutedEventArgs e)
         {
             EnvironmentHelper.OpenDirectory("UserData");
-        }
-
-        private void buttonHousing_Click(object sender, RoutedEventArgs e)
-        {
-            EnvironmentHelper.OpenDirectory("UserData\\housing");
         }
 
         private void buttonScreenshot_Click(object sender, RoutedEventArgs e)
@@ -333,12 +328,7 @@ namespace InitSetting
 
         private void buttonFemaleCard_Click(object sender, RoutedEventArgs e)
         {
-            EnvironmentHelper.OpenDirectory("UserData\\chara\\female");
-        }
-
-        private void buttonMaleCard_Click(object sender, RoutedEventArgs e)
-        {
-            EnvironmentHelper.OpenDirectory("UserData\\chara\\male");
+            EnvironmentHelper.OpenDirectory("UserData\\chara");
         }
 
         #endregion
