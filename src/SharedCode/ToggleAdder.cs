@@ -137,16 +137,19 @@ namespace InitSetting
         public static void CreatePluginToggles(StackPanel togglePanel)
         {
             // Add developer mode toggle ------------------------------------
-            var toggleConsole = new CheckBox
+            if (EnvironmentHelper.IsBepIn)
             {
-                Name = "toggleConsole",
-                Content = Localizable.ToggleConsole,
-                Foreground = Brushes.White,
-                IsChecked = EnvironmentHelper.DeveloperModeEnabled
-            };
-            toggleConsole.Checked += (sender, args) => EnvironmentHelper.DeveloperModeEnabled = true;
-            toggleConsole.Unchecked += (sender, args) => EnvironmentHelper.DeveloperModeEnabled = false;
-            togglePanel.Children.Add(toggleConsole);
+                var toggleConsole = new CheckBox
+                {
+                    Name = "toggleConsole",
+                    Content = Localizable.ToggleConsole,
+                    Foreground = Brushes.White,
+                    IsChecked = EnvironmentHelper.DeveloperModeEnabled
+                };
+                toggleConsole.Checked += (sender, args) => EnvironmentHelper.DeveloperModeEnabled = true;
+                toggleConsole.Unchecked += (sender, args) => EnvironmentHelper.DeveloperModeEnabled = false;
+                togglePanel.Children.Add(toggleConsole);
+            }
 
             // Add toggles from the list ------------------------------------
             foreach (var c in _toggleList)
