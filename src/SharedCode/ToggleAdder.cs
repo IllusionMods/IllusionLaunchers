@@ -122,14 +122,7 @@ namespace InitSetting
                 {
                     if (b)
                         MessageBox.Show("To use this mod, open SteamVR before opening either the main game or studio.", "Usage");
-                }, true),
-                new PluginToggle("BodyChange", "Enable BodyChanger", "MdgqBodyChange", delegate (bool b)
-                {
-                    if (b)
-                        DisableHelper("_AssemblyLoader",false,false);
-                    else
-                        DisableHelper("_AssemblyLoader",false,true);
-                }, false)
+                }, true)
             };
         }
 
@@ -193,6 +186,11 @@ namespace InitSetting
 
                 var f = new FileInfo(pluginFile);
                 var name = pluginFile.Substring(0, f.FullName.Length - f.Extension.Length + 1);
+
+                // Doing a quick check to make sure there isn't both enabled and disabled variants in the folder
+                var DupCheck = Path.Combine(f.FullName, name);
+                if (File.Exists(DupCheck + ".dll") && File.Exists(DupCheck + ".dl_"))
+                    File.Delete(DupCheck + ".dl_");
 
                 var toggle = new CheckBox
                 {
