@@ -122,7 +122,14 @@ namespace InitSetting
                 {
                     if (b)
                         MessageBox.Show("To use this mod, open SteamVR before opening either the main game or studio.", "Usage");
-                }, true)
+                }, true),
+                new PluginToggle("BodyChange", "Enable BodyChanger", "MdgqBodyChange", delegate (bool b)
+                {
+                    if (b)
+                        DisableHelper("_AssemblyLoader",false,false);
+                    else
+                        DisableHelper("_AssemblyLoader",false,true);
+                }, false)
             };
         }
 
