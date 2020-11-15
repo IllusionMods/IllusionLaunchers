@@ -40,7 +40,7 @@ namespace InitSetting
 
         static PluginToggleManager()
         {
-            PluginToggle aighs2, aig, dhh = null;
+            PluginToggle aighs2, aig, aig2, hs2, dhh = null;
             aig = new PluginToggle("AI_Graphics", Localizable.ToggleAiGraphics, "AI_Graphics", delegate (bool b)
             {
                 if (b)
@@ -49,7 +49,23 @@ namespace InitSetting
                     MessageBox.Show("To use this mod, Press F5 during the game.", "Usage");
                 }
             }, false);
-            aighs2 = new PluginToggle("AIHS2Graphics", Localizable.ToggleGraphicsMod, "Graphics", delegate (bool b)
+            aig2 = new PluginToggle("AIGraphics", Localizable.ToggleGraphicsMod, "AIGraphics", delegate (bool b)
+            {
+                if (b)
+                {
+                    dhh.SetIsChecked(false);
+                    MessageBox.Show("To use this mod, Press F5 during the game.", "Usage");
+                }
+            }, false);
+            hs2 = new PluginToggle("HS2Graphics", Localizable.ToggleGraphicsMod, "HS2Graphics", delegate (bool b)
+            {
+                if (b)
+                {
+                    dhh.SetIsChecked(false);
+                    MessageBox.Show("To use this mod, Press F5 during the game.", "Usage");
+                }
+            }, false);
+            aighs2 = new PluginToggle("Graphics", Localizable.ToggleGraphicsMod, "Graphics", delegate (bool b)
             {
                 if (b)
                 {
@@ -62,6 +78,8 @@ namespace InitSetting
                 if (b)
                 {
                     aig.SetIsChecked(false);
+                    aig2.SetIsChecked(false);
+                    hs2.SetIsChecked(false);
                     aighs2.SetIsChecked(false);
                     MessageBox.Show("To use this mod, Press P during the game.", "Usage");
                 }
@@ -70,6 +88,8 @@ namespace InitSetting
             _toggleList = new List<PluginToggle>
             {
                 aig,
+                aig2,
+                hs2,
                 aighs2,
                 dhh,
                 new PluginToggle("DHHPH", Localizable.ToggleDhh, "ProjectHighHeel", null, true),
