@@ -212,7 +212,7 @@ namespace InitSetting
                             string checkLanguageFolder = Path.Combine(GameRootDirectory, @"BepInEx/Translation/" + language.Substring(0, 2) + @"/Text/");
                             if (Directory.Exists(checkLanguageFolder))
                             {
-                                string[] checkLanguageFiles = Directory.GetFiles(checkLanguageFolder, "*", SearchOption.TopDirectoryOnly);
+                                string[] checkLanguageFiles = Directory.GetFiles(checkLanguageFolder, "*.txt", SearchOption.TopDirectoryOnly);
                                 foreach (string file in checkLanguageFiles)
                                 {
                                     if (!Path.GetFileName(file).StartsWith("_"))
