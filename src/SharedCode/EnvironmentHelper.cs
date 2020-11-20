@@ -207,23 +207,7 @@ namespace InitSetting
                         }
                         else
                         {
-                            //check if the folder have translations besides automatic ones (starting with "_")
-                            bool haveTranslations = false;
-                            string checkLanguageFolder = Path.Combine(GameRootDirectory, @"BepInEx/Translation/" + language.Substring(0, 2) + @"/Text/");
-                            if (Directory.Exists(checkLanguageFolder))
-                            {
-                                string[] checkLanguageFiles = Directory.GetFiles(checkLanguageFolder, "*.txt", SearchOption.TopDirectoryOnly);
-                                foreach (string file in checkLanguageFiles)
-                                {
-                                    if (!Path.GetFileName(file).StartsWith("_"))
-                                    {
-                                        haveTranslations = true;
-                                        break;
-                                    }
-                                }
-                            }
-                            if (!haveTranslations)
-                                MessageBox.Show(Localizable.InstructDecideLang);
+                            MessageBox.Show(Localizable.InstructDecideLang);
                         }
 
                         WriteAutoTranslatorLangIni(language);
