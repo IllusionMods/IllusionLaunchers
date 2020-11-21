@@ -124,10 +124,10 @@
     <value>스튜디오 시작</value>
   </data>
   <data name="ManualStudio" xml:space="preserve">
-    <value>플레이 메뉴얼</value>
+    <value>스튜디오 메뉴얼</value>
   </data>
   <data name="ManualGame" xml:space="preserve">
-    <value>스튜디오 메뉴얼</value>
+    <value>게임 메뉴얼</value>
   </data>
   <data name="FolderInstall" xml:space="preserve">
     <value>설치된폴더</value>
@@ -145,12 +145,13 @@
     <value>캐릭터 카드 (남성)</value>
   </data>
   <data name="FolderUserData" xml:space="preserve">
-    <value>UserData</value>
+    <value>유저데이터</value>
   </data>
   <data name="Disclaimer" xml:space="preserve">
-    <value>이게임은 성인용입니다 18세 미만의 사람(또는 법에따라 동등한사람)은 게임을 하거나 해당게임을 소유하면 안됩니다
+    <value>이게임은 성인용입니다 18세미만의 사람은 게임을 하거나 해당게임을 소유및 플레이하면 안됩니다
 
-이게임에는 성적인 내용이 포함되어있으며 그안에 묘사된 행동중 일부는 실제에서 행동하면 법적인 처벌을 받습니다</value>
+이게임에는 성적인 내용이 포함되어있으머 그안에 묘사된 행동에서 일부는 실제에서 행동하면
+ 법적인 처벌을 받게됩니다</value>
   </data>
   <data name="StartVR" xml:space="preserve">
     <value>허니셀렉트2 VR 시작</value>
