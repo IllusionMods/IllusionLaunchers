@@ -19,7 +19,7 @@ using System.Windows;
 [assembly: AssemblyCopyright("GPL-3.0")]
 [assembly: AssemblyTrademark("")]
 
-[assembly: AssemblyVersion("2.2.0"
+[assembly: AssemblyVersion("3.0.0"
 #if DEBUG
     + ".*")]
 #else
