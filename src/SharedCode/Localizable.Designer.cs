@@ -402,7 +402,29 @@ namespace InitSetting {
 				return ResourceManager.GetString("ToggleBonemod", resourceCulture);
 			}
 		}
-		
+
+		/// <summary>
+		///   Looks up a localized string similar to Activate Ggmod (studio).
+		/// </summary>
+		public static string ToggleGGmodstudioPC
+		{
+            get
+            {
+                return ResourceManager.GetString("ToggleGGmodstudioPC", resourceCulture);
+            }
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Activate TouchyFeely (Boop).
+		/// </summary>
+		public static string ToggleTouchyFeely
+		{
+            get
+            {
+                return ResourceManager.GetString("ToggleTouchyFeely", resourceCulture);
+            }
+        }
+
 		/// <summary>
 		///   Looks up a localized string similar to Activate Console.
 		/// </summary>
