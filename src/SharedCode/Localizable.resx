@@ -285,4 +285,54 @@ This game contains content of a sexual nature, and some of the actions depicted 
   <data name="ToggleTouchyFeely" xml:space="preserve">
     <value>Enable TouchyFeely (Boop)</value>
   </data>
+  <data name="TooltipGraphicsMod" xml:space="preserve">
+    <value>Advanced graphics options.
+May be configured ingame using F5.
+
+Does not run with DHH!</value>
+  </data>
+  <data name="TooltipDhh" xml:space="preserve">
+    <value>Advanced graphics options.
+May be configured ingame using P.
+
+Does not run with GraphicsMod!</value>
+  </data>
+  <data name="TooltipDhhPH" xml:space="preserve">
+    <value>High Heels mod.
+Allows using high heels properly.
+
+May be configured ingame using P.</value>
+  </data>
+  <data name="TooltipGGmod" xml:space="preserve">
+    <value>Allows for the use of high heels</value>
+  </data>
+  <data name="TooltipTouchyFeely" xml:space="preserve">
+    <value>Makes select bodyparts jiggle
+when the mouse hovers them.</value>
+  </data>
+  <data name="TooltipHoneyPot" xml:space="preserve">
+    <value>Allows for the use of some HoneySelect
+mods in PlayHome.
+
+Not all mods work, and some may require
+you to press F12 to make pink textures
+reload.</value>
+  </data>
+  <data name="TooltipPHIBL" xml:space="preserve">
+    <value>Advanced graphics options.
+May be configured ingame using F5.</value>
+  </data>
+  <data name="TooltipVRMod" xml:space="preserve">
+    <value>Allows for using VR in the main game,
+as well as studio.</value>
+  </data>
+  <data name="TooltipBoneMod" xml:space="preserve">
+    <value>Allows use of modified bones in mods.
+
+Not to be confused with BoneModModoki
+or ABMX.
+
+May cause some issues with clothing not made
+for this modification.</value>
+  </data>
 </root>

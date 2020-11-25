@@ -272,4 +272,7 @@
   <data name="ToggleTouchyFeely" xml:space="preserve">
     <value>TouchyFeely (Boop) 활성화</value>
   </data>
+  <data name="ToggleNSFW" xml:space="preserve">
+    <value>후방주의 콘텐츠 비활성화</value>
+  </data>
 </root>

@@ -54,6 +54,14 @@ namespace InitSetting
                 // Initialize interface --------------------------------
                 InitializeComponent();
 
+                var tooltip = new System.Windows.Controls.ToolTip
+                {
+                    Content = Localizable.TooltipBoneMod
+
+                };
+
+                toggleBoneMod.ToolTip = tooltip;
+
                 WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 CustomRes.Visibility = Visibility.Hidden;
 
