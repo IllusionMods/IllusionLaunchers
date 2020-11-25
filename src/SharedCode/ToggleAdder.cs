@@ -11,10 +11,11 @@ namespace InitSetting
 {
     public class PluginToggle
     {
-        public PluginToggle(string codeId, string displayName, string pluginDllWithoutExtension, Action<bool> enabledChangedAction, bool isIpa)
+        public PluginToggle(string codeId, string displayName, string pluginToolTip, string pluginDllWithoutExtension, Action<bool> enabledChangedAction, bool isIpa)
         {
             CodeId = codeId;
             DisplayName = displayName;
+            PluginToolTip = pluginToolTip;
             PluginDllWithoutExtension = pluginDllWithoutExtension;
             EnabledChangedAction = enabledChangedAction;
             IsIPA = isIpa;
@@ -22,6 +23,7 @@ namespace InitSetting
 
         public string CodeId { get; }
         public string DisplayName { get; }
+        public string PluginToolTip { get; }
         public string PluginDllWithoutExtension { get; }
         public Action<bool> EnabledChangedAction { get; }
         public bool IsIPA { get; }
@@ -41,7 +43,7 @@ namespace InitSetting
         static PluginToggleManager()
         {
             PluginToggle aighs2, aig, aig2, hs2, dhh = null;
-            aig = new PluginToggle("AI_Graphics", Localizable.ToggleAiGraphics, "AI_Graphics", delegate (bool b)
+            aig = new PluginToggle("AI_Graphics", Localizable.ToggleAiGraphics, "Advanced graphics options, may be configured ingame using F5.\n\nDoes not run with DHH!", "AI_Graphics", delegate (bool b)
             {
                 if (b)
                 {
@@ -49,7 +51,7 @@ namespace InitSetting
                     MessageBox.Show("To use this mod, Press F5 during the game.", "Usage");
                 }
             }, false);
-            aig2 = new PluginToggle("AIGraphics", Localizable.ToggleGraphicsMod, "AIGraphics", delegate (bool b)
+            aig2 = new PluginToggle("AIGraphics", Localizable.ToggleGraphicsMod, "Advanced graphics options, may be configured ingame using F5.\n\nDoes not run with DHH!", "AIGraphics", delegate (bool b)
             {
                 if (b)
                 {
@@ -57,7 +59,7 @@ namespace InitSetting
                     MessageBox.Show("To use this mod, Press F5 during the game.", "Usage");
                 }
             }, false);
-            hs2 = new PluginToggle("HS2Graphics", Localizable.ToggleGraphicsMod, "HS2Graphics", delegate (bool b)
+            hs2 = new PluginToggle("HS2Graphics", Localizable.ToggleGraphicsMod, "Advanced graphics options, may be configured ingame using F5.\n\nDoes not run with DHH!", "HS2Graphics", delegate (bool b)
             {
                 if (b)
                 {
@@ -65,7 +67,7 @@ namespace InitSetting
                     MessageBox.Show("To use this mod, Press F5 during the game.", "Usage");
                 }
             }, false);
-            aighs2 = new PluginToggle("Graphics", Localizable.ToggleGraphicsMod, "Graphics", delegate (bool b)
+            aighs2 = new PluginToggle("Graphics", Localizable.ToggleGraphicsMod, "Advanced graphics options, may be configured ingame using F5.\n\nDoes not run with DHH!", "Graphics", delegate (bool b)
             {
                 if (b)
                 {
@@ -73,7 +75,7 @@ namespace InitSetting
                     MessageBox.Show("To use this mod, Press F5 during the game.", "Usage");
                 }
             }, false);
-            dhh = new PluginToggle("DHH", Localizable.ToggleDhh, "DHH_AI4", delegate (bool b)
+            dhh = new PluginToggle("DHH", Localizable.ToggleDhh, "", "DHH_AI4", delegate (bool b)
             {
                 if (b)
                 {
@@ -92,19 +94,19 @@ namespace InitSetting
                 hs2,
                 aighs2,
                 dhh,
-                new PluginToggle("DHHPH", Localizable.ToggleDhh, "ProjectHighHeel", null, true),
-                new PluginToggle("GgmodForPlayClub", Localizable.ToggleGGmod, "GgmodForPlayClub", null, true),
-                new PluginToggle("GgmodForPlayClubStudio", Localizable.ToggleGGmodstudioPC, "GgmodForPlayClubStudio", null, true),
-                new PluginToggle("TouchyFeely", Localizable.ToggleTouchyFeely, "TouchyFeely", null, true),
-                new PluginToggle("GGmod", Localizable.ToggleGGmod, "GgmodForHS", null, true),
-                new PluginToggle("GGmodstudio", Localizable.ToggleGGmodstudio, "GgmodForHS_Studio", null, true),
-                new PluginToggle("GGmodneo", Localizable.ToggleGGmodneo, "GgmodForHS_NEO", null, true),
-                new PluginToggle("HoneyPot", Localizable.ToggleHoneyPot, "HoneyPot", delegate (bool b)
+                new PluginToggle("DHHPH", Localizable.ToggleDhh, "", "ProjectHighHeel", null, true),
+                new PluginToggle("GgmodForPlayClub", Localizable.ToggleGGmod, "", "GgmodForPlayClub", null, true),
+                new PluginToggle("GgmodForPlayClubStudio", Localizable.ToggleGGmodstudioPC, "", "GgmodForPlayClubStudio", null, true),
+                new PluginToggle("TouchyFeely", Localizable.ToggleTouchyFeely, "", "TouchyFeely", null, true),
+                new PluginToggle("GGmod", Localizable.ToggleGGmod, "", "GgmodForHS", null, true),
+                new PluginToggle("GGmodstudio", Localizable.ToggleGGmodstudio, "", "GgmodForHS_Studio", null, true),
+                new PluginToggle("GGmodneo", Localizable.ToggleGGmodneo, "", "GgmodForHS_NEO", null, true),
+                new PluginToggle("HoneyPot", Localizable.ToggleHoneyPot, "", "HoneyPot", delegate (bool b)
                 {
                     if (b)
                         MessageBox.Show("When HoneyPot is enabled, the game will use a bit longer to load in some scenes due to checking for HoneySelect assets, making it appear to be freezing for a few seconds. This is completely normal.\n\nJust disable this option again if you would rather not have that freeze.", "Usage");
                 }, true),
-                new PluginToggle("PHIBL", Localizable.TogglePHIBL, "PHIBL", delegate (bool b)
+                new PluginToggle("PHIBL", Localizable.TogglePHIBL, "", "PHIBL", delegate (bool b)
                 {
                     if (b)
                     {
@@ -118,10 +120,10 @@ namespace InitSetting
                         DisableHelper("PH_PHIBL_PresetLoad_Original",true,true);
                     }
                 }, true),
-                new PluginToggle("RimRemover", Localizable.ToggleRimRemover, "RimRemover", null, false),
-                new PluginToggle("ShortcutPlugin", Localizable.ToggleShortcutHS, "ShortcutHSParty", null, true),
-                new PluginToggle("Stiletto", Localizable.ToggleStiletto, "Stiletto", null, false),
-                new PluginToggle("VRMod", Localizable.ToggleVRMod, "PlayHomeVR", delegate (bool b)
+                new PluginToggle("RimRemover", Localizable.ToggleRimRemover, "", "RimRemover", null, false),
+                new PluginToggle("ShortcutPlugin", Localizable.ToggleShortcutHS, "", "ShortcutHSParty", null, true),
+                new PluginToggle("Stiletto", Localizable.ToggleStiletto, "", "Stiletto", null, false),
+                new PluginToggle("VRMod", Localizable.ToggleVRMod, "", "PlayHomeVR", delegate (bool b)
                 {
                     if (b)
                         MessageBox.Show("To use this mod, open SteamVR before opening either the main game or studio.", "Usage");
@@ -195,6 +197,12 @@ namespace InitSetting
                 if (File.Exists(DupCheck + ".dll") && File.Exists(DupCheck + ".dl_"))
                     File.Delete(DupCheck + ".dl_");
 
+                var tooltip = new ToolTip
+                {
+                    Content = c.PluginToolTip
+
+                };
+
                 var toggle = new CheckBox
                 {
                     Name = c.CodeId,
@@ -212,6 +220,9 @@ namespace InitSetting
                     c.EnabledChangedAction?.Invoke(false);
                     f.MoveTo(Path.Combine(f.FullName, name + ".dl_"));
                 };
+
+                if(c.PluginToolTip != "")
+                    toggle.ToolTip = tooltip;
 
                 c._toggle = toggle;
 
