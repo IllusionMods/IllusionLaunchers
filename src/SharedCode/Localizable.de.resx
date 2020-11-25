@@ -249,4 +249,10 @@ Dieses Spiel enthällt sexuelle Inhalte welche bei Ausführung im realen Leben s
   <data name="TogglePHIBL" xml:space="preserve">
     <value>PHIBL GraphicsMod umschalten</value>
   </data>
+  <data name="ToggleGGmodstudioPC" xml:space="preserve">
+    <value>Ggmod (studio) umschalten</value>
+  </data>
+  <data name="ToggleTouchyFeely" xml:space="preserve">
+    <value>TouchyFeely (Boop) umschalten</value>
+  </data>
 </root>

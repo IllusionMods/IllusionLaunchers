@@ -249,4 +249,10 @@
   <data name="TogglePHIBL" xml:space="preserve">
     <value>激活 PHIBL GraphicsMod</value>
   </data>
+  <data name="ToggleGGmodstudioPC" xml:space="preserve">
+    <value>激活 Ggmod (studio)</value>
+  </data>
+  <data name="ToggleTouchyFeely" xml:space="preserve">
+    <value>激活 TouchyFeely (Boop)</value>
+  </data>
 </root>

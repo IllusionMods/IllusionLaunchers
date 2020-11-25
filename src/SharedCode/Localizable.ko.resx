@@ -149,9 +149,8 @@
   </data>
   <data name="Disclaimer" xml:space="preserve">
     <value>이게임은 성인용입니다 18세미만의 사람은 게임을 하거나 해당게임을 소유및 플레이하면 안됩니다
-
-이게임에는 성적인 내용이 포함되어있으머 그안에 묘사된 행동에서 일부는 실제에서 행동하면
- 법적인 처벌을 받게됩니다</value>
+ 
+ 이게임에는 성적인 내용이 포함되어있으머 그안에 묘사된 행동에서 일부는 실제에서 행동하면 법적인 처벌을 받게됩니다</value>
   </data>
   <data name="StartVR" xml:space="preserve">
     <value>허니셀렉트2 VR 시작</value>
@@ -239,15 +238,38 @@
     <value>Battle Arena 시작</value>
   </data>
   <data name="ManualBattle" xml:space="preserve">
-    <value>Battle 메뉴얼</value>
+    <value>배틀 메뉴얼</value>
   </data>
   <data name="FolderStudioClassic" xml:space="preserve">
-    <value>Classic 장면</value>
+    <value>클래식 메뉴얼</value>
   </data>
   <data name="ToggleGraphicsMod" xml:space="preserve">
     <value>GraphicsMod 활성화</value>
   </data>
   <data name="TogglePHIBL" xml:space="preserve">
     <value>PHIBL GraphicsMod 활성화</value>
+  </data>
+  <data name="FolderMaps" xml:space="preserve">
+    <value>지도 폴더</value>
+  </data>
+  <data name="FolderPoses" xml:space="preserve">
+    <value>포즈 폴더</value>
+  </data>
+  <data name="ManualGameOnline" xml:space="preserve">
+    <value>온라인 메뉴얼</value>
+  </data>
+  <data name="InstructLang" xml:space="preserve">
+    <value>당신은 이 언어로 선택하셨습니다</value>
+  </data>
+  <data name="InstructDecideLang" xml:space="preserve">
+    <value>당신은 이 언어로 선택하셨지만 해당 번역파일이
+당신의 설치폴더에 존재하지 않습니다 그러므로 구글번역이 해당 
+번역을 수행합니다</value>
+  </data>
+  <data name="ToggleGGmodstudioPC" xml:space="preserve">
+    <value>Ggmod (studio) 활성화</value>
+  </data>
+  <data name="ToggleTouchyFeely" xml:space="preserve">
+    <value>TouchyFeely (Boop) 활성화</value>
   </data>
 </root>

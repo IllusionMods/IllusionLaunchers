@@ -249,4 +249,10 @@ Dette spillet inneholder innhold av en seksuell natur, og noen av handlingene av
   <data name="TogglePHIBL" xml:space="preserve">
     <value>Aktiver PHIBL GraphicsMod</value>
   </data>
+  <data name="ToggleGGmodstudioPC" xml:space="preserve">
+    <value>Aktiver Ggmod (studio)</value>
+  </data>
+  <data name="ToggleTouchyFeely" xml:space="preserve">
+    <value>Aktiver TouchyFeely (Boop)</value>
+  </data>
 </root>

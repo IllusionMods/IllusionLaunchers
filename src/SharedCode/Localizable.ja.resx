@@ -249,4 +249,10 @@
   <data name="TogglePHIBL" xml:space="preserve">
     <value>PHIBL GraphicsModを有効にす</value>
   </data>
+  <data name="ToggleGGmodstudioPC" xml:space="preserve">
+    <value>Ggmod (studio)を有効にす</value>
+  </data>
+  <data name="ToggleTouchyFeely" xml:space="preserve">
+    <value>TouchyFeely (Boop)を有効にす</value>
+  </data>
 </root>

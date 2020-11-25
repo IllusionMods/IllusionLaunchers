@@ -249,7 +249,10 @@ Algumas das ações presentes nessa obra de ficção podem ser ilegais ao serem 
   <data name="TogglePHIBL" xml:space="preserve">
     <value>Ativar PHIBL GraphicsMod</value>
   </data>
-  <data name="InstructDecideLang" xml:space="preserve">
-    <value>O idioma que você escolheu não possui traduções em sua instalação. A tradução será feita pelo Google Translate.</value>
+  <data name="ToggleGGmodstudioPC" xml:space="preserve">
+    <value>Ativar Ggmod (studio)</value>
+  </data>
+  <data name="ToggleTouchyFeely" xml:space="preserve">
+    <value>Ativar TouchyFeely (Boop)</value>
   </data>
 </root>
