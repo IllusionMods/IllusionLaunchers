@@ -65,522 +65,601 @@ namespace InitSetting {
 		///   Looks up a localized string similar to Run HoneyPot Inspector.
 		/// </summary>
 		public static string AppHPInspector {
-			get {
-				return ResourceManager.GetString("AppHPInspector", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to Visit Discord.
-		/// </summary>
-		public static string ButtonDiscord {
-			get {
-				return ResourceManager.GetString("ButtonDiscord", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to Visit Patreon.
-		/// </summary>
-		public static string ButtonPatreon {
-			get {
-				return ResourceManager.GetString("ButtonPatreon", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to Update.
-		/// </summary>
-		public static string ButtonUpdate {
-			get {
-				return ResourceManager.GetString("ButtonUpdate", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to This game is intended for adult audiences, no person under the age of 18 (or equivalent according to local law) are supposed to play or be in possession of this game.
-		///
-		///This game contains content of a sexual nature, and some of the actions depicted within may be illegal to replicate in real life. Aka, it&apos;s all fun and games in the game, let&apos;s keep it that way shall we? (~.~)v.
-		/// </summary>
-		public static string Disclaimer {
-			get {
-				return ResourceManager.GetString("Disclaimer", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to Unknown distribution.
-		/// </summary>
-		public static string Distribution {
-			get {
-				return ResourceManager.GetString("Distribution", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to Female Card Folder.
-		/// </summary>
-		public static string FolderFemaleCard {
-			get {
-				return ResourceManager.GetString("FolderFemaleCard", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to Houses Folder.
-		/// </summary>
-		public static string FolderHouses {
-			get {
-				return ResourceManager.GetString("FolderHouses", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to Install Folder.
-		/// </summary>
-		public static string FolderInstall {
-			get {
-				return ResourceManager.GetString("FolderInstall", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to Male Card Folder.
-		/// </summary>
-		public static string FolderMaleCard {
-			get {
-				return ResourceManager.GetString("FolderMaleCard", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to Scenes Folder.
-		/// </summary>
-		public static string FolderScenes {
-			get {
-				return ResourceManager.GetString("FolderScenes", resourceCulture);
-			}
-		}
-
+            get {
+                return ResourceManager.GetString("AppHPInspector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visit Discord.
+        /// </summary>
+        public static string ButtonDiscord {
+            get {
+                return ResourceManager.GetString("ButtonDiscord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visit Patreon.
+        /// </summary>
+        public static string ButtonPatreon {
+            get {
+                return ResourceManager.GetString("ButtonPatreon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        public static string ButtonUpdate {
+            get {
+                return ResourceManager.GetString("ButtonUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game is intended for adult audiences, no person under the age of 18 (or equivalent according to local law) are supposed to play or be in possession of this game.
+        ///
+        ///This game contains content of a sexual nature, and some of the actions depicted within may be illegal to replicate in real life. Aka, it&apos;s all fun and games in the game, let&apos;s keep it that way shall we? (~.~)v.
+        /// </summary>
+        public static string Disclaimer {
+            get {
+                return ResourceManager.GetString("Disclaimer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown distribution.
+        /// </summary>
+        public static string Distribution {
+            get {
+                return ResourceManager.GetString("Distribution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Female Card Folder.
+        /// </summary>
+        public static string FolderFemaleCard {
+            get {
+                return ResourceManager.GetString("FolderFemaleCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Houses Folder.
+        /// </summary>
+        public static string FolderHouses {
+            get {
+                return ResourceManager.GetString("FolderHouses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Install Folder.
+        /// </summary>
+        public static string FolderInstall {
+            get {
+                return ResourceManager.GetString("FolderInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Male Card Folder.
+        /// </summary>
+        public static string FolderMaleCard {
+            get {
+                return ResourceManager.GetString("FolderMaleCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maps Folder.
+        /// </summary>
+        public static string FolderMaps {
+            get {
+                return ResourceManager.GetString("FolderMaps", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Poses Folder.
         /// </summary>
-        public static string FolderPoses
-        {
-            get
-            {
+        public static string FolderPoses {
+            get {
                 return ResourceManager.GetString("FolderPoses", resourceCulture);
             }
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Maps Folder.
-		/// </summary>
-		public static string FolderMaps
-		{
-            get
-            {
-                return ResourceManager.GetString("FolderMaps", resourceCulture);
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scenes Folder.
+        /// </summary>
+        public static string FolderScenes {
+            get {
+                return ResourceManager.GetString("FolderScenes", resourceCulture);
             }
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Classic Scenes.
-		/// </summary>
-		public static string FolderStudioClassic
-		{
-            get
-            {
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Screenshots Folder.
+        /// </summary>
+        public static string FolderScreenshots {
+            get {
+                return ResourceManager.GetString("FolderScreenshots", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Classic Scenes.
+        /// </summary>
+        public static string FolderStudioClassic {
+            get {
                 return ResourceManager.GetString("FolderStudioClassic", resourceCulture);
             }
         }
-
-		/// <summary>
-		///   Looks up a localized string similar to Screenshots Folder.
-		/// </summary>
-		public static string FolderScreenshots {
-			get {
-				return ResourceManager.GetString("FolderScreenshots", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to UserData Folder.
-		/// </summary>
-		public static string FolderUserData {
-			get {
-				return ResourceManager.GetString("FolderUserData", resourceCulture);
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to The language you've choosen does not have translations in your installation. Translation will be done by Google Translate..
-		/// </summary>
-		public static string InstructDecideLang
-		{
-            get
-            {
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UserData Folder.
+        /// </summary>
+        public static string FolderUserData {
+            get {
+                return ResourceManager.GetString("FolderUserData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The language you&apos;ve choosen does not have translations in your installation. Translation will be done by Google Translate..
+        /// </summary>
+        public static string InstructDecideLang {
+            get {
                 return ResourceManager.GetString("InstructDecideLang", resourceCulture);
             }
         }
-
-		/// <summary>
-		///   Looks up a localized string similar to Choose Variant.
-		/// </summary>
-		public static string InstructDecideVariant
-		{
-            get
-            {
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose Variant.
+        /// </summary>
+        public static string InstructDecideVariant {
+            get {
                 return ResourceManager.GetString("InstructDecideVariant", resourceCulture);
             }
         }
-
-		/// <summary>
-		///   Looks up a localized string similar to Game Manual.
-		/// </summary>
-		public static string ManualGame {
-			get {
-				return ResourceManager.GetString("ManualGame", resourceCulture);
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Online Manual.
-		/// </summary>
-		public static string ManualGameOnline
-		{
-            get
-            {
-                return ResourceManager.GetString("ManualGameOnline", resourceCulture);
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The language you have choosen.
+        /// </summary>
+        public static string InstructLang {
+            get {
+                return ResourceManager.GetString("InstructLang", resourceCulture);
             }
         }
-
-		/// <summary>
-		///   Looks up a localized string similar to Studio Manual.
-		/// </summary>
-		public static string ManualStudio {
-			get {
-				return ResourceManager.GetString("ManualStudio", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to VR Manual.
-		/// </summary>
-		public static string ManualVR {
-			get {
-				return ResourceManager.GetString("ManualVR", resourceCulture);
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Battle Manual.
-		/// </summary>
-		public static string ManualBattle
-		{
-            get
-            {
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Battle Manual.
+        /// </summary>
+        public static string ManualBattle {
+            get {
                 return ResourceManager.GetString("ManualBattle", resourceCulture);
             }
         }
-
-		/// <summary>
-		///   Looks up a localized string similar to PrimaryDisplay.
-		/// </summary>
-		public static string PrimaryDisplay {
-			get {
-				return ResourceManager.GetString("PrimaryDisplay", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to Normal.
-		/// </summary>
-		public static string QualityNormal {
-			get {
-				return ResourceManager.GetString("QualityNormal", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to Performance.
-		/// </summary>
-		public static string QualityPerformance {
-			get {
-				return ResourceManager.GetString("QualityPerformance", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to Quality.
-		/// </summary>
-		public static string QualityQuality {
-			get {
-				return ResourceManager.GetString("QualityQuality", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to Height.
-		/// </summary>
-		public static string ResHeight {
-			get {
-				return ResourceManager.GetString("ResHeight", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to Width.
-		/// </summary>
-		public static string ResWidth {
-			get {
-				return ResourceManager.GetString("ResWidth", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to Start Game.
-		/// </summary>
-		public static string StartGame {
-			get {
-				return ResourceManager.GetString("StartGame", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to Start Studio.
-		/// </summary>
-		public static string StartStudio {
-			get {
-				return ResourceManager.GetString("StartStudio", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to Start VR.
-		/// </summary>
-		public static string StartVR {
-			get {
-				return ResourceManager.GetString("StartVR", resourceCulture);
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Start Battle Arena.
-		/// </summary>
-		public static string StartBattle
-		{
-            get
-            {
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game Manual.
+        /// </summary>
+        public static string ManualGame {
+            get {
+                return ResourceManager.GetString("ManualGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Online Manual.
+        /// </summary>
+        public static string ManualGameOnline {
+            get {
+                return ResourceManager.GetString("ManualGameOnline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Studio Manual.
+        /// </summary>
+        public static string ManualStudio {
+            get {
+                return ResourceManager.GetString("ManualStudio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VR Manual.
+        /// </summary>
+        public static string ManualVR {
+            get {
+                return ResourceManager.GetString("ManualVR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PrimaryDisplay.
+        /// </summary>
+        public static string PrimaryDisplay {
+            get {
+                return ResourceManager.GetString("PrimaryDisplay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Normal.
+        /// </summary>
+        public static string QualityNormal {
+            get {
+                return ResourceManager.GetString("QualityNormal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Performance.
+        /// </summary>
+        public static string QualityPerformance {
+            get {
+                return ResourceManager.GetString("QualityPerformance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quality.
+        /// </summary>
+        public static string QualityQuality {
+            get {
+                return ResourceManager.GetString("QualityQuality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Height.
+        /// </summary>
+        public static string ResHeight {
+            get {
+                return ResourceManager.GetString("ResHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Width.
+        /// </summary>
+        public static string ResWidth {
+            get {
+                return ResourceManager.GetString("ResWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Battle Arena.
+        /// </summary>
+        public static string StartBattle {
+            get {
                 return ResourceManager.GetString("StartBattle", resourceCulture);
             }
         }
-
-		/// <summary>
-		///   Looks up a localized string similar to SubDisplay.
-		/// </summary>
-		public static string SubDisplay {
-			get {
-				return ResourceManager.GetString("SubDisplay", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to Activate AI Graphics.
-		/// </summary>
-		public static string ToggleAiGraphics {
-			get {
-				return ResourceManager.GetString("ToggleAiGraphics", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to Activate Bonemod.
-		/// </summary>
-		public static string ToggleBonemod {
-			get {
-				return ResourceManager.GetString("ToggleBonemod", resourceCulture);
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Activate Ggmod (studio).
-		/// </summary>
-		public static string ToggleGGmodstudioPC
-		{
-            get
-            {
-                return ResourceManager.GetString("ToggleGGmodstudioPC", resourceCulture);
-            }
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Activate TouchyFeely (Boop).
-		/// </summary>
-		public static string ToggleTouchyFeely
-		{
-            get
-            {
-                return ResourceManager.GetString("ToggleTouchyFeely", resourceCulture);
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Game.
+        /// </summary>
+        public static string StartGame {
+            get {
+                return ResourceManager.GetString("StartGame", resourceCulture);
             }
         }
-
-		/// <summary>
-		///   Looks up a localized string similar to Activate Console.
-		/// </summary>
-		public static string ToggleConsole {
-			get {
-				return ResourceManager.GetString("ToggleConsole", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to Activate DHH.
-		/// </summary>
-		public static string ToggleDhh {
-			get {
-				return ResourceManager.GetString("ToggleDhh", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to Play game in fullscreen.
-		/// </summary>
-		public static string ToggleFullscreen {
-			get {
-				return ResourceManager.GetString("ToggleFullscreen", resourceCulture);
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Enable Ggmod (main game).
-		/// </summary>
-		public static string ToggleGGmod
-		{
-            get
-            {
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Studio.
+        /// </summary>
+        public static string StartStudio {
+            get {
+                return ResourceManager.GetString("StartStudio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start VR.
+        /// </summary>
+        public static string StartVR {
+            get {
+                return ResourceManager.GetString("StartVR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SubDisplay.
+        /// </summary>
+        public static string SubDisplay {
+            get {
+                return ResourceManager.GetString("SubDisplay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activate AI Graphics.
+        /// </summary>
+        public static string ToggleAiGraphics {
+            get {
+                return ResourceManager.GetString("ToggleAiGraphics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activate Bonemod.
+        /// </summary>
+        public static string ToggleBonemod {
+            get {
+                return ResourceManager.GetString("ToggleBonemod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activate Console.
+        /// </summary>
+        public static string ToggleConsole {
+            get {
+                return ResourceManager.GetString("ToggleConsole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activate DHH.
+        /// </summary>
+        public static string ToggleDhh {
+            get {
+                return ResourceManager.GetString("ToggleDhh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play game in fullscreen.
+        /// </summary>
+        public static string ToggleFullscreen {
+            get {
+                return ResourceManager.GetString("ToggleFullscreen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Ggmod (main game).
+        /// </summary>
+        public static string ToggleGGmod {
+            get {
                 return ResourceManager.GetString("ToggleGGmod", resourceCulture);
             }
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Enable Ggmod (studio classic).
-		/// </summary>
-		public static string ToggleGGmodstudio
-		{
-            get
-            {
-                return ResourceManager.GetString("ToggleGGmodstudio", resourceCulture);
-            }
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Enable Ggmod (studio neo).
-		/// </summary>
-		public static string ToggleGGmodneo
-		{
-            get
-            {
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Ggmod (studio neo).
+        /// </summary>
+        public static string ToggleGGmodneo {
+            get {
                 return ResourceManager.GetString("ToggleGGmodneo", resourceCulture);
             }
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Enable GraphicsMod.
-		/// </summary>
-		public static string ToggleGraphicsMod
-        {
-            get
-            {
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Ggmod (studio classic).
+        /// </summary>
+        public static string ToggleGGmodstudio {
+            get {
+                return ResourceManager.GetString("ToggleGGmodstudio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Ggmod (studio).
+        /// </summary>
+        public static string ToggleGGmodstudioPC {
+            get {
+                return ResourceManager.GetString("ToggleGGmodstudioPC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable GraphicsMod.
+        /// </summary>
+        public static string ToggleGraphicsMod {
+            get {
                 return ResourceManager.GetString("ToggleGraphicsMod", resourceCulture);
             }
         }
-
-		/// <summary>
-		///   Looks up a localized string similar to Activate HoneyPot.
-		/// </summary>
-		public static string ToggleHoneyPot {
-			get {
-				return ResourceManager.GetString("ToggleHoneyPot", resourceCulture);
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Disable NSFW Content.
-		/// </summary>
-		public static string ToggleNSFW
-		{
-            get
-            {
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activate HoneyPot.
+        /// </summary>
+        public static string ToggleHoneyPot {
+            get {
+                return ResourceManager.GetString("ToggleHoneyPot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable NSFW Content.
+        /// </summary>
+        public static string ToggleNSFW {
+            get {
                 return ResourceManager.GetString("ToggleNSFW", resourceCulture);
             }
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Activate PHIBL GraphicsMod.
-		/// </summary>
-		public static string TogglePHIBL
-		{
-			get
-			{
-				return ResourceManager.GetString("TogglePHIBL", resourceCulture);
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Activate RimRemover.
-		/// </summary>
-		public static string ToggleRimRemover {
-			get {
-				return ResourceManager.GetString("ToggleRimRemover", resourceCulture);
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Enable Shortcut Plugin.
-		/// </summary>
-		public static string ToggleShortcutHS
-		{
-            get
-            {
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable PHIBL GraphicsMod.
+        /// </summary>
+        public static string TogglePHIBL {
+            get {
+                return ResourceManager.GetString("TogglePHIBL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activate RimRemover.
+        /// </summary>
+        public static string ToggleRimRemover {
+            get {
+                return ResourceManager.GetString("ToggleRimRemover", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Shortcut Plugin.
+        /// </summary>
+        public static string ToggleShortcutHS {
+            get {
                 return ResourceManager.GetString("ToggleShortcutHS", resourceCulture);
             }
         }
-
-		/// <summary>
-		///   Looks up a localized string similar to Activate Stiletto.
-		/// </summary>
-		public static string ToggleStiletto {
-			get {
-				return ResourceManager.GetString("ToggleStiletto", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to Activate VRMod.
-		/// </summary>
-		public static string ToggleVRMod {
-			get {
-				return ResourceManager.GetString("ToggleVRMod", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to .
-		/// </summary>
-		public static string TranslatedByCredit {
-			get {
-				return ResourceManager.GetString("TranslatedByCredit", resourceCulture);
-			}
-		}
-		
-		/// <summary>
-		///   Looks up a localized string similar to AI Shoujo Launcher.
-		/// </summary>
-		public static string WindowTitle {
-			get {
-				return ResourceManager.GetString("WindowTitle", resourceCulture);
-			}
-		}
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activate Stiletto.
+        /// </summary>
+        public static string ToggleStiletto {
+            get {
+                return ResourceManager.GetString("ToggleStiletto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable TouchyFeely (Boop).
+        /// </summary>
+        public static string ToggleTouchyFeely {
+            get {
+                return ResourceManager.GetString("ToggleTouchyFeely", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activate VRMod.
+        /// </summary>
+        public static string ToggleVRMod {
+            get {
+                return ResourceManager.GetString("ToggleVRMod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allows use of modified bones in mods.
+        ///
+        ///Not to be confused with BoneModModoki
+        ///or ABMX.
+        ///
+        ///May cause some issues with clothing not made
+        ///for this modification..
+        /// </summary>
+        public static string TooltipBoneMod {
+            get {
+                return ResourceManager.GetString("TooltipBoneMod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advanced graphics options.
+        ///May be configured ingame using P.
+        ///
+        ///Does not run with GraphicsMod!.
+        /// </summary>
+        public static string TooltipDhh {
+            get {
+                return ResourceManager.GetString("TooltipDhh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to High Heels mod.
+        ///Allows using high heels properly.
+        ///
+        ///May be configured ingame using P..
+        /// </summary>
+        public static string TooltipDhhPH {
+            get {
+                return ResourceManager.GetString("TooltipDhhPH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allows for the use of high heels.
+        /// </summary>
+        public static string TooltipGGmod {
+            get {
+                return ResourceManager.GetString("TooltipGGmod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advanced graphics options.
+        ///May be configured ingame using F5.
+        ///
+        ///Does not run with DHH!.
+        /// </summary>
+        public static string TooltipGraphicsMod {
+            get {
+                return ResourceManager.GetString("TooltipGraphicsMod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allows for the use of some HoneySelect
+        ///mods in PlayHome.
+        ///
+        ///Not all mods work, and some may require
+        ///you to press F12 to make pink textures
+        ///reload..
+        /// </summary>
+        public static string TooltipHoneyPot {
+            get {
+                return ResourceManager.GetString("TooltipHoneyPot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advanced graphics options.
+        ///May be configured ingame using F5..
+        /// </summary>
+        public static string TooltipPHIBL {
+            get {
+                return ResourceManager.GetString("TooltipPHIBL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Makes select bodyparts jiggle
+        ///when the mouse hovers them..
+        /// </summary>
+        public static string TooltipTouchyFeely {
+            get {
+                return ResourceManager.GetString("TooltipTouchyFeely", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allows for using VR in the main game,
+        ///as well as studio..
+        /// </summary>
+        public static string TooltipVRMod {
+            get {
+                return ResourceManager.GetString("TooltipVRMod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string TranslatedByCredit {
+            get {
+                return ResourceManager.GetString("TranslatedByCredit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IllusionLaunchers.
+        /// </summary>
+        public static string WindowTitle {
+            get {
+                return ResourceManager.GetString("WindowTitle", resourceCulture);
+            }
+        }
 	}
 }

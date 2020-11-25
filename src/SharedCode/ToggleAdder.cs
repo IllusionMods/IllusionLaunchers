@@ -101,7 +101,7 @@ namespace InitSetting
                 new PluginToggle("GGmod", Localizable.ToggleGGmod, Localizable.TooltipGGmod, "GgmodForHS", null, true),
                 new PluginToggle("GGmodstudio", Localizable.ToggleGGmodstudio, Localizable.TooltipGGmod, "GgmodForHS_Studio", null, true),
                 new PluginToggle("GGmodneo", Localizable.ToggleGGmodneo, Localizable.TooltipGGmod, "GgmodForHS_NEO", null, true),
-                new PluginToggle("HoneyPot", Localizable.ToggleHoneyPot, TooltipHoneyPot, "HoneyPot", delegate (bool b)
+                new PluginToggle("HoneyPot", Localizable.ToggleHoneyPot, Localizable.TooltipHoneyPot, "HoneyPot", delegate (bool b)
                 {
                     if (b)
                         MessageBox.Show("When HoneyPot is enabled, the game will use a bit longer to load in some scenes due to checking for HoneySelect assets, making it appear to be freezing for a few seconds. This is completely normal.\n\nJust disable this option again if you would rather not have that freeze.", "Usage");
