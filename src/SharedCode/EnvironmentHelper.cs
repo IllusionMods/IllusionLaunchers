@@ -231,6 +231,9 @@ namespace InitSetting
             if (language != "zh-CN" && language != "zh-TW")
                 language = language.Split('-')[0];
 
+            if (File.Exists($"{EnvironmentHelper.GameRootDirectory}/Translation/{language}/DisableGoogle.txt"))
+                disable = true;
+
             try
             {
                 var contents = (File.Exists(configPath) ? File.ReadAllLines(configPath) : Enumerable.Empty<string>()).ToList();
