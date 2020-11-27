@@ -127,7 +127,30 @@ namespace InitSetting
                 {
                     if (b)
                         MessageBox.Show("To use this mod, open SteamVR before opening either the main game or studio.", "Usage");
-                }, true)
+                }, true),
+                new PluginToggle("PCVRMod", Localizable.ToggleVRMod, Localizable.TooltipVRMod, "PlayClubVR", delegate (bool b)
+                {
+                    if (b)
+                    {
+                        DisableHelper("LeapCSharp.NET3.5",true,false);
+                        DisableHelper("GamePadClub",true,false);
+                        DisableHelper("PlayClubStudioVR",true,false);
+                        DisableHelper("SpeechTransport",true,false);
+                        DisableHelper("VRGIN.U46",true,false);
+                        DisableHelper("WindowsInput",true,false);
+                        DisableHelper("XInputDotNetPure",true,false);
+                    }
+                    else
+                    {
+                        DisableHelper("LeapCSharp.NET3.5",true,true);
+                        DisableHelper("GamePadClub",true,true);
+                        DisableHelper("PlayClubStudioVR",true,true);
+                        DisableHelper("SpeechTransport",true,true);
+                        DisableHelper("VRGIN.U46",true,true);
+                        DisableHelper("WindowsInput",true,true);
+                        DisableHelper("XInputDotNetPure",true,true);
+                    }
+                }, true),
             };
         }
 
