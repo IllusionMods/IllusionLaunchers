@@ -205,9 +205,13 @@ namespace InitSetting
                             SettingManager.CurrentSettings.Language = builtinIndex;
                             SettingManager.SaveSettings();
                         }
-                        else
+                        else if(!File.Exists(
+                                    $"{EnvironmentHelper.GameRootDirectory}/BepInEx/Translation/{language}/DisableGoogleWarn.txt") &&
+                                !File.Exists(
+                                    $"{EnvironmentHelper.GameRootDirectory}/BepInEx/Translation/{language}/DisableGoogle.txt"))
                         {
-                            MessageBox.Show(Localizable.InstructDecideLang);
+                            
+                                MessageBox.Show(Localizable.InstructDecideLang);
                         }
 
                         WriteAutoTranslatorLangIni(language);
@@ -231,7 +235,7 @@ namespace InitSetting
             if (language != "zh-CN" && language != "zh-TW")
                 language = language.Split('-')[0];
 
-            if (File.Exists($"{EnvironmentHelper.GameRootDirectory}/Translation/{language}/DisableGoogle.txt"))
+            if (File.Exists($"{EnvironmentHelper.GameRootDirectory}/BepInEx/Translation/{language}/DisableGoogle.txt"))
                 disable = true;
 
             try
