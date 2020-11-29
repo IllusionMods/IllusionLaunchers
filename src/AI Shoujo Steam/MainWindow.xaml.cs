@@ -11,12 +11,13 @@ namespace InitSetting
     public partial class MainWindow : Window
     {
         // Game-specific constants -------------------------------------------------------------------
-        private const string RegistryKeyGame = "Software\\illusion\\AI-Shoujo\\AI-Shoujo\\";
-        private const string RegistryKeyStudio = "Software\\illusion\\AI-Syoujyo\\StudioNEOV2";
-        private const string ExecutableGame = "AI-Shoujo.exe";
-        private const string ExecutableStudio = "StudioNEOV2.exe";
-        private const string ExecutableVR = "";
-        private const string SupportDiscord = "https://discord.gg/F3bDEFE";
+
+        private static string RegistryKeyGame = "Software\\illusion\\AI-Shoujo\\AI-Shoujo\\";
+        private static string RegistryKeyStudio = "Software\\illusion\\AI-Syoujyo\\StudioNEOV2";
+        private static string ExecutableGame = "AI-Shoujo.exe";
+        private static string ExecutableStudio = "StudioNEOV2.exe";
+        private static string ExecutableVR = "";
+        private static string SupportDiscord = "https://discord.gg/F3bDEFE";
         // Languages built into the game itself
         private static readonly string[] _builtinLanguages = { "ja-JP","en-US","zh-CN","zh-TW" };
 
@@ -27,6 +28,12 @@ namespace InitSetting
 
         public MainWindow()
         {
+            if (File.Exists($"{EnvironmentHelper.GameRootDirectory}/abdata/BRConvert/OK.txt"))
+            {
+                RegistryKeyGame = "Software\\illusion\\AI-Syoujyo\\AI-Syoujyo\\";
+                RegistryKeyStudio = "Software\\illusion\\AI-Syoujyo\\StudioNEOV2";
+                ExecutableGame = "AI-Syoujyo.exe";
+            }
             try
             {
                 _suppressEvents = true;
