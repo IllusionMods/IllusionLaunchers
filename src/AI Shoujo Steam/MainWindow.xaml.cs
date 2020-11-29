@@ -20,6 +20,7 @@ namespace InitSetting
         private static string SupportDiscord = "https://discord.gg/F3bDEFE";
         // Languages built into the game itself
         private static readonly string[] _builtinLanguages = { "ja-JP","en-US","zh-CN","zh-TW" };
+        private static readonly string[] _builtinLanguagesConvert = { "ja-JP" };
 
         // Normal fields, don't fill in --------------------------------------------------------------
         private bool _suppressEvents;
@@ -28,18 +29,25 @@ namespace InitSetting
 
         public MainWindow()
         {
-            if (File.Exists($"{EnvironmentHelper.GameRootDirectory}/abdata/BRConvert/OK.txt"))
-            {
-                RegistryKeyGame = "Software\\illusion\\AI-Syoujyo\\AI-Syoujyo\\";
-                RegistryKeyStudio = "Software\\illusion\\AI-Syoujyo\\StudioNEOV2";
-                ExecutableGame = "AI-Syoujyo.exe";
-            }
+            
+
             try
             {
                 _suppressEvents = true;
 
                 // Initialize code -------------------------------------
-                EnvironmentHelper.Initialize(_builtinLanguages);
+                string tempgamedir =
+                    System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                bool isGameConverted = File.Exists($"{tempgamedir}/abdata/BRConvert/OK.txt");
+                
+                if (isGameConverted)
+                {
+                    RegistryKeyGame = "Software\\illusion\\AI-Syoujyo\\AI-Syoujyo\\";
+                    RegistryKeyStudio = "Software\\illusion\\AI-Syoujyo\\StudioNEOV2";
+                    ExecutableGame = "AI-Syoujyo.exe";
+                }
+
+                EnvironmentHelper.Initialize(!isGameConverted ? _builtinLanguages : _builtinLanguagesConvert);
 
                 _mainGameExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableGame);
                 _studioExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableStudio);
