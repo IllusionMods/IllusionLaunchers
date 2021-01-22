@@ -17,7 +17,7 @@ namespace InitSetting
         private static string ExecutableGame = "VRKanojo.exe";
         private static string ExecutableStudio = "";
         private static string ExecutableVR = "";
-        private static string SupportDiscord = "https://discord.gg/F3bDEFE";
+        private static string SupportDiscord = "";
         // Languages built into the game itself
         private static readonly string[] _builtinLanguages = { "ja-JP", "en-US" };
 
@@ -33,6 +33,7 @@ namespace InitSetting
             try
             {
                 _suppressEvents = true;
+
 
                 // Initialize code -------------------------------------
                 EnvironmentHelper.Initialize(_builtinLanguages);
@@ -81,6 +82,9 @@ namespace InitSetting
                     patreonIMG.Visibility = Visibility.Collapsed;
                 }
 
+                if (string.IsNullOrEmpty(SupportDiscord))
+                    gridDiscord.Visibility = Visibility.Collapsed;
+
                 var primaryDisplay = Localizable.PrimaryDisplay;
                 var subDisplay = Localizable.SubDisplay;
                 for (var i = 0; i < Screen.AllScreens.Length; i++)
@@ -99,6 +103,8 @@ namespace InitSetting
                 Closed += (sender, args) => SettingManager.SaveSettings();
                 MouseDown += (sender, args) => { if (args.ChangedButton == MouseButton.Left) DragMove(); };
                 buttonClose.Click += (sender, args) => Close();
+
+
             }
             catch (Exception e)
             {

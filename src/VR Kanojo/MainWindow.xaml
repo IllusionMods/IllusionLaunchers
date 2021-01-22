@@ -70,7 +70,7 @@
         </Grid.Background>
 
         <Grid HorizontalAlignment="Left" Height="102" VerticalAlignment="Top" Width="898">
-            <Border HorizontalAlignment="Left" Height="34" Margin="354.494,25.333,0,0" VerticalAlignment="Top"
+            <Border HorizontalAlignment="Left" Height="34" Margin="353.161,43.333,0,0" VerticalAlignment="Top"
                     Width="219.839" ClipToBounds="True" Background="Black">
                 <Border.RenderTransform>
                     <TransformGroup>
@@ -95,9 +95,9 @@
 
             <Label Style="{StaticResource GameButtonsLabel}" x:Name="labelStart"
                    Content="{x:Static local:Localizable.StartGame}" HorizontalAlignment="Left"
-                   Margin="354.333,25.333,0,0" VerticalAlignment="Top" Width="190" Height="34" />
+                   Margin="353,43.333,0,0" VerticalAlignment="Top" Width="190" Height="34" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonStart" Content="" HorizontalAlignment="Left"
-                    Height="36" Margin="353.333,24.333,0,0" VerticalAlignment="Top" Width="223"
+                    Height="36" Margin="352,42.333,0,0" VerticalAlignment="Top" Width="223"
                     Click="buttonStart_Click">
                 <Button.RenderTransform>
                     <TransformGroup>
@@ -108,17 +108,6 @@
                     </TransformGroup>
                 </Button.RenderTransform>
             </Button>
-            <Border HorizontalAlignment="Left" Height="20.333" Margin="362.166,66.083,0,0" VerticalAlignment="Top"
-                    Width="170.417" Background="Black">
-                <Image x:Name="idmssage2" Source="Images/ButtonBG/manual.png" RenderTransformOrigin="0.5,0.5"
-                       HorizontalAlignment="Right" />
-            </Border>
-            <Label x:Name="labelM" Foreground="White" VerticalContentAlignment="Center"
-                   Content="{x:Static local:Localizable.ManualGame}" HorizontalAlignment="Left"
-                   Margin="366.333,64.333,0,0" VerticalAlignment="Top" Height="24" Width="134" />
-            <Button Style="{StaticResource buttonHover}" x:Name="buttonManual" Content="" HorizontalAlignment="Left"
-                    Height="24" Margin="360.333,64.333,0,0" VerticalAlignment="Top" Width="174"
-                    Click="buttonManual_Click" />
         </Grid>
 
         <Image x:Name="PackChara" HorizontalAlignment="Left" Height="378" Margin="322,221.5,0,-1.5" VerticalAlignment="Top"
@@ -177,7 +166,7 @@
             </Grid>
             <Grid HorizontalAlignment="Left" Height="329" Margin="10,19,0,0" VerticalAlignment="Top" Width="302">
                 <Border BorderBrush="#FF366EBF" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left"
-                        Height="197" Margin="10,10,0,0" VerticalAlignment="Top" Width="282" CornerRadius="3">
+                        Height="263" Margin="10,10,0,0" VerticalAlignment="Top" Width="282" CornerRadius="3">
                     <TextBlock Foreground="White" x:Name="warningText" TextWrapping="Wrap" Margin="8">
                         <Run Text="{x:Static local:Localizable.Disclaimer}" />
                     </TextBlock>
@@ -198,15 +187,15 @@
                 </Border>
             </Grid>
             <Border BorderBrush="#FF366EBF" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left"
-                    Height="117" Margin="21,231,0,0" VerticalAlignment="Top" Width="282" CornerRadius="3" >
-                <Grid x:Name="FolderGrid"/>
+                    Height="63" Margin="19.667,299,0,0" VerticalAlignment="Top" Width="283.333" CornerRadius="3" >
+                <Grid x:Name="FolderGrid" Margin="-2,0,0,0"/>
             </Border>
             <Button Style="{StaticResource buttonHover}" x:Name="buttonInst" FontSize="10"
-                    Content="{x:Static local:Localizable.FolderInstall}" HorizontalAlignment="Left" Height="43.334"
-                    VerticalAlignment="Top" Width="265.25" Margin="28.625,241.71,0,0" Click="buttonInst_Click" />
+                    Content="{x:Static local:Localizable.FolderInstall}" HorizontalAlignment="Left" Height="20.667"
+                    VerticalAlignment="Top" Width="265.25" Margin="28.625,307.543,0,0" Click="buttonInst_Click" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonUserData" FontSize="10"
-                    Content="{x:Static local:Localizable.FolderUserData}" HorizontalAlignment="Left" Height="44.667"
-                    VerticalAlignment="Top" Width="265.25" Margin="28.625,290.044,0,0" Click="buttonUserData_Click" />
+                    Content="{x:Static local:Localizable.FolderUserData}" HorizontalAlignment="Left" Height="21.334"
+                    VerticalAlignment="Top" Width="265.25" Margin="28.625,333.21,0,0" Click="buttonUserData_Click" />
         </Grid>
         <Image x:Name="image2" HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="262"
                Source="images/Logo.png" Margin="318,102,318,0" />
