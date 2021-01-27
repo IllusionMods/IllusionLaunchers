@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoneySelect 2", "src\HoneyS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayClub", "src\PlayClub\PlayClub.csproj", "{47A3BE13-4CB4-4322-83F7-A4703CACEED9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaremMate", "src\HaremMate\HaremMate.csproj", "{BB0A856A-6604-42DC-9248-D760F9D24ACA}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\SharedCode\SharedCode.projitems*{1d2166e2-4da0-4fd6-a28d-7ebbef40955b}*SharedItemsImports = 4
@@ -37,6 +39,7 @@ Global
 		src\SharedCode\SharedCode.projitems*{7c713600-69b2-48ae-b805-a7bbf3408d69}*SharedItemsImports = 4
 		src\SharedCode\SharedCode.projitems*{8bf2798d-fd00-4483-95ee-dc37a599e6fd}*SharedItemsImports = 13
 		src\SharedCode\SharedCode.projitems*{91f6b54e-6a85-486f-8bf3-5920d838f030}*SharedItemsImports = 4
+		src\SharedCode\SharedCode.projitems*{bb0a856a-6604-42dc-9248-d760f9d24aca}*SharedItemsImports = 4
 		src\SharedCode\SharedCode.projitems*{ed03c79c-7b7d-4db5-b3a4-17586925f12d}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,6 +87,10 @@ Global
 		{47A3BE13-4CB4-4322-83F7-A4703CACEED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47A3BE13-4CB4-4322-83F7-A4703CACEED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47A3BE13-4CB4-4322-83F7-A4703CACEED9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB0A856A-6604-42DC-9248-D760F9D24ACA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB0A856A-6604-42DC-9248-D760F9D24ACA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB0A856A-6604-42DC-9248-D760F9D24ACA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB0A856A-6604-42DC-9248-D760F9D24ACA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
