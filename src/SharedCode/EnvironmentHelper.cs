@@ -78,10 +78,12 @@ namespace InitSetting
                                     $"{experimentalDir}Sideloader Modpack - Bleeding Edge",
                                     $"{productionModsDir}Sideloader Modpack - Bleeding Edge");
                             }
-                            else
-                            {
-                                MessageBox.Show("This will enable experimental updates if any exists for the current game. Please utilize with caution!");
-                            }
+                        }
+                        else
+                        {
+                            System.Windows.MessageBox.Show(
+                                "This will enable experimental updates if any exists for the current game. Please utilize with caution!",
+                                "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                     }
                     else
