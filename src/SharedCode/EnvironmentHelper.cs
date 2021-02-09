@@ -100,7 +100,8 @@ namespace InitSetting
                         bleedingWriter.Close();
                         if (Directory.Exists($"{experimentalDir}Sideloader Modpack - Bleeding Edge"))
                         {
-                            if (System.Windows.MessageBox.Show("This will enable experimental updates if any exists for the current game. Please utilize with caution!\n\nDo you want to add experimental zipmods?",
+                            if (System.Windows.MessageBox.Show(
+                                    "This will enable experimental updates if any exists for the current game. Please utilize with caution!\n\nDo you want to add experimental zipmods?",
                                     "Enable experimental mods", MessageBoxButton.YesNo, MessageBoxImage.Question) ==
                                 MessageBoxResult.Yes)
                             {
@@ -123,7 +124,8 @@ namespace InitSetting
                         File.Delete(ILikeBleeding);
                         if (Directory.Exists($"{productionModsDir}Sideloader Modpack - Bleeding Edge"))
                         {
-                            if (System.Windows.MessageBox.Show("Do you want to move experimental zipmods?\n(They won't be deleted, just moved to another folder and may be reactivated at a later time.)",
+                            if (System.Windows.MessageBox.Show(
+                                    "Do you want to move experimental zipmods?\n(They won't be deleted, just moved to another folder and may be reactivated at a later time.)",
                                     "Disable experimental mods", MessageBoxButton.YesNo, MessageBoxImage.Question) ==
                                 MessageBoxResult.Yes)
                             {

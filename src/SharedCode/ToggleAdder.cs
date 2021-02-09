@@ -196,6 +196,7 @@ namespace InitSetting
                 };
                 toggleSideloadMaintain.Checked += (sender, args) => EnvironmentHelper.SideloaderMaintainerEnabled = true;
                 toggleSideloadMaintain.Unchecked += (sender, args) => EnvironmentHelper.SideloaderMaintainerEnabled = false;
+                toggleSideloadMaintain.ToolTip = "Enable test modpack.\nOnly meant for testing new modpack builds.";
                 togglePanel.Children.Add(toggleSideloadMaintain);
             }
 
@@ -211,6 +212,7 @@ namespace InitSetting
                 };
                 toggleConsole.Checked += (sender, args) => EnvironmentHelper.DeveloperModeEnabled = true;
                 toggleConsole.Unchecked += (sender, args) => EnvironmentHelper.DeveloperModeEnabled = false;
+                toggleConsole.ToolTip = "Enable console to see game status console.";
                 togglePanel.Children.Add(toggleConsole);
             }
 
@@ -224,6 +226,7 @@ namespace InitSetting
             };
             toggleExperimental.Checked += (sender, args) => EnvironmentHelper.BleedingModeEnabled = true;
             toggleExperimental.Unchecked += (sender, args) => EnvironmentHelper.BleedingModeEnabled = false;
+            toggleExperimental.ToolTip = "Allow installation of experimental mods to this game.";
             togglePanel.Children.Add(toggleExperimental);
 
             
