@@ -123,7 +123,7 @@ namespace InitSetting
                         File.Delete(ILikeBleeding);
                         if (Directory.Exists($"{productionModsDir}Sideloader Modpack - Bleeding Edge"))
                         {
-                            if (System.Windows.MessageBox.Show("Do you want to remove experimental zipmods?",
+                            if (System.Windows.MessageBox.Show("Do you want to move experimental zipmods?\n(They won't be deleted, just moved to another folder and may be reactivated at a later time.)",
                                     "Disable experimental mods", MessageBoxButton.YesNo, MessageBoxImage.Question) ==
                                 MessageBoxResult.Yes)
                             {
