@@ -199,6 +199,17 @@ namespace InitSetting
                 togglePanel.Children.Add(toggleConsole);
             }
 
+            var toggleExperimental = new CheckBox
+            {
+                Name = "toggleExperimental",
+                Content = "Experimental Mode",
+                Foreground = Brushes.White,
+                IsChecked = EnvironmentHelper.BleedingModeEnabled
+            };
+            toggleExperimental.Checked += (sender, args) => EnvironmentHelper.BleedingModeEnabled = true;
+            toggleExperimental.Unchecked += (sender, args) => EnvironmentHelper.BleedingModeEnabled = false;
+            togglePanel.Children.Add(toggleExperimental);
+
             // Add toggles from the list ------------------------------------
             foreach (var c in _toggleList)
             {

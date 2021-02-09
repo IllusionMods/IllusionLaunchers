@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Application = System.Windows.Forms.Application;
 using MessageBox = System.Windows.Forms.MessageBox;
@@ -49,7 +50,64 @@ namespace InitSetting
         public static string BepinPluginsDir { get; private set; }
         public static string IPAPluginsDir { get; private set; }
         public static string GameRootDirectory { get; private set; }
+        public static string ILikeBleeding { get; private set; }
 
+        public static bool BleedingModeEnabled
+        {
+            get => File.Exists(ILikeBleeding);
+            set
+            {
+                var productionModsDir = $"{EnvironmentHelper.GameRootDirectory}\\mods\\";
+                var experimentalDir = $"{EnvironmentHelper.GameRootDirectory}\\mods.experimental\\";
+                try
+                {
+                    if (value)
+                    {
+                        var bleedingWriter = new StreamWriter(ILikeBleeding);
+                        bleedingWriter.WriteLine("This file indicates that this game accepts experimental updates.\nPlease delete this file to stop accepting experimental updates.");
+                        bleedingWriter.Close();
+                        if (Directory.Exists($"{experimentalDir}Sideloader Modpack - Bleeding Edge"))
+                        {
+                            if (System.Windows.MessageBox.Show("This will enable experimental updates if any exists for the current game. Please utilize with caution!\n\nDo you want to add experimental zipmods?",
+                                    "Enable experimental mods", MessageBoxButton.YesNo, MessageBoxImage.Question) ==
+                                MessageBoxResult.Yes)
+                            {
+                                if (!Directory.Exists($"{experimentalDir}"))
+                                    Directory.CreateDirectory(experimentalDir);
+                                Directory.Move(
+                                    $"{experimentalDir}Sideloader Modpack - Bleeding Edge",
+                                    $"{productionModsDir}Sideloader Modpack - Bleeding Edge");
+                            }
+                            else
+                            {
+                                MessageBox.Show("This will enable experimental updates if any exists for the current game. Please utilize with caution!");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        File.Delete(ILikeBleeding);
+                        if (Directory.Exists($"{productionModsDir}Sideloader Modpack - Bleeding Edge"))
+                        {
+                            if (System.Windows.MessageBox.Show("Do you want to remove experimental zipmods?",
+                                    "Disable experimental mods", MessageBoxButton.YesNo, MessageBoxImage.Question) ==
+                                MessageBoxResult.Yes)
+                            {
+                                if (!Directory.Exists($"{experimentalDir}"))
+                                    Directory.CreateDirectory(experimentalDir);
+                                Directory.Move(
+                                    $"{productionModsDir}Sideloader Modpack - Bleeding Edge",
+                                    $"{experimentalDir}Sideloader Modpack - Bleeding Edge");
+                            }
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Something went wrong: " + e);
+                }
+            }
+        }
 
         public static bool DeveloperModeEnabled
         {
@@ -441,6 +499,7 @@ namespace InitSetting
             var currentDirectory = Path.GetDirectoryName(typeof(MainWindow).Assembly.Location) ??
                                    Environment.CurrentDirectory;
             GameRootDirectory = currentDirectory + "\\";
+            ILikeBleeding = $"{EnvironmentHelper.GameRootDirectory}\\UserData\\LauncherEN\\ilikebleeding.txt";
 
             Directory.CreateDirectory(GameRootDirectory + _mCustomDir);
 
