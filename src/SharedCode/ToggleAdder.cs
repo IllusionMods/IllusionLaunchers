@@ -184,7 +184,7 @@ namespace InitSetting
 
         public static void CreatePluginToggles(StackPanel togglePanel)
         {
-            // Add developer mode toggle ------------------------------------
+            // Add sideloader maintaining mode toggle ----------------------
             if (EnvironmentHelper.SideloaderMaintainerMode)
             {
                 var toggleSideloadMaintain = new CheckBox
@@ -199,6 +199,7 @@ namespace InitSetting
                 togglePanel.Children.Add(toggleSideloadMaintain);
             }
 
+            // Add developer mode toggle ------------------------------------
             if (EnvironmentHelper.IsBepIn)
             {
                 var toggleConsole = new CheckBox
@@ -213,6 +214,7 @@ namespace InitSetting
                 togglePanel.Children.Add(toggleConsole);
             }
 
+            // Add experimental mode toggle ---------------------------------
             var toggleExperimental = new CheckBox
             {
                 Name = "toggleExperimental",
