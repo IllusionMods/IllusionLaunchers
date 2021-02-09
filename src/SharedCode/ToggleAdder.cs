@@ -185,6 +185,20 @@ namespace InitSetting
         public static void CreatePluginToggles(StackPanel togglePanel)
         {
             // Add developer mode toggle ------------------------------------
+            if (EnvironmentHelper.SideloaderMaintainerMode)
+            {
+                var toggleSideloadMaintain = new CheckBox
+                {
+                    Name = "toggleSideloaderMaintain",
+                    Content = "Sideloader Maintainer Mode",
+                    Foreground = Brushes.White,
+                    IsChecked = EnvironmentHelper.SideloaderMaintainerEnabled
+                };
+                toggleSideloadMaintain.Checked += (sender, args) => EnvironmentHelper.SideloaderMaintainerEnabled = true;
+                toggleSideloadMaintain.Unchecked += (sender, args) => EnvironmentHelper.SideloaderMaintainerEnabled = false;
+                togglePanel.Children.Add(toggleSideloadMaintain);
+            }
+
             if (EnvironmentHelper.IsBepIn)
             {
                 var toggleConsole = new CheckBox
@@ -209,6 +223,8 @@ namespace InitSetting
             toggleExperimental.Checked += (sender, args) => EnvironmentHelper.BleedingModeEnabled = true;
             toggleExperimental.Unchecked += (sender, args) => EnvironmentHelper.BleedingModeEnabled = false;
             togglePanel.Children.Add(toggleExperimental);
+
+            
 
             // Add toggles from the list ------------------------------------
             foreach (var c in _toggleList)

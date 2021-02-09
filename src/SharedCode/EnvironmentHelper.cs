@@ -51,6 +51,38 @@ namespace InitSetting
         public static string IPAPluginsDir { get; private set; }
         public static string GameRootDirectory { get; private set; }
         public static string ILikeBleeding { get; private set; }
+        public static bool SideloaderMaintainerMode { get; private set; }
+
+        public static bool SideloaderMaintainerEnabled
+        {
+            get
+            {
+                return Directory.Exists($"{GameRootDirectory}\\mods.prod");
+            }
+            set
+            {
+                try
+                {
+                    var NormMods = $"{GameRootDirectory}\\mods";
+                    var ProdMods = $"{GameRootDirectory}\\mods.prod";
+                    var TestMods = $"{GameRootDirectory}\\mods.test";
+                    if (value)
+                    {
+                        Directory.Move(NormMods, ProdMods);
+                        Directory.Move(TestMods, NormMods);
+                    }
+                    else
+                    {
+                        Directory.Move(NormMods, TestMods);
+                        Directory.Move(ProdMods, NormMods);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Something went wrong: " + e);
+                }
+            }
+        }
 
         public static bool BleedingModeEnabled
         {
@@ -371,6 +403,9 @@ namespace InitSetting
             InitializeDirectories();
             InitializeLanguage();
             CheckDuplicateStartup();
+
+            // Sideloader Modpack Maintainer Mode
+            SideloaderMaintainerMode = Directory.Exists($"{GameRootDirectory}\\mods.prod") || Directory.Exists($"{GameRootDirectory}\\mods.test");
 
             // Framework test
             IsIpa = File.Exists($"{GameRootDirectory}\\IPA.exe");
