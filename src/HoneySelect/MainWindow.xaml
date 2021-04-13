@@ -261,25 +261,23 @@
             </Border>
         </Grid>
 
+        <Border BorderBrush="#FFF0C658" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left"
+                Height="101" Margin="54,136,0,0" VerticalAlignment="Top" Width="245" CornerRadius="3">
+            <Grid x:Name="CustomRes" Margin="0,88,0,8"/>
+        </Border>
+        <ComboBox x:Name="dropQual" HorizontalAlignment="Left" Margin="67,149,0,0" VerticalAlignment="Top"
+                  Width="219" SelectionChanged="QualityChanged">
+            <ComboBoxItem Content="{x:Static local:Localizable.QualityPerformance}"/>
+            <ComboBoxItem Content="{x:Static local:Localizable.QualityNormal}"/>
+            <ComboBoxItem Content="{x:Static local:Localizable.QualityQuality}"/>
+        </ComboBox>
+        <ComboBox x:Name="dropDisplay" HorizontalAlignment="Left" Margin="67,176,0,0" VerticalAlignment="Top"
+                  Width="219" SelectionChanged="DisplayChanged" />
+        <ComboBox x:Name="dropRes" HorizontalAlignment="Left" Margin="67,203,0,0" VerticalAlignment="Top"
+                  Width="219" SelectionChanged="ResolutionChanged" />
+
         <Grid HorizontalAlignment="Left" Height="491" Margin="576,107,0,0" VerticalAlignment="Top" Width="322"
               Grid.Row="0" Grid.RowSpan="2">
-            <Grid HorizontalAlignment="Left" Height="156" Margin="-533,19,0,0" VerticalAlignment="Top" Width="265">
-                <Border BorderBrush="#FFBB9A41" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left"
-                        Height="101" Margin="10,10,0,0" VerticalAlignment="Top" Width="245" CornerRadius="3">
-                    <Grid x:Name="CustomRes" Margin="0,88,0,8" />
-                </Border>
-                <ComboBox x:Name="dropQual" HorizontalAlignment="Left" Margin="23,23,0,0" VerticalAlignment="Top"
-                          Width="219" SelectionChanged="QualityChanged">
-                    <ComboBoxItem Content="{x:Static local:Localizable.QualityPerformance}" />
-                    <ComboBoxItem Content="{x:Static local:Localizable.QualityNormal}" />
-                    <ComboBoxItem Content="{x:Static local:Localizable.QualityQuality}" />
-                </ComboBox>
-                <ComboBox x:Name="dropDisplay" HorizontalAlignment="Left" Margin="23,50,0,0" VerticalAlignment="Top"
-                          Width="219" SelectionChanged="DisplayChanged" />
-                <ComboBox x:Name="dropRes" HorizontalAlignment="Left" Margin="23,77,0,0" VerticalAlignment="Top"
-                          Width="219" SelectionChanged="ResolutionChanged" />
-
-            </Grid>
             <Grid HorizontalAlignment="Left" Height="329" Margin="10,19,0,0" VerticalAlignment="Top" Width="302">
                 <Border BorderBrush="#FFBB9A41" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left"
                         Height="197" Margin="10,10,0,0" VerticalAlignment="Top" Width="282" CornerRadius="3">
