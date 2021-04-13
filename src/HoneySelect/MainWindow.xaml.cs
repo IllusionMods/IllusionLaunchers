@@ -369,6 +369,11 @@ namespace InitSetting
             EnvironmentHelper.SetLanguage("no-NB");
         }
 
+        private void LangRussian(object sender, MouseButtonEventArgs e)
+        {
+            EnvironmentHelper.SetLanguage("ru-RU");
+        }
+
         #endregion
 
         #region Directory open buttons

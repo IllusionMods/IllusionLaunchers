@@ -194,7 +194,7 @@
                Width="255" Source="Images/Chara.png" Grid.RowSpan="2" />
 
         <Border BorderBrush="#33FF0000" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left"
-                Height="301.5" Margin="-41,137,0,0" VerticalAlignment="Top" Width="84" CornerRadius="3" Grid.RowSpan="2" />
+                Height="332.286" Margin="-41,137,0,0" VerticalAlignment="Top" Width="84" CornerRadius="3" Grid.RowSpan="2" />
         <Image x:Name="flagEN" HorizontalAlignment="Left" Height="22" Margin="10,149,0,0" VerticalAlignment="Top"
                Width="22" Source="Images/Flags/united-kingdom.png" MouseLeftButtonDown="LangEnglish" ToolTip="Change language to English"/>
         <Image x:Name="flagJA" HorizontalAlignment="Left" Height="24" Margin="10,177,0,0" VerticalAlignment="Top"
@@ -215,6 +215,8 @@
                Width="22" Source="Images/Flags/germany.png" MouseLeftButtonDown="LangGerman" Grid.RowSpan="2" ToolTip="Ändern Sie die Sprache in Deutsch"/>
         <Image x:Name="flagNO" HorizontalAlignment="Left" Height="24" Margin="10,10,0,0" VerticalAlignment="Top"
                Width="22" Source="Images/Flags/norway.png" MouseLeftButtonDown="LangNorwegian" Grid.Row="1" ToolTip="Endre språk til Norsk"/>
+        <Image x:Name="flagRU" HorizontalAlignment="Left" Height="24" Margin="10,39,0,0" VerticalAlignment="Top"
+               Width="22" Source="images/Flags/Russia.png" MouseLeftButtonDown="LangRussian" Grid.Row="1" ToolTip="Сменить язык на русский"/>
 
         <Grid x:Name="ToggleBox" HorizontalAlignment="Left" Height="491" Margin="0,107,0,0" VerticalAlignment="Top" Width="322" Grid.Row="0" Grid.RowSpan="2">
             <Border BorderBrush="#33FF0000" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left"
