@@ -276,6 +276,11 @@ namespace InitSetting
             new BootChoice().SetupWindow(Localizable.StartVR, "vr", _is32);
         }
 
+        private void buttonStartB_Click(object sender, RoutedEventArgs e)
+        {
+            StartupFilter(ExecutableBattleArena);
+        }
+
         private void buttonManual_Click(object sender, RoutedEventArgs e)
         {
             EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\");
