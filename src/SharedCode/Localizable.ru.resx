@@ -160,10 +160,10 @@
     <value>Папка со скриншотами</value>
   </data>
   <data name="FolderFemaleCard" xml:space="preserve">
-    <value>Папка с женскими персонажами</value>
+    <value>Папка с Ж персонажами</value>
   </data>
   <data name="FolderMaleCard" xml:space="preserve">
-    <value>Папка с мужскими персонажами</value>
+    <value>Папка с М персонажами</value>
   </data>
   <data name="FolderUserData" xml:space="preserve">
     <value>Пака с пользовательскими данными</value>
@@ -172,7 +172,7 @@
     <value>Обновление</value>
   </data>
   <data name="ButtonPatreon" xml:space="preserve">
-    <value>Patreon автора сборки</value>
+    <value>Patreon автора</value>
   </data>
   <data name="ButtonDiscord" xml:space="preserve">
     <value>Discord сервер</value>
@@ -189,7 +189,7 @@
     <value>Лаунчер illusion</value>
   </data>
   <data name="TranslatedByCredit" xml:space="preserve">
-    <value>Перевод лаунчера: boku_no_pichu</value>
+    <value>Перевод лаунчера:boku_no_pichu</value>
     <comment>Launcher translated by: Name (leave empty to hide)</comment>
   </data>
   <data name="QualityPerformance" xml:space="preserve">
