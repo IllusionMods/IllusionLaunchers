@@ -32,4 +32,4 @@ Create a folder in UserData named LauncherEN, and place a file named patreon.txt
 ### Supported Languages
 Languages can be switched at any time in the launcher. The following languages are supported:
 
-English, Chinese, Korean, Spanish, Brazilian, French, German and Norwegian (Bokmål)
+English, Chinese, Korean, Spanish, Brazilian, French, German, Norwegian (Bokmål) and Russian
