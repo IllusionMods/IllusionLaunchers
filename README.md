@@ -1,7 +1,7 @@
 # IllusionLaunchers
 Launchers for various Japanese adult games from Illusion
 
-![Screenshot](https://i.imgur.com/r34zSoz.png "Screenshot")
+![Screenshot](https://i.imgur.com/xPuI2Dp.png "Screenshot")
 
 # Features
 - Fixes corrupt setup.xml on launch.
