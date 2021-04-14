@@ -38,6 +38,7 @@
       <LastGenOutput>Localizable.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.ru.resx" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.zh-Hans.resx" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.zh-Hant.resx" />
   </ItemGroup>
