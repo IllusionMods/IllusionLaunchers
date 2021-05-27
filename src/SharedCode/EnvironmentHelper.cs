@@ -304,8 +304,8 @@ namespace InitSetting
                                 !File.Exists(
                                     $"{EnvironmentHelper.GameRootDirectory}/BepInEx/Translation/{language}/DisableGoogle.txt"))
                         {
-                            
-                                MessageBox.Show(Localizable.InstructDecideLang);
+                            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(language);
+                            MessageBox.Show(Localizable.InstructDecideLang);
                         }
 
                         WriteAutoTranslatorLangIni(language);
