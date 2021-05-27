@@ -335,7 +335,13 @@ namespace InitSetting
             try
             {
                 var contents = (File.Exists(configPath) ? File.ReadAllLines(configPath) : Enumerable.Empty<string>()).ToList();
+                string TransService = String.Empty;
+                string Font = String.Empty;
 
+                TransService = language == "ko" ? "PapagoTranslate" : "GoogleTranslate";
+                if (language == "ru") Font = "Times New Roman";
+
+                // Setting language
                 {
                     var categoryIndex = contents.FindIndex(s => s.ToLower().Contains("[General]".ToLower()));
                     if (categoryIndex >= 0)
@@ -353,14 +359,14 @@ namespace InitSetting
                         contents.Add($"Language={language}");
                     }
                 }
-
+                // Setting Translation Service
                 {
                     var categoryIndex = contents.FindIndex(s => s.ToLower().Contains("[Service]".ToLower()));
                     if (categoryIndex >= 0)
                     {
                         var i = contents.FindIndex(categoryIndex, s => s.StartsWith("Endpoint"));
                         if (i > categoryIndex)
-                            contents[i] = disable ? "Endpoint=" : "Endpoint=GoogleTranslate";
+                            contents[i] = disable ? "Endpoint=" : $"Endpoint={TransService}";
                         else
                             contents.Insert(categoryIndex + 1, disable ? "Endpoint=" : "Endpoint=GoogleTranslate");
                     }
@@ -368,7 +374,23 @@ namespace InitSetting
                     {
                         contents.Add("");
                         contents.Add("[Service]");
-                        contents.Add(disable ? "Endpoint=" : "Endpoint=GoogleTranslate");
+                        contents.Add(disable ? "Endpoint=" : $"Endpoint={TransService}");
+                    }
+                }
+                // Setting font
+                {
+                    var categoryIndex = contents.FindIndex(s => s.ToLower().Contains("[Behaviour]".ToLower()));
+                    if (categoryIndex >= 0)
+                    {
+                        var i = contents.FindIndex(categoryIndex, s => s.StartsWith("OverrideFont"));
+                        if (i > categoryIndex)
+                            contents[i] = $"OverrideFont={Font}";
+                    }
+                    else
+                    {
+                        contents.Add("");
+                        contents.Add("[Behaviour]");
+                        contents.Add(disable ? "OverrideFont=" : $"OverrideFont={Font}");
                     }
                 }
 
