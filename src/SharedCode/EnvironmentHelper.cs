@@ -278,6 +278,10 @@ namespace InitSetting
                         LangQ_a = "Ønsker du å endre språket i spillet også?";
                         LangQ_b = "Spørsmål";
                         break;
+                    case "ru":
+                        LangQ_a = "Установить в игре язык, который выбран в лаунчере?";
+                        LangQ_b = "вопрос";
+                        break;
                     default:
                         LangQ_a = "Do you want to set the ingame language to the selected language as well?";
                         LangQ_b = "Question";
