@@ -347,7 +347,7 @@ namespace InitSetting
                 if (language == "ru") Font = "Times New Roman";
 
                 TextMeshFont = (language == "ko" || language == "zh-CN" || language == "zh-TW") 
-                               && File.Exists($@"{EnvironmentHelper.GameRootDirectory}\UserData\fonts\notosanscjk-regular_sdf") ? $@"UserData\fonts\notosanscjk-regular_sdf" : String.Empty;
+                               && File.Exists($@"{EnvironmentHelper.GameRootDirectory}\BepInEx\Translation\fonts\notosanscjk-regular_sdf") ? $@"BepInEx\Translation\fonts\notosanscjk-regular_sdf" : String.Empty;
 
                 // Setting language
                 {
