@@ -341,9 +341,13 @@ namespace InitSetting
                 var contents = (File.Exists(configPath) ? File.ReadAllLines(configPath) : Enumerable.Empty<string>()).ToList();
                 string TransService = String.Empty;
                 string Font = String.Empty;
+                string TextMeshFont = String.Empty;
 
                 TransService = language == "ko" ? "PapagoTranslate" : "GoogleTranslate";
                 if (language == "ru") Font = "Times New Roman";
+
+                TextMeshFont = (language == "ko" || language == "zh-CN" || language == "zh-TW") 
+                               && File.Exists($@"{EnvironmentHelper.GameRootDirectory}\UserData\fonts\notosanscjk-regular_sdf") ? $@"UserData\fonts\notosanscjk-regular_sdf" : String.Empty;
 
                 // Setting language
                 {
@@ -395,6 +399,22 @@ namespace InitSetting
                         contents.Add("");
                         contents.Add("[Behaviour]");
                         contents.Add(disable ? "OverrideFont=" : $"OverrideFont={Font}");
+                    }
+                }
+                // Setting TextMeshfont
+                {
+                    var categoryIndex = contents.FindIndex(s => s.ToLower().Contains("[Behaviour]".ToLower()));
+                    if (categoryIndex >= 0)
+                    {
+                        var i = contents.FindIndex(categoryIndex, s => s.StartsWith("OverrideFontTextMeshPro"));
+                        if (i > categoryIndex)
+                            contents[i] = $"OverrideFontTextMeshPro={TextMeshFont}";
+                    }
+                    else
+                    {
+                        contents.Add("");
+                        contents.Add("[Behaviour]");
+                        contents.Add(disable ? "OverrideFontTextMeshPro=" : $"OverrideFontTextMeshPro={TextMeshFont}");
                     }
                 }
 
