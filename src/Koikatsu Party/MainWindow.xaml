@@ -243,7 +243,7 @@
                 <StackPanel Margin="5,5,5,5" x:Name="Toggleables" Orientation="Vertical">
                     <CheckBox x:Name="toggleFullscreen" Content="{x:Static local:Localizable.ToggleFullscreen}"
                               Foreground="White" Checked="FullscreenChecked" Unchecked="FullscreenUnChecked" />
-                    <CheckBox x:Name="toggleSFW" Content="Disable NSFW Content"
+                    <CheckBox x:Name="toggleSFW" Content="{x:Static local:Localizable.ToggleNSFW}"
                               Foreground="White" />
                 </StackPanel>
             </Border>

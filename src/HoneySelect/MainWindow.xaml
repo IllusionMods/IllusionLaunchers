@@ -83,7 +83,7 @@
                 <Image x:Name="idmssage" Source="/InitSetting;component/images/ButtonBG/manual.png"
                        RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" />
             </Border>
-            <Label x:Name="labelMV" Foreground="White" VerticalContentAlignment="Center" Content="VR Manual"
+            <Label x:Name="labelMV" Foreground="White" VerticalContentAlignment="Center" Content="{x:Static local:Localizable.ManualVR}"
                    HorizontalAlignment="Left" Margin="431.416,73,0,0" VerticalAlignment="Top" Height="24" Width="98" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonManualV" Content="" HorizontalAlignment="Left"
                     Height="24" Margin="427.416,73,0,0" VerticalAlignment="Top" Width="174" Click="buttonManualV_Click" />
@@ -92,7 +92,7 @@
                 <Image x:Name="idmssage3" Source="/InitSetting;component/images/ButtonBG/manual.png"
                        RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" />
             </Border>
-            <Label x:Name="labelMS" Foreground="White" VerticalContentAlignment="Center" Content="Studio Manual"
+            <Label x:Name="labelMS" Foreground="White" VerticalContentAlignment="Center" Content="{x:Static local:Localizable.ManualStudio}"
                    HorizontalAlignment="Left" Margin="253.083,73,0,0" VerticalAlignment="Top" Height="24" Width="122" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonManualS_Copy" Content=""
                     HorizontalAlignment="Left" Height="24" Margin="247.083,73,0,0" VerticalAlignment="Top" Width="174"
@@ -102,7 +102,7 @@
                 <Image x:Name="idmssage4" Source="/InitSetting;component/images/ButtonBG/manual.png"
                        RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" />
             </Border>
-            <Label x:Name="labelM" Foreground="White" VerticalContentAlignment="Center" Content="Game Manual"
+            <Label x:Name="labelM" Foreground="White" VerticalContentAlignment="Center" Content="{x:Static local:Localizable.ManualGame}"
                    HorizontalAlignment="Left" Margin="72.083,73,0,0" VerticalAlignment="Top" Height="24" Width="134" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonManual" Content="" HorizontalAlignment="Left"
                     Height="24" Margin="66.083,73,0,0" VerticalAlignment="Top" Width="174" Click="buttonManual_Click" />

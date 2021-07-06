@@ -264,4 +264,7 @@ Algumas das ações presentes nessa obra de ficção podem ser ilegais ao serem 
   <data name="InstructDecideLang" xml:space="preserve">
     <value>O idioma que você escolheu não tem traduções manuais em sua instalação. A tradução será feita pelo Google Translate.</value>
   </data>
+  <data name="ToggleNSFW" xml:space="preserve">
+    <value>Desabilitar Conteúdo Sexual</value>
+  </data>
 </root>
