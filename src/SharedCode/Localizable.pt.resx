@@ -133,7 +133,7 @@
     <value>Iniciar Jogo em Tela Cheia</value>
   </data>
   <data name="ToggleConsole" xml:space="preserve">
-    <value>Ativar console</value>
+    <value>Ativar Console</value>
   </data>
   <data name="ToggleDhh" xml:space="preserve">
     <value>Ativar DHH</value>
@@ -142,22 +142,22 @@
     <value>Ativar AI Graphics</value>
   </data>
   <data name="FolderInstall" xml:space="preserve">
-    <value>Instalar</value>
+    <value>Pasta de Instalação</value>
   </data>
   <data name="FolderScenes" xml:space="preserve">
-    <value>Cenas</value>
+    <value>Pasta de Cenas</value>
   </data>
   <data name="FolderScreenshots" xml:space="preserve">
-    <value>Capturas de Tela</value>
+    <value>Pasta de Capturas de Tela</value>
   </data>
   <data name="FolderFemaleCard" xml:space="preserve">
-    <value>Cards de Personagens (F)</value>
+    <value>Cartas de Personagens (F)</value>
   </data>
   <data name="FolderMaleCard" xml:space="preserve">
-    <value>Cards de Personagens (M)</value>
+    <value>Cartas de Personagens (M)</value>
   </data>
   <data name="FolderUserData" xml:space="preserve">
-    <value>UserData</value>
+    <value>Pasta UserData</value>
   </data>
   <data name="ButtonUpdate" xml:space="preserve">
     <value>Atualizar</value>
@@ -177,17 +177,17 @@
 Algumas das ações presentes nessa obra de ficção podem ser ilegais ao serem realizadas no mundo real. Deixe essas coisas somente para o mundo fictício, combinado? (~.~)v</value>
   </data>
   <data name="TranslatedByCredit" xml:space="preserve">
-    <value>Launcher traduzido por: Neptune</value>
+    <value>Launcher traduzido por: Neptune/SpockBauru</value>
     <comment>Launcher translated by: Name (leave empty to hide)</comment>
   </data>
   <data name="QualityPerformance" xml:space="preserve">
-    <value>Baixo</value>
+    <value>Qualidade Baixa</value>
   </data>
   <data name="QualityNormal" xml:space="preserve">
-    <value>Normal</value>
+    <value>Qualidade Normal</value>
   </data>
   <data name="QualityQuality" xml:space="preserve">
-    <value>Alto</value>
+    <value>Qualidade Alta</value>
   </data>
   <data name="PrimaryDisplay" xml:space="preserve">
     <value>Display Primário</value>
@@ -205,7 +205,7 @@ Algumas das ações presentes nessa obra de ficção podem ser ilegais ao serem 
     <value>Executar HoneyPot Inspector</value>
   </data>
   <data name="FolderHouses" xml:space="preserve">
-    <value>Casas</value>
+    <value>Pasta de Casas</value>
   </data>
   <data name="ToggleStiletto" xml:space="preserve">
     <value>Ativar Stiletto</value>
@@ -254,5 +254,14 @@ Algumas das ações presentes nessa obra de ficção podem ser ilegais ao serem 
   </data>
   <data name="ToggleTouchyFeely" xml:space="preserve">
     <value>Ativar TouchyFeely (Boop)</value>
+  </data>
+  <data name="ExperimentalMode" xml:space="preserve">
+    <value>Modo Experimental</value>
+  </data>
+  <data name="ActivateAutosave" xml:space="preserve">
+    <value>Ativar Salvamento Automático</value>
+  </data>
+  <data name="InstructDecideLang" xml:space="preserve">
+    <value>O idioma que você escolheu não tem traduções manuais em sua instalação. A tradução será feita pelo Google Translate.</value>
   </data>
 </root>

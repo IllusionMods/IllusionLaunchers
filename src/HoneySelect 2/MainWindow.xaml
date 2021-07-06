@@ -202,7 +202,7 @@
                 <Image x:Name="idmssage4" Source="/InitSetting;component/images/ButtonBG/manual.png"
                        RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" />
             </Border>
-            <Label x:Name="labelM" Foreground="White" VerticalContentAlignment="Center" Content="Game Manual"
+            <Label x:Name="labelM" Foreground="White" VerticalContentAlignment="Center" Content="{x:Static local:Localizable.ManualGame}"
                    HorizontalAlignment="Left" Margin="137,63,0,0" VerticalAlignment="Top" Height="24" Width="134" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonManual" Content="" HorizontalAlignment="Left"
                     Height="24" Margin="131,63,0,0" VerticalAlignment="Top" Width="174" Click="buttonManual_Click" />

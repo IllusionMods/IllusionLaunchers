@@ -135,6 +135,9 @@
   <data name="ToggleConsole" xml:space="preserve">
     <value>Activate Console</value>
   </data>
+  <data name="ExperimentalMode" xml:space="preserve">
+    <value>Experimental Mode</value>
+  </data>
   <data name="ToggleDhh" xml:space="preserve">
     <value>Activate DHH</value>
   </data>
@@ -334,5 +337,8 @@ or ABMX.
 
 May cause some issues with clothing not made
 for this modification.</value>
+  </data>
+  <data name="ActivateAutosave" xml:space="preserve">
+    <value>Activate Autosave</value>
   </data>
 </root>
