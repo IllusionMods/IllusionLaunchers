@@ -404,6 +404,15 @@ namespace InitSetting {
                 return ResourceManager.GetString("ToggleConsole", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Experimental Mode.
+        /// </summary>
+        public static string ExperimentalMode {
+            get {
+                return ResourceManager.GetString("ExperimentalMode", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Activate DHH.
@@ -503,7 +512,13 @@ namespace InitSetting {
                 return ResourceManager.GetString("ToggleRimRemover", resourceCulture);
             }
         }
-        
+
+        public static string ActivateAutosave {
+            get {
+                return ResourceManager.GetString("ActivateAutosave", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Shortcut Plugin.
         /// </summary>
