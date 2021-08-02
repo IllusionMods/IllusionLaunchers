@@ -57,7 +57,10 @@ namespace InitSetting
                 }
 
                 if (!EnvironmentHelper.KKmanExist)
+                {
                     gridUpdate.Visibility = Visibility.Hidden;
+                    gridManager.Visibility = Visibility.Hidden;
+                }
 
                 // Launcher Customization: Defining Warning, background and character
                 if (!string.IsNullOrEmpty(EnvironmentHelper.VersionString))

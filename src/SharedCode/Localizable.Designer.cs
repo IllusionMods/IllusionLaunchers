@@ -96,7 +96,18 @@ namespace InitSetting {
                 return ResourceManager.GetString("ButtonUpdate", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Manager.
+        /// </summary>
+        public static string ButtonManager
+        {
+            get
+            {
+                return ResourceManager.GetString("ButtonManager", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to This game is intended for adult audiences, no person under the age of 18 (or equivalent according to local law) are supposed to play or be in possession of this game.
         ///

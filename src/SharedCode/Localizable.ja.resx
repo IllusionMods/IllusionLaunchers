@@ -255,4 +255,7 @@
   <data name="ToggleTouchyFeely" xml:space="preserve">
     <value>TouchyFeely (Boop)を有効にす</value>
   </data>
+  <data name="ButtonManager" xml:space="preserve">
+    <value>マネジャー</value>
+  </data>
 </root>
