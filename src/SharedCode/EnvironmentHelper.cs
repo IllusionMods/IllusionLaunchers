@@ -710,7 +710,7 @@ namespace InitSetting
 
                 var args = $"\"{gameRoot}\" {_updateSourcesOverride}";
 
-                return StartProcess(new ProcessStartInfo(updaterPath) { WorkingDirectory = $@"{_kkmanagerDirectory}", Arguments = args }) != null;
+                return StartProcess(new ProcessStartInfo(updaterPath) { WorkingDirectory = _kkmanagerDirectory, Arguments = args }) != null;
             }
             catch (Exception ex)
             {
