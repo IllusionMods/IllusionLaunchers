@@ -341,4 +341,7 @@ for this modification.</value>
   <data name="ActivateAutosave" xml:space="preserve">
     <value>Activate Autosave</value>
   </data>
+  <data name="ButtonManager" xml:space="preserve">
+    <value>Manager</value>
+  </data>
 </root>

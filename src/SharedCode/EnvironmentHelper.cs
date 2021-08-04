@@ -698,6 +698,27 @@ namespace InitSetting
             }
         }
 
+        public static bool StartManager()
+        {
+            try
+            {
+                var gameRoot = Path.GetFullPath(GameRootDirectory).TrimEnd('\\', '/', ' ');
+                var updaterPath = Path.Combine(_kkmanagerDirectory, "KKManager.exe");
+
+                if (!File.Exists(updaterPath))
+                    throw new FileNotFoundException("Could not find KKManager", updaterPath);
+
+                var args = $"\"{gameRoot}\" {_updateSourcesOverride}";
+
+                return StartProcess(new ProcessStartInfo(updaterPath) { WorkingDirectory = _kkmanagerDirectory, Arguments = args }) != null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to start the KKManager: " + ex, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
         public static bool StartGame(string gameExeRelativePath)
         {
             var exePath = Path.GetFullPath(GameRootDirectory + gameExeRelativePath);

@@ -57,7 +57,10 @@ namespace InitSetting
                 }
 
                 if (!EnvironmentHelper.KKmanExist)
+                {
                     gridUpdate.Visibility = Visibility.Hidden;
+                    gridManager.Visibility = Visibility.Hidden;
+                }
 
                 // Launcher Customization: Defining Warning, background and character
                 if (!string.IsNullOrEmpty(EnvironmentHelper.VersionString))
@@ -264,6 +267,11 @@ namespace InitSetting
         private void update_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             EnvironmentHelper.StartUpdate();
+        }
+
+        private void manager_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            EnvironmentHelper.StartManager();
         }
 
         #endregion
