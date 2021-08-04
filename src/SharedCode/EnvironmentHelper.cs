@@ -706,7 +706,7 @@ namespace InitSetting
                 var updaterPath = Path.Combine(_kkmanagerDirectory, "KKManager.exe");
 
                 if (!File.Exists(updaterPath))
-                    throw new FileNotFoundException("Coult not find the KKManager", updaterPath);
+                    throw new FileNotFoundException("Could not find KKManager", updaterPath);
 
                 var args = $"\"{gameRoot}\" {_updateSourcesOverride}";
 
