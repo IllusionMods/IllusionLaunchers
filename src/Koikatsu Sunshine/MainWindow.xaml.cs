@@ -11,11 +11,11 @@ namespace InitSetting
     public partial class MainWindow : Window
     {
         // Game-specific constants -------------------------------------------------------------------
-        private const string RegistryKeyGame = "Software\\illusion\\KoikatsuSunshine\\KoikatsuSunshineTrial";
+        private const string RegistryKeyGame = "Software\\illusion\\KoikatsuSunshine\\KoikatsuSunshine";
         private const string RegistryKeyStudio = "Software\\illusion\\KoikatsuSunshine\\CharaStudioV2";
-        private const string ExecutableGame = "KoikatsuSunshineTrial.exe";
-        private const string ExecutableStudio = "";
-        private const string ExecutableVR = "";
+        private const string ExecutableGame = "KoikatsuSunshine.exe";
+        private const string ExecutableStudio = "CharaStudioV2.exe";
+        private const string ExecutableVR = "KoikatsuSunshineVR.exe";
         private const string SupportDiscord = "https://discord.gg/hevygx6";
         // Languages built into the game itself
         private static readonly string[] _builtinLanguages = { "ja-JP" };
@@ -57,7 +57,10 @@ namespace InitSetting
                 }
 
                 if (!EnvironmentHelper.KKmanExist)
+                {
                     gridUpdate.Visibility = Visibility.Hidden;
+                    gridManager.Visibility = Visibility.Hidden;
+                }
 
                 // Launcher Customization: Defining Warning, background and character
                 if (!string.IsNullOrEmpty(EnvironmentHelper.VersionString))
@@ -264,6 +267,11 @@ namespace InitSetting
         private void update_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             EnvironmentHelper.StartUpdate();
+        }
+
+        private void manager_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            EnvironmentHelper.StartManager();
         }
 
         #endregion
