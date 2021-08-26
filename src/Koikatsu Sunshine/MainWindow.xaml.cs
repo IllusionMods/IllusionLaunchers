@@ -24,6 +24,7 @@ namespace InitSetting
         private bool _suppressEvents;
         private readonly bool _mainGameExists;
         private readonly bool _studioExists;
+        private readonly bool _vrExists;
 
         public MainWindow()
         {
@@ -36,6 +37,7 @@ namespace InitSetting
 
                 _mainGameExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableGame);
                 _studioExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableStudio);
+                _studioExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableVR);
 
                 if (_studioExists)
                     SettingManager.Initialize(EnvironmentHelper.GetConfigFilePath(), RegistryKeyGame, RegistryKeyStudio);
@@ -46,6 +48,33 @@ namespace InitSetting
 
                 // Initialize interface --------------------------------
                 InitializeComponent();
+
+                if (!_studioExists)
+                {
+                    buttonStartS_Copy.Visibility = Visibility.Hidden;
+                    labelStartS.Visibility = Visibility.Hidden;
+                    idmage1.Visibility = Visibility.Hidden;
+                    idmage3.Visibility = Visibility.Hidden;
+
+                    buttonManualS_Copy.Visibility = Visibility.Hidden;
+                    labelMS.Visibility = Visibility.Hidden;
+                    idmssage3.Visibility = Visibility.Hidden;
+                    msbg.Visibility = Visibility.Hidden;
+
+                    buttonScenes.Visibility = Visibility.Hidden;
+                }
+
+                if (!_vrExists)
+                {
+                    buttonStartV.Visibility = Visibility.Hidden;
+                    labelStartVR.Visibility = Visibility.Hidden;
+                    idmage2.Visibility = Visibility.Hidden;
+
+                    buttonManualV.Visibility = Visibility.Hidden;
+                    labelMV.Visibility = Visibility.Hidden;
+                    idmssage.Visibility = Visibility.Hidden;
+                    msbg2.Visibility = Visibility.Hidden;
+                }
 
                 WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 CustomRes.Visibility = Visibility.Hidden;
