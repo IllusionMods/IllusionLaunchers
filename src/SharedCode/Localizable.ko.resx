@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="StartGame" xml:space="preserve">
-    <value>플레이 시작</value>
+    <value>게임 시작</value>
   </data>
   <data name="StartStudio" xml:space="preserve">
     <value>스튜디오 시작</value>
@@ -262,9 +262,10 @@
     <value>당신은 이 언어로 선택하셨습니다</value>
   </data>
   <data name="InstructDecideLang" xml:space="preserve">
-    <value>당신은 이 언어로 선택하셨지만 해당 번역파일이
-당신의 설치폴더에 존재하지 않습니다 그러므로 구글번역이 해당 
-번역을 수행합니다</value>
+    <value>당신은 한국어를 선택하셨지만
+한국어 번역파일이 설치폴더에
+존재하지 않으므로 
+구글번역이 번역을 진행합니다</value>
   </data>
   <data name="ToggleGGmodstudioPC" xml:space="preserve">
     <value>Ggmod (studio) 활성화</value>
