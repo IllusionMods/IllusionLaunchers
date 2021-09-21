@@ -16,7 +16,6 @@ namespace InitSetting
         private static string RegistryKeyStudio = "Software\\illusion\\AI-Syoujyo\\StudioNEOV2";
         private static string ExecutableGame = "AI-Shoujo.exe";
         private static string ExecutableStudio = "StudioNEOV2.exe";
-        private static string ExecutableVR = "";
         private static string SupportDiscord = "https://discord.gg/F3bDEFE";
         // Languages built into the game itself
         private static readonly string[] _builtinLanguages = { "ja-JP","en-US","zh-CN","zh-TW" };
