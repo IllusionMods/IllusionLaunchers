@@ -14,8 +14,8 @@ namespace InitSetting
         private const string RegistryKeyGame = "Software\\illusion\\KoikatsuSunshine\\KoikatsuSunshine";
         private const string RegistryKeyStudio = "Software\\illusion\\KoikatsuSunshine\\CharaStudioV2";
         private const string ExecutableGame = "KoikatsuSunshine.exe";
-        private const string ExecutableStudio = "CharaStudioV2.exe";
-        private const string ExecutableVR = "KoikatsuSunshineVR.exe";
+        private const string ExecutableStudio = "CharaStudio.exe";
+        private const string ExecutableVR = "KoikatsuSunshine_VR.exe";
         private const string SupportDiscord = "https://discord.gg/hevygx6";
         // Languages built into the game itself
         private static readonly string[] _builtinLanguages = { "ja-JP" };
@@ -24,7 +24,6 @@ namespace InitSetting
         private bool _suppressEvents;
         private readonly bool _mainGameExists;
         private readonly bool _studioExists;
-        private readonly bool _vrExists;
 
         public MainWindow()
         {
@@ -48,33 +47,6 @@ namespace InitSetting
 
                 // Initialize interface --------------------------------
                 InitializeComponent();
-
-                if (!_studioExists)
-                {
-                    buttonStartS_Copy.Visibility = Visibility.Hidden;
-                    labelStartS.Visibility = Visibility.Hidden;
-                    idmage1.Visibility = Visibility.Hidden;
-                    idmage3.Visibility = Visibility.Hidden;
-
-                    buttonManualS_Copy.Visibility = Visibility.Hidden;
-                    labelMS.Visibility = Visibility.Hidden;
-                    idmssage3.Visibility = Visibility.Hidden;
-                    msbg.Visibility = Visibility.Hidden;
-
-                    buttonScenes.Visibility = Visibility.Hidden;
-                }
-
-                if (!_vrExists)
-                {
-                    buttonStartV.Visibility = Visibility.Hidden;
-                    labelStartVR.Visibility = Visibility.Hidden;
-                    idmage2.Visibility = Visibility.Hidden;
-
-                    buttonManualV.Visibility = Visibility.Hidden;
-                    labelMV.Visibility = Visibility.Hidden;
-                    idmssage.Visibility = Visibility.Hidden;
-                    msbg2.Visibility = Visibility.Hidden;
-                }
 
                 WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 CustomRes.Visibility = Visibility.Hidden;
