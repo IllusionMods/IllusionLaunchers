@@ -120,7 +120,7 @@ namespace InitSetting
                         DisableHelper("PH_PHIBL_PresetLoad_Original",true,true);
                     }
                 }, true),
-                new PluginToggle("RimRemover", Localizable.ToggleRimRemover, "", "RimRemover", null, false),
+                new PluginToggle("RimRemover", Localizable.ToggleRimRemover, "", "*RimRemover", null, false),
                 new PluginToggle("AutoSave", Localizable.ActivateAutosave, "", "*AutoSave", null, false),
                 new PluginToggle("ShortcutPlugin", Localizable.ToggleShortcutHS, "", "ShortcutHSParty", null, true),
                 new PluginToggle("Stiletto", Localizable.ToggleStiletto, Localizable.TooltipGGmod, "Stiletto", null, false),
