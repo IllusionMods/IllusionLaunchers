@@ -227,6 +227,11 @@ namespace InitSetting
             EnvironmentHelper.StartUpdate();
         }
 
+        private void manager_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            EnvironmentHelper.StartManager();
+        }
+
         #endregion
 
         #region Language buttons
