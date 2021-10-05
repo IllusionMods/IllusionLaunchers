@@ -319,6 +319,18 @@
                        Margin="-0.083,0,0,-0.667" VerticalAlignment="Top" Width="190"
                        MouseLeftButtonDown="update_MouseLeftButtonDown" />
         </Grid>
-
+        <Grid x:Name="gridManager" HorizontalAlignment="Left" Height="36.333" Margin="154.333,78.286,0,0"
+              VerticalAlignment="Top" Width="147.5" Grid.Row="1">
+            <Border BorderBrush="#FF366EBF" Background="Black" BorderThickness="2"
+                    Height="37" Margin="0,0,1.583,-0.667" VerticalAlignment="Top" CornerRadius="20" HorizontalAlignment="Right" Width="145.5">
+                <Label x:Name="labelManager" Content="{x:Static local:Localizable.ButtonManager}" Foreground="White"
+                       VerticalContentAlignment="Center" Padding="25,0,0,0" HorizontalAlignment="Right" Width="146" />
+            </Border>
+            <Image x:Name="imasge4" Height="28" Margin="105.084,5,0,0"
+                   VerticalAlignment="Top" Source="images/Chikarin.png" HorizontalAlignment="Left" Width="25" />
+            <Rectangle x:Name="linkManager" Fill="Transparent" HorizontalAlignment="Left" Height="37"
+                       Margin="-0.083,0,0,-0.667" VerticalAlignment="Top" Width="146"
+                       MouseLeftButtonDown="manager_MouseLeftButtonDown" />
+        </Grid>
     </Grid>
 </Window>
