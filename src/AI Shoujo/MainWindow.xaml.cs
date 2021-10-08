@@ -13,7 +13,7 @@ namespace InitSetting
         // Game-specific constants -------------------------------------------------------------------
         private const string RegistryKeyGame = "Software\\illusion\\AI-Syoujyo\\AI-Syoujyo";
         private const string RegistryKeyStudio = "Software\\illusion\\AI-Syoujyo\\StudioNEOV2";
-        private const string ExecutableGame = "AI-Syoujyo.exe";
+        private string ExecutableGame = "AI-Syoujyo.exe";
         private const string ExecutableStudio = "StudioNEOV2.exe";
         private const string ExecutableVR = "";
         private const string SupportDiscord = "https://discord.gg/F3bDEFE";
@@ -30,6 +30,9 @@ namespace InitSetting
             try
             {
                 _suppressEvents = true;
+
+                if (!File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableGame))
+                    ExecutableGame = "AI-Shoujo.exe";
 
                 // Initialize code -------------------------------------
                 EnvironmentHelper.Initialize(_builtinLanguages);

@@ -13,7 +13,7 @@ namespace InitSetting
         // Game-specific constants -------------------------------------------------------------------
         private const string RegistryKeyGame = "Software\\illusion\\Koikatsu\\Koikatsu Party";
         private const string RegistryKeyStudio = "Software\\illusion\\Koikatu\\CharaStudio";
-        private const string ExecutableGame = "Koikatsu Party.exe";
+        private string ExecutableGame = "Koikatsu Party.exe";
         private const string ExecutableStudio = "CharaStudio.exe";
         private const string ExecutableVR = "Koikatsu Party VR.exe";
         private const string SupportDiscord = "https://discord.gg/hevygx6";
@@ -30,6 +30,9 @@ namespace InitSetting
             try
             {
                 _suppressEvents = true;
+
+                if (!File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableGame))
+                    ExecutableGame = "Koikatu.exe";
 
                 // Initialize code -------------------------------------
                 EnvironmentHelper.Initialize(_builtinLanguages);

@@ -14,7 +14,7 @@ namespace InitSetting
 
         private static string RegistryKeyGame = "Software\\illusion\\AI-Shoujo\\AI-Shoujo\\";
         private static string RegistryKeyStudio = "Software\\illusion\\AI-Syoujyo\\StudioNEOV2";
-        private static string ExecutableGame = "AI-Shoujo.exe";
+        private string ExecutableGame = "AI-Shoujo.exe";
         private static string ExecutableStudio = "StudioNEOV2.exe";
         private static string SupportDiscord = "https://discord.gg/F3bDEFE";
         // Languages built into the game itself
@@ -33,6 +33,9 @@ namespace InitSetting
             try
             {
                 _suppressEvents = true;
+
+                if (!File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableGame))
+                    ExecutableGame = "AI-Syoujyo.exe";
 
                 // Initialize code -------------------------------------
                 string tempgamedir =
