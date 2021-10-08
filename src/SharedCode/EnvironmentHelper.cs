@@ -343,11 +343,11 @@ namespace InitSetting
                 string Font = String.Empty;
                 string TextMeshFont = String.Empty;
 
-                TransService = language == "ko" ? "PapagoTranslate" : "GoogleTranslate";
+                TransService = language == "ko" ? "PapagoTranslate" : "GoogleTranslateV2";
                 if (language == "ru") Font = "Times New Roman";
 
                 TextMeshFont = (language == "ko" || language == "zh-CN" || language == "zh-TW") 
-                               && File.Exists($@"{EnvironmentHelper.GameRootDirectory}\BepInEx\Translation\fonts\arialuni_sdf_u2019") ? $@"BepInEx\Translation\fonts\arialuni_sdf_u2019" : String.Empty;
+                               && File.Exists($@"{EnvironmentHelper.GameRootDirectory}\BepInEx\Translation\fonts\arialuni_sdf_u2018") ? $@"BepInEx\Translation\fonts\arialuni_sdf_u2018" : String.Empty;
 
                 // Setting language
                 {
