@@ -124,7 +124,7 @@ namespace InitSetting
                 new PluginToggle("AutoSave", Localizable.ActivateAutosave, "", "*AutoSave", null, false),
                 new PluginToggle("ShortcutPlugin", Localizable.ToggleShortcutHS, "", "ShortcutHSParty", null, true),
                 new PluginToggle("BetterAA", "Activate BetterAA", "", "HS2_BetterAA", null, false),
-                new PluginToggle("Stiletto", Localizable.ToggleStiletto, Localizable.TooltipGGmod, "Stiletto", null, false),
+                new PluginToggle("Stiletto", Localizable.ToggleStiletto, Localizable.TooltipGGmod, "*Stiletto", null, false),
                 new PluginToggle("VRMod", Localizable.ToggleVRMod, Localizable.TooltipVRMod, "PlayHomeVR", delegate (bool b)
                 {
                     if (b)
