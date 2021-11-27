@@ -16,7 +16,7 @@ namespace InitSetting
         private const string ExecutableGame = "HoneySelect2.exe";
         private const string ExecutableStudio = "StudioNEOV2.exe";
         private const string ExecutableVR = "HoneySelect2VR.exe";
-        private const string SupportDiscord = "https://discord.gg/F3bDEFE";
+        private const string SupportDiscord = "https://discord.gg/illusionsoft";
         // Languages built into the game itself
         private static readonly string[] _builtinLanguages = { "ja-JP" };
 

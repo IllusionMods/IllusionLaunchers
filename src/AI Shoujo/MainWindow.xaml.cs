@@ -16,7 +16,7 @@ namespace InitSetting
         private string ExecutableGame = "AI-Syoujyo.exe";
         private const string ExecutableStudio = "StudioNEOV2.exe";
         private const string ExecutableVR = "";
-        private const string SupportDiscord = "https://discord.gg/F3bDEFE";
+        private const string SupportDiscord = "https://discord.gg/illusionsoft";
         // Languages built into the game itself
         private static readonly string[] _builtinLanguages = { "ja-JP" };
 
