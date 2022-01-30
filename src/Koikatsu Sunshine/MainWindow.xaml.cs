@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,6 +17,7 @@ namespace InitSetting
         private const string ExecutableGame = "KoikatsuSunshine.exe";
         private const string ExecutableStudio = "CharaStudio.exe";
         private const string ExecutableVR = "KoikatsuSunshine_VR.exe";
+        private const string ExecutableVRStudio = "VRTheater.exe";
         private const string SupportDiscord = "https://discord.gg/hevygx6";
         // Languages built into the game itself
         private static readonly string[] _builtinLanguages = { "ja-JP" };
@@ -24,6 +26,7 @@ namespace InitSetting
         private bool _suppressEvents;
         private readonly bool _mainGameExists;
         private readonly bool _studioExists;
+        private readonly bool _vrExists;
 
         public MainWindow()
         {
@@ -36,7 +39,24 @@ namespace InitSetting
 
                 _mainGameExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableGame);
                 _studioExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableStudio);
-                _studioExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableVR);
+
+                VRSelectionWindow.TryAddVrButton(
+                    displayName: "Main Game VR (KKS_VR plugin)",
+                    isAvailable: () => _mainGameExists && File.Exists(EnvironmentHelper.GameRootDirectory + @"BepInEx\plugins\KKS_VR\KKS_MainGameVR.dll"),
+                    run: () => Process.Start(EnvironmentHelper.GameRootDirectory + ExecutableGame, "--vr"));
+                VRSelectionWindow.TryAddVrButton(
+                    displayName: "Studio VR (KKS_VR plugin)",
+                    isAvailable: () => _studioExists && File.Exists(EnvironmentHelper.GameRootDirectory + @"BepInEx\plugins\KKS_VR\KKS_CharaStudioVR.dll"),
+                    run: () => Process.Start(EnvironmentHelper.GameRootDirectory + ExecutableStudio, "--vr"));
+                VRSelectionWindow.TryAddVrButton(
+                    displayName: "Official VR Module (Free H only)",
+                    isAvailable: () => File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableVR),
+                    run: () => Process.Start(EnvironmentHelper.GameRootDirectory + ExecutableVR));
+                VRSelectionWindow.TryAddVrButton(
+                    displayName: "Official Studio VR Module (View scenes only)",
+                    isAvailable: () => File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableVRStudio),
+                    run: () => Process.Start(EnvironmentHelper.GameRootDirectory + ExecutableVRStudio));
+                _vrExists = VRSelectionWindow.AvailableVrModes > 0;
 
                 if (_studioExists)
                     SettingManager.Initialize(EnvironmentHelper.GetConfigFilePath(), RegistryKeyGame, RegistryKeyStudio);
@@ -233,7 +253,8 @@ namespace InitSetting
 
         private void buttonStartV_Click(object sender, RoutedEventArgs e)
         {
-            StartGame(ExecutableVR);
+            if (VRSelectionWindow.ShowDialogOrStartVr(this))
+                Close();
         }
 
         private void buttonManual_Click(object sender, RoutedEventArgs e)
