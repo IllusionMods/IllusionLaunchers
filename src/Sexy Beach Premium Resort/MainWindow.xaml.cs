@@ -19,7 +19,7 @@ namespace InitSetting
         private const string ExecutableStudio = "SexyBeachStudio_64.exe";
         private const string ExecutableStudio32 = "SexyBeachStudio_32.exe";
         private const string ExecutableVR = "SexyBPR_VR.exe";
-        private const string SupportDiscord = "https://discord.gg/Cbp6rA";
+        private const string SupportDiscord = "https://discord.gg/pSGZ4uz";
         // Languages built into the game itself
         private static readonly string[] _builtinLanguages = { "ja-JP" };
         private bool _is32;
