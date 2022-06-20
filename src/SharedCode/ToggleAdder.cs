@@ -124,6 +124,18 @@ namespace InitSetting
                 new PluginToggle("AutoSave", Localizable.ActivateAutosave, "", "*AutoSave", null, false),
                 new PluginToggle("ShortcutPlugin", Localizable.ToggleShortcutHS, "", "ShortcutHSParty", null, true),
                 new PluginToggle("BetterAA", "Activate BetterAA", "", "*_BetterAA", null, false),
+                new PluginToggle("PostProcessingEffects", "Activate PostProcessingEffects", "", "PostProcessingEffect", delegate (bool b)
+                {
+                    if (b)
+                    {
+                        MessageBox.Show("This mod is known to cause issues saving coordinates, please disable if you're experiencing problems.", "Warning");
+                        DisableHelper("PostProcessingRuntime",false,false);
+                    }
+                    else
+                    {
+                        DisableHelper("PostProcessingRuntime",false,true);
+                    }
+                }, false),
                 new PluginToggle("Stiletto", Localizable.ToggleStiletto, Localizable.TooltipGGmod, "*Stiletto", null, false),
                 new PluginToggle("VRMod", Localizable.ToggleVRMod, Localizable.TooltipVRMod, "PlayHomeVR", delegate (bool b)
                 {
