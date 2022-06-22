@@ -24,6 +24,7 @@ namespace InitSetting
         private bool _suppressEvents;
         private readonly bool _mainGameExists;
         private readonly bool _studioExists;
+        private readonly bool _vrExists;
 
         public MainWindow()
         {
@@ -36,6 +37,7 @@ namespace InitSetting
 
                 _mainGameExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableGame);
                 _studioExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableStudio);
+                _vrExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableVR);
 
                 if (_studioExists)
                     SettingManager.Initialize(EnvironmentHelper.GetConfigFilePath(), RegistryKeyGame, RegistryKeyStudio);
@@ -85,6 +87,30 @@ namespace InitSetting
                     // 0 is primary
                     var newItem = i == 0 ? primaryDisplay : $"{subDisplay} : " + i;
                     dropDisplay.Items.Add(newItem);
+                }
+
+                if (!_studioExists)
+                {
+                    buttonStartS_Copy.Visibility = Visibility.Collapsed;
+                    idmage1.Visibility = Visibility.Collapsed;
+                    labelStartS.Visibility = Visibility.Collapsed;
+                    StudiBtnBG.Visibility = Visibility.Collapsed;
+                    SMBtnBG.Visibility = Visibility.Collapsed;
+                    idmssage3.Visibility = Visibility.Collapsed;
+                    labelMS.Visibility = Visibility.Collapsed;
+                    buttonManualS_Copy.Visibility = Visibility.Collapsed;
+                }
+
+                if(!_vrExists)
+                {
+                    buttonStartV.Visibility = Visibility.Collapsed;
+                    idmsage.Visibility = Visibility.Collapsed;
+                    labelStartVR.Visibility = Visibility.Collapsed;
+                    VRBtnBG.Visibility = Visibility.Collapsed;
+                    VRMBtnBG.Visibility = Visibility.Collapsed;
+                    idmssage.Visibility = Visibility.Collapsed;
+                    labelMV.Visibility = Visibility.Collapsed;
+                    buttonManualV.Visibility = Visibility.Collapsed;
                 }
 
                 KoikatsuStartup();
