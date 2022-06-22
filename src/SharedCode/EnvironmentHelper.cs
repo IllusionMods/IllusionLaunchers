@@ -457,7 +457,7 @@ namespace InitSetting
 
             // Framework test
             IsIpa = File.Exists($"{GameRootDirectory}\\IPA.exe");
-            IsBepIn = Directory.Exists($"{GameRootDirectory}\\BepInEx");
+            IsBepIn = Directory.Exists($"{GameRootDirectory}\\BepInEx\\core");
 
             if (IsIpa && IsBepIn)
             {
