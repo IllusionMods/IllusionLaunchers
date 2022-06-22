@@ -19,7 +19,7 @@ namespace InitSetting
     public static class EnvironmentHelper
     {
         private static readonly string _mStrSaveDir = "/UserData/setup.xml";
-        private static readonly string _mCustomDir = "/UserData/LauncherEN";
+        private static readonly string _mCustomDir = "/BepInEx/LauncherEN";
         private static readonly string _decideLang = "/lang";
         private static readonly string _versioningLoc = "/version";
         private static readonly string _warningLoc = "/warning.txt";
@@ -584,7 +584,7 @@ namespace InitSetting
             var currentDirectory = Path.GetDirectoryName(typeof(MainWindow).Assembly.Location) ??
                                    Environment.CurrentDirectory;
             GameRootDirectory = currentDirectory + "\\";
-            ILikeBleeding = $"{EnvironmentHelper.GameRootDirectory}\\UserData\\LauncherEN\\ilikebleeding.txt";
+            ILikeBleeding = $"{EnvironmentHelper.GameRootDirectory}\\BepInEx\\LauncherEN\\ilikebleeding.txt";
 
             Directory.CreateDirectory(GameRootDirectory + _mCustomDir);
 

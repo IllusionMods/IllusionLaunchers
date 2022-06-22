@@ -12,10 +12,10 @@ function CreateZip ($subfolder)
     $name = $subfolder.Name
     $ver = [System.Diagnostics.FileVersionInfo]::GetVersionInfo($subfolder.GetFiles("*.exe").Fullname).FileVersion.ToString()
     
-    $launcherDir = $subfolder.Fullname + "\UserData\LauncherEN"
+    $launcherDir = $subfolder.Fullname + "\BepInEx\LauncherEN"
     New-Item -ItemType Directory -Force -Path ($launcherDir)
 
-    foreach($langDir in Get-ChildItem -Path $subfolder -Directory -Force -Exclude UserData)
+    foreach($langDir in Get-ChildItem -Path $subfolder -Directory -Force -Exclude BepInEx)
     {
         #$langDir.MoveTo($launcherDir + "\" + $langDir.Name)
         Move-Item -Path $langDir -Destination ($launcherDir + "\" + $langDir.Name) -Force

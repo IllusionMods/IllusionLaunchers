@@ -27,19 +27,40 @@
     <Compile Include="$(MSBuildThisFileDirectory)ToggleAdder.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.de.resx" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.es.resx" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.fr.resx" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.ja.resx" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.ko.resx" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.no.resx" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.pt.resx" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.de.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.es.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.fr.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.ja.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.ko.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.no.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.pt.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.resx">
       <LastGenOutput>Localizable.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.ru.resx" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.zh-Hans.resx" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.zh-Hant.resx" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.ru.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.zh-Hans.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.zh-Hant.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
