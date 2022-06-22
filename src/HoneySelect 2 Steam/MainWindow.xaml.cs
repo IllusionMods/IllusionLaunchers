@@ -36,7 +36,7 @@ namespace InitSetting
                 // Initialize code -------------------------------------
                 string tempgamedir =
                     System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                bool isGameConverted = File.Exists($"{tempgamedir}/abdata/BRConvert/OK.txt");
+                bool isGameConverted = File.Exists($"{tempgamedir}/abdata/BRConvert/OK.txt") || !File.Exists($"{tempgamedir}/abdata/localize/info/01.unity3d");
                 EnvironmentHelper.Initialize(_builtinLanguages);
 
                 EnvironmentHelper.Initialize(!isGameConverted ? _builtinLanguages : _builtinLanguagesConvert);
