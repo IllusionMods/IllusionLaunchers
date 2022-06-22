@@ -18,7 +18,8 @@ namespace InitSetting
         private const string ExecutableVR = "HoneySelect2VR.exe";
         private const string SupportDiscord = "https://discord.gg/illusionsoft";
         // Languages built into the game itself
-        private static readonly string[] _builtinLanguages = { "ja-JP" };
+        private static readonly string[] _builtinLanguages = { "ja-JP", "en-US", "zh-CN", "zh-TW" };
+        private static readonly string[] _builtinLanguagesConvert = { "ja-JP" };
 
         // Normal fields, don't fill in --------------------------------------------------------------
         private bool _suppressEvents;
@@ -33,7 +34,12 @@ namespace InitSetting
                 _suppressEvents = true;
 
                 // Initialize code -------------------------------------
+                string tempgamedir =
+                    System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                bool isGameConverted = File.Exists($"{tempgamedir}/abdata/BRConvert/OK.txt");
                 EnvironmentHelper.Initialize(_builtinLanguages);
+
+                EnvironmentHelper.Initialize(!isGameConverted ? _builtinLanguages : _builtinLanguagesConvert);
 
                 _mainGameExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableGame);
                 _studioExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableStudio);
