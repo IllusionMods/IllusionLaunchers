@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29306.81
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emotion Creators", "src\Emotion Creators\Emotion Creators.csproj", "{5AF75EC6-4B19-4507-AF25-742AFBCBF45D}"
 EndProject
@@ -29,8 +29,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaremMate", "src\HaremMate\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Koikatsu Sunshine", "src\Koikatsu Sunshine\Koikatsu Sunshine.csproj", "{CE50D875-F13C-4820-BDC1-EE87350E6DB6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoneySelect 2 Steam", "src\HoneySelect 2 Steam\HoneySelect 2 Steam.csproj", "{0F194AF1-D54E-45F3-A66A-6AEE8E1C67D5}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\SharedCode\SharedCode.projitems*{0f194af1-d54e-45f3-a66a-6aee8e1c67d5}*SharedItemsImports = 4
 		src\SharedCode\SharedCode.projitems*{1d2166e2-4da0-4fd6-a28d-7ebbef40955b}*SharedItemsImports = 4
 		src\SharedCode\SharedCode.projitems*{47a3be13-4cb4-4322-83f7-a4703caceed9}*SharedItemsImports = 4
 		src\SharedCode\SharedCode.projitems*{561f2722-a3ea-40ed-a5d0-982ed26118b9}*SharedItemsImports = 4
@@ -98,6 +101,10 @@ Global
 		{CE50D875-F13C-4820-BDC1-EE87350E6DB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE50D875-F13C-4820-BDC1-EE87350E6DB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE50D875-F13C-4820-BDC1-EE87350E6DB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F194AF1-D54E-45F3-A66A-6AEE8E1C67D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F194AF1-D54E-45F3-A66A-6AEE8E1C67D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F194AF1-D54E-45F3-A66A-6AEE8E1C67D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F194AF1-D54E-45F3-A66A-6AEE8E1C67D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
