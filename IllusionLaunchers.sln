@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Koikatsu Sunshine", "src\Ko
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoneySelect 2 Steam", "src\HoneySelect 2 Steam\HoneySelect 2 Steam.csproj", "{0F194AF1-D54E-45F3-A66A-6AEE8E1C67D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoomGirl", "src\RoomGirl\RoomGirl.csproj", "{E4335252-2B41-420F-BFF1-7085A6850DAF}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\SharedCode\SharedCode.projitems*{0f194af1-d54e-45f3-a66a-6aee8e1c67d5}*SharedItemsImports = 4
@@ -46,6 +48,7 @@ Global
 		src\SharedCode\SharedCode.projitems*{91f6b54e-6a85-486f-8bf3-5920d838f030}*SharedItemsImports = 4
 		src\SharedCode\SharedCode.projitems*{bb0a856a-6604-42dc-9248-d760f9d24aca}*SharedItemsImports = 4
 		src\SharedCode\SharedCode.projitems*{ce50d875-f13c-4820-bdc1-ee87350e6db6}*SharedItemsImports = 4
+		src\SharedCode\SharedCode.projitems*{e4335252-2b41-420f-bff1-7085a6850daf}*SharedItemsImports = 4
 		src\SharedCode\SharedCode.projitems*{ed03c79c-7b7d-4db5-b3a4-17586925f12d}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,6 +108,10 @@ Global
 		{0F194AF1-D54E-45F3-A66A-6AEE8E1C67D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F194AF1-D54E-45F3-A66A-6AEE8E1C67D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F194AF1-D54E-45F3-A66A-6AEE8E1C67D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4335252-2B41-420F-BFF1-7085A6850DAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4335252-2B41-420F-BFF1-7085A6850DAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4335252-2B41-420F-BFF1-7085A6850DAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4335252-2B41-420F-BFF1-7085A6850DAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
