@@ -90,6 +90,17 @@ namespace InitSetting
                     dropDisplay.Items.Add(newItem);
                 }
 
+                if (!_studioExists)
+                {
+                    buttonStartS.Visibility = Visibility.Collapsed;
+                    idmage.Visibility = Visibility.Collapsed;
+                    labelStartS.Visibility = Visibility.Collapsed;
+                    StudiBtnBG.Visibility = Visibility.Collapsed;
+                    SMBtnBG.Visibility = Visibility.Collapsed;
+                    labelMS.Visibility = Visibility.Collapsed;
+                    buttonManualS.Visibility = Visibility.Collapsed;
+                }
+
                 PluginToggleManager.CreatePluginToggles(Toggleables);
 
                 _suppressEvents = false;

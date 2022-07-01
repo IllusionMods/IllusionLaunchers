@@ -92,7 +92,7 @@
                     </Image.RenderTransform>
                 </Image>
             </Border>
-            <Border HorizontalAlignment="Left" Height="32.25" Margin="466.655,26.083,0,0" VerticalAlignment="Top"
+            <Border x:Name="StudiBtnBG" HorizontalAlignment="Left" Height="32.25" Margin="466.655,26.083,0,0" VerticalAlignment="Top"
                     Width="219.866" ClipToBounds="True" Background="Black">
                 <Border.RenderTransform>
                     <TransformGroup>
@@ -145,7 +145,7 @@
                     </TransformGroup>
                 </Button.RenderTransform>
             </Button>
-            <Border HorizontalAlignment="Left" Height="20.333" Margin="475.416,66.083,0,0" VerticalAlignment="Top"
+            <Border x:Name="SMBtnBG" HorizontalAlignment="Left" Height="20.333" Margin="475.416,66.083,0,0" VerticalAlignment="Top"
                     Width="169.917" Background="Black">
                 <Image x:Name="idmssage1" Source="Images/ButtonBG/manual.png" RenderTransformOrigin="0.5,0.5"
                        HorizontalAlignment="Right" />
@@ -254,11 +254,8 @@
                 <Grid x:Name="FolderGrid"/>
             </Border>
             <Button Style="{StaticResource buttonHover}" x:Name="buttonInst" FontSize="10"
-                    Content="{x:Static local:Localizable.FolderInstall}" HorizontalAlignment="Left" Height="24"
-                    VerticalAlignment="Top" Width="129.516" Margin="28.625,241.71,0,0" Click="buttonInst_Click" />
-            <Button Style="{StaticResource buttonHover}" x:Name="buttonHousing" FontSize="10"
-                    Content="{x:Static local:Localizable.FolderHouses}" HorizontalAlignment="Left" Height="24"
-                    VerticalAlignment="Top" Width="129.517" Margin="164.358,241.71,0,0" Click="buttonHousing_Click" />
+                    Content="{x:Static local:Localizable.FolderInstall}" HorizontalAlignment="Center" Height="24"
+                    VerticalAlignment="Top" Width="265" Margin="0,242,0,0" Click="buttonInst_Click" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonScenes" FontSize="10"
                     Content="{x:Static local:Localizable.FolderScenes}" HorizontalAlignment="Left" Height="24"
                     VerticalAlignment="Top" Width="129.516" Margin="28.625,270.71,0,0" Click="buttonScenes_Click" />
