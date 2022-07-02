@@ -43,6 +43,12 @@ namespace InitSetting
             },
             new DisplayMode
             {
+                Width = 1280,
+                Height = 800,
+                text = "1280 x 800 (16 : 10)"
+            },
+            new DisplayMode
+            {
                 Width = 1366,
                 Height = 768,
                 text = "1366 x 768 (16 : 9)"
@@ -67,6 +73,24 @@ namespace InitSetting
             },
             new DisplayMode
             {
+                Width = 1920,
+                Height = 1200,
+                text = "1920 x 1200 (16 : 10)"
+            },
+            new DisplayMode
+            {
+                Width = 2560,
+                Height = 1080,
+                text = "2560 x 1080 (21 : 9)"
+            },
+            new DisplayMode
+            {
+                Width = 3840,
+                Height = 1080,
+                text = "3840 x 1080 (32 : 9)"
+            },
+            new DisplayMode
+            {
                 Width = 2048,
                 Height = 1152,
                 text = "2048 x 1152 (16 : 9)"
@@ -79,6 +103,18 @@ namespace InitSetting
             },
             new DisplayMode
             {
+                Width = 2560,
+                Height = 1600,
+                text = "2560 x 1600 (16 : 10)"
+            },
+            new DisplayMode
+            {
+                Width = 3440,
+                Height = 1440,
+                text = "3440 x 1440 (21 : 9)"
+            },
+            new DisplayMode
+            {
                 Width = 3200,
                 Height = 1800,
                 text = "3200 x 1800 (16 : 9)"
@@ -88,6 +124,12 @@ namespace InitSetting
                 Width = 3840,
                 Height = 2160,
                 text = "3840 x 2160 (16 : 9)"
+            },
+            new DisplayMode
+            {
+                Width = 5120,
+                Height = 2160,
+                text = "5120 x 2160 (21 : 9)"
             }
         };
 
