@@ -344,7 +344,10 @@ namespace InitSetting
                 string TextMeshFont = String.Empty;
 
                 TransService = language == "ko" ? "PapagoTranslate" : "GoogleTranslateV2";
-                if (language == "ru") Font = "Times New Roman";
+
+                if (language == "ru") Font = $@"Times New Roman";
+                else if (language == "zh-CN" || language == "zh-TW") Font = $@"MS Gothic";
+                else Font = String.Empty;
 
                 TextMeshFont = (language == "ko" || language == "zh-CN" || language == "zh-TW") 
                                && File.Exists($@"{EnvironmentHelper.GameRootDirectory}\BepInEx\Translation\fonts\arialuni_sdf_u2018") ? $@"BepInEx\Translation\fonts\arialuni_sdf_u2018" : String.Empty;
