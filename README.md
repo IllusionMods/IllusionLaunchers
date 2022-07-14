@@ -18,16 +18,16 @@ This launcher allows for different kinds of customization:
 Create a file named 'version' and place it together with the launcher. The string from that file will appear in the upper right of the launcher.
 
 ### Warning message
-Create a folder in UserData named LauncherEN, and place a file named warning.txt file there with the text you want to appear in the notice part of the launcher.
+Create a folder in BepInEx named LauncherEN, and place a file named warning.txt file there with the text you want to appear in the notice part of the launcher.
 
 ### Background Image
-Create a folder in UserData named LauncherEN, and place a file named LauncherBG.png there. The image should be 865 x 563 large.
+Create a folder in BepInEx named LauncherEN, and place a file named LauncherBG.png there. The image should be 865 x 563 large.
 
 ### Character Image
-Create a folder in UserData named LauncherEN, and place a file named Chara.png there. The image should be 250 x 370 large.
+Create a folder in BepInEx named LauncherEN, and place a file named Chara.png there. The image should be 250 x 370 large.
 
 ### Patreon
-Create a folder in UserData named LauncherEN, and place a file named patreon.txt there. File should include a single URL.
+Create a folder in BepInEx named LauncherEN, and place a file named patreon.txt there. File should include a single URL.
 
 ### Supported Languages
 Languages can be switched at any time in the launcher. The following languages are supported:
