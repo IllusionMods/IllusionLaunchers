@@ -267,4 +267,13 @@ Algumas das ações presentes nessa obra de ficção podem ser ilegais ao serem 
   <data name="ToggleNSFW" xml:space="preserve">
     <value>Desabilitar Conteúdo Sexual</value>
   </data>
+  <data name="BetterAA" xml:space="preserve">
+    <value>Ativar Better Anti-Aliasing</value>
+  </data>
+  <data name="MessageBoxDHH" xml:space="preserve">
+    <value>Para usar este Mod, pressione P durante o jogo</value>
+  </data>
+  <data name="MessageBoxGraphicsMod" xml:space="preserve">
+    <value>Para usar este Mod, pressione F5 durante o jogo</value>
+  </data>
 </root>

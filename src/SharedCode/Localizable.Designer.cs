@@ -530,6 +530,12 @@ namespace InitSetting {
             }
         }
 
+        public static string BetterAA {
+            get {
+                return ResourceManager.GetString("BetterAA", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Enable Shortcut Plugin.
         /// </summary>
@@ -669,7 +675,19 @@ namespace InitSetting {
                 return ResourceManager.GetString("TooltipVRMod", resourceCulture);
             }
         }
-        
+
+        public static string MessageBoxGraphicsMod {
+            get {
+                return ResourceManager.GetString("MessageBoxGraphicsMod", resourceCulture);
+            }
+        }
+
+        public static string MessageBoxDHH {
+            get {
+                return ResourceManager.GetString("MessageBoxDHH", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
