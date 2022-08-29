@@ -344,4 +344,13 @@ for this modification.</value>
   <data name="ButtonManager" xml:space="preserve">
     <value>Manager</value>
   </data>
+  <data name="BetterAA" xml:space="preserve">
+    <value>Activate Better Anti-Aliasing</value>
+  </data>
+  <data name="MessageBoxDHH" xml:space="preserve">
+    <value>To use this mod, Press P during the game.</value>
+  </data>
+  <data name="MessageBoxGraphicsMod" xml:space="preserve">
+    <value>To use this mod, Press F5 during the game.</value>
+  </data>
 </root>

@@ -48,7 +48,7 @@ namespace InitSetting
                 if (b)
                 {
                     dhh.SetIsChecked(false);
-                    MessageBox.Show("To use this mod, Press F5 during the game.", "Usage");
+                    MessageBox.Show(Localizable.MessageBoxGraphicsMod, "Usage");
                 }
             }, false);
             aig2 = new PluginToggle("AIGraphics", Localizable.ToggleGraphicsMod, Localizable.TooltipGraphicsMod, "AIGraphics", delegate (bool b)
@@ -56,7 +56,7 @@ namespace InitSetting
                 if (b)
                 {
                     dhh.SetIsChecked(false);
-                    MessageBox.Show("To use this mod, Press F5 during the game.", "Usage");
+                    MessageBox.Show(Localizable.MessageBoxGraphicsMod, "Usage");
                 }
             }, false);
             hs2 = new PluginToggle("HS2Graphics", Localizable.ToggleGraphicsMod, Localizable.TooltipGraphicsMod, "HS2Graphics", delegate (bool b)
@@ -64,7 +64,7 @@ namespace InitSetting
                 if (b)
                 {
                     dhh.SetIsChecked(false);
-                    MessageBox.Show("To use this mod, Press F5 during the game.", "Usage");
+                    MessageBox.Show(Localizable.MessageBoxGraphicsMod, "Usage");
                 }
             }, false);
             aighs2 = new PluginToggle("Graphics", Localizable.ToggleGraphicsMod, Localizable.TooltipGraphicsMod, "Graphics", delegate (bool b)
@@ -72,7 +72,7 @@ namespace InitSetting
                 if (b)
                 {
                     dhh.SetIsChecked(false);
-                    MessageBox.Show("To use this mod, Press F5 during the game.", "Usage");
+                    MessageBox.Show(Localizable.MessageBoxGraphicsMod, "Usage");
                 }
             }, false);
             dhh = new PluginToggle("DHH", Localizable.ToggleDhh, Localizable.TooltipDhh, "DHH_AI4", delegate (bool b)
@@ -83,7 +83,7 @@ namespace InitSetting
                     aig2.SetIsChecked(false);
                     hs2.SetIsChecked(false);
                     aighs2.SetIsChecked(false);
-                    MessageBox.Show("To use this mod, Press P during the game.", "Usage");
+                    MessageBox.Show(Localizable.MessageBoxDHH, "Usage");
                 }
             }, false);
 
@@ -123,7 +123,7 @@ namespace InitSetting
                 new PluginToggle("RimRemover", Localizable.ToggleRimRemover, "", "*RimRemover", null, false),
                 new PluginToggle("AutoSave", Localizable.ActivateAutosave, "", "*AutoSave", null, false),
                 new PluginToggle("ShortcutPlugin", Localizable.ToggleShortcutHS, "", "ShortcutHSParty", null, true),
-                new PluginToggle("BetterAA", "Activate BetterAA", "", "*_BetterAA", null, false),
+                new PluginToggle("BetterAA", Localizable.BetterAA, "", "*_BetterAA", null, false),
                 new PluginToggle("PostProcessingEffects", "Activate PostProcessingEffects", "", "PostProcessingEffect", delegate (bool b)
                 {
                     if (b)
