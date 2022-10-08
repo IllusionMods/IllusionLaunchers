@@ -11,10 +11,10 @@ namespace InitSetting
     public partial class MainWindow : Window
     {
         // Game-specific constants -------------------------------------------------------------------
-        private const string RegistryKeyGame = "Software\\illusion\\AI-Syoujyo\\AI-Syoujyo";
-        private const string RegistryKeyStudio = "Software\\illusion\\AI-Syoujyo\\StudioNEOV2";
-        private string ExecutableGame = "RoomGirlTrial.exe";
-        private const string ExecutableStudio = ".exe";
+        private const string RegistryKeyGame = "Software\\illusion\\RoomGirl\\RoomGirl";
+        private const string RegistryKeyStudio = "Software\\illusion\\RoomGirl\\RoomStudio";
+        private string ExecutableGame = "RoomGirl.exe";
+        private const string ExecutableStudio = "RoomStudio.exe";
         private const string ExecutableVR = "";
         private const string SupportDiscord = "https://discord.gg/illusionsoft";
         // Languages built into the game itself
