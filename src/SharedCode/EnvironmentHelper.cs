@@ -349,8 +349,14 @@ namespace InitSetting
                 else if (language == "zh-CN" || language == "zh-TW") Font = $@"MS Gothic";
                 else Font = String.Empty;
 
-                TextMeshFont = (language == "ko" || language == "zh-CN" || language == "zh-TW") 
-                               && File.Exists($@"{EnvironmentHelper.GameRootDirectory}\BepInEx\Translation\fonts\arialuni_sdf_u2018") ? $@"BepInEx\Translation\fonts\arialuni_sdf_u2018" : String.Empty;
+                // TextMeshFont = (language == "ko" || language == "zh-CN" || language == "zh-TW") 
+                //               && File.Exists($@"{EnvironmentHelper.GameRootDirectory}\BepInEx\Translation\fonts\arialuni_sdf_u2018") ? $@"BepInEx\Translation\fonts\arialuni_sdf_u2018" : String.Empty;
+
+                if (File.Exists($"{EnvironmentHelper.GameRootDirectory}/BepInEx/Translation/{language}/UseFont.txt"))
+                {
+                    string currentFont = File.ReadAllText($"{EnvironmentHelper.GameRootDirectory}/BepInEx/Translation/{language}/UseFont.txt");
+                    TextMeshFont = File.Exists($@"{EnvironmentHelper.GameRootDirectory}\BepInEx\Translation\fonts\{currentFont}") ? $@"BepInEx\Translation\fonts\{currentFont}" : String.Empty;
+                }
 
                 // Setting language
                 {
