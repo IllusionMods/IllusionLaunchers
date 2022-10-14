@@ -229,6 +229,20 @@ namespace InitSetting
                 toggleConsole.ToolTip = "Enable console to see game status console.";
                 togglePanel.Children.Add(toggleConsole);
             }
+            if (EnvironmentHelper.IsBepIn)
+            {
+                var toggleConsole = new CheckBox
+                {
+                    Name = "toggleConsole",
+                    Content = "Activate Console (Studio)",
+                    Foreground = Brushes.White,
+                    IsChecked = EnvironmentHelper.DeveloperModeStudioEnabled
+                };
+                toggleConsole.Checked += (sender, args) => EnvironmentHelper.DeveloperModeStudioEnabled = true;
+                toggleConsole.Unchecked += (sender, args) => EnvironmentHelper.DeveloperModeStudioEnabled = false;
+                toggleConsole.ToolTip = "Enable console to see game status console.";
+                togglePanel.Children.Add(toggleConsole);
+            }
 
             // Add experimental mode toggle ---------------------------------
             var toggleExperimental = new CheckBox

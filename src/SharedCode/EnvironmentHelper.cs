@@ -208,6 +208,69 @@ namespace InitSetting
             }
         }
 
+        public static bool DeveloperModeStudioEnabled
+        {
+            get
+            {
+                var configPath = Path.Combine(GameRootDirectory, @"Studio\BepInEx\config\BepInEx.cfg");
+                if (!File.Exists(configPath)) return false;
+                try
+                {
+                    var contents = File.ReadAllLines(configPath).ToList();
+
+                    var devmodeCatIndex = contents.FindIndex(s => s.ToLower().Contains("[Logging.Console]".ToLower()));
+                    if (devmodeCatIndex >= 0)
+                    {
+                        var toCheck = contents.Skip(devmodeCatIndex);
+                        var nextCatIndex = contents.FindIndex(devmodeCatIndex + 1, s => s.StartsWith("["));
+                        if (nextCatIndex > 0) toCheck = toCheck.Take(nextCatIndex - devmodeCatIndex);
+                        return toCheck.Any(s => s.StartsWith("Enabled = true", StringComparison.OrdinalIgnoreCase));
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Something went wrong: " + e);
+                }
+
+                return false;
+            }
+            set
+            {
+                try
+                {
+                    var configPath = Path.Combine(GameRootDirectory, @"Studio\BepInEx\config\BepInEx.cfg");
+                    var contents = File.Exists(configPath) ? File.ReadAllLines(configPath).ToList() : new List<string>();
+
+                    var devmodeCatIndex = contents.FindIndex(s => s.ToLower().Contains("[Logging.Console]".ToLower()));
+                    if (devmodeCatIndex >= 0)
+                    {
+                        var nextCatIndex = contents.FindIndex(devmodeCatIndex + 1, s => s.StartsWith("["));
+                        int enabledIndex;
+                        if (nextCatIndex > 0)
+                            enabledIndex = contents.FindIndex(devmodeCatIndex, nextCatIndex - devmodeCatIndex, s => s.StartsWith("Enabled"));
+                        else
+                            enabledIndex = contents.FindIndex(devmodeCatIndex, s => s.StartsWith("Enabled"));
+
+                        if (enabledIndex > 0)
+                            contents[enabledIndex] = "Enabled = " + (value ? "true" : "false");
+                        else
+                            contents.Insert(devmodeCatIndex + 1, "Enabled = " + (value ? "true" : "false"));
+                    }
+                    else
+                    {
+                        contents.Add("[Logging.Console]");
+                        contents.Add("Enabled = " + (value ? "true" : "false"));
+                    }
+
+                    File.WriteAllLines(configPath, contents.ToArray());
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Something went wrong: " + e);
+                }
+            }
+        }
+
         [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
         private static extern IntPtr GetModuleHandle(string lpModuleName);
 
