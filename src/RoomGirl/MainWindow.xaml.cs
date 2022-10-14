@@ -14,7 +14,7 @@ namespace InitSetting
         private const string RegistryKeyGame = "Software\\illusion\\RoomGirl\\RoomGirl";
         private const string RegistryKeyStudio = "Software\\illusion\\RoomGirl\\RoomStudio";
         private string ExecutableGame = "RoomGirl.exe";
-        private const string ExecutableStudio = "RoomStudio.exe";
+        private const string ExecutableStudio = "Studio\\RoomStudio.exe";
         private const string ExecutableVR = "";
         private const string SupportDiscord = "https://discord.gg/illusionsoft";
         // Languages built into the game itself
