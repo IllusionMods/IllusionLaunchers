@@ -262,7 +262,7 @@ Algumas das ações presentes nessa obra de ficção podem ser ilegais ao serem 
     <value>Ativar Salvamento Automático</value>
   </data>
   <data name="InstructDecideLang" xml:space="preserve">
-    <value>O idioma que você escolheu não tem traduções manuais em sua instalação. A tradução será feita pelo Google Translate.</value>
+    <value>Esse idioma pode conter textos não traduzidos. Neste caso eles aparecerão na língua original por alguns segundos e depois serão traduzido online pelo Google Tradutor.</value>
   </data>
   <data name="ToggleNSFW" xml:space="preserve">
     <value>Desabilitar Conteúdo Sexual</value>
@@ -275,5 +275,46 @@ Algumas das ações presentes nessa obra de ficção podem ser ilegais ao serem 
   </data>
   <data name="MessageBoxGraphicsMod" xml:space="preserve">
     <value>Para usar este Mod, pressione F5 durante o jogo</value>
+  </data>
+  <data name="MessageBoxExperimentalDisable" xml:space="preserve">
+    <value>Você quer mover os zipmods experimentais?
+(Eles não serão apagados, apenas movidos para outra pasta e poderão ser reativados posteriormente).</value>
+  </data>
+  <data name="MessageBoxExperimentalDisableCaption" xml:space="preserve">
+    <value>Desabilitar mods experimentais</value>
+  </data>
+  <data name="MessageBoxExperimentalMode" xml:space="preserve">
+    <value>Isto habilitará atualizações experimentais, caso existam, para o jogo atual. Por favor, utilize com cautela!
+Você quer adicionar os zipmods experimentais?</value>
+  </data>
+  <data name="MessageBoxExperimentalModeCaption" xml:space="preserve">
+    <value>Habilitar Mods Experimentais</value>
+  </data>
+  <data name="MessageBoxExperimentalModeExists" xml:space="preserve">
+    <value>Isto permitirá atualizações experimentais para o jogo atual, caso existam. Por favor, utilize com cautela!</value>
+  </data>
+  <data name="MessageBoxExperimentalModeExistsCaption" xml:space="preserve">
+    <value>Informação</value>
+  </data>
+  <data name="ToggleConsoleStudio" xml:space="preserve">
+    <value>Ativar Console (Studio)</value>
+  </data>
+  <data name="TooltipConsole" xml:space="preserve">
+    <value>Habilitar o Console para ver o status do jogo.</value>
+  </data>
+  <data name="TooltipDhh" xml:space="preserve">
+    <value>Opções gráficas avançadas.
+Pode ser configurado no jogo com a tecla P.
+
+Não funciona com o GraphicsMod!</value>
+  </data>
+  <data name="TooltipGraphicsMod" xml:space="preserve">
+    <value>Opções gráficas avançadas.
+Pode ser configurado no jogo com a tecla F5.
+
+Não funciona com o DHH!</value>
+  </data>
+  <data name="TooltipExperimentalMode" xml:space="preserve">
+    <value>Permitir a instalação de mods experimentais neste jogo.</value>
   </data>
 </root>

@@ -416,6 +416,12 @@ namespace InitSetting {
             }
         }
 
+        public static string ToggleConsoleStudio {
+            get {
+                return ResourceManager.GetString("ToggleConsoleStudio", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Experimental Mode.
         /// </summary>
@@ -571,7 +577,19 @@ namespace InitSetting {
                 return ResourceManager.GetString("ToggleVRMod", resourceCulture);
             }
         }
-        
+
+        public static string TooltipConsole {
+            get {
+                return ResourceManager.GetString("TooltipConsole", resourceCulture);
+            }
+        }
+
+        public static string TooltipExperimentalMode {
+            get {
+                return ResourceManager.GetString("TooltipExperimentalMode", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Allows use of modified bones in mods.
         ///
@@ -685,6 +703,41 @@ namespace InitSetting {
         public static string MessageBoxDHH {
             get {
                 return ResourceManager.GetString("MessageBoxDHH", resourceCulture);
+            }
+        }
+        public static string MessageBoxExperimentalMode {
+            get {
+                return ResourceManager.GetString("MessageBoxExperimentalMode", resourceCulture);
+            }
+        }
+
+        public static string MessageBoxExperimentalModeCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxExperimentalModeCaption", resourceCulture);
+            }
+        }
+
+        public static string MessageBoxExperimentalModeExists {
+            get {
+                return ResourceManager.GetString("MessageBoxExperimentalModeExists", resourceCulture);
+            }
+        }
+
+        public static string MessageBoxExperimentalModeExistsCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxExperimentalModeExistsCaption", resourceCulture);
+            }
+        }
+
+        public static string MessageBoxExperimentalDisable {
+            get {
+                return ResourceManager.GetString("MessageBoxExperimentalDisable", resourceCulture);
+            }
+        }
+
+        public static string MessageBoxExperimentalDisableCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxExperimentalDisableCaption", resourceCulture);
             }
         }
 

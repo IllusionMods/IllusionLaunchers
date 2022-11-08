@@ -226,7 +226,7 @@ namespace InitSetting
                 };
                 toggleConsole.Checked += (sender, args) => EnvironmentHelper.DeveloperModeEnabled = true;
                 toggleConsole.Unchecked += (sender, args) => EnvironmentHelper.DeveloperModeEnabled = false;
-                toggleConsole.ToolTip = "Enable console to see game status console.";
+                toggleConsole.ToolTip = Localizable.TooltipConsole;
                 togglePanel.Children.Add(toggleConsole);
             }
             if (EnvironmentHelper.IsBepIn)
@@ -234,13 +234,13 @@ namespace InitSetting
                 var toggleConsole = new CheckBox
                 {
                     Name = "toggleConsole",
-                    Content = "Activate Console (Studio)",
+                    Content = Localizable.ToggleConsoleStudio,
                     Foreground = Brushes.White,
                     IsChecked = EnvironmentHelper.DeveloperModeStudioEnabled
                 };
                 toggleConsole.Checked += (sender, args) => EnvironmentHelper.DeveloperModeStudioEnabled = true;
                 toggleConsole.Unchecked += (sender, args) => EnvironmentHelper.DeveloperModeStudioEnabled = false;
-                toggleConsole.ToolTip = "Enable console to see game status console.";
+                toggleConsole.ToolTip = Localizable.TooltipConsole;
                 togglePanel.Children.Add(toggleConsole);
             }
 
@@ -254,7 +254,7 @@ namespace InitSetting
             };
             toggleExperimental.Checked += (sender, args) => EnvironmentHelper.BleedingModeEnabled = true;
             toggleExperimental.Unchecked += (sender, args) => EnvironmentHelper.BleedingModeEnabled = false;
-            toggleExperimental.ToolTip = "Allow installation of experimental mods to this game.";
+            toggleExperimental.ToolTip = Localizable.TooltipExperimentalMode;
             togglePanel.Children.Add(toggleExperimental);
 
             

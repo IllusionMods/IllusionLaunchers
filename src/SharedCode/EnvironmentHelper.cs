@@ -101,8 +101,8 @@ namespace InitSetting
                         if (Directory.Exists($"{experimentalDir}Sideloader Modpack - Bleeding Edge"))
                         {
                             if (System.Windows.MessageBox.Show(
-                                    "This will enable experimental updates if any exists for the current game. Please utilize with caution!\n\nDo you want to add experimental zipmods?",
-                                    "Enable experimental mods", MessageBoxButton.YesNo, MessageBoxImage.Question) ==
+                                    Localizable.MessageBoxExperimentalModeExists,
+                                    Localizable.MessageBoxExperimentalModeExistsCaption, MessageBoxButton.YesNo, MessageBoxImage.Question) ==
                                 MessageBoxResult.Yes)
                             {
                                 if (!Directory.Exists($"{experimentalDir}"))
@@ -115,8 +115,8 @@ namespace InitSetting
                         else
                         {
                             System.Windows.MessageBox.Show(
-                                "This will enable experimental updates if any exists for the current game. Please utilize with caution!",
-                                "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                                Localizable.MessageBoxExperimentalMode,
+                                Localizable.MessageBoxExperimentalModeCaption, MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                     }
                     else
@@ -125,8 +125,8 @@ namespace InitSetting
                         if (Directory.Exists($"{productionModsDir}Sideloader Modpack - Bleeding Edge"))
                         {
                             if (System.Windows.MessageBox.Show(
-                                    "Do you want to move experimental zipmods?\n(They won't be deleted, just moved to another folder and may be reactivated at a later time.)",
-                                    "Disable experimental mods", MessageBoxButton.YesNo, MessageBoxImage.Question) ==
+                                    Localizable.MessageBoxExperimentalDisable,
+                                    Localizable.MessageBoxExperimentalDisableCaption, MessageBoxButton.YesNo, MessageBoxImage.Question) ==
                                 MessageBoxResult.Yes)
                             {
                                 if (!Directory.Exists($"{experimentalDir}"))
@@ -327,7 +327,7 @@ namespace InitSetting
                         break;
                     case "pt-PT":
                         LangQ_a = "Deseja também definir o idioma do jogo para o idioma selecionado?";
-                        LangQ_b = "Questão";
+                        LangQ_b = "Pregunta";
                         break;
                     case "fr-FR":
                         LangQ_a = "Voulez-vous également définir la langue du jeu sur la langue sélectionnée?";
