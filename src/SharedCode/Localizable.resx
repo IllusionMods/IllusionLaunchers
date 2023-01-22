@@ -274,7 +274,7 @@ This game contains content of a sexual nature, and some of the actions depicted 
     <value>The language you have choosen</value>
   </data>
   <data name="InstructDecideLang" xml:space="preserve">
-    <value>The language you've choosen does not have translations in your installation. Translation will be done by Google Translate.</value>
+    <value>This language may contain untranslated texts. In this case they will appear in the original language for a few seconds and then will be translated online by Google Translator</value>
   </data>
   <data name="ToggleGraphicsMod" xml:space="preserve">
     <value>Enable GraphicsMod</value>
@@ -352,5 +352,31 @@ for this modification.</value>
   </data>
   <data name="MessageBoxGraphicsMod" xml:space="preserve">
     <value>To use this mod, Press F5 during the game.</value>
+  </data>
+  <data name="MessageBoxExperimentalDisable" xml:space="preserve">
+    <value>Do you want to move experimental zipmods?
+(They won't be deleted, just moved to another folder and may be reactivated at a later time.)</value>
+  </data>
+  <data name="MessageBoxExperimentalDisableCaption" xml:space="preserve">
+    <value>Disable experimental mods</value>
+  </data>
+  <data name="MessageBoxExperimentalMode" xml:space="preserve">
+    <value>This will enable experimental updates if any exists for the current game. Please utilize with caution!
+Do you want to add experimental zipmods?</value>
+  </data>
+  <data name="MessageBoxExperimentalModeCaption" xml:space="preserve">
+    <value>Enable experimental mods</value>
+  </data>
+  <data name="MessageBoxExperimentalModeExists" xml:space="preserve">
+    <value>This will enable experimental updates if any exists for the current game. Please utilize with caution!</value>
+  </data>
+  <data name="MessageBoxExperimentalModeExistsCaption" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="TooltipConsole" xml:space="preserve">
+    <value>Enable console to see game status console.</value>
+  </data>
+  <data name="TooltipExperimentalMode" xml:space="preserve">
+    <value>Allow installation of experimental mods to this game.</value>
   </data>
 </root>
