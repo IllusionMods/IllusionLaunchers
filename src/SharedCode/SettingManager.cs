@@ -22,6 +22,11 @@ namespace InitSetting
                 Width = 854,
                 Height = 480,
                 text = "854 x 480 (16 : 9)"
+            },new DisplayMode
+            {
+                Width = 960,
+                Height = 600,
+                text = "960 x 600 (16 : 10)"
             },
             new DisplayMode
             {
@@ -43,9 +48,15 @@ namespace InitSetting
             },
             new DisplayMode
             {
-                Width = 1366,
-                Height = 768,
-                text = "1366 x 768 (16 : 9)"
+                Width = 1280,
+                Height = 800,
+                text = "1280 x 800 (16 : 10)"
+            },
+            new DisplayMode
+            {
+                Width = 1440,
+                Height = 900,
+                text = "1440 x 900 (16 : 10)"
             },
             new DisplayMode
             {
@@ -61,9 +72,21 @@ namespace InitSetting
             },
             new DisplayMode
             {
+                Width = 1680,
+                Height = 1050,
+                text = "1680 x 1050 (16 : 10)"
+            },
+            new DisplayMode
+            {
                 Width = 1920,
                 Height = 1080,
                 text = "1920 x 1080 (16 : 9)"
+            },
+            new DisplayMode
+            {
+                Width = 1920,
+                Height = 1200,
+                text = "1920 x 1200 (16 : 10)"
             },
             new DisplayMode
             {
@@ -79,6 +102,12 @@ namespace InitSetting
             },
             new DisplayMode
             {
+                Width = 2560,
+                Height = 1600,
+                text = "2560 x 1600 (16 : 10)"
+            },
+            new DisplayMode
+            {
                 Width = 3200,
                 Height = 1800,
                 text = "3200 x 1800 (16 : 9)"
@@ -88,6 +117,12 @@ namespace InitSetting
                 Width = 3840,
                 Height = 2160,
                 text = "3840 x 2160 (16 : 9)"
+            },
+            new DisplayMode
+            {
+                Width = 3840,
+                Height = 2400,
+                text = "3840 x 2160 (16 : 10)"
             }
         };
 
