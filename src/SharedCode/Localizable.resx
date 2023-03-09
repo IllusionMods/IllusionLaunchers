@@ -353,4 +353,8 @@ for this modification.</value>
   <data name="MessageBoxGraphicsMod" xml:space="preserve">
     <value>To use this mod, Press F5 during the game.</value>
   </data>
+  <data name="RatioWarning" xml:space="preserve">
+    <value>Illusion games are made with 16:9 resolutions in mind,
+so some UI elements may not work as intended in other aspect ratios.</value>
+  </data>
 </root>

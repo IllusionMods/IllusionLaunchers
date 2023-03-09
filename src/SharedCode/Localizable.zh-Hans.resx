@@ -157,7 +157,7 @@
     <value>人物卡 (男)</value>
   </data>
   <data name="FolderUserData" xml:space="preserve">
-    <value>UserData</value>
+    <value>用户数据</value>
   </data>
   <data name="ButtonUpdate" xml:space="preserve">
     <value>更新游戏</value>
@@ -254,5 +254,8 @@
   </data>
   <data name="ToggleTouchyFeely" xml:space="preserve">
     <value>激活 TouchyFeely (Boop)</value>
+  </data>
+  <data name="RatioWarning" xml:space="preserve">
+    <value>Illusion游戏通常是以16:9的屏幕分辨率而设计的，因此在其他屏幕比例下，一些界面元素可能无法正常使用。</value>
   </data>
 </root>

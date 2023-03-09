@@ -255,4 +255,96 @@ Dette spillet inneholder innhold av en seksuell natur, og noen av handlingene av
   <data name="ToggleTouchyFeely" xml:space="preserve">
     <value>Aktiver TouchyFeely (Boop)</value>
   </data>
+  <data name="ExperimentalMode" xml:space="preserve">
+    <value>Eksperimentale modifikasjoner</value>
+  </data>
+  <data name="ResHeight" xml:space="preserve">
+    <value>Høyde</value>
+  </data>
+  <data name="ResWidth" xml:space="preserve">
+    <value>Bredde</value>
+  </data>
+  <data name="ToggleNSFW" xml:space="preserve">
+    <value>Deaktiver NSFW innhold</value>
+  </data>
+  <data name="FolderMaps" xml:space="preserve">
+    <value>Kart</value>
+  </data>
+  <data name="FolderPoses" xml:space="preserve">
+    <value>Poser</value>
+  </data>
+  <data name="InstructDecideVariant" xml:space="preserve">
+    <value>Velg variant</value>
+  </data>
+  <data name="ManualGameOnline" xml:space="preserve">
+    <value>Onlinemanual</value>
+  </data>
+  <data name="InstructLang" xml:space="preserve">
+    <value>Språket du har valgt</value>
+  </data>
+  <data name="InstructDecideLang" xml:space="preserve">
+    <value>Språket du valgte har ikke oversettelse i spillfilene. Oversettelse gjøres av Google Translate.</value>
+  </data>
+  <data name="TooltipGraphicsMod" xml:space="preserve">
+    <value>Avanserte grafikkinstillinger.
+Kan konfigureres i spillet med F5-tasten.
+
+Kan ikke brukes sammen med DHH!</value>
+  </data>
+  <data name="TooltipDhh" xml:space="preserve">
+    <value>Avanserte grafikkinstillinger.
+Kan konfigureres i spillet med P-tasten.
+
+Kan ikke brukes sammen med GraphicsMod!</value>
+  </data>
+  <data name="TooltipDhhPH" xml:space="preserve">
+    <value>Høye hæler modifikasjon.
+Gjør det mulig å bruke høye hæler.
+
+Kan konfigureres i spillet ved å bruke P-tasten.</value>
+  </data>
+  <data name="TooltipGGmod" xml:space="preserve">
+    <value>Gjør det mulig å bruke høye hæler.</value>
+  </data>
+  <data name="TooltipTouchyFeely" xml:space="preserve">
+    <value>Får utvalgte kroppsdeler til å
+flappe når musen rører de.</value>
+  </data>
+  <data name="TooltipHoneyPot" xml:space="preserve">
+    <value>Gjør det mulig å bruke enkelte HoneySelect modifikasjoner i PlayHome.
+
+Ikke alle modifikasjoner fungerer, og enkelte krever at du presser F12 for å laste textures.</value>
+  </data>
+  <data name="TooltipPHIBL" xml:space="preserve">
+    <value>Avanserte grafikkinstillinger.
+Kan konfigureres i spillet med F5-tasten.</value>
+  </data>
+  <data name="TooltipVRMod" xml:space="preserve">
+    <value>Tillater bruk av VR i hovedspillet
+og studio.</value>
+  </data>
+  <data name="TooltipBoneMod" xml:space="preserve">
+    <value>Gjør det mulig å bruke modifiserte bein i modifikasjoner.
+
+Må ikke forvirres med BoneModModoki
+eller ABMX.
+
+Kan forårsake problemer for klær laget for bruk uten denne modifikasjonen.</value>
+  </data>
+  <data name="ActivateAutosave" xml:space="preserve">
+    <value>Aktiver Autosave</value>
+  </data>
+  <data name="BetterAA" xml:space="preserve">
+    <value>Akriver Better Anti-Aliasing</value>
+  </data>
+  <data name="MessageBoxDHH" xml:space="preserve">
+    <value>For å bruke denne modifikasjonen, press P i spillet.</value>
+  </data>
+  <data name="MessageBoxGraphicsMod" xml:space="preserve">
+    <value>For å bruke denne modifikasjonen, press F5 i spillet.</value>
+  </data>
+  <data name="RatioWarning" xml:space="preserve">
+    <value>Illusion spill er laget for 16:9 oppløsninger.
+Enkelte elementer i spillet kan vises feil under andre ratioer.</value>
+  </data>
 </root>

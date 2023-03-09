@@ -696,14 +696,27 @@ namespace InitSetting {
                 return ResourceManager.GetString("TranslatedByCredit", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to IllusionLaunchers.
         /// </summary>
-        public static string WindowTitle {
-            get {
+        public static string WindowTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("WindowTitle", resourceCulture);
             }
         }
-	}
+
+        /// <summary>
+        ///   Looks up a localized string similar to IllusionLaunchers.
+        /// </summary>
+        public static string RatioWarning
+        {
+            get
+            {
+                return ResourceManager.GetString("RatioWarning", resourceCulture);
+            }
+        }
+    }
 }

@@ -233,7 +233,7 @@ namespace InitSetting
         public static void WarnRes(string resText)
         {
             if (!resText.Contains("(16 : 9)"))
-                MessageBox.Show("Illusion games are made with 16:9 resolutions in mind,\nso some UI elements may not work as intended in other aspect ratios.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(Localizable.RatioWarning, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         public static void SetLanguage(string language)
