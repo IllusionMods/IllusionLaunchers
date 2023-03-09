@@ -347,4 +347,83 @@ Kan forårsake problemer for klær laget for bruk uten denne modifikasjonen.</va
     <value>Illusion spill er laget for 16:9 oppløsninger.
 Enkelte elementer i spillet kan vises feil under andre ratioer.</value>
   </data>
+  <data name="WarningBleeding" xml:space="preserve">
+    <value>Dette vil aktivere eksperimentelle modifikasjoner om dette eksisterer for dette spillet. Bruk med omhu.
+
+Vil du aktivere eksperimentelle zipmodder?</value>
+  </data>
+  <data name="QuestionBleeding" xml:space="preserve">
+    <value>Aktiver eksperimentelle modifikasjoner</value>
+  </data>
+  <data name="InfoBleeding" xml:space="preserve">
+    <value>Dette vil aktivere eksperimentelle modifikasjoner om dette eksisterer for dette spillet. Bruk med omhu.</value>
+  </data>
+  <data name="TypeInfo" xml:space="preserve">
+    <value>Informasjon</value>
+  </data>
+  <data name="QuestionBleedingDisable" xml:space="preserve">
+    <value>Vil du flytte eksperimentelle zipmods?
+(De vil ikke bli slettet, bare flyttet til en annen mappe, slik at du kan reaktivere disse på senere tidspunkt)</value>
+  </data>
+  <data name="QuestionBleedingDisableTitle" xml:space="preserve">
+    <value>Deaktiver eksperimentelle modifikasjoner</value>
+  </data>
+  <data name="SomethingWentWrong" xml:space="preserve">
+    <value>Noe gikk feil:</value>
+  </data>
+  <data name="SomethingWentWrongLang" xml:space="preserve">
+    <value>Noe gikk feil under bytting av språk:</value>
+  </data>
+  <data name="SomethingWentWrongAutoTL" xml:space="preserve">
+    <value>Noe gikk feil under skriving til AutoTranslator konfigurasjonsfilen:</value>
+  </data>
+  <data name="WarningFramework" xml:space="preserve">
+    <value>Både BepInEx og IPA er detektert i spillmappen!
+
+Aktivering av begge rammeverkene kan forårsake permanente problemer når spillet startes, og vil kreve en reinstallasjon for å fungere korrekt. Vurder å avinstallere IPA og bruk isteden BepInEx.IPALoader pluginnen for å benytte IPA Utvidelser isteden.
+
+Avslutter launcheren.</value>
+  </data>
+  <data name="TypeCritical" xml:space="preserve">
+    <value>Kritisk!</value>
+  </data>
+  <data name="WarningKKM" xml:space="preserve">
+    <value>Feilet å initialisere KKManager, vurder å rapportere denne hendelsen til utviklerne.</value>
+  </data>
+  <data name="WarningLenght" xml:space="preserve">
+    <value>Spillet er installert for dypt i systemet!
+
+Dette kan forårsake en rekke problemer, så det er anbefalt at du flytter spillet til en kortere sti, noe som:
+
+C:\Illusion\Koikatsu</value>
+  </data>
+  <data name="TypeWarn" xml:space="preserve">
+    <value>Advarsel!</value>
+  </data>
+  <data name="WarningManual" xml:space="preserve">
+    <value>Kunne ikke finne manualen.</value>
+  </data>
+  <data name="WarningFolder" xml:space="preserve">
+    <value>Kunne ikke åpne mappe:</value>
+  </data>
+  <data name="TypeUsage" xml:space="preserve">
+    <value>Bruk</value>
+  </data>
+  <data name="WarningHoneyPot" xml:space="preserve">
+    <value>Med HoneyPot aktivert kommer spillet til å bruke noe lengere tid på å laste noen scener, og kan se ut til å fryse fra tid til annen. Dette er helt vanlig.
+
+Bare deaktiver denne pluginnen om du ikke ønsker dette.</value>
+  </data>
+  <data name="WarningPostPros" xml:space="preserve">
+    <value>Denne modifikasjonen er kjent for å skape problemer med koordinasjonskort. Vennligst deaktiver denne om du opplever problemer.</value>
+  </data>
+  <data name="WarningPHVR" xml:space="preserve">
+    <value>For å benytte denne modifikasjonen må du åpne SteamVR før du starter spillet.</value>
+  </data>
+  <data name="TooltipConsole" xml:space="preserve">
+    <value>Aktiver spillkonsollen for å se spillets status live.</value>
+  </data>
+  <data name="TooltipBleeding" xml:space="preserve">
+    <value>Tillat installasjon av eksperimentelle modifikasjoner.</value>
+  </data>
 </root>
