@@ -177,7 +177,7 @@
 这个游戏包含性相关的内容，某些行为在现实生活中可能是非法的。所以，游戏中的所有乐趣请保留在游戏中，让我们保持这种方式吧? (~.~)v</value>
   </data>
   <data name="TranslatedByCredit" xml:space="preserve">
-    <value>翻译： Madevil &amp; Earthship</value>
+    <value>翻译： Madevil, Earthship &amp; Kaldeqca</value>
     <comment>Launcher translated by: Name (leave empty to hide)</comment>
   </data>
   <data name="QualityPerformance" xml:space="preserve">
@@ -257,5 +257,170 @@
   </data>
   <data name="RatioWarning" xml:space="preserve">
     <value>Illusion游戏通常是以16:9的屏幕分辨率而设计的，因此在其他屏幕比例下，一些界面元素可能无法正常使用。</value>
+  </data>
+  <data name="ExperimentalMode" xml:space="preserve">
+    <value>实验模式</value>
+  </data>
+  <data name="ResHeight" xml:space="preserve">
+    <value>高度</value>
+  </data>
+  <data name="ResWidth" xml:space="preserve">
+    <value>宽度</value>
+  </data>
+  <data name="ToggleNSFW" xml:space="preserve">
+    <value>禁用成人内容</value>
+  </data>
+  <data name="FolderMaps" xml:space="preserve">
+    <value>地图</value>
+  </data>
+  <data name="FolderPoses" xml:space="preserve">
+    <value>姿势</value>
+  </data>
+  <data name="InstructDecideVariant" xml:space="preserve">
+    <value>选择工作室</value>
+  </data>
+  <data name="ManualGameOnline" xml:space="preserve">
+    <value>在线手册</value>
+  </data>
+  <data name="InstructLang" xml:space="preserve">
+    <value>您所选择的语言</value>
+  </data>
+  <data name="InstructDecideLang" xml:space="preserve">
+    <value>您选择的语言在当前安装中没有对应的翻译。因此将使用谷歌翻译进行机翻</value>
+  </data>
+  <data name="TooltipGraphicsMod" xml:space="preserve">
+    <value>高级图形选项。
+可以在游戏中使用快捷键F5进行配置。
+
+请注意，该选项不支持DHH！</value>
+  </data>
+  <data name="TooltipDhh" xml:space="preserve">
+    <value>高级图形选项。
+可以在游戏中使用P键进行配置。
+
+请注意，该选项不支持GraphicsMod！</value>
+  </data>
+  <data name="TooltipDhhPH" xml:space="preserve">
+    <value>高跟鞋 Mod。
+添加正确的高跟鞋穿戴方式。
+
+可以在游戏中使用P键进行配置。</value>
+  </data>
+  <data name="TooltipGGmod" xml:space="preserve">
+    <value>添加正确的高跟鞋穿戴方式。</value>
+  </data>
+  <data name="TooltipTouchyFeely" xml:space="preserve">
+    <value>当鼠标悬停在特定身体部位上时，
+可以使其晃动。</value>
+  </data>
+  <data name="TooltipHoneyPot" xml:space="preserve">
+    <value>允许在PlayHome中使用一些HoneySelect Mods。
+
+并非所有的Mods都能正常使用，有些Mods可能需要按下F12才能使粉色纹理重新加载。</value>
+  </data>
+  <data name="TooltipPHIBL" xml:space="preserve">
+    <value>高级图形选项。
+可以在游戏中使用快捷键F5进行配置。</value>
+  </data>
+  <data name="TooltipVRMod" xml:space="preserve">
+    <value>允许在主游戏和工作室中使用VR</value>
+  </data>
+  <data name="TooltipBoneMod" xml:space="preserve">
+    <value>允许在Mod中使用修改过的骨骼。
+
+请注意，它与BoneModModoki或ABMX不同。
+
+可能会导致一些服装无法适应这种骨骼修改，从而出现一些问题。</value>
+  </data>
+  <data name="ActivateAutosave" xml:space="preserve">
+    <value>启动自动保存</value>
+  </data>
+  <data name="BetterAA" xml:space="preserve">
+    <value>启动更好的抗锯齿</value>
+  </data>
+  <data name="MessageBoxDHH" xml:space="preserve">
+    <value>请在游戏中按下P键，来使用这个Mod。</value>
+  </data>
+  <data name="MessageBoxGraphicsMod" xml:space="preserve">
+    <value>请在游戏中按下快捷键F5，来使用这个Mod。</value>
+  </data>
+  <data name="WarningBleeding" xml:space="preserve">
+    <value>这个选项会启用当前游戏中存在的实验性更新，请谨慎使用！
+
+是否想要添加实验性zip mods？</value>
+  </data>
+  <data name="QuestionBleeding" xml:space="preserve">
+    <value>启用实验性Mod</value>
+  </data>
+  <data name="InfoBleeding" xml:space="preserve">
+    <value>这个选项会启用当前游戏中存在的实验性更新，请谨慎使用！</value>
+  </data>
+  <data name="TypeInfo" xml:space="preserve">
+    <value>信息</value>
+  </data>
+  <data name="QuestionBleedingDisable" xml:space="preserve">
+    <value>是否希望移动实验性zipmods？
+(这些Mods不会被删除，只是会被移动到另一个文件夹中，稍后仍可重新激活。)</value>
+  </data>
+  <data name="QuestionBleedingDisableTitle" xml:space="preserve">
+    <value>禁用实验性Mods</value>
+  </data>
+  <data name="SomethingWentWrong" xml:space="preserve">
+    <value>发生了一些问题：</value>
+  </data>
+  <data name="SomethingWentWrongLang" xml:space="preserve">
+    <value>更改语言时发生了一些问题：</value>
+  </data>
+  <data name="SomethingWentWrongAutoTL" xml:space="preserve">
+    <value>写入AutoTranslator配置文件时发生了一些问题：</value>
+  </data>
+  <data name="WarningFramework" xml:space="preserve">
+    <value>检测到游戏文件夹中同时存在BepInEx和IPA框架！
+
+同时使用这两个框架可能会导致游戏运行时出现永久性问题，需要重新安装游戏。建议卸载IPA，并使用BepInEx.IPALoader插件来运行IPA插件。
+
+退出启动器。</value>
+  </data>
+  <data name="TypeCritical" xml:space="preserve">
+    <value>严重错误！</value>
+  </data>
+  <data name="WarningKKM" xml:space="preserve">
+    <value>KKManager初始化失败，请考虑向开发人员报告此错误。</value>
+  </data>
+  <data name="WarningLenght" xml:space="preserve">
+    <value>游戏安装路径位于系统深处，可能会导致多种错误。
+
+因此，建议将其移动到一个较短的路径，例如：
+
+C:\Illusion\Koikatsu</value>
+  </data>
+  <data name="TypeWarn" xml:space="preserve">
+    <value>警告！</value>
+  </data>
+  <data name="WarningManual" xml:space="preserve">
+    <value>无法找到手册。</value>
+  </data>
+  <data name="WarningFolder" xml:space="preserve">
+    <value>无法打开文件夹。</value>
+  </data>
+  <data name="TypeUsage" xml:space="preserve">
+    <value>用法</value>
+  </data>
+  <data name="WarningHoneyPot" xml:space="preserve">
+    <value>当启用HoneyPot时，由于检查HoneySelect资源，游戏在某些场景加载时会需要更长时间，会导致游戏似乎在几秒钟内卡死。这是完全正常的现象。
+
+如果你不想经历这种卡顿，可以再次禁用此选项。</value>
+  </data>
+  <data name="WarningPostPros" xml:space="preserve">
+    <value>这个Mod已知会导致保存服装时出现错误，如果遇到错误，请考虑禁用它。</value>
+  </data>
+  <data name="WarningPHVR" xml:space="preserve">
+    <value>请在打开主游戏或工作室之前先打开SteamVR， 来使用此Mod。</value>
+  </data>
+  <data name="TooltipConsole" xml:space="preserve">
+    <value>启用控制台以查看游戏状态信息。</value>
+  </data>
+  <data name="TooltipBleeding" xml:space="preserve">
+    <value>允许安装实验性Mods到游戏中。</value>
   </data>
 </root>
