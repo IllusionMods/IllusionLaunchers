@@ -102,7 +102,7 @@ namespace InitSetting
                         {
                             if (System.Windows.MessageBox.Show(
                                     Localizable.WarningBleeding,
-                                    Localizable.QuestionBleeding, MessageBoxButton.YesNo, MessageBoxImage.Question) ==
+                                    Localizable.QuestionBleeding, MessageBoxButton.YesNo, MessageBoxImage.Question)
                                 MessageBoxResult.Yes)
                             {
                                 if (!Directory.Exists($"{experimentalDir}"))
@@ -126,7 +126,7 @@ namespace InitSetting
                         {
                             if (System.Windows.MessageBox.Show(
                                     Localizable.QuestionBleedingDisable,
-                                    Localizable.QuestionBleedingDisableTitle, MessageBoxButton.YesNo, MessageBoxImage.Question) ==
+                                    Localizable.QuestionBleedingDisableTitle, MessageBoxButton.YesNo, MessageBoxImage.Question)
                                 MessageBoxResult.Yes)
                             {
                                 if (!Directory.Exists($"{experimentalDir}"))
@@ -270,7 +270,7 @@ namespace InitSetting
                         break;
                     case "pt-PT":
                         LangQ_a = "Deseja também definir o idioma do jogo para o idioma selecionado?";
-                        LangQ_b = "Questão";
+                        LangQ_b = "Pergunta";
                         break;
                     case "fr-FR":
                         LangQ_a = "Voulez-vous également définir la langue du jeu sur la langue sélectionnée?";
