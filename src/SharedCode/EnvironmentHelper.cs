@@ -79,7 +79,7 @@ namespace InitSetting
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("Something went wrong: " + e);
+                    MessageBox.Show(Localizable.SomethingWentWrong + " " + e);
                 }
             }
         }
@@ -101,8 +101,8 @@ namespace InitSetting
                         if (Directory.Exists($"{experimentalDir}Sideloader Modpack - Bleeding Edge"))
                         {
                             if (System.Windows.MessageBox.Show(
-                                    Localizable.MessageBoxExperimentalModeExists,
-                                    Localizable.MessageBoxExperimentalModeExistsCaption, MessageBoxButton.YesNo, MessageBoxImage.Question) ==
+                                    Localizable.WarningBleeding,
+                                    Localizable.QuestionBleeding, MessageBoxButton.YesNo, MessageBoxImage.Question)
                                 MessageBoxResult.Yes)
                             {
                                 if (!Directory.Exists($"{experimentalDir}"))
@@ -115,8 +115,8 @@ namespace InitSetting
                         else
                         {
                             System.Windows.MessageBox.Show(
-                                Localizable.MessageBoxExperimentalMode,
-                                Localizable.MessageBoxExperimentalModeCaption, MessageBoxButton.OK, MessageBoxImage.Information);
+                                Localizable.InfoBleeding,
+                                Localizable.TypeInfo, MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                     }
                     else
@@ -125,8 +125,8 @@ namespace InitSetting
                         if (Directory.Exists($"{productionModsDir}Sideloader Modpack - Bleeding Edge"))
                         {
                             if (System.Windows.MessageBox.Show(
-                                    Localizable.MessageBoxExperimentalDisable,
-                                    Localizable.MessageBoxExperimentalDisableCaption, MessageBoxButton.YesNo, MessageBoxImage.Question) ==
+                                    Localizable.QuestionBleedingDisable,
+                                    Localizable.QuestionBleedingDisableTitle, MessageBoxButton.YesNo, MessageBoxImage.Question)
                                 MessageBoxResult.Yes)
                             {
                                 if (!Directory.Exists($"{experimentalDir}"))
@@ -140,7 +140,7 @@ namespace InitSetting
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("Something went wrong: " + e);
+                    MessageBox.Show(Localizable.SomethingWentWrong + " " + e);
                 }
             }
         }
@@ -166,7 +166,7 @@ namespace InitSetting
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("Something went wrong: " + e);
+                    MessageBox.Show(Localizable.SomethingWentWrong + " " + e);
                 }
 
                 return false;
@@ -203,7 +203,7 @@ namespace InitSetting
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("Something went wrong: " + e);
+                    MessageBox.Show(Localizable.SomethingWentWrong + " " + e);
                 }
             }
         }
@@ -228,6 +228,12 @@ namespace InitSetting
         {
             if (IntPtr.Size == 4) return IsWow64();
             return IntPtr.Size == 8;
+        }
+
+        public static void WarnRes(string resText)
+        {
+            if (!resText.Contains("(16 : 9)"))
+                MessageBox.Show(Localizable.RatioWarning, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         public static void SetLanguage(string language)
@@ -320,7 +326,7 @@ namespace InitSetting
             }
             catch (Exception e)
             {
-                MessageBox.Show("Something went wrong when changing language: " + e);
+                MessageBox.Show(Localizable.SomethingWentWrongLang + " " + e);
             }
         }
 
@@ -432,7 +438,7 @@ namespace InitSetting
             }
             catch (Exception e)
             {
-                MessageBox.Show("Something went wrong when writing AutoTranslator config file: " + e);
+                MessageBox.Show(Localizable.SomethingWentWrongLang + " " + e);
             }
         }
 
@@ -471,8 +477,8 @@ namespace InitSetting
             if (IsIpa && IsBepIn)
             {
                 MessageBox.Show(
-                    "Both BepInEx and IPA is detected in the game folder!\n\nApplying both frameworks may cause permanent problems when running the game, making a reinstall needed. Consider uninstalling IPA and using the BepInEx.IPALoader plugin to run your IPA plugins instead.\n\nExiting launcher.",
-                    "Critical!");
+                    Localizable.WarningFramework,
+                    Localizable.TypeCritical);
 
                 System.Windows.Application.Current.Shutdown();
             }
@@ -520,14 +526,14 @@ namespace InitSetting
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Failed to initialize KKManager, please consider reporting this error to developers.\n\n" + ex,
-                    "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    Localizable.WarningKKM + ex,
+                    Localizable.TypeCritical, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
             if (GameRootDirectory.Length >= 75)
                 MessageBox.Show(
-                    "The game is installed deep in the file system!\n\nThis can cause a variety of errors, so it's recommended that you move it to a shorter path, something like:\n\nC:\\Illusion\\AI.Shoujo",
-                    "Critical warning!");
+                    Localizable.WarningLenght,
+                    Localizable.TypeCritical);
 
             // Customization options
 
@@ -668,7 +674,7 @@ namespace InitSetting
             }
             catch (Exception e) { ex = e; }
 
-            MessageBox.Show("Manual could not be found." + (ex != null ? "\n\n" + ex.Message : ""), "Warning!");
+            MessageBox.Show(Localizable.WarningManual + (ex != null ? "\n\n" + ex.Message : ""), Localizable.TypeWarn);
         }
 
         public static void OpenDirectory(string subDirectory)
@@ -682,7 +688,7 @@ namespace InitSetting
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Could not open the folder: {subDirectory}\n\n{ex.Message}", "Warning!");
+                MessageBox.Show(Localizable.WarningFolder + subDirectory + "\n\n" + ex.Message, Localizable.TypeWarn);
             }
         }
 
@@ -702,7 +708,7 @@ namespace InitSetting
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to start the updater: " + ex, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Failed to start the updater: " + ex, Localizable.TypeWarn, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
@@ -723,7 +729,7 @@ namespace InitSetting
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to start the KKManager: " + ex, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Failed to start the KKManager: " + ex, Localizable.TypeWarn, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
@@ -744,7 +750,7 @@ namespace InitSetting
             {
                 return StartProcess(new ProcessStartInfo(exePath) { WorkingDirectory = GameRootDirectory }) != null;
             }
-            MessageBox.Show("Executable can't be located", "Warning!");
+            MessageBox.Show("Executable can't be located", Localizable.TypeWarn);
             return false;
         }
 
@@ -757,7 +763,7 @@ namespace InitSetting
         //        Process.Start(text);
         //        return;
         //    }
-        //    MessageBox.Show("Folder could not be found, please launch the game at least once.", "Warning!");
+        //    MessageBox.Show("Folder could not be found, please launch the game at least once.", Localizable.TypeWarn);
         //}
         public static Process StartProcess(string execString)
         {

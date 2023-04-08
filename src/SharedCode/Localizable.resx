@@ -353,30 +353,89 @@ for this modification.</value>
   <data name="MessageBoxGraphicsMod" xml:space="preserve">
     <value>To use this mod, Press F5 during the game.</value>
   </data>
-  <data name="MessageBoxExperimentalDisable" xml:space="preserve">
+  <data name="RatioWarning" xml:space="preserve">
+    <value>Illusion games are made with 16:9 resolutions in mind,
+so some UI elements may not work as intended in other aspect ratios.</value>
+  </data>
+  <data name="WarningBleeding" xml:space="preserve">
+    <value>This will enable experimental updates if any exists for the current game. Please utilize with caution!
+
+Do you want to add experimental zipmods?</value>
+  </data>
+  <data name="QuestionBleeding" xml:space="preserve">
+    <value>Enable experimental mods</value>
+  </data>
+  <data name="InfoBleeding" xml:space="preserve">
+    <value>This will enable experimental updates if any exists for the current game. Please utilize with caution!</value>
+  </data>
+  <data name="TypeInfo" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="QuestionBleedingDisable" xml:space="preserve">
     <value>Do you want to move experimental zipmods?
 (They won't be deleted, just moved to another folder and may be reactivated at a later time.)</value>
   </data>
-  <data name="MessageBoxExperimentalDisableCaption" xml:space="preserve">
+  <data name="QuestionBleedingDisableTitle" xml:space="preserve">
     <value>Disable experimental mods</value>
   </data>
-  <data name="MessageBoxExperimentalMode" xml:space="preserve">
-    <value>This will enable experimental updates if any exists for the current game. Please utilize with caution!
-Do you want to add experimental zipmods?</value>
+  <data name="SomethingWentWrong" xml:space="preserve">
+    <value>Something went wrong:</value>
   </data>
-  <data name="MessageBoxExperimentalModeCaption" xml:space="preserve">
-    <value>Enable experimental mods</value>
+  <data name="SomethingWentWrongLang" xml:space="preserve">
+    <value>Something went wrong when changing language:</value>
   </data>
-  <data name="MessageBoxExperimentalModeExists" xml:space="preserve">
-    <value>This will enable experimental updates if any exists for the current game. Please utilize with caution!</value>
+  <data name="SomethingWentWrongAutoTL" xml:space="preserve">
+    <value>Something went wrong when writing AutoTranslator config file:</value>
   </data>
-  <data name="MessageBoxExperimentalModeExistsCaption" xml:space="preserve">
-    <value>Information</value>
+  <data name="WarningFramework" xml:space="preserve">
+    <value>Both BepInEx and IPA is detected in the game folder!
+
+Applying both frameworks may cause permanent problems when running the game, making a reinstall needed. Consider uninstalling IPA and using the BepInEx.IPALoader plugin to run your IPA plugins instead.
+
+Exiting launcher.</value>
+  </data>
+  <data name="TypeCritical" xml:space="preserve">
+    <value>Critical!</value>
+  </data>
+  <data name="WarningKKM" xml:space="preserve">
+    <value>Failed to initialize KKManager, please consider reporting this error to developers.
+
+</value>
+  </data>
+  <data name="WarningLenght" xml:space="preserve">
+    <value>The game is installed deep in the file system!
+
+This can cause a variety of errors, so it's recommended that you move it to a shorter path, something like:
+
+C:\Illusion\Koikatsu</value>
+  </data>
+  <data name="TypeWarn" xml:space="preserve">
+    <value>Warning!</value>
+  </data>
+  <data name="WarningManual" xml:space="preserve">
+    <value>Manual could not be found.</value>
+  </data>
+  <data name="WarningFolder" xml:space="preserve">
+    <value>Could not open the folder:</value>
+  </data>
+  <data name="TypeUsage" xml:space="preserve">
+    <value>Usage</value>
+  </data>
+  <data name="WarningHoneyPot" xml:space="preserve">
+    <value>When HoneyPot is enabled, the game will use a bit longer to load in some scenes due to checking for HoneySelect assets, making it appear to be freezing for a few seconds. This is completely normal.
+
+Just disable this option again if you would rather not have that freeze.</value>
+  </data>
+  <data name="WarningPostPros" xml:space="preserve">
+    <value>This mod is known to cause issues saving coordinates, please disable if you're experiencing problems.</value>
+  </data>
+  <data name="WarningPHVR" xml:space="preserve">
+    <value>To use this mod, open SteamVR before opening either the main game or studio.</value>
   </data>
   <data name="TooltipConsole" xml:space="preserve">
     <value>Enable console to see game status console.</value>
   </data>
-  <data name="TooltipExperimentalMode" xml:space="preserve">
+  <data name="TooltipBleeding" xml:space="preserve">
     <value>Allow installation of experimental mods to this game.</value>
   </data>
 </root>

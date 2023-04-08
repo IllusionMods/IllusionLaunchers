@@ -793,14 +793,258 @@ namespace InitSetting {
                 return ResourceManager.GetString("TranslatedByCredit", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to IllusionLaunchers.
         /// </summary>
-        public static string WindowTitle {
-            get {
+        public static string WindowTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("WindowTitle", resourceCulture);
             }
         }
-	}
+
+        /// <summary>
+        ///   Looks up a localized string similar to RatioWarning.
+        /// </summary>
+        public static string RatioWarning
+        {
+            get
+            {
+                return ResourceManager.GetString("RatioWarning", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to SomethingWentWrong.
+        /// </summary>
+        public static string SomethingWentWrong
+        {
+            get
+            {
+                return ResourceManager.GetString("SomethingWentWrong", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to WarningBleeding.
+        /// </summary>
+        public static string WarningBleeding
+        {
+            get
+            {
+                return ResourceManager.GetString("WarningBleeding", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to QuestionBleeding.
+        /// </summary>
+        public static string QuestionBleeding
+        {
+            get
+            {
+                return ResourceManager.GetString("QuestionBleeding", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to InfoBleeding.
+        /// </summary>
+        public static string InfoBleeding
+        {
+            get
+            {
+                return ResourceManager.GetString("InfoBleeding", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to TypeInfo.
+        /// </summary>
+        public static string TypeInfo
+        {
+            get
+            {
+                return ResourceManager.GetString("TypeInfo", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to QuestionBleedingDisable.
+        /// </summary>
+        public static string QuestionBleedingDisable
+        {
+            get
+            {
+                return ResourceManager.GetString("QuestionBleedingDisable", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to QuestionBleedingDisableTitle.
+        /// </summary>
+        public static string QuestionBleedingDisableTitle
+        {
+            get
+            {
+                return ResourceManager.GetString("QuestionBleedingDisableTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to SomethingWentWrongLang.
+        /// </summary>
+        public static string SomethingWentWrongLang
+        {
+            get
+            {
+                return ResourceManager.GetString("SomethingWentWrongLang", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to WarningFramework.
+        /// </summary>
+        public static string WarningFramework
+        {
+            get
+            {
+                return ResourceManager.GetString("WarningFramework", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to TypeCritical.
+        /// </summary>
+        public static string TypeCritical
+        {
+            get
+            {
+                return ResourceManager.GetString("TypeCritical", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to WarningKKM.
+        /// </summary>
+        public static string WarningKKM
+        {
+            get
+            {
+                return ResourceManager.GetString("WarningKKM", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to WarningLenght.
+        /// </summary>
+        public static string WarningLenght
+        {
+            get
+            {
+                return ResourceManager.GetString("WarningLenght", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to WarningManual.
+        /// </summary>
+        public static string WarningManual
+        {
+            get
+            {
+                return ResourceManager.GetString("WarningManual", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to TypeWarn.
+        /// </summary>
+        public static string TypeWarn
+        {
+            get
+            {
+                return ResourceManager.GetString("TypeWarn", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to WarningFolder.
+        /// </summary>
+        public static string WarningFolder
+        {
+            get
+            {
+                return ResourceManager.GetString("WarningFolder", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to WarningHoneyPot.
+        /// </summary>
+        public static string WarningHoneyPot
+        {
+            get
+            {
+                return ResourceManager.GetString("WarningHoneyPot", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to TypeUsage.
+        /// </summary>
+        public static string TypeUsage
+        {
+            get
+            {
+                return ResourceManager.GetString("TypeUsage", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to WarningPostPros.
+        /// </summary>
+        public static string WarningPostPros
+        {
+            get
+            {
+                return ResourceManager.GetString("WarningPostPros", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to WarningPHVR.
+        /// </summary>
+        public static string WarningPHVR
+        {
+            get
+            {
+                return ResourceManager.GetString("WarningPHVR", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to TooltipConsole.
+        /// </summary>
+        public static string TooltipConsole
+        {
+            get
+            {
+                return ResourceManager.GetString("TooltipConsole", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to TooltipBleeding.
+        /// </summary>
+        public static string TooltipBleeding
+        {
+            get
+            {
+                return ResourceManager.GetString("TooltipBleeding", resourceCulture);
+            }
+        }
+    }
 }

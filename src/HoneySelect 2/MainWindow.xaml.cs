@@ -149,6 +149,8 @@ namespace InitSetting
             SettingManager.CurrentSettings.Size = comboBoxCustomItem.text;
             SettingManager.CurrentSettings.Width = comboBoxCustomItem.width;
             SettingManager.CurrentSettings.Height = comboBoxCustomItem.height;
+
+            if (!_suppressEvents) EnvironmentHelper.WarnRes(comboBoxCustomItem.text);
         }
 
         private void QualityChanged(object sender, SelectionChangedEventArgs e)
