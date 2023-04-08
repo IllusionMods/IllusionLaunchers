@@ -102,7 +102,7 @@ namespace InitSetting
                         {
                             if (System.Windows.MessageBox.Show(
                                     Localizable.WarningBleeding,
-                                    Localizable.QuestionBleeding, MessageBoxButton.YesNo, MessageBoxImage.Question)
+                                    Localizable.QuestionBleeding, MessageBoxButton.YesNo, MessageBoxImage.Question) ==
                                 MessageBoxResult.Yes)
                             {
                                 if (!Directory.Exists($"{experimentalDir}"))
@@ -126,7 +126,7 @@ namespace InitSetting
                         {
                             if (System.Windows.MessageBox.Show(
                                     Localizable.QuestionBleedingDisable,
-                                    Localizable.QuestionBleedingDisableTitle, MessageBoxButton.YesNo, MessageBoxImage.Question)
+                                    Localizable.QuestionBleedingDisableTitle, MessageBoxButton.YesNo, MessageBoxImage.Question) ==
                                 MessageBoxResult.Yes)
                             {
                                 if (!Directory.Exists($"{experimentalDir}"))

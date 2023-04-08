@@ -573,17 +573,6 @@ namespace InitSetting {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Enable console to see game status console.
-        /// </summary>
-        public static string TooltipConsole
-        {
-            get
-            {
-                return ResourceManager.GetString("TooltipConsole", resourceCulture);
-            }
-        }
-
-        /// <summary>
         ///   Looks up a localized string similar to Allow installation of experimental mods to this game.
         /// </summary>
         public static string TooltipExperimentalMode
