@@ -19,6 +19,7 @@ namespace InitSetting
     public static class EnvironmentHelper
     {
         private static readonly string _mStrSaveDir = "/UserData/setup.xml";
+        private static readonly string _mStrSaveDirILL = "/UserData/config.xml";
         private static readonly string _mCustomDir = "/BepInEx/LauncherEN";
         private static readonly string _decideLang = "/lang";
         private static readonly string _versioningLoc = "/version";
@@ -626,6 +627,11 @@ namespace InitSetting
         public static string GetConfigFilePath()
         {
             return GameRootDirectory + _mStrSaveDir;
+        }
+
+        public static string GetConfigFilePath(bool illgames)
+        {
+            return GameRootDirectory + _mStrSaveDirILL;
         }
 
         public static void ShowManual(string manualRoot)
