@@ -41,9 +41,9 @@ namespace InitSetting
                 _studioExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableStudio);
 
                 if (_studioExists)
-                    SettingManagerILLG.Initialize(EnvironmentHelper.GetConfigFilePath(true), RegistryKeyGame, RegistryKeyStudio);
+                    SettingManagerILLG.Initialize(EnvironmentHelper.GetConfigFilePath(true, true), EnvironmentHelper.GetConfigFilePath(true, false), RegistryKeyGame, RegistryKeyStudio);
                 else
-                    SettingManagerILLG.Initialize(EnvironmentHelper.GetConfigFilePath(true), RegistryKeyGame);
+                    SettingManagerILLG.Initialize(EnvironmentHelper.GetConfigFilePath(true, true), EnvironmentHelper.GetConfigFilePath(true, false), RegistryKeyGame);
 
                 SettingManagerILLG.LoadSettings();
 

@@ -14,6 +14,7 @@ namespace InitSetting
     public static class SettingManagerILLG
     {
         public static Preferences Preferences { get; private set; } = new Preferences();
+        public static Setting Settings { get; private set; } = new Setting();
         public static Graphic CurrentSettings { get; private set; } = new Graphic();
 
         public static IEnumerable<DisplayMode> DefaultSettingList = new List<DisplayMode>
@@ -129,6 +130,7 @@ namespace InitSetting
 
         private static readonly List<DisplayModes> _displayModes = new List<DisplayModes>();
         private static string _configFilePath;
+        private static string _langConfigFilePath;
         private static string[] _registryConfigPaths;
         public static List<DisplayMode> GetDisplayModes(int nDisplay, bool fullScreen) => fullScreen ? _displayModes[nDisplay].fullscreenList : _displayModes[nDisplay].windowedList;
         public static List<DisplayMode> GetCurrentDisplayModes() => GetDisplayModes(CurrentSettings.TargetDisplay, CurrentSettings.FullScreen);
@@ -189,6 +191,11 @@ namespace InitSetting
             using (var writer = new StreamWriter(_configFilePath))
             {
                 serializer.Serialize(writer, outPreferences);
+            }
+            var langSerializer = new XmlSerializer(typeof(Setting));
+            using (var writer = new StreamWriter(_langConfigFilePath))
+            {
+                langSerializer.Serialize(writer, Settings);
             }
         }
 
@@ -301,9 +308,10 @@ namespace InitSetting
             public List<DisplayMode> windowedList;
         }
 
-        public static void Initialize(string configFilePath, params string[] registryConfigPaths)
+        public static void Initialize(string configFilePath, string langFilePath, params string[] registryConfigPaths)
         {
             _configFilePath = configFilePath ?? throw new ArgumentNullException(nameof(configFilePath));
+            _langConfigFilePath = langFilePath ?? throw new ArgumentNullException(nameof(langFilePath));
             _registryConfigPaths = registryConfigPaths ?? throw new ArgumentNullException(nameof(registryConfigPaths));
 
             var num = Screen.AllScreens.Length;
@@ -322,6 +330,7 @@ namespace InitSetting
             CurrentSettings.Map = true;
             CurrentSettings.Shield = true;
             CurrentSettings.BackColor = "16.16.16.255";
+            Settings.Language = 1;
         }
 
         public static void LoadSettings()
@@ -360,6 +369,21 @@ namespace InitSetting
             // Reset invalid display to primary
             if (CurrentSettings.TargetDisplay >= Screen.AllScreens.Length || CurrentSettings.TargetDisplay < 0)
                 CurrentSettings.TargetDisplay = 0;
+
+            if (!File.Exists(_langConfigFilePath)) return;
+            try
+            {
+                using (var fileStream = new FileStream(_langConfigFilePath, FileMode.Open))
+                {
+                    var xmlSerializer = new XmlSerializer(typeof(Setting));
+                    Settings = (Setting)xmlSerializer.Deserialize(fileStream);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("/UserData/setup.xml file was corrupted, settings will be reset.");
+                File.Delete(_langConfigFilePath);
+            }
         }
     }
 }

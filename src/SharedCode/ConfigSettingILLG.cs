@@ -26,4 +26,9 @@ namespace InitSetting
         public bool AmbientLight { get; set; }
         public string BackColor { get; set; }
     }
+
+    public class Setting
+    {
+        public int Language { get; set; }
+    }
 }

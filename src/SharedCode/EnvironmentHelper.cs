@@ -45,6 +45,7 @@ namespace InitSetting
         public static string PatreonUrl { get; private set; }
         public static string VersionString { get; private set; }
         public static string WarningString { get; private set; }
+        public static string currentDirectory { get; private set; }
         public static BitmapFrame CustomBgImage { get; private set; }
         public static BitmapFrame CustomCharacterImage { get; private set; }
 
@@ -305,7 +306,17 @@ namespace InitSetting
                             .FindIndex(x => language.Equals(x, StringComparison.OrdinalIgnoreCase));
 
                         // Set built-in game language if supported
-                        if (builtinIndex >= 0)
+                        if (File.Exists($"{EnvironmentHelper.GameRootDirectory}//HoneyCome.exe") && builtinIndex >= 0)
+                        {
+                            SettingManagerILLG.Settings.Language = builtinIndex;
+                            SettingManagerILLG.SaveSettings();
+                        }
+                        else if (File.Exists($"{EnvironmentHelper.GameRootDirectory}//HoneyCome.exe"))
+                        {
+                            SettingManagerILLG.Settings.Language = 1;
+                            SettingManagerILLG.SaveSettings();
+                        }
+                        else if (builtinIndex >= 0)
                         {
                             SettingManager.CurrentSettings.Language = builtinIndex;
                             SettingManager.SaveSettings();
@@ -597,7 +608,7 @@ namespace InitSetting
 
         private static void InitializeDirectories()
         {
-            var currentDirectory = Path.GetDirectoryName(typeof(MainWindow).Assembly.Location) ??
+            currentDirectory = Path.GetDirectoryName(typeof(MainWindow).Assembly.Location) ??
                                    Environment.CurrentDirectory;
             GameRootDirectory = currentDirectory + "\\";
             ILikeBleeding = $"{EnvironmentHelper.GameRootDirectory}\\BepInEx\\LauncherEN\\ilikebleeding.txt";
@@ -629,9 +640,12 @@ namespace InitSetting
             return GameRootDirectory + _mStrSaveDir;
         }
 
-        public static string GetConfigFilePath(bool illgames)
+        public static string GetConfigFilePath(bool illgames, bool mainconfig)
         {
-            return GameRootDirectory + _mStrSaveDirILL;
+            if(mainconfig)
+                return GameRootDirectory + _mStrSaveDirILL;
+            else
+                return GameRootDirectory + _mStrSaveDir;
         }
 
         public static void ShowManual(string manualRoot)
