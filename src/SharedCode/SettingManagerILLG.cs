@@ -13,6 +13,7 @@ namespace InitSetting
 {
     public static class SettingManagerILLG
     {
+        public static Preferences Preferences { get; private set; } = new Preferences();
         public static Graphic CurrentSettings { get; private set; } = new Graphic();
 
         public static IEnumerable<DisplayMode> DefaultSettingList = new List<DisplayMode>
@@ -163,12 +164,31 @@ namespace InitSetting
         {
             Directory.CreateDirectory(Path.GetDirectoryName(_configFilePath) ?? throw new InvalidOperationException("Invalid config path " + _configFilePath));
 
-            using (var fileStream = new FileStream(_configFilePath, FileMode.Create))
-            using (var streamWriter = new StreamWriter(fileStream, Encoding.GetEncoding("UTF-16")))
+            var outPreferences = new Preferences()
             {
-                var xmlSerializerNamespaces = new XmlSerializerNamespaces();
-                xmlSerializerNamespaces.Add(string.Empty, string.Empty);
-                new XmlSerializer(typeof(Graphic)).Serialize(streamWriter, CurrentSettings, xmlSerializerNamespaces);
+                Graphic = new Graphic()
+                {
+                    ScrSize = CurrentSettings.ScrSize,
+                    ScrWidth = CurrentSettings.ScrWidth,
+                    ScrHeight = CurrentSettings.ScrHeight,
+                    FullScreen = CurrentSettings.FullScreen,
+                    TargetDisplay = CurrentSettings.TargetDisplay,
+                    Bloom = CurrentSettings.Bloom,
+                    DepthOfField = CurrentSettings.DepthOfField,
+                    Vignette = CurrentSettings.Vignette,
+                    SSAO = CurrentSettings.SSAO,
+                    Fog = CurrentSettings.Fog,
+                    Quality = CurrentSettings.Quality,
+                    Map = CurrentSettings.Map,
+                    Shield = CurrentSettings.Shield,
+                    BackColor = CurrentSettings.BackColor
+                }
+            };
+
+            var serializer = new XmlSerializer(typeof(Preferences));
+            using (var writer = new StreamWriter(_configFilePath))
+            {
+                serializer.Serialize(writer, outPreferences);
             }
         }
 
@@ -312,8 +332,23 @@ namespace InitSetting
             {
                 using (var fileStream = new FileStream(_configFilePath, FileMode.Open))
                 {
-                    var xmlSerializer = new XmlSerializer(typeof(ConfigSetting));
-                    CurrentSettings = (Graphic)xmlSerializer.Deserialize(fileStream);
+                    var xmlSerializer = new XmlSerializer(typeof(Preferences));
+                    Preferences = (Preferences)xmlSerializer.Deserialize(fileStream);
+
+                    CurrentSettings.ScrSize = Preferences.Graphic.ScrSize;
+                    CurrentSettings.ScrWidth = Preferences.Graphic.ScrWidth;
+                    CurrentSettings.ScrHeight = Preferences.Graphic.ScrHeight;
+                    CurrentSettings.FullScreen = Preferences.Graphic.FullScreen;
+                    CurrentSettings.TargetDisplay = Preferences.Graphic.TargetDisplay;
+                    CurrentSettings.Bloom = Preferences.Graphic.Bloom;
+                    CurrentSettings.DepthOfField = Preferences.Graphic.DepthOfField;
+                    CurrentSettings.Vignette = Preferences.Graphic.Vignette;
+                    CurrentSettings.SSAO = Preferences.Graphic.SSAO;
+                    CurrentSettings.Fog = Preferences.Graphic.Fog;
+                    CurrentSettings.Quality = Preferences.Graphic.Quality;
+                    CurrentSettings.Map = Preferences.Graphic.Map;
+                    CurrentSettings.Shield = Preferences.Graphic.Shield;
+                    CurrentSettings.BackColor = Preferences.Graphic.BackColor;
                 }
             }
             catch (Exception)
