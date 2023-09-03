@@ -6,8 +6,11 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml;
 using System.Xml.Serialization;
+using InitSetting.Properties;
 using Microsoft.Win32;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace InitSetting
 {
@@ -186,14 +189,25 @@ namespace InitSetting
                     BackColor = CurrentSettings.BackColor
                 }
             };
+            
+            //var serializer = new XmlSerializer(typeof(Preferences));
+            //using (var writer = new StreamWriter(_configFilePath))
+            //{
+            //    serializer.Serialize(writer, outPreferences);
+            //}
 
-            var serializer = new XmlSerializer(typeof(Preferences));
-            using (var writer = new StreamWriter(_configFilePath))
+            using (var fileStream = new FileStream(_configFilePath, FileMode.Create))
+            using (var langFileStream = new FileStream(_langConfigFilePath, FileMode.Create))
+            using (var streamWriter = new StreamWriter(fileStream, Encoding.GetEncoding("UTF-8")))
             {
-                serializer.Serialize(writer, outPreferences);
+                var xmlSerializerNamespaces = new XmlSerializerNamespaces();
+                xmlSerializerNamespaces.Add(string.Empty, string.Empty);
+                new XmlSerializer(typeof(Preferences)).Serialize(streamWriter, outPreferences, xmlSerializerNamespaces);
+                //new XmlSerializer(typeof(Settings)).Serialize(streamWriter, Settings, xmlSerializerNamespaces);
             }
+
             var langSerializer = new XmlSerializer(typeof(Setting));
-            using (var writer = new StreamWriter(_langConfigFilePath))
+            using (var writer = new StreamWriter(_langConfigFilePath, false, Encoding.GetEncoding("UTF-8")))
             {
                 langSerializer.Serialize(writer, Settings);
             }
@@ -329,8 +343,25 @@ namespace InitSetting
             CurrentSettings.Quality = 0;
             CurrentSettings.Map = true;
             CurrentSettings.Shield = true;
-            CurrentSettings.BackColor = "16.16.16.255";
+            CurrentSettings.BackColor = "16,16,16,255";
             Settings.Language = 1;
+        }
+
+        public class MyXmlReader : XmlTextReader
+        {
+            public MyXmlReader(TextReader reader) : base(reader) { }
+            public override string ReadElementString()
+            {
+                var text = base.ReadElementString();
+
+                // bool TryParse accepts case-insensitive 'true' and 'false'
+                if (bool.TryParse(text, out bool result))
+                {
+                    text = XmlConvert.ToString(result);
+                }
+
+                return text;
+            }
         }
 
         public static void LoadSettings()
@@ -339,10 +370,11 @@ namespace InitSetting
 
             try
             {
-                using (var fileStream = new FileStream(_configFilePath, FileMode.Open))
+                using (var sr = new StringReader(File.ReadAllText(_configFilePath)))
+                using (var r = new MyXmlReader(sr))
                 {
                     var xmlSerializer = new XmlSerializer(typeof(Preferences));
-                    Preferences = (Preferences)xmlSerializer.Deserialize(fileStream);
+                    Preferences = (Preferences)xmlSerializer.Deserialize(r);
 
                     CurrentSettings.ScrSize = Preferences.Graphic.ScrSize;
                     CurrentSettings.ScrWidth = Preferences.Graphic.ScrWidth;
