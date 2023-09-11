@@ -18,8 +18,6 @@ namespace InitSetting
 {
     public static class EnvironmentHelper
     {
-        private static readonly string _mStrSaveDir = "/UserData/setup.xml";
-        private static readonly string _mStrSaveDirILL = "/UserData/config.xml";
         private static readonly string _mCustomDir = "/BepInEx/LauncherEN";
         private static readonly string _decideLang = "/lang";
         private static readonly string _versioningLoc = "/version";
@@ -307,8 +305,8 @@ namespace InitSetting
                         // Set built-in game language if supported
                         if (builtinIndex >= 0)
                         {
-                            SettingManager.CurrentSettings.Language = builtinIndex;
-                            SettingManager.SaveSettings();
+                            SettingManager.Current.CurrentSettings.Language = builtinIndex;
+                            SettingManager.Current.SaveSettings();
                         }
                         else if(!File.Exists(
                                     $"{EnvironmentHelper.GameRootDirectory}/BepInEx/Translation/{language}/DisableGoogleWarn.txt") &&
@@ -623,17 +621,7 @@ namespace InitSetting
             Thread.CurrentThread.CurrentUICulture = Language;
             Thread.CurrentThread.CurrentCulture = Language;
         }
-
-        public static string GetConfigFilePath()
-        {
-            return GameRootDirectory + _mStrSaveDir;
-        }
-
-        public static string GetConfigFilePath(bool illgames)
-        {
-            return GameRootDirectory + _mStrSaveDirILL;
-        }
-
+        
         public static void ShowManual(string manualRoot)
         {
             var manualEn = manualRoot + "manual_en.html";

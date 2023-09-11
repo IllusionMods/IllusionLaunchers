@@ -11,21 +11,19 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ComboBoxCustomItem.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ConfigSetting.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ConfigSettingILLG.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DEVMODE.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DevmodeFields.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DisplayDeviceStateFlags.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DISPLAY_DEVICE.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings\DEVMODE.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings\DevmodeFields.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings\DisplayDeviceStateFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings\DISPLAY_DEVICE.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EnvironmentHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Localizable.Designer.cs">
       <DependentUpon>Localizable.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)POINTL.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SettingManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SettingManagerILLG.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings\IConfigSetting.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings\POINTL.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Settings\SettingManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ToggleAdder.cs" />
   </ItemGroup>
   <ItemGroup>

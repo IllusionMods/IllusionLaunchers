@@ -40,12 +40,8 @@ namespace InitSetting
                 _mainGameExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableGame);
                 _studioExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableStudio);
 
-                if (_studioExists)
-                    SettingManager.Initialize(EnvironmentHelper.GetConfigFilePath(), RegistryKeyGame, RegistryKeyStudio);
-                else
-                    SettingManager.Initialize(EnvironmentHelper.GetConfigFilePath(), RegistryKeyGame);
-
-                SettingManager.LoadSettings();
+                SettingManager.Initialize(new SettingManagerOld(configFilePath: Path.Combine(EnvironmentHelper.GameRootDirectory, "UserData/setup.xml"),
+                                                                registryConfigPaths: _studioExists ? new[] { RegistryKeyGame, RegistryKeyStudio } : new[] { RegistryKeyGame }));
 
                 // Initialize interface --------------------------------
                 InitializeComponent();
@@ -94,9 +90,9 @@ namespace InitSetting
 
                 _suppressEvents = false;
 
-                UpdateDisplaySettings(SettingManager.CurrentSettings.FullScreen);
+                UpdateDisplaySettings(SettingManager.Current.CurrentSettings.FullScreen);
 
-                Closed += (sender, args) => SettingManager.SaveSettings();
+                Closed += (sender, args) => SettingManager.Current.SaveSettings();
                 MouseDown += (sender, args) => { if (args.ChangedButton == MouseButton.Left) DragMove(); };
                 buttonClose.Click += (sender, args) => Close();
             }
@@ -115,16 +111,16 @@ namespace InitSetting
             if (-1 == dropRes.SelectedIndex) return;
 
             var comboBoxCustomItem = (ComboBoxCustomItem)dropRes.SelectedItem;
-            SettingManager.CurrentSettings.Size = comboBoxCustomItem.text;
-            SettingManager.CurrentSettings.Width = comboBoxCustomItem.width;
-            SettingManager.CurrentSettings.Height = comboBoxCustomItem.height;
+            SettingManager.Current.CurrentSettings.Size = comboBoxCustomItem.text;
+            SettingManager.Current.CurrentSettings.Width = comboBoxCustomItem.width;
+            SettingManager.Current.CurrentSettings.Height = comboBoxCustomItem.height;
 
             if (!_suppressEvents) EnvironmentHelper.WarnRes(comboBoxCustomItem.text);
         }
 
         private void QualityChanged(object sender, SelectionChangedEventArgs e)
         {
-            SettingManager.CurrentSettings.Quality = dropQual.SelectedIndex;
+            SettingManager.Current.CurrentSettings.Quality = dropQual.SelectedIndex;
         }
 
         private void FullscreenUnChecked(object sender, RoutedEventArgs e)
@@ -141,8 +137,8 @@ namespace InitSetting
         {
             if (dropDisplay.SelectedIndex < 0) return;
 
-            SettingManager.CurrentSettings.Display = dropDisplay.SelectedIndex;
-            UpdateDisplaySettings(SettingManager.CurrentSettings.FullScreen);
+            SettingManager.Current.CurrentSettings.Display = dropDisplay.SelectedIndex;
+            UpdateDisplaySettings(SettingManager.Current.CurrentSettings.FullScreen);
         }
 
         private void UpdateDisplaySettings(bool bFullScreen)
@@ -151,14 +147,14 @@ namespace InitSetting
             _suppressEvents = true;
 
             toggleFullscreen.IsChecked = bFullScreen;
-            if (!SettingManager.SetFullScreen(bFullScreen))
+            if (!SettingManager.Current.SetFullScreen(bFullScreen))
             {
                 toggleFullscreen.IsChecked = false;
                 MessageBox.Show("This monitor doesn't support fullscreen.");
             }
 
             dropRes.Items.Clear();
-            foreach (var displayMode in SettingManager.GetCurrentDisplayModes())
+            foreach (var displayMode in SettingManager.Current.GetCurrentDisplayModes())
             {
                 var newItem = new ComboBoxCustomItem
                 {
@@ -169,10 +165,10 @@ namespace InitSetting
                 dropRes.Items.Add(newItem);
             }
 
-            dropRes.Text = SettingManager.CurrentSettings.Size;
+            dropRes.Text = SettingManager.Current.CurrentSettings.Size;
 
-            dropDisplay.SelectedIndex = SettingManager.CurrentSettings.Display;
-            dropQual.SelectedIndex = Math.Max(Math.Min(SettingManager.CurrentSettings.Quality, dropQual.Items.Count), 0);
+            dropDisplay.SelectedIndex = SettingManager.Current.CurrentSettings.Display;
+            dropQual.SelectedIndex = Math.Max(Math.Min(SettingManager.Current.CurrentSettings.Quality, dropQual.Items.Count), 0);
 
             _suppressEvents = false;
         }
@@ -183,7 +179,7 @@ namespace InitSetting
 
         private void StartGame(string strExe)
         {
-            SettingManager.SaveSettings();
+            SettingManager.Current.SaveSettings();
             if (EnvironmentHelper.StartGame(strExe))
                 Close();
         }

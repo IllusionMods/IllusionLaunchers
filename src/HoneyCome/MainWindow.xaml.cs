@@ -32,7 +32,7 @@ namespace InitSetting
                 _suppressEvents = true;
 
                 if (!File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableGame))
-                    ExecutableGame = "Koikatsu Party.exe";
+                    ExecutableGame = "HoneyComeccp.exe";
 
                 // Initialize code -------------------------------------
                 EnvironmentHelper.Initialize(_builtinLanguages);
@@ -40,12 +40,9 @@ namespace InitSetting
                 _mainGameExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableGame);
                 _studioExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableStudio);
 
-                if (_studioExists)
-                    SettingManagerILLG.Initialize(EnvironmentHelper.GetConfigFilePath(true), RegistryKeyGame, RegistryKeyStudio);
-                else
-                    SettingManagerILLG.Initialize(EnvironmentHelper.GetConfigFilePath(true), RegistryKeyGame);
-
-                SettingManagerILLG.LoadSettings();
+                SettingManager.Initialize(new SettingManagerNew(configFilePath: Path.Combine(EnvironmentHelper.GameRootDirectory, "UserData/config.xml"),
+                                                                setupFilePath: Path.Combine(EnvironmentHelper.GameRootDirectory, "UserData/setup.xml"),
+                                                                registryConfigPaths: _studioExists ? new[] { RegistryKeyGame, RegistryKeyStudio } : new[] { RegistryKeyGame }));
 
                 // Initialize interface --------------------------------
                 InitializeComponent();
@@ -98,9 +95,9 @@ namespace InitSetting
 
                 _suppressEvents = false;
 
-                UpdateDisplaySettings(SettingManagerILLG.CurrentSettings.FullScreen);
+                UpdateDisplaySettings(SettingManager.Current.CurrentSettings.FullScreen);
 
-                Closed += (sender, args) => SettingManagerILLG.SaveSettings();
+                Closed += (sender, args) => SettingManager.Current.SaveSettings();
                 MouseDown += (sender, args) => { if (args.ChangedButton == MouseButton.Left) DragMove(); };
                 buttonClose.Click += (sender, args) => Close();
             }
@@ -152,16 +149,16 @@ namespace InitSetting
             if (-1 == dropRes.SelectedIndex) return;
 
             var comboBoxCustomItem = (ComboBoxCustomItem)dropRes.SelectedItem;
-            SettingManagerILLG.CurrentSettings.ScrSize = comboBoxCustomItem.text;
-            SettingManagerILLG.CurrentSettings.ScrWidth = comboBoxCustomItem.width;
-            SettingManagerILLG.CurrentSettings.ScrHeight = comboBoxCustomItem.height;
+            SettingManager.Current.CurrentSettings.Size = comboBoxCustomItem.text;
+            SettingManager.Current.CurrentSettings.Width = comboBoxCustomItem.width;
+            SettingManager.Current.CurrentSettings.Height = comboBoxCustomItem.height;
 
             if (!_suppressEvents) EnvironmentHelper.WarnRes(comboBoxCustomItem.text);
         }
 
         private void QualityChanged(object sender, SelectionChangedEventArgs e)
         {
-            SettingManagerILLG.CurrentSettings.Quality = dropQual.SelectedIndex;
+            SettingManager.Current.CurrentSettings.Quality = dropQual.SelectedIndex;
         }
 
         private void FullscreenUnChecked(object sender, RoutedEventArgs e)
@@ -178,8 +175,8 @@ namespace InitSetting
         {
             if (dropDisplay.SelectedIndex < 0) return;
 
-            SettingManagerILLG.CurrentSettings.TargetDisplay = dropDisplay.SelectedIndex;
-            UpdateDisplaySettings(SettingManagerILLG.CurrentSettings.FullScreen);
+            SettingManager.Current.CurrentSettings.Display = dropDisplay.SelectedIndex;
+            UpdateDisplaySettings(SettingManager.Current.CurrentSettings.FullScreen);
         }
 
         private void UpdateDisplaySettings(bool bFullScreen)
@@ -188,14 +185,14 @@ namespace InitSetting
             _suppressEvents = true;
 
             toggleFullscreen.IsChecked = bFullScreen;
-            if (!SettingManagerILLG.SetFullScreen(bFullScreen))
+            if (!SettingManager.Current.SetFullScreen(bFullScreen))
             {
                 toggleFullscreen.IsChecked = false;
                 MessageBox.Show("This monitor doesn't support fullscreen.");
             }
 
             dropRes.Items.Clear();
-            foreach (var displayMode in SettingManagerILLG.GetCurrentDisplayModes())
+            foreach (var displayMode in SettingManager.Current.GetCurrentDisplayModes())
             {
                 var newItem = new ComboBoxCustomItem
                 {
@@ -206,10 +203,10 @@ namespace InitSetting
                 dropRes.Items.Add(newItem);
             }
 
-            dropRes.Text = SettingManagerILLG.CurrentSettings.ScrSize;
+            dropRes.Text = SettingManager.Current.CurrentSettings.Size;
 
-            dropDisplay.SelectedIndex = SettingManagerILLG.CurrentSettings.TargetDisplay;
-            dropQual.SelectedIndex = Math.Max(Math.Min(SettingManagerILLG.CurrentSettings.Quality, dropQual.Items.Count), 0);
+            dropDisplay.SelectedIndex = SettingManager.Current.CurrentSettings.Display;
+            dropQual.SelectedIndex = Math.Max(Math.Min(SettingManager.Current.CurrentSettings.Quality, dropQual.Items.Count), 0);
 
             _suppressEvents = false;
         }
@@ -220,7 +217,7 @@ namespace InitSetting
 
         private void StartGame(string strExe)
         {
-            SettingManagerILLG.SaveSettings();
+            SettingManager.Current.SaveSettings();
             if (EnvironmentHelper.StartGame(strExe))
                 Close();
         }

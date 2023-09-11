@@ -168,5 +168,6 @@
     <Resource Include="images\Flags\Russia.png" />
   </ItemGroup>
   <Import Project="..\SharedCode\SharedCode.projitems" Label="Shared" />
+  <Import Project="..\SharedSettingsOld\SharedSettingsOld.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
