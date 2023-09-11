@@ -37,7 +37,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>embedded</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>E:\Downloads\[ScrewThisNoise] HoneyCome BetterRepack R1\[ScrewThisNoise] HoneyCome BetterRepack R1\</OutputPath>
+    <OutputPath>..\..\bin\HoneyCome\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
