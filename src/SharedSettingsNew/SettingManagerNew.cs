@@ -30,6 +30,7 @@ namespace InitSetting
 
         public override IEnumerable<DisplayMode> DefaultSettingList { get; } = new List<DisplayMode>
         {
+            // todo the game refuses to use resolutions other than what's in the config screen already, an unlock plugin is necessary for arbitrary resolutions
             //new DisplayMode
             //{
             //    Width = 854,
@@ -157,7 +158,7 @@ namespace InitSetting
             _currentSettings.FullScreen = false;
             _currentSettings.Display = 0;
             _currentSettings.Quality = 0;
-            _currentSettings.Language = 0;
+            _currentSettings.Language = 1;
         }
 
         protected override void LoadConfigFile()
