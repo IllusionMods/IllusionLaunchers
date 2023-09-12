@@ -12,9 +12,9 @@ namespace InitSetting
     {
         // Game-specific constants -------------------------------------------------------------------
         private const string RegistryKeyGame = "Software\\ILLGAMES\\HoneyCome";
-        private const string RegistryKeyStudio = "Software\\ILLGAMES\\HoneyStudio";
+        private const string RegistryKeyStudio = "Software\\ILLGAMES\\CreateStudio";
         private string ExecutableGame = "HoneyCome.exe";
-        private const string ExecutableStudio = "HoneyStudio.exe";
+        private const string ExecutableStudio = "CreateStudio.exe";
         private const string ExecutableVR = "HoneyVR.exe";
         private const string SupportDiscord = "https://discord.gg/hevygx6";
         // Languages built into the game itself
@@ -24,6 +24,7 @@ namespace InitSetting
         private bool _suppressEvents;
         private readonly bool _mainGameExists;
         private readonly bool _studioExists;
+        private readonly bool _vrExists;
 
         public MainWindow()
         {
@@ -39,6 +40,7 @@ namespace InitSetting
 
                 _mainGameExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableGame);
                 _studioExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableStudio);
+                _vrExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableVR);
 
                 SettingManager.Initialize(new SettingManagerNew(configFilePath: Path.Combine(EnvironmentHelper.GameRootDirectory, "UserData/config.xml"),
                                                                 setupFilePath: Path.Combine(EnvironmentHelper.GameRootDirectory, "UserData/setup.xml"),
@@ -90,7 +92,22 @@ namespace InitSetting
                     dropDisplay.Items.Add(newItem);
                 }
 
-                KoikatsuStartup();
+                if (!_studioExists)
+                {
+                    buttonStartS.Visibility = Visibility.Collapsed;
+                    idmage.Visibility = Visibility.Collapsed;
+                    labelStartS.Visibility = Visibility.Collapsed;
+                    StudiBtnBG.Visibility = Visibility.Collapsed;
+                    SMBtnBG.Visibility = Visibility.Collapsed;
+                    labelMS.Visibility = Visibility.Collapsed;
+                    buttonManualS.Visibility = Visibility.Collapsed;
+                }
+
+                if (!_vrExists)
+                {
+                    // TODO: Add VR hide
+                }
+                
                 PluginToggleManager.CreatePluginToggles(Toggleables);
 
                 _suppressEvents = false;
@@ -108,39 +125,6 @@ namespace InitSetting
                 Close();
             }
         }
-
-        #region Koikatsu Speciffic code
-
-        private void KoikatsuStartup()
-        {
-            var sfwPath = Path.Combine(EnvironmentHelper.GameRootDirectory, @"BepInEx\patchers\KK_SFW_Patcher.dll");
-            if (File.Exists(sfwPath))
-            {
-                var sfwConfig = Path.Combine(EnvironmentHelper.GameRootDirectory, @"BepInEx\config\KK_SFW.cfg");
-                var content = File.Exists(sfwConfig) ? File.ReadAllText(sfwConfig) : "";
-                toggleSFW.IsChecked = content.Contains("Disable NSFW content = true");
-                toggleSFW.Checked += (sender, args) =>
-                {
-                    File.Delete(sfwConfig);
-                    File.WriteAllText(sfwConfig, "[General]\n\nDisable NSFW content = true");
-                };
-                toggleSFW.Unchecked += (sender, args) =>
-                {
-                    File.Delete(sfwConfig);
-                    File.WriteAllText(sfwConfig, "[General]\n\nDisable NSFW content = false");
-                };
-            }
-            else
-            {
-                toggleSFW.Visibility = Visibility.Collapsed;
-            }
-
-            if (!File.Exists(
-                Path.Combine(EnvironmentHelper.GameRootDirectory, @"BepInEx\patchers\KK_SFW_Patcher.dll")))
-                Toggleables.Children.Remove(toggleSFW);
-        }
-
-        #endregion
 
         #region Display settings
 

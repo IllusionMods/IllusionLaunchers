@@ -70,7 +70,7 @@
         </Grid.Background>
 
         <Grid HorizontalAlignment="Left" Height="102" VerticalAlignment="Top" Width="898">
-            <Border HorizontalAlignment="Left" Height="34" Margin="125.161,24,0,0" VerticalAlignment="Top"
+            <Border HorizontalAlignment="Left" Height="34" Margin="240.494,25.333,0,0" VerticalAlignment="Top"
                     Width="219.839" ClipToBounds="True" Background="Black">
                 <Border.RenderTransform>
                     <TransformGroup>
@@ -80,8 +80,8 @@
                         <TranslateTransform />
                     </TransformGroup>
                 </Border.RenderTransform>
-                <Image x:Name="image1" Source="/InitSetting;component/images/ButtonBG/startGame.png"
-                       RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Stretch="None">
+                <Image x:Name="image" Source="Images/ButtonBG/startGame.png" RenderTransformOrigin="0.5,0.5"
+                       HorizontalAlignment="Right" Stretch="None">
                     <Image.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform />
@@ -92,7 +92,7 @@
                     </Image.RenderTransform>
                 </Image>
             </Border>
-            <Border HorizontalAlignment="Left" Height="32.25" Margin="351.322,24.75,0,0" VerticalAlignment="Top"
+            <Border x:Name="StudiBtnBG" HorizontalAlignment="Left" Height="32.25" Margin="466.655,26.083,0,0" VerticalAlignment="Top"
                     Width="219.866" ClipToBounds="True" Background="Black">
                 <Border.RenderTransform>
                     <TransformGroup>
@@ -102,9 +102,8 @@
                         <TranslateTransform />
                     </TransformGroup>
                 </Border.RenderTransform>
-                <Image x:Name="idmage1" Source="/InitSetting;component/images/ButtonBG/startStudio.png"
-                       RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Margin="0,-0.75,0.689,-1"
-                       Width="210.625">
+                <Image x:Name="idmage" Source="Images/ButtonBG/startStudio.png" RenderTransformOrigin="0.5,0.5"
+                       HorizontalAlignment="Right" Margin="0,-0.75,0.689,-1" Width="210.625">
                     <Image.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform />
@@ -115,36 +114,15 @@
                     </Image.RenderTransform>
                 </Image>
             </Border>
-            <Border HorizontalAlignment="Left" Height="34" Margin="579.125,24,0,0" VerticalAlignment="Top"
-                    Width="218.875" ClipToBounds="True" Background="Black">
-                <Border.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform />
-                        <SkewTransform AngleX="-40" />
-                        <RotateTransform />
-                        <TranslateTransform />
-                    </TransformGroup>
-                </Border.RenderTransform>
-                <Image x:Name="idmsage" Source="images/ButtonBG/startVR.png" RenderTransformOrigin="0.5,0.5"
-                       HorizontalAlignment="Right" Margin="-3,0,0,-1">
-                    <Image.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform />
-                            <SkewTransform AngleX="40" />
-                            <RotateTransform />
-                            <TranslateTransform />
-                        </TransformGroup>
-                    </Image.RenderTransform>
-                </Image>
-            </Border>
-            <Label Style="{StaticResource GameButtonsLabel}" x:Name="labelStart" Content="{x:Static local:Localizable.StartGame}"
-                   HorizontalAlignment="Left" Margin="125,24,0,0" VerticalAlignment="Top" Width="190" Height="34" />
-            <Label Style="{StaticResource ResourceKey=GameButtonsLabel}" x:Name="labelStartS" Content="{x:Static local:Localizable.StartStudio}"
-                   HorizontalAlignment="Left" Margin="352,24,0,0" VerticalAlignment="Top" Width="190" Height="34" />
-            <Label Style="{StaticResource ResourceKey=GameButtonsLabel}" x:Name="labelStartVR" Content="{x:Static local:Localizable.StartVR}"
-                   HorizontalAlignment="Left" Margin="579,24,0,0" VerticalAlignment="Top" Width="190" Height="34" />
-            <Button Style="{StaticResource buttonHover}" x:Name="buttonStart_Copy" Content=""
-                    HorizontalAlignment="Left" Height="36" Margin="124,23,0,0" VerticalAlignment="Top" Width="223"
+
+            <Label Style="{StaticResource GameButtonsLabel}" x:Name="labelStart"
+                   Content="{x:Static local:Localizable.StartGame}" HorizontalAlignment="Left"
+                   Margin="240.333,25.333,0,0" VerticalAlignment="Top" Width="190" Height="34" />
+            <Label Style="{StaticResource ResourceKey=GameButtonsLabel}" x:Name="labelStartS"
+                   Content="{x:Static local:Localizable.StartStudio}" HorizontalAlignment="Left"
+                   Margin="467.333,25.333,0,0" VerticalAlignment="Top" Width="190" Height="34" />
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonStart" Content="" HorizontalAlignment="Left"
+                    Height="36" Margin="239.333,24.333,0,0" VerticalAlignment="Top" Width="223"
                     Click="buttonStart_Click">
                 <Button.RenderTransform>
                     <TransformGroup>
@@ -155,8 +133,8 @@
                     </TransformGroup>
                 </Button.RenderTransform>
             </Button>
-            <Button Style="{StaticResource buttonHover}" x:Name="buttonStartS_Copy" Content=""
-                    HorizontalAlignment="Left" Height="36" Margin="351,23,0,0" VerticalAlignment="Top" Width="223"
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonStartS" Content="" HorizontalAlignment="Left"
+                    Height="36" Margin="466.333,24.333,0,0" VerticalAlignment="Top" Width="223"
                     Click="buttonStartS_Click">
                 <Button.RenderTransform>
                     <TransformGroup>
@@ -167,45 +145,28 @@
                     </TransformGroup>
                 </Button.RenderTransform>
             </Button>
-            <Button Style="{StaticResource buttonHover}" x:Name="buttonStartV" Content="" HorizontalAlignment="Left"
-                    Height="36" Margin="578,23,0,0" VerticalAlignment="Top" Width="223" Click="buttonStartV_Click">
-                <Button.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform />
-                        <SkewTransform AngleX="-40" />
-                        <RotateTransform />
-                        <TranslateTransform />
-                    </TransformGroup>
-                </Button.RenderTransform>
-            </Button>
-            <Border HorizontalAlignment="Left" Height="20.333" Margin="581.167,64.75,0,0" VerticalAlignment="Top"
-                    Width="170.083" Background="Black">
-                <Image x:Name="idmssage" Source="/InitSetting;component/images/ButtonBG/manual.png"
-                       RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" />
-            </Border>
-            <Label x:Name="labelMV" Foreground="White" VerticalContentAlignment="Center" Content="{x:Static local:Localizable.ManualVR}"
-                   HorizontalAlignment="Left" Margin="583,63,0,0" VerticalAlignment="Top" Height="24" Width="98" />
-            <Button Style="{StaticResource buttonHover}" x:Name="buttonManualV" Content="" HorizontalAlignment="Left"
-                    Height="24" Margin="579,63,0,0" VerticalAlignment="Top" Width="174" Click="buttonManualV_Click" />
-            <Border HorizontalAlignment="Left" Height="20.333" Margin="360.083,64.75,0,0" VerticalAlignment="Top"
+            <Border x:Name="SMBtnBG" HorizontalAlignment="Left" Height="20.333" Margin="475.416,66.083,0,0" VerticalAlignment="Top"
                     Width="169.917" Background="Black">
-                <Image x:Name="idmssage3" Source="/InitSetting;component/images/ButtonBG/manual.png"
-                       RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" />
+                <Image x:Name="idmssage1" Source="Images/ButtonBG/manual.png" RenderTransformOrigin="0.5,0.5"
+                       HorizontalAlignment="Right" />
             </Border>
-            <Label x:Name="labelMS" Foreground="White" VerticalContentAlignment="Center" Content="{x:Static local:Localizable.ManualStudio}"
-                   HorizontalAlignment="Left" Margin="364,63,0,0" VerticalAlignment="Top" Height="24" Width="122" />
-            <Button Style="{StaticResource buttonHover}" x:Name="buttonManualS_Copy" Content=""
-                    HorizontalAlignment="Left" Height="24" Margin="358,63,0,0" VerticalAlignment="Top" Width="174"
+            <Label x:Name="labelMS" Foreground="White" VerticalContentAlignment="Center"
+                   Content="{x:Static local:Localizable.ManualStudio}" HorizontalAlignment="Left"
+                   Margin="479.333,64.333,0,0" VerticalAlignment="Top" Height="24" Width="122" />
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonManualS" Content="" HorizontalAlignment="Left"
+                    Height="24" Margin="473.333,64.333,0,0" VerticalAlignment="Top" Width="174"
                     Click="buttonManualS_Click" />
-            <Border HorizontalAlignment="Left" Height="20.333" Margin="132.833,64.75,0,0" VerticalAlignment="Top"
+            <Border HorizontalAlignment="Left" Height="20.333" Margin="248.166,66.083,0,0" VerticalAlignment="Top"
                     Width="170.417" Background="Black">
-                <Image x:Name="idmssage4" Source="/InitSetting;component/images/ButtonBG/manual.png"
-                       RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" />
+                <Image x:Name="idmssage2" Source="Images/ButtonBG/manual.png" RenderTransformOrigin="0.5,0.5"
+                       HorizontalAlignment="Right" />
             </Border>
-            <Label x:Name="labelM" Foreground="White" VerticalContentAlignment="Center" Content="{x:Static local:Localizable.ManualGame}"
-                   HorizontalAlignment="Left" Margin="137,63,0,0" VerticalAlignment="Top" Height="24" Width="134" />
+            <Label x:Name="labelM" Foreground="White" VerticalContentAlignment="Center"
+                   Content="{x:Static local:Localizable.ManualGame}" HorizontalAlignment="Left"
+                   Margin="252.333,64.333,0,0" VerticalAlignment="Top" Height="24" Width="134" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonManual" Content="" HorizontalAlignment="Left"
-                    Height="24" Margin="131,63,0,0" VerticalAlignment="Top" Width="174" Click="buttonManual_Click" />
+                    Height="24" Margin="246.333,64.333,0,0" VerticalAlignment="Top" Width="174"
+                    Click="buttonManual_Click" />
         </Grid>
 
         <Image x:Name="PackChara" HorizontalAlignment="Left" Height="378" Margin="322,220,0,0" VerticalAlignment="Top"
@@ -236,15 +197,12 @@
         <Image x:Name="flagRU" HorizontalAlignment="Left" Height="24" Margin="10,39,0,0" VerticalAlignment="Top"
                Width="22" Source="images/Flags/Russia.png" MouseLeftButtonDown="LangRussian" Grid.Row="1" ToolTip="Сменить язык на русский"/>
 
-        <Grid x:Name="ToggleBox" HorizontalAlignment="Left" Height="491" Margin="0,107,0,0" VerticalAlignment="Top"
-              Width="322" Grid.Row="0" Grid.RowSpan="2">
+        <Grid x:Name="ToggleBox" HorizontalAlignment="Left" Height="491" Margin="0,107,0,0" VerticalAlignment="Top" Width="322" Grid.Row="0" Grid.RowSpan="2">
             <Border BorderBrush="#FF366EBF" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left"
                     Height="230.333" Margin="52,135,0,0" VerticalAlignment="Top" Width="247" CornerRadius="3">
                 <StackPanel Margin="5,5,5,5" x:Name="Toggleables" Orientation="Vertical">
                     <CheckBox x:Name="toggleFullscreen" Content="{x:Static local:Localizable.ToggleFullscreen}"
-                              Foreground="White" Checked="FullscreenChecked" Unchecked="FullscreenUnChecked" />
-                    <CheckBox x:Name="toggleSFW" Content="{x:Static local:Localizable.ToggleNSFW}"
-                              Foreground="White" />
+                              Foreground="White"  Checked="FullscreenChecked" Unchecked="FullscreenUnChecked" />
                 </StackPanel>
             </Border>
         </Grid>
@@ -264,8 +222,11 @@
         <ComboBox x:Name="dropRes" HorizontalAlignment="Left" Margin="67,203,0,0" VerticalAlignment="Top"
                   Width="219" SelectionChanged="ResolutionChanged" />
 
-        <Grid HorizontalAlignment="Left" Height="491" Margin="576,107,0,0" VerticalAlignment="Top" Width="322"
-              Grid.Row="0" Grid.RowSpan="2">
+        <Grid HorizontalAlignment="Left" Height="491" Margin="576,107,0,0" VerticalAlignment="Top" Width="322" Grid.Row="0" Grid.RowSpan="2">
+            <Grid HorizontalAlignment="Left" Height="156" Margin="-533,19,0,0" VerticalAlignment="Top" Width="265">
+
+
+            </Grid>
             <Grid HorizontalAlignment="Left" Height="329" Margin="10,19,0,0" VerticalAlignment="Top" Width="302">
                 <Border BorderBrush="#FF366EBF" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left"
                         Height="197" Margin="10,10,0,0" VerticalAlignment="Top" Width="282" CornerRadius="3">
@@ -289,15 +250,12 @@
                 </Border>
             </Grid>
             <Border BorderBrush="#FF366EBF" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left"
-                    Height="104" Margin="21,231,0,0" VerticalAlignment="Top" Width="282" CornerRadius="3">
-                <Grid x:Name="FolderGrid" />
+                    Height="131.333" Margin="21,231,0,0" VerticalAlignment="Top" Width="282" CornerRadius="3" >
+                <Grid x:Name="FolderGrid"/>
             </Border>
             <Button Style="{StaticResource buttonHover}" x:Name="buttonInst" FontSize="10"
-                    Content="{x:Static local:Localizable.FolderInstall}" HorizontalAlignment="Left" Height="24"
-                    VerticalAlignment="Top" Width="129.516" Margin="28.625,241.71,0,0" Click="buttonInst_Click" />
-            <Button Style="{StaticResource buttonHover}" x:Name="buttonHousing" FontSize="10"
-                    Content="{x:Static local:Localizable.FolderUserData}" HorizontalAlignment="Left" Height="24"
-                    VerticalAlignment="Top" Width="129.517" Margin="164.358,241.71,0,0" Click="buttonUserData_Click" />
+                    Content="{x:Static local:Localizable.FolderInstall}" HorizontalAlignment="Center" Height="24"
+                    VerticalAlignment="Top" Width="265" Margin="0,242,0,0" Click="buttonInst_Click" />
             <Button Style="{StaticResource buttonHover}" x:Name="buttonScenes" FontSize="10"
                     Content="{x:Static local:Localizable.FolderScenes}" HorizontalAlignment="Left" Height="24"
                     VerticalAlignment="Top" Width="129.516" Margin="28.625,270.71,0,0" Click="buttonScenes_Click" />
@@ -310,6 +268,9 @@
             <Button Style="{StaticResource buttonHover}" x:Name="buttonMaleCard" FontSize="10"
                     Content="{x:Static local:Localizable.FolderMaleCard}" HorizontalAlignment="Left" Height="24"
                     VerticalAlignment="Top" Width="129.517" Margin="164.358,299.71,0,0" Click="buttonMaleCard_Click" />
+            <Button Style="{StaticResource buttonHover}" x:Name="buttonUserData" FontSize="10"
+                    Content="{x:Static local:Localizable.FolderUserData}" HorizontalAlignment="Left" Height="24"
+                    VerticalAlignment="Top" Width="265.25" Margin="28.625,328.71,0,0" Click="buttonUserData_Click" />
         </Grid>
         <Image x:Name="image2" HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="262"
                Source="images/KKLogo.png" Margin="318,102,318,0" />
