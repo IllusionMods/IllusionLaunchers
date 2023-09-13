@@ -412,13 +412,13 @@ namespace InitSetting
                     {
                         var i = contents.FindIndex(categoryIndex, s => s.StartsWith("OverrideFont"));
                         if (i > categoryIndex)
-                            contents[i] = $"OverrideFont={Font}";
+                            contents[i] = isJp || disable ? "OverrideFont=" : $"OverrideFont={Font}";
                     }
                     else
                     {
                         contents.Add("");
                         contents.Add("[Behaviour]");
-                        contents.Add(disable ? "OverrideFont=" : $"OverrideFont={Font}");
+                        contents.Add(isJp || disable ? "OverrideFont=" : $"OverrideFont={Font}");
                     }
                 }
                 // Setting TextMeshfont
@@ -428,13 +428,13 @@ namespace InitSetting
                     {
                         var i = contents.FindIndex(categoryIndex, s => s.StartsWith("OverrideFontTextMeshPro"));
                         if (i > categoryIndex)
-                            contents[i] = $"OverrideFontTextMeshPro={TextMeshFont}";
+                            contents[i] = isJp || disable ? "OverrideFontTextMeshPro=" : $"OverrideFontTextMeshPro={TextMeshFont}";
                     }
                     else
                     {
                         contents.Add("");
                         contents.Add("[Behaviour]");
-                        contents.Add(disable ? "OverrideFontTextMeshPro=" : $"OverrideFontTextMeshPro={TextMeshFont}");
+                        contents.Add(isJp || disable ? "OverrideFontTextMeshPro=" : $"OverrideFontTextMeshPro={TextMeshFont}");
                     }
                 }
 
@@ -627,7 +627,7 @@ namespace InitSetting
             Thread.CurrentThread.CurrentUICulture = Language;
             Thread.CurrentThread.CurrentCulture = Language;
         }
-        
+
         public static void ShowManual(string manualRoot)
         {
             var manualEn = manualRoot + "manual_en.html";
