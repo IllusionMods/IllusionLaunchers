@@ -308,7 +308,7 @@ namespace InitSetting
                             SettingManager.Current.CurrentSettings.Language = builtinIndex;
                             SettingManager.Current.SaveSettings();
                         }
-                        else if(!File.Exists(
+                        else if (!File.Exists(
                                     $"{EnvironmentHelper.GameRootDirectory}/BepInEx/Translation/{language}/DisableGoogleWarn.txt") &&
                                 !File.Exists(
                                     $"{EnvironmentHelper.GameRootDirectory}/BepInEx/Translation/{language}/DisableGoogle.txt"))
@@ -333,13 +333,12 @@ namespace InitSetting
         {
             var configPath = Path.Combine(GameRootDirectory, @"BepInEx/Config/AutoTranslatorConfig.ini");
 
-            var disable = language.Equals("jp-JP", StringComparison.OrdinalIgnoreCase);
-
             if (language != "zh-CN" && language != "zh-TW")
                 language = language.Split('-')[0];
 
-            if (File.Exists($"{EnvironmentHelper.GameRootDirectory}/BepInEx/Translation/{language}/DisableGoogle.txt"))
-                disable = true;
+            var isJp = language.Equals("ja", StringComparison.OrdinalIgnoreCase);
+
+            var disable = File.Exists($"{EnvironmentHelper.GameRootDirectory}/BepInEx/Translation/{language}/DisableGoogle.txt");
 
             try
             {
@@ -373,6 +372,13 @@ namespace InitSetting
                             contents[i] = $"Language={language}";
                         else
                             contents.Insert(categoryIndex + 1, $"Language={language}");
+
+                        // If Japanese language is selected, have it auto translate from English
+                        var i2 = contents.FindIndex(categoryIndex, s => s.StartsWith("FromLanguage"));
+                        if (i2 > categoryIndex)
+                            contents[i2] = $"FromLanguage={(isJp ? "en" : "ja")}";
+                        else
+                            contents.Insert(categoryIndex + 1, $"FromLanguage={(isJp ? "en" : "ja")}");
                     }
                     else
                     {
