@@ -635,6 +635,7 @@ namespace InitSetting
             var manualJa = manualRoot + "お読み下さい.html";
 
             Exception ex = null;
+
             if (File.Exists(manualLang))
             {
                 try { Process.Start(manualLang); }
@@ -644,6 +645,10 @@ namespace InitSetting
                 }
                 return;
             }
+
+            if (Language.Name == "ja-JP" && File.Exists(manualJa))
+                goto OpenJa;
+
             if (File.Exists(manualEn))
             {
                 try
@@ -653,6 +658,7 @@ namespace InitSetting
                 }
                 catch (Exception e) { ex = e; }
             }
+        OpenJa:
             if (File.Exists(manualJa))
             {
                 try
