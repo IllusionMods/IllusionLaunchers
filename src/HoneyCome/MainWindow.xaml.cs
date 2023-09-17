@@ -101,6 +101,7 @@ namespace InitSetting
                     SMBtnBG.Visibility = Visibility.Collapsed;
                     labelMS.Visibility = Visibility.Collapsed;
                     buttonManualS.Visibility = Visibility.Collapsed;
+                    buttonScenes.Visibility = Visibility.Collapsed;
                 }
 
                 if (!_vrExists)

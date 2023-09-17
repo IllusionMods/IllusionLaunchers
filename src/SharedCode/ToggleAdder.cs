@@ -124,6 +124,7 @@ namespace InitSetting
                 new PluginToggle("AutoSave", Localizable.ActivateAutosave, "", "*AutoSave", null, false),
                 new PluginToggle("ShortcutPlugin", Localizable.ToggleShortcutHS, "", "ShortcutHSParty", null, true),
                 new PluginToggle("BetterAA", Localizable.BetterAA, "", "*_BetterAA", null, false),
+                new PluginToggle("PovX", "Activate PovX", "", "*PovX", null, false),
                 new PluginToggle("PostProcessingEffects", "Activate PostProcessingEffects", "", "PostProcessingEffect", delegate (bool b)
                 {
                     if (b)
