@@ -94,6 +94,7 @@ namespace InitSetting
                 hs2,
                 aighs2,
                 dhh,
+                new PluginToggle("OfflineMode", "Enable Offline Mode", "Disallows online connectivity, allowing the game to be played offline", "WebRequestBlocker", null, false),
                 new PluginToggle("DHHPH", Localizable.ToggleDhh, Localizable.TooltipDhhPH, "ProjectHighHeel", null, true),
                 new PluginToggle("GgmodForPlayClub", Localizable.ToggleGGmod, Localizable.TooltipGGmod, "GgmodForPlayClub", null, true),
                 new PluginToggle("GgmodForPlayClubStudio", Localizable.ToggleGGmodstudioPC, Localizable.TooltipGGmod, "GgmodForPlayClubStudio", null, true),
