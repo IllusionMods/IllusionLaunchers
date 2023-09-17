@@ -72,7 +72,7 @@ namespace InitSetting
 
         private void StartGame(string strExe)
         {
-            SettingManager.SaveSettings();
+            SettingManager.Current.SaveSettings();
             if (EnvironmentHelper.StartGame(strExe))
             {
                 Close();

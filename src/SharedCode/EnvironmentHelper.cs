@@ -18,7 +18,6 @@ namespace InitSetting
 {
     public static class EnvironmentHelper
     {
-        private static readonly string _mStrSaveDir = "/UserData/setup.xml";
         private static readonly string _mCustomDir = "/BepInEx/LauncherEN";
         private static readonly string _decideLang = "/lang";
         private static readonly string _versioningLoc = "/version";
@@ -306,10 +305,10 @@ namespace InitSetting
                         // Set built-in game language if supported
                         if (builtinIndex >= 0)
                         {
-                            SettingManager.CurrentSettings.Language = builtinIndex;
-                            SettingManager.SaveSettings();
+                            SettingManager.Current.CurrentSettings.Language = builtinIndex;
+                            SettingManager.Current.SaveSettings();
                         }
-                        else if(!File.Exists(
+                        else if (!File.Exists(
                                     $"{EnvironmentHelper.GameRootDirectory}/BepInEx/Translation/{language}/DisableGoogleWarn.txt") &&
                                 !File.Exists(
                                     $"{EnvironmentHelper.GameRootDirectory}/BepInEx/Translation/{language}/DisableGoogle.txt"))
@@ -334,13 +333,12 @@ namespace InitSetting
         {
             var configPath = Path.Combine(GameRootDirectory, @"BepInEx/Config/AutoTranslatorConfig.ini");
 
-            var disable = language.Equals("jp-JP", StringComparison.OrdinalIgnoreCase);
-
             if (language != "zh-CN" && language != "zh-TW")
                 language = language.Split('-')[0];
 
-            if (File.Exists($"{EnvironmentHelper.GameRootDirectory}/BepInEx/Translation/{language}/DisableGoogle.txt"))
-                disable = true;
+            var isJp = language.Equals("ja", StringComparison.OrdinalIgnoreCase);
+
+            var disable = File.Exists($"{EnvironmentHelper.GameRootDirectory}/BepInEx/Translation/{language}/DisableGoogle.txt");
 
             try
             {
@@ -374,6 +372,13 @@ namespace InitSetting
                             contents[i] = $"Language={language}";
                         else
                             contents.Insert(categoryIndex + 1, $"Language={language}");
+
+                        // If Japanese language is selected, have it auto translate from English
+                        var i2 = contents.FindIndex(categoryIndex, s => s.StartsWith("FromLanguage"));
+                        if (i2 > categoryIndex)
+                            contents[i2] = $"FromLanguage={(isJp ? "en" : "ja")}";
+                        else
+                            contents.Insert(categoryIndex + 1, $"FromLanguage={(isJp ? "en" : "ja")}");
                     }
                     else
                     {
@@ -407,13 +412,13 @@ namespace InitSetting
                     {
                         var i = contents.FindIndex(categoryIndex, s => s.StartsWith("OverrideFont"));
                         if (i > categoryIndex)
-                            contents[i] = $"OverrideFont={Font}";
+                            contents[i] = isJp || disable ? "OverrideFont=" : $"OverrideFont={Font}";
                     }
                     else
                     {
                         contents.Add("");
                         contents.Add("[Behaviour]");
-                        contents.Add(disable ? "OverrideFont=" : $"OverrideFont={Font}");
+                        contents.Add(isJp || disable ? "OverrideFont=" : $"OverrideFont={Font}");
                     }
                 }
                 // Setting TextMeshfont
@@ -423,13 +428,13 @@ namespace InitSetting
                     {
                         var i = contents.FindIndex(categoryIndex, s => s.StartsWith("OverrideFontTextMeshPro"));
                         if (i > categoryIndex)
-                            contents[i] = $"OverrideFontTextMeshPro={TextMeshFont}";
+                            contents[i] = isJp || disable ? "OverrideFontTextMeshPro=" : $"OverrideFontTextMeshPro={TextMeshFont}";
                     }
                     else
                     {
                         contents.Add("");
                         contents.Add("[Behaviour]");
-                        contents.Add(disable ? "OverrideFontTextMeshPro=" : $"OverrideFontTextMeshPro={TextMeshFont}");
+                        contents.Add(isJp || disable ? "OverrideFontTextMeshPro=" : $"OverrideFontTextMeshPro={TextMeshFont}");
                     }
                 }
 
@@ -623,11 +628,6 @@ namespace InitSetting
             Thread.CurrentThread.CurrentCulture = Language;
         }
 
-        public static string GetConfigFilePath()
-        {
-            return GameRootDirectory + _mStrSaveDir;
-        }
-
         public static void ShowManual(string manualRoot)
         {
             var manualEn = manualRoot + "manual_en.html";
@@ -635,6 +635,7 @@ namespace InitSetting
             var manualJa = manualRoot + "お読み下さい.html";
 
             Exception ex = null;
+
             if (File.Exists(manualLang))
             {
                 try { Process.Start(manualLang); }
@@ -644,6 +645,10 @@ namespace InitSetting
                 }
                 return;
             }
+
+            if (Language.Name == "ja-JP" && File.Exists(manualJa))
+                goto OpenJa;
+
             if (File.Exists(manualEn))
             {
                 try
@@ -653,6 +658,7 @@ namespace InitSetting
                 }
                 catch (Exception e) { ex = e; }
             }
+        OpenJa:
             if (File.Exists(manualJa))
             {
                 try

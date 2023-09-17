@@ -33,24 +33,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoneySelect 2 Steam", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoomGirl", "src\RoomGirl\RoomGirl.csproj", "{E4335252-2B41-420F-BFF1-7085A6850DAF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoneyCome", "src\HoneyCome\HoneyCome.csproj", "{451C3F56-F7BD-4E96-BA26-09DAC4630B71}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedSettingsOld", "src\SharedSettingsOld\SharedSettingsOld.shproj", "{5E403633-53DC-4E82-B906-29F022236A89}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedSettingsNew", "src\SharedSettingsNew\SharedSettingsNew.shproj", "{0CE6C5E0-4254-4D20-BF63-B89FC2167AC0}"
+EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		src\SharedCode\SharedCode.projitems*{0f194af1-d54e-45f3-a66a-6aee8e1c67d5}*SharedItemsImports = 4
-		src\SharedCode\SharedCode.projitems*{1d2166e2-4da0-4fd6-a28d-7ebbef40955b}*SharedItemsImports = 4
-		src\SharedCode\SharedCode.projitems*{47a3be13-4cb4-4322-83f7-a4703caceed9}*SharedItemsImports = 4
-		src\SharedCode\SharedCode.projitems*{561f2722-a3ea-40ed-a5d0-982ed26118b9}*SharedItemsImports = 4
-		src\SharedCode\SharedCode.projitems*{5af75ec6-4b19-4507-af25-742afbcbf45d}*SharedItemsImports = 4
-		src\SharedCode\SharedCode.projitems*{687a6b4f-f433-40b0-b1f5-cc15f7437b14}*SharedItemsImports = 4
-		src\SharedCode\SharedCode.projitems*{6f62cf98-eb11-4ff2-8370-0b946ca337e5}*SharedItemsImports = 4
-		src\SharedCode\SharedCode.projitems*{719350ad-52f8-4752-8360-35c1ea196d42}*SharedItemsImports = 4
-		src\SharedCode\SharedCode.projitems*{7c713600-69b2-48ae-b805-a7bbf3408d69}*SharedItemsImports = 4
-		src\SharedCode\SharedCode.projitems*{8bf2798d-fd00-4483-95ee-dc37a599e6fd}*SharedItemsImports = 13
-		src\SharedCode\SharedCode.projitems*{91f6b54e-6a85-486f-8bf3-5920d838f030}*SharedItemsImports = 4
-		src\SharedCode\SharedCode.projitems*{bb0a856a-6604-42dc-9248-d760f9d24aca}*SharedItemsImports = 4
-		src\SharedCode\SharedCode.projitems*{ce50d875-f13c-4820-bdc1-ee87350e6db6}*SharedItemsImports = 4
-		src\SharedCode\SharedCode.projitems*{e4335252-2b41-420f-bff1-7085a6850daf}*SharedItemsImports = 4
-		src\SharedCode\SharedCode.projitems*{ed03c79c-7b7d-4db5-b3a4-17586925f12d}*SharedItemsImports = 4
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -112,11 +101,50 @@ Global
 		{E4335252-2B41-420F-BFF1-7085A6850DAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4335252-2B41-420F-BFF1-7085A6850DAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4335252-2B41-420F-BFF1-7085A6850DAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{451C3F56-F7BD-4E96-BA26-09DAC4630B71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{451C3F56-F7BD-4E96-BA26-09DAC4630B71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{451C3F56-F7BD-4E96-BA26-09DAC4630B71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{451C3F56-F7BD-4E96-BA26-09DAC4630B71}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {053D8C5C-E4D8-40B5-8463-61C93DEB0517}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\SharedSettingsNew\SharedSettingsNew.projitems*{0ce6c5e0-4254-4d20-bf63-b89fc2167ac0}*SharedItemsImports = 13
+		src\SharedCode\SharedCode.projitems*{0f194af1-d54e-45f3-a66a-6aee8e1c67d5}*SharedItemsImports = 4
+		src\SharedSettingsOld\SharedSettingsOld.projitems*{0f194af1-d54e-45f3-a66a-6aee8e1c67d5}*SharedItemsImports = 4
+		src\SharedCode\SharedCode.projitems*{1d2166e2-4da0-4fd6-a28d-7ebbef40955b}*SharedItemsImports = 4
+		src\SharedSettingsOld\SharedSettingsOld.projitems*{1d2166e2-4da0-4fd6-a28d-7ebbef40955b}*SharedItemsImports = 4
+		src\SharedCode\SharedCode.projitems*{451c3f56-f7bd-4e96-ba26-09dac4630b71}*SharedItemsImports = 4
+		src\SharedSettingsNew\SharedSettingsNew.projitems*{451c3f56-f7bd-4e96-ba26-09dac4630b71}*SharedItemsImports = 4
+		src\SharedCode\SharedCode.projitems*{47a3be13-4cb4-4322-83f7-a4703caceed9}*SharedItemsImports = 4
+		src\SharedSettingsOld\SharedSettingsOld.projitems*{47a3be13-4cb4-4322-83f7-a4703caceed9}*SharedItemsImports = 4
+		src\SharedCode\SharedCode.projitems*{561f2722-a3ea-40ed-a5d0-982ed26118b9}*SharedItemsImports = 4
+		src\SharedSettingsOld\SharedSettingsOld.projitems*{561f2722-a3ea-40ed-a5d0-982ed26118b9}*SharedItemsImports = 4
+		src\SharedCode\SharedCode.projitems*{5af75ec6-4b19-4507-af25-742afbcbf45d}*SharedItemsImports = 4
+		src\SharedSettingsOld\SharedSettingsOld.projitems*{5af75ec6-4b19-4507-af25-742afbcbf45d}*SharedItemsImports = 4
+		src\SharedSettingsOld\SharedSettingsOld.projitems*{5e403633-53dc-4e82-b906-29f022236a89}*SharedItemsImports = 13
+		src\SharedCode\SharedCode.projitems*{687a6b4f-f433-40b0-b1f5-cc15f7437b14}*SharedItemsImports = 4
+		src\SharedSettingsOld\SharedSettingsOld.projitems*{687a6b4f-f433-40b0-b1f5-cc15f7437b14}*SharedItemsImports = 4
+		src\SharedCode\SharedCode.projitems*{6f62cf98-eb11-4ff2-8370-0b946ca337e5}*SharedItemsImports = 4
+		src\SharedSettingsOld\SharedSettingsOld.projitems*{6f62cf98-eb11-4ff2-8370-0b946ca337e5}*SharedItemsImports = 4
+		src\SharedCode\SharedCode.projitems*{719350ad-52f8-4752-8360-35c1ea196d42}*SharedItemsImports = 4
+		src\SharedSettingsOld\SharedSettingsOld.projitems*{719350ad-52f8-4752-8360-35c1ea196d42}*SharedItemsImports = 4
+		src\SharedCode\SharedCode.projitems*{7c713600-69b2-48ae-b805-a7bbf3408d69}*SharedItemsImports = 4
+		src\SharedSettingsOld\SharedSettingsOld.projitems*{7c713600-69b2-48ae-b805-a7bbf3408d69}*SharedItemsImports = 4
+		src\SharedCode\SharedCode.projitems*{8bf2798d-fd00-4483-95ee-dc37a599e6fd}*SharedItemsImports = 13
+		src\SharedCode\SharedCode.projitems*{91f6b54e-6a85-486f-8bf3-5920d838f030}*SharedItemsImports = 4
+		src\SharedSettingsOld\SharedSettingsOld.projitems*{91f6b54e-6a85-486f-8bf3-5920d838f030}*SharedItemsImports = 4
+		src\SharedCode\SharedCode.projitems*{bb0a856a-6604-42dc-9248-d760f9d24aca}*SharedItemsImports = 4
+		src\SharedSettingsOld\SharedSettingsOld.projitems*{bb0a856a-6604-42dc-9248-d760f9d24aca}*SharedItemsImports = 4
+		src\SharedCode\SharedCode.projitems*{ce50d875-f13c-4820-bdc1-ee87350e6db6}*SharedItemsImports = 4
+		src\SharedSettingsOld\SharedSettingsOld.projitems*{ce50d875-f13c-4820-bdc1-ee87350e6db6}*SharedItemsImports = 4
+		src\SharedCode\SharedCode.projitems*{e4335252-2b41-420f-bff1-7085a6850daf}*SharedItemsImports = 4
+		src\SharedSettingsOld\SharedSettingsOld.projitems*{e4335252-2b41-420f-bff1-7085a6850daf}*SharedItemsImports = 4
+		src\SharedCode\SharedCode.projitems*{ed03c79c-7b7d-4db5-b3a4-17586925f12d}*SharedItemsImports = 4
+		src\SharedSettingsOld\SharedSettingsOld.projitems*{ed03c79c-7b7d-4db5-b3a4-17586925f12d}*SharedItemsImports = 4
 	EndGlobalSection
 EndGlobal
