@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,6 +26,7 @@ namespace InitSetting
         private readonly bool _mainGameExists;
         private readonly bool _studioExists;
         private readonly bool _vrExists;
+        private readonly bool _userDataExists;
 
         public MainWindow()
         {
@@ -41,6 +43,7 @@ namespace InitSetting
                 _mainGameExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableGame);
                 _studioExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableStudio);
                 _vrExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableVR);
+                _userDataExists = Directory.Exists(EnvironmentHelper.GameRootDirectory + "UserData");
 
                 SettingManager.Initialize(new SettingManagerNew(configFilePath: Path.Combine(EnvironmentHelper.GameRootDirectory, "UserData/config.xml"),
                                                                 setupFilePath: Path.Combine(EnvironmentHelper.GameRootDirectory, "UserData/setup.xml"),
@@ -48,6 +51,11 @@ namespace InitSetting
 
                 // Initialize interface --------------------------------
                 InitializeComponent();
+
+                if (_mainGameExists && !_userDataExists)
+                {
+                    createUserData();
+                }
 
                 WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 CustomRes.Visibility = Visibility.Hidden;
@@ -126,6 +134,33 @@ namespace InitSetting
                 Close();
             }
         }
+
+        #region UserData Creation
+
+        private void createUserData()
+        {
+            Directory.CreateDirectory(EnvironmentHelper.GameRootDirectory + "UserData\\bg");
+            Directory.CreateDirectory(EnvironmentHelper.GameRootDirectory + "UserData\\cap");
+            Directory.CreateDirectory(EnvironmentHelper.GameRootDirectory + "UserData\\cardframe");
+            Directory.CreateDirectory(EnvironmentHelper.GameRootDirectory + "UserData\\chara\\female");
+            Directory.CreateDirectory(EnvironmentHelper.GameRootDirectory + "UserData\\chara\\male");
+            Directory.CreateDirectory(EnvironmentHelper.GameRootDirectory + "UserData\\chara\\navi");
+            Directory.CreateDirectory(EnvironmentHelper.GameRootDirectory + "UserData\\navi");
+            Directory.CreateDirectory(EnvironmentHelper.GameRootDirectory + "UserData\\coordinate\\female");
+            Directory.CreateDirectory(EnvironmentHelper.GameRootDirectory + "UserData\\coordinate\\male");
+            Directory.CreateDirectory(EnvironmentHelper.GameRootDirectory + "UserData\\custom");
+            Directory.CreateDirectory(EnvironmentHelper.GameRootDirectory + "UserData\\save\\game");
+            Directory.CreateDirectory(EnvironmentHelper.GameRootDirectory + "UserData\\ScreenEffect\\preset");
+            Directory.CreateDirectory(EnvironmentHelper.GameRootDirectory + "UserData\\system");
+
+            if (_studioExists)
+            {
+                Directory.CreateDirectory(EnvironmentHelper.GameRootDirectory + "UserData\\Studio\\scene");
+                Directory.CreateDirectory(EnvironmentHelper.GameRootDirectory + "UserData\\Studio\\pose");
+            }
+
+        }
+        #endregion
 
         #region Display settings
 
