@@ -14,7 +14,7 @@ namespace InitSetting
     public class SettingManagerOld : SettingManager
     {
         [XmlRoot("Setting")]
-        private class ConfigSettingXml : IConfigSetting
+        public class ConfigSettingXml : IConfigSetting
         {
             [XmlElement("Size")]
             public string Size { get; set; }
@@ -162,7 +162,7 @@ namespace InitSetting
             _currentSettings.Display = 0;
             _currentSettings.FullScreen = false;
         }
-        
+
         protected override void SaveConfigFile()
         {
             Directory.CreateDirectory(Path.GetDirectoryName(ConfigFilePath) ?? throw new InvalidOperationException("Invalid config path " + ConfigFilePath));
