@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Threading;
 using CheckBox = System.Windows.Controls.CheckBox;
 using MessageBox = System.Windows.Forms.MessageBox;
 
@@ -11,7 +12,7 @@ namespace InitSetting
 {
     public class PluginToggle
     {
-        public PluginToggle(string codeId, string displayName, string pluginToolTip, string pluginDllWithoutExtension, Action<bool> enabledChangedAction, bool isIpa)
+        public PluginToggle(string codeId, string displayName, string pluginToolTip, string pluginDllWithoutExtension, Action<bool> enabledChangedAction, bool isIpa, bool isPatcher)
         {
             CodeId = codeId;
             DisplayName = displayName;
@@ -19,6 +20,7 @@ namespace InitSetting
             PluginDllWithoutExtension = pluginDllWithoutExtension;
             EnabledChangedAction = enabledChangedAction;
             IsIPA = isIpa;
+            IsPatcher = isPatcher;
         }
 
         public string CodeId { get; }
@@ -27,6 +29,7 @@ namespace InitSetting
         public string PluginDllWithoutExtension { get; }
         public Action<bool> EnabledChangedAction { get; }
         public bool IsIPA { get; }
+        public bool IsPatcher { get; }
 
         internal CheckBox _toggle;
         public void SetIsChecked(bool? newValue)
@@ -50,7 +53,7 @@ namespace InitSetting
                     dhh.SetIsChecked(false);
                     MessageBox.Show(Localizable.MessageBoxGraphicsMod, "Usage");
                 }
-            }, false);
+            }, false, false);
             aig2 = new PluginToggle("AIGraphics", Localizable.ToggleGraphicsMod, Localizable.TooltipGraphicsMod, "AIGraphics", delegate (bool b)
             {
                 if (b)
@@ -58,7 +61,7 @@ namespace InitSetting
                     dhh.SetIsChecked(false);
                     MessageBox.Show(Localizable.MessageBoxGraphicsMod, "Usage");
                 }
-            }, false);
+            }, false, false);
             hs2 = new PluginToggle("HS2Graphics", Localizable.ToggleGraphicsMod, Localizable.TooltipGraphicsMod, "HS2Graphics", delegate (bool b)
             {
                 if (b)
@@ -66,7 +69,7 @@ namespace InitSetting
                     dhh.SetIsChecked(false);
                     MessageBox.Show(Localizable.MessageBoxGraphicsMod, "Usage");
                 }
-            }, false);
+            }, false, false);
             aighs2 = new PluginToggle("Graphics", Localizable.ToggleGraphicsMod, Localizable.TooltipGraphicsMod, "Graphics", delegate (bool b)
             {
                 if (b)
@@ -74,7 +77,7 @@ namespace InitSetting
                     dhh.SetIsChecked(false);
                     MessageBox.Show(Localizable.MessageBoxGraphicsMod, "Usage");
                 }
-            }, false);
+            }, false, false);
             dhh = new PluginToggle("DHH", Localizable.ToggleDhh, Localizable.TooltipDhh, "DHH_AI4", delegate (bool b)
             {
                 if (b)
@@ -85,7 +88,7 @@ namespace InitSetting
                     aighs2.SetIsChecked(false);
                     MessageBox.Show(Localizable.MessageBoxDHH, "Usage");
                 }
-            }, false);
+            }, false, false);
 
             _toggleList = new List<PluginToggle>
             {
@@ -94,83 +97,96 @@ namespace InitSetting
                 hs2,
                 aighs2,
                 dhh,
-                new PluginToggle("OfflineMode", "Enable Offline Mode", "Disallows online connectivity, allowing the game to be played offline", "WebRequestBlocker", null, false),
-                new PluginToggle("DHHPH", Localizable.ToggleDhh, Localizable.TooltipDhhPH, "ProjectHighHeel", null, true),
-                new PluginToggle("GgmodForPlayClub", Localizable.ToggleGGmod, Localizable.TooltipGGmod, "GgmodForPlayClub", null, true),
-                new PluginToggle("GgmodForPlayClubStudio", Localizable.ToggleGGmodstudioPC, Localizable.TooltipGGmod, "GgmodForPlayClubStudio", null, true),
-                new PluginToggle("TouchyFeely", Localizable.ToggleTouchyFeely, Localizable.TooltipTouchyFeely, "TouchyFeely", null, true),
-                new PluginToggle("GGmod", Localizable.ToggleGGmod, Localizable.TooltipGGmod, "GgmodForHS", null, true),
-                new PluginToggle("GGmodstudio", Localizable.ToggleGGmodstudio, Localizable.TooltipGGmod, "GgmodForHS_Studio", null, true),
-                new PluginToggle("GGmodneo", Localizable.ToggleGGmodneo, Localizable.TooltipGGmod, "GgmodForHS_NEO", null, true),
+                new PluginToggle("SplashScreen", "Enable SplashScreen", "", "BepInEx.SplashScreen.Patcher.BepInEx5", delegate (bool b)
+                {
+                    if (b)
+                    {
+                        DisableHelper("BepInEx.SplashScreen.Patcher",false,true,false);
+                        DisableHelper("BepInEx.SplashScreen.Patcher.BepInEx5",false,true,false);
+                    }
+                    else
+                    {
+                        DisableHelper("BepInEx.SplashScreen.Patcher",false,true,true);
+                        DisableHelper("BepInEx.SplashScreen.Patcher.BepInEx5",false,true,true);
+                    }
+                }, true, true),
+                new PluginToggle("OfflineMode", "Enable Offline Mode", "Disallows online connectivity, allowing the game to be played offline", "WebRequestBlocker", null, false, false),
+                new PluginToggle("DHHPH", Localizable.ToggleDhh, Localizable.TooltipDhhPH, "ProjectHighHeel", null, true, false),
+                new PluginToggle("GgmodForPlayClub", Localizable.ToggleGGmod, Localizable.TooltipGGmod, "GgmodForPlayClub", null, true, false),
+                new PluginToggle("GgmodForPlayClubStudio", Localizable.ToggleGGmodstudioPC, Localizable.TooltipGGmod, "GgmodForPlayClubStudio", null, true, false),
+                new PluginToggle("TouchyFeely", Localizable.ToggleTouchyFeely, Localizable.TooltipTouchyFeely, "TouchyFeely", null, true, false),
+                new PluginToggle("GGmod", Localizable.ToggleGGmod, Localizable.TooltipGGmod, "GgmodForHS", null, true, false),
+                new PluginToggle("GGmodstudio", Localizable.ToggleGGmodstudio, Localizable.TooltipGGmod, "GgmodForHS_Studio", null, true, false),
+                new PluginToggle("GGmodneo", Localizable.ToggleGGmodneo, Localizable.TooltipGGmod, "GgmodForHS_NEO", null, true, false),
                 new PluginToggle("HoneyPot", Localizable.ToggleHoneyPot, Localizable.TooltipHoneyPot, "HoneyPot", delegate (bool b)
                 {
                     if (b)
                         MessageBox.Show(Localizable.WarningHoneyPot, Localizable.TypeUsage);
-                }, true),
+                }, true, false),
                 new PluginToggle("PHIBL", Localizable.TogglePHIBL, Localizable.TooltipPHIBL, "PHIBL", delegate (bool b)
                 {
                     if (b)
                     {
                         MessageBox.Show(Localizable.TooltipGraphicsMod, Localizable.TypeUsage);
-                        DisableHelper("PH_PHIBL_PresetLoad_Nyaacho",true,false);
-                        DisableHelper("PH_PHIBL_PresetLoad_Original",true,false);
+                        DisableHelper("PH_PHIBL_PresetLoad_Nyaacho",true,false,true);
+                        DisableHelper("PH_PHIBL_PresetLoad_Original",true,false,true);
                     }
                     else
                     {
-                        DisableHelper("PH_PHIBL_PresetLoad_Nyaacho",true,true);
-                        DisableHelper("PH_PHIBL_PresetLoad_Original",true,true);
+                        DisableHelper("PH_PHIBL_PresetLoad_Nyaacho",true,false,true);
+                        DisableHelper("PH_PHIBL_PresetLoad_Original",true,false,true);
                     }
-                }, true),
-                new PluginToggle("RimRemover", Localizable.ToggleRimRemover, "", "*RimRemover", null, false),
-                new PluginToggle("AutoSave", Localizable.ActivateAutosave, "", "*AutoSave", null, false),
-                new PluginToggle("ShortcutPlugin", Localizable.ToggleShortcutHS, "", "ShortcutHSParty", null, true),
-                new PluginToggle("BetterAA", Localizable.BetterAA, "", "*_BetterAA", null, false),
-                new PluginToggle("PovX", "Activate PovX", "", "*PovX", null, false),
+                }, true, false),
+                new PluginToggle("RimRemover", Localizable.ToggleRimRemover, "", "*RimRemover", null, false, false),
+                new PluginToggle("AutoSave", Localizable.ActivateAutosave, "", "*AutoSave", null, false, false),
+                new PluginToggle("ShortcutPlugin", Localizable.ToggleShortcutHS, "", "ShortcutHSParty", null, true, false),
+                new PluginToggle("BetterAA", Localizable.BetterAA, "", "*_BetterAA", null, false, false),
+                new PluginToggle("PovX", "Activate PovX", "", "*PovX", null, false, false),
                 new PluginToggle("PostProcessingEffects", "Activate PostProcessingEffects", "", "PostProcessingEffect", delegate (bool b)
                 {
                     if (b)
                     {
                         MessageBox.Show(Localizable.WarningPostPros, Localizable.TypeWarn);
-                        DisableHelper("PostProcessingRuntime",false,false);
+                        DisableHelper("PostProcessingRuntime",false,false,false);
                     }
                     else
                     {
-                        DisableHelper("PostProcessingRuntime",false,true);
+                        DisableHelper("PostProcessingRuntime",false,false,true);
                     }
-                }, false),
-                new PluginToggle("Stiletto", Localizable.ToggleStiletto, Localizable.TooltipGGmod, "*Stiletto", null, false),
+                }, false, false),
+                new PluginToggle("Stiletto", Localizable.ToggleStiletto, Localizable.TooltipGGmod, "*Stiletto", null, false, false),
                 new PluginToggle("VRMod", Localizable.ToggleVRMod, Localizable.TooltipVRMod, "PlayHomeVR", delegate (bool b)
                 {
                     if (b)
                         MessageBox.Show(Localizable.WarningPHVR, Localizable.TypeUsage);
-                }, true),
+                }, true, false),
                 new PluginToggle("PCVRMod", Localizable.ToggleVRMod, Localizable.TooltipVRMod, "PlayClubVR", delegate (bool b)
                 {
                     if (b)
                     {
-                        DisableHelper("LeapCSharp.NET3.5",true,false);
-                        DisableHelper("GamePadClub",true,false);
-                        DisableHelper("PlayClubStudioVR",true,false);
-                        DisableHelper("SpeechTransport",true,false);
-                        DisableHelper("VRGIN.U46",true,false);
-                        DisableHelper("WindowsInput",true,false);
-                        DisableHelper("XInputDotNetPure",true,false);
+                        DisableHelper("LeapCSharp.NET3.5",true,false,false);
+                        DisableHelper("GamePadClub",true,false,false);
+                        DisableHelper("PlayClubStudioVR",true,false,false);
+                        DisableHelper("SpeechTransport",true,false,false);
+                        DisableHelper("VRGIN.U46",true,false,false);
+                        DisableHelper("WindowsInput",true,false,false);
+                        DisableHelper("XInputDotNetPure",true,false,false);
                     }
                     else
                     {
-                        DisableHelper("LeapCSharp.NET3.5",true,true);
-                        DisableHelper("GamePadClub",true,true);
-                        DisableHelper("PlayClubStudioVR",true,true);
-                        DisableHelper("SpeechTransport",true,true);
-                        DisableHelper("VRGIN.U46",true,true);
-                        DisableHelper("WindowsInput",true,true);
-                        DisableHelper("XInputDotNetPure",true,true);
+                        DisableHelper("LeapCSharp.NET3.5",true,false,true);
+                        DisableHelper("GamePadClub",true,false,true);
+                        DisableHelper("PlayClubStudioVR",true,false,true);
+                        DisableHelper("SpeechTransport",true,false,true);
+                        DisableHelper("VRGIN.U46",true,false,true);
+                        DisableHelper("WindowsInput",true,false,true);
+                        DisableHelper("XInputDotNetPure",true,false,true);
                     }
-                }, true),
+                }, true, false),
             };
         }
 
-        private static void DisableHelper(string DllName, bool isIPA, bool disable)
+        private static void DisableHelper(string DllName, bool isIPA, bool isPatcher, bool disable)
         {
             string folder;
             switch (isIPA)
@@ -181,6 +197,11 @@ namespace InitSetting
                 default:
                     folder = EnvironmentHelper.BepinPluginsDir;
                     break;
+            }
+
+            if (isPatcher)
+            {
+                folder = EnvironmentHelper.GameRootDirectory + "BepInEx\\patchers";
             }
 
             switch (disable)
@@ -251,6 +272,7 @@ namespace InitSetting
             foreach (var c in _toggleList)
             {
                 var rootDir = c.IsIPA ? EnvironmentHelper.IPAPluginsDir : EnvironmentHelper.BepinPluginsDir;
+                rootDir = c.IsPatcher ? EnvironmentHelper.GameRootDirectory + "BepInEx\\patchers" : EnvironmentHelper.BepinPluginsDir;
 
                 if (!Directory.Exists(rootDir))
                     continue;
@@ -284,12 +306,14 @@ namespace InitSetting
                 toggle.Checked += (sender, args) =>
                 {
                     c.EnabledChangedAction?.Invoke(true);
+                    name = name.Replace("..", ".");
                     f.MoveTo(Path.Combine(f.FullName, name + ".dll"));
                 };
                 toggle.Unchecked += (sender, args) =>
                 {
                     c.EnabledChangedAction?.Invoke(false);
-                    f.MoveTo(Path.Combine(f.FullName, name + ".dl_"));
+                    name = name.Replace("..", ".");
+                    f.MoveTo(Path.Combine(f.FullName, name + ".dl_").Replace("..","."));
                 };
 
                 if(c.PluginToolTip != "")
