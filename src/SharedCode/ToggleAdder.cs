@@ -306,13 +306,11 @@ namespace InitSetting
                 toggle.Checked += (sender, args) =>
                 {
                     c.EnabledChangedAction?.Invoke(true);
-                    name = name.Replace("..", ".");
                     f.MoveTo(Path.Combine(f.FullName, name + ".dll"));
                 };
                 toggle.Unchecked += (sender, args) =>
                 {
                     c.EnabledChangedAction?.Invoke(false);
-                    name = name.Replace("..", ".");
                     f.MoveTo(Path.Combine(f.FullName, name + ".dl_").Replace("..","."));
                 };
 
