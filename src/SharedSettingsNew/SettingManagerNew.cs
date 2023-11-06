@@ -31,29 +31,29 @@ namespace InitSetting
         public override IEnumerable<DisplayMode> DefaultSettingList { get; } = new List<DisplayMode>
         {
             // todo the game refuses to use resolutions other than what's in the config screen already, an unlock plugin is necessary for arbitrary resolutions
-            //new DisplayMode
-            //{
-            //    Width = 854,
-            //    Height = 480,
-            //    text = "854 x 480 (16 : 9)"
-            //},new DisplayMode
-            //{
-            //    Width = 960,
-            //    Height = 600,
-            //    text = "960 x 600 (16 : 10)"
-            //},
-            //new DisplayMode
-            //{
-            //    Width = 1024,
-            //    Height = 576,
-            //    text = "1024 x 576 (16 : 9)"
-            //},
-            //new DisplayMode
-            //{
-            //    Width = 1136,
-            //    Height = 640,
-            //    text = "1136 x 640 (16 : 9)"
-            //},
+            new DisplayMode
+            {
+                Width = 854,
+                Height = 480,
+                text = "854 x 480 (16 : 9)"
+            },new DisplayMode
+            {
+                Width = 960,
+                Height = 600,
+                text = "960 x 600 (16 : 10)"
+            },
+            new DisplayMode
+            {
+                Width = 1024,
+                Height = 576,
+                text = "1024 x 576 (16 : 9)"
+            },
+            new DisplayMode
+            {
+                Width = 1136,
+                Height = 640,
+                text = "1136 x 640 (16 : 9)"
+            },
             new DisplayMode
             {
                 Width = 1280,
@@ -66,66 +66,66 @@ namespace InitSetting
                 Height = 800,
                 text = "1366 x 768 (16 : 9)"
             },
-            //new DisplayMode
-            //{
-            //    Width = 1280,
-            //    Height = 800,
-            //    text = "1280 x 800 (16 : 10)"
-            //},
-            //new DisplayMode
-            //{
-            //    Width = 1440,
-            //    Height = 900,
-            //    text = "1440 x 900 (16 : 10)"
-            //},
-            //new DisplayMode
-            //{
-            //    Width = 1536,
-            //    Height = 864,
-            //    text = "1536 x 864 (16 : 9)"
-            //},
+            new DisplayMode
+            {
+                Width = 1280,
+                Height = 800,
+                text = "1280 x 800 (16 : 10)"
+            },
+            new DisplayMode
+            {
+                Width = 1440,
+                Height = 900,
+                text = "1440 x 900 (16 : 10)"
+            },
+            new DisplayMode
+            {
+                Width = 1536,
+                Height = 864,
+                text = "1536 x 864 (16 : 9)"
+            },
             new DisplayMode
             {
                 Width = 1600,
                 Height = 900,
                 text = "1600 x 900 (16 : 9)"
             },
-            //new DisplayMode
-            //{
-            //    Width = 1680,
-            //    Height = 1050,
-            //    text = "1680 x 1050 (16 : 10)"
-            //},
+            new DisplayMode
+            {
+                Width = 1680,
+                Height = 1050,
+                text = "1680 x 1050 (16 : 10)"
+            },
             new DisplayMode
             {
                 Width = 1920,
                 Height = 1080,
                 text = "1920 x 1080 (16 : 9)"
             },
-            //new DisplayMode
-            //{
-            //    Width = 1920,
-            //    Height = 1200,
-            //    text = "1920 x 1200 (16 : 10)"
-            //},
-            //new DisplayMode
-            //{
-            //    Width = 2048,
-            //    Height = 1152,
-            //    text = "2048 x 1152 (16 : 9)"
-            //},
+            new DisplayMode
+            {
+                Width = 1920,
+                Height = 1200,
+                text = "1920 x 1200 (16 : 10)"
+            },
+            new DisplayMode
+            {
+                Width = 2048,
+                Height = 1152,
+                text = "2048 x 1152 (16 : 9)"
+            },
             new DisplayMode
             {
                 Width = 2560,
                 Height = 1440,
                 text = "2560 x 1440 (16 : 9)"
             },
-            //new DisplayMode
-            //{
-            //    Width = 2560,
-            //    Height = 1600,
-            //    text = "2560 x 1600 (16 : 10)"
-            //},
+            new DisplayMode
+            {
+                Width = 2560,
+                Height = 1600,
+                text = "2560 x 1600 (16 : 10)"
+            },
             new DisplayMode
             {
                 Width = 3200,
@@ -138,12 +138,12 @@ namespace InitSetting
                 Height = 2160,
                 text = "3840 x 2160 (16 : 9)"
             },
-            //new DisplayMode
-            //{
-            //    Width = 3840,
-            //    Height = 2400,
-            //    text = "3840 x 2160 (16 : 10)"
-            //}
+            new DisplayMode
+            {
+                Width = 3840,
+                Height = 2400,
+                text = "3840 x 2160 (16 : 10)"
+            }
         };
 
         public SettingManagerNew(string configFilePath, string setupFilePath, params string[] registryConfigPaths) : base(configFilePath, registryConfigPaths)
