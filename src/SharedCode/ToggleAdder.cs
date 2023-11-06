@@ -92,24 +92,22 @@ namespace InitSetting
 
             _toggleList = new List<PluginToggle>
             {
+                new PluginToggle("SplashScreen", "Enable SplashScreen", "", "BepInEx.SplashScreen.Patcher.BepInEx5", delegate (bool b)
+                {
+                    if (b)
+                    {
+                        DisableHelper("\\BepInEx.SplashScreen\\BepInEx.SplashScreen.Patcher",false,true,false);
+                    }
+                    else
+                    {
+                        DisableHelper("\\BepInEx.SplashScreen\\BepInEx.SplashScreen.Patcher",false,true,true);
+                    }
+                }, true, true),
                 aig,
                 aig2,
                 hs2,
                 aighs2,
                 dhh,
-                new PluginToggle("SplashScreen", "Enable SplashScreen", "", "BepInEx.SplashScreen.Patcher.BepInEx5", delegate (bool b)
-                {
-                    if (b)
-                    {
-                        DisableHelper("BepInEx.SplashScreen.Patcher",false,true,false);
-                        DisableHelper("BepInEx.SplashScreen.Patcher.BepInEx5",false,true,false);
-                    }
-                    else
-                    {
-                        DisableHelper("BepInEx.SplashScreen.Patcher",false,true,true);
-                        DisableHelper("BepInEx.SplashScreen.Patcher.BepInEx5",false,true,true);
-                    }
-                }, true, true),
                 new PluginToggle("OfflineMode", "Enable Offline Mode", "Disallows online connectivity, allowing the game to be played offline", "WebRequestBlocker", null, false, false),
                 new PluginToggle("DHHPH", Localizable.ToggleDhh, Localizable.TooltipDhhPH, "ProjectHighHeel", null, true, false),
                 new PluginToggle("GgmodForPlayClub", Localizable.ToggleGGmod, Localizable.TooltipGGmod, "GgmodForPlayClub", null, true, false),
@@ -306,12 +304,12 @@ namespace InitSetting
                 toggle.Checked += (sender, args) =>
                 {
                     c.EnabledChangedAction?.Invoke(true);
-                    f.MoveTo(Path.Combine(f.FullName, name + ".dll"));
+                    f.MoveTo(Path.Combine(f.FullName, name + ".dll").Replace("..", ".")); //TODO: figure out why patcher files get extra dot.
                 };
                 toggle.Unchecked += (sender, args) =>
                 {
                     c.EnabledChangedAction?.Invoke(false);
-                    f.MoveTo(Path.Combine(f.FullName, name + ".dl_").Replace("..","."));
+                    f.MoveTo(Path.Combine(f.FullName, name + ".dl_").Replace("..",".")); //TODO: figure out why patcher files get extra dot.
                 };
 
                 if(c.PluginToolTip != "")
