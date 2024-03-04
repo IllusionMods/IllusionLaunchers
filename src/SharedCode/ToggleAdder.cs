@@ -103,6 +103,17 @@ namespace InitSetting
                         DisableHelper("\\BepInEx.SplashScreen\\BepInEx.SplashScreen.Patcher",false,true,true);
                     }
                 }, true, true),
+                new PluginToggle("SplashScreen", "Enable SplashScreen", "", "BepInEx.SplashScreen.Patcher.BepInEx6", delegate (bool b)
+                {
+                    if (b)
+                    {
+                        DisableHelper("\\BepInEx.SplashScreen\\BepInEx.SplashScreen.Patcher",false,true,false);
+                    }
+                    else
+                    {
+                        DisableHelper("\\BepInEx.SplashScreen\\BepInEx.SplashScreen.Patcher",false,true,true);
+                    }
+                }, true, true),
                 aig,
                 aig2,
                 hs2,
