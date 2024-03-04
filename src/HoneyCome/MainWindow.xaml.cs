@@ -13,9 +13,9 @@ namespace InitSetting
     {
         // Game-specific constants -------------------------------------------------------------------
         private const string RegistryKeyGame = "Software\\ILLGAMES\\HoneyCome";
-        private const string RegistryKeyStudio = "Software\\ILLGAMES\\CreateStudio";
+        private const string RegistryKeyStudio = "Software\\ILLGAMES\\DigitalCraft";
         private string ExecutableGame = "HoneyCome.exe";
-        private const string ExecutableStudio = "CreateStudio.exe";
+        private const string ExecutableStudio = "DigitalCraft\\DigitalCraft.exe";
         private const string ExecutableVR = "HoneyVR.exe";
         private const string SupportDiscord = "https://discord.gg/hevygx6";
         // Languages built into the game itself
