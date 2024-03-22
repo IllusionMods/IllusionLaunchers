@@ -62,8 +62,8 @@ namespace InitSetting
             },
             new DisplayMode
             {
-                Width = 1280,
-                Height = 800,
+                Width = 1366,
+                Height = 768,
                 text = "1366 x 768 (16 : 9)"
             },
             new DisplayMode
