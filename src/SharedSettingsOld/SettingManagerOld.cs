@@ -148,7 +148,7 @@ namespace InitSetting
             {
                 Width = 3840,
                 Height = 2400,
-                text = "3840 x 2160 (16 : 10)"
+                text = "3840 x 2400 (16 : 10)"
             }
         };
 
