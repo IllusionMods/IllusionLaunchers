@@ -423,4 +423,11 @@ C:\Illusion\Koikatsu</value>
   <data name="TooltipBleeding" xml:space="preserve">
     <value>允許安裝實驗性Mods到遊戲中。</value>
   </data>
+  <data name="ToggleDhhNew" xml:space="preserve">
+    <value>啟動DHH (Hentai-san)</value>
+  </data>
+  <data name="TooltipDhhNew" xml:space="preserve">
+    <value>高級圖形選項。
+可以在遊戲中使用P鍵進行配置。</value>
+  </data>
 </root>

@@ -258,4 +258,7 @@ Ce jeu contient des scènes matures, et certaines actions du jeu peuvent être c
   <data name="RatioWarning" xml:space="preserve">
     <value>Les jeux d'illusion sont conçus en prenant en compte les résolutions 16:9, ce qui signifie que certains éléments de l'interface utilisateur pourraient ne pas fonctionner comme prévu dans d'autres ratios d'aspect.</value>
   </data>
+  <data name="ToggleDhhNew" xml:space="preserve">
+    <value>Activer DHH (Hentai-san)</value>
+  </data>
 </root>

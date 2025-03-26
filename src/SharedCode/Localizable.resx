@@ -438,4 +438,32 @@ Just disable this option again if you would rather not have that freeze.</value>
   <data name="TooltipBleeding" xml:space="preserve">
     <value>Allow installation of experimental mods to this game.</value>
   </data>
+  <data name="MessageBoxExperimentalDisable" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MessageBoxExperimentalDisableCaption" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MessageBoxExperimentalMode" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MessageBoxExperimentalModeCaption" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MessageBoxExperimentalModeExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MessageBoxExperimentalModeExistsCaption" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TooltipExperimentalMode" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ToggleDhhNew" xml:space="preserve">
+    <value>Activate DHH (Hentai-san)</value>
+  </data>
+  <data name="TooltipDhhNew" xml:space="preserve">
+    <value>Advanced graphics options.
+May be configured ingame using P.</value>
+  </data>
 </root>

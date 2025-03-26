@@ -276,4 +276,7 @@
   <data name="ToggleNSFW" xml:space="preserve">
     <value>후방주의 콘텐츠 비활성화</value>
   </data>
+  <data name="ToggleDhhNew" xml:space="preserve">
+    <value>DHH 활성화 (Hentai-san)</value>
+  </data>
 </root>

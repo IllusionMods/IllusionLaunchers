@@ -256,4 +256,7 @@ HoneyPot Inspector</value>
   <data name="ToggleTouchyFeely" xml:space="preserve">
     <value>Activar TouchyFeely (Boop)</value>
   </data>
+  <data name="ToggleDhhNew" xml:space="preserve">
+    <value>Activar DHH (Hentai-san)</value>
+  </data>
 </root>

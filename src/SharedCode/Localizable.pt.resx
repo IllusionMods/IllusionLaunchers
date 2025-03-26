@@ -314,4 +314,11 @@ Não funciona com o DHH!</value>
   <data name="TooltipExperimentalMode" xml:space="preserve">
     <value>Permitir a instalação de mods experimentais neste jogo.</value>
   </data>
+  <data name="ToggleDhhNew" xml:space="preserve">
+    <value>Ativar DHH (Hentai-san)</value>
+  </data>
+  <data name="TooltipDhhNew" xml:space="preserve">
+    <value>Opções gráficas avançadas.
+Pode ser configurado no jogo com a tecla P.</value>
+  </data>
 </root>

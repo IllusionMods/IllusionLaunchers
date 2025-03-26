@@ -45,7 +45,7 @@ namespace InitSetting
 
         static PluginToggleManager()
         {
-            PluginToggle aighs2, aig, aig2, hs2, dhh = null;
+            PluginToggle aighs2, aig, aig2, hs2, dhh25, dhh = null;
             aig = new PluginToggle("AI_Graphics", Localizable.ToggleAiGraphics, Localizable.TooltipGraphicsMod, "AI_Graphics", delegate (bool b)
             {
                 if (b)
@@ -78,6 +78,14 @@ namespace InitSetting
                     MessageBox.Show(Localizable.MessageBoxGraphicsMod, "Usage");
                 }
             }, false, false);
+            dhh25 = new PluginToggle("DHH25", Localizable.ToggleDhhNew, Localizable.TooltipDhhNew, "DHH_HS2", delegate (bool b)
+            {
+                if (b)
+                {
+                    dhh.SetIsChecked(false);
+                    MessageBox.Show(Localizable.MessageBoxDHH, "Usage");
+                }
+            }, false, false);
             dhh = new PluginToggle("DHH", Localizable.ToggleDhh, Localizable.TooltipDhh, "DHH_AI4", delegate (bool b)
             {
                 if (b)
@@ -86,6 +94,7 @@ namespace InitSetting
                     aig2.SetIsChecked(false);
                     hs2.SetIsChecked(false);
                     aighs2.SetIsChecked(false);
+                    dhh25.SetIsChecked(false);
                     MessageBox.Show(Localizable.MessageBoxDHH, "Usage");
                 }
             }, false, false);
@@ -119,6 +128,7 @@ namespace InitSetting
                 hs2,
                 aighs2,
                 dhh,
+                dhh25,
                 new PluginToggle("OfflineMode", "Enable Offline Mode", "Disallows online connectivity, allowing the game to be played offline", "WebRequestBlocker", null, false, false),
                 new PluginToggle("DHHPH", Localizable.ToggleDhh, Localizable.TooltipDhhPH, "ProjectHighHeel", null, true, false),
                 new PluginToggle("GgmodForPlayClub", Localizable.ToggleGGmod, Localizable.TooltipGGmod, "GgmodForPlayClub", null, true, false),

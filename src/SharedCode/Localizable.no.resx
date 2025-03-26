@@ -426,4 +426,11 @@ Bare deaktiver denne pluginnen om du ikke ønsker dette.</value>
   <data name="TooltipBleeding" xml:space="preserve">
     <value>Tillat installasjon av eksperimentelle modifikasjoner.</value>
   </data>
+  <data name="ToggleDhhNew" xml:space="preserve">
+    <value>Aktiver DHH (Hentai-san)</value>
+  </data>
+  <data name="TooltipDhhNew" xml:space="preserve">
+    <value>Avanserte grafikkinstillinger.
+Kan konfigureres i spillet med P-tasten.</value>
+  </data>
 </root>

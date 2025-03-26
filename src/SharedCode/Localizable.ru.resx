@@ -335,4 +335,11 @@
 Может вызывать некоторые проблемы с
 одеждой, не оптимизированной под этот мод.</value>
   </data>
+  <data name="ToggleDhhNew" xml:space="preserve">
+    <value>Включить DHH (Hentai-san)</value>
+  </data>
+  <data name="TooltipDhhNew" xml:space="preserve">
+    <value>Расширенные настройки графики.
+Для использования нажмите P в игре.</value>
+  </data>
 </root>

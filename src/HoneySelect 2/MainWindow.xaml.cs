@@ -71,7 +71,7 @@ namespace InitSetting
                 {
                     linkPatreon.Visibility = Visibility.Collapsed;
                     patreonBorder.Visibility = Visibility.Collapsed;
-                    patreonIMG.Visibility = Visibility.Collapsed;
+                    imagePatreon.Visibility = Visibility.Collapsed;
                 }
 
                 var primaryDisplay = Localizable.PrimaryDisplay;

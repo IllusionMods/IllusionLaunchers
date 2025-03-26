@@ -258,4 +258,7 @@
   <data name="ButtonManager" xml:space="preserve">
     <value>マネジャー</value>
   </data>
+  <data name="ToggleDhhNew" xml:space="preserve">
+    <value>DHHを有効にする ( 変態さん)</value>
+  </data>
 </root>

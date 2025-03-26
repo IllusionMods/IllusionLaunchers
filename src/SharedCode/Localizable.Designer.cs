@@ -424,16 +424,29 @@ namespace InitSetting {
                 return ResourceManager.GetString("ExperimentalMode", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Activate DHH.
         /// </summary>
-        public static string ToggleDhh {
-            get {
+        public static string ToggleDhh
+        {
+            get
+            {
                 return ResourceManager.GetString("ToggleDhh", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Activate DHH.
+        /// </summary>
+        public static string ToggleDhhNew
+        {
+            get
+            {
+                return ResourceManager.GetString("ToggleDhhNew", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Play game in fullscreen.
         /// </summary>
@@ -597,19 +610,35 @@ namespace InitSetting {
                 return ResourceManager.GetString("TooltipBoneMod", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Advanced graphics options.
         ///May be configured ingame using P.
         ///
         ///Does not run with GraphicsMod!.
         /// </summary>
-        public static string TooltipDhh {
-            get {
+        public static string TooltipDhh
+        {
+            get
+            {
                 return ResourceManager.GetString("TooltipDhh", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Advanced graphics options.
+        ///May be configured ingame using P.
+        ///
+        ///Does not run with GraphicsMod!.
+        /// </summary>
+        public static string TooltipDhhNew
+        {
+            get
+            {
+                return ResourceManager.GetString("TooltipDhhNew", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to High Heels mod.
         ///Allows using high heels properly.
