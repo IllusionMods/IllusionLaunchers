@@ -1,0 +1,99 @@
+<Project>
+	<PropertyGroup>
+		<!-- This is the master version, only change this one -->
+		<Version>3.5</Version>
+
+		<!-- Sets the 'Company' field on the dll file -->
+		<Authors>https://github.com/IllusionMods/IllusionLaunchers</Authors>
+		<!-- Sets the 'Copyright' field on the dll file -->
+		<Copyright>Copyright GPL-3.0 © 2019</Copyright>
+		<!-- Sets the 'Product name' field on the dll file -->
+		<Product>IllusionLaunchers</Product>
+		<!-- Sets the 'File description' field on the dll file -->
+		<AssemblyTitle>Custom launcher used as a more powerful alternative to the original launcher</AssemblyTitle>
+
+		<RootNamespace>InitSetting</RootNamespace>
+		<AssemblyName>InitSetting</AssemblyName>
+
+		<TargetFramework>net35</TargetFramework>
+		<OutputType>WinExe</OutputType>
+
+		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+		<UseWindowsForms>true</UseWindowsForms>
+		<UseWPF>true</UseWPF>
+
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<ApplicationIcon>images\icon.ico</ApplicationIcon>
+		<StartupObject>InitDialog.App</StartupObject>
+
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+
+		<Deterministic>true</Deterministic>
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>embedded</DebugType>
+		<FileAlignment>512</FileAlignment>
+
+		<NoWarn>AL1053</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<Optimize>true</Optimize>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Reference Include="System.Management" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+			<Visible>False</Visible>
+			<ProductName>.NET Framework 3.5 SP1</ProductName>
+			<Install>true</Install>
+		</BootstrapperPackage>
+	</ItemGroup>
+
+	<Target Name="PostBuildCopy" AfterTargets="Build">
+		<!-- Copy to Initial Settings if the project name contains 'Steam' -->
+		<Copy SourceFiles="$(OutputPath)\$(AssemblyName).exe" DestinationFiles="..\..\bin\$(MSBuildProjectName)\Initial Settings.exe" Condition="'$(MSBuildProjectName.IndexOf(Steam))' != '-1'" />
+		<Copy SourceFiles="$(OutputPath)\$(AssemblyName).exe.config" DestinationFiles="..\..\bin\$(MSBuildProjectName)\Initial Settings.exe.config" Condition="'$(MSBuildProjectName.IndexOf(Steam))' != '-1'" />
+
+		<!-- Copy to the original name if the project name does not contain 'Steam' -->
+		<Copy SourceFiles="$(OutputPath)\$(AssemblyName).exe" DestinationFiles="..\..\bin\$(MSBuildProjectName)\$(AssemblyName).exe" Condition="'$(MSBuildProjectName.IndexOf(Steam))' == '-1'" />
+		<Copy SourceFiles="$(OutputPath)\$(AssemblyName).exe.config" DestinationFiles="..\..\bin\$(MSBuildProjectName)\$(AssemblyName).exe.config" Condition="'$(MSBuildProjectName.IndexOf(Steam))' == '-1'" />
+
+		<!-- Copy all language resource subdirs into BepInEx\LauncherEN -->
+		<ItemGroup>
+			<FilesToCopy Include="$(OutputPath)\*\**\*.*" />
+		</ItemGroup>
+		<Copy SourceFiles="@(FilesToCopy)" DestinationFolder="..\..\bin\$(MSBuildProjectName)\BepInEx\LauncherEN\%(RecursiveDir)" />
+	</Target>
+
+	<!-- Create a release zip file (after successful Release build) -->
+	<Target Name="CreateReleaseZip" AfterTargets="PostBuildCopy" Condition="'$(Configuration)' == 'Release'">
+		<!-- https://learn.microsoft.com/en-us/visualstudio/msbuild/zipdirectory-task?view=vs-2022 -->
+		<ZipDirectory SourceDirectory="..\..\bin\$(MSBuildProjectName)" DestinationFile="..\..\bin\IllusionLaunchers_$(MSBuildProjectName.Replace(' ',''))_v$(Version).zip" Overwrite="true" />
+	</Target>
+
+	<!-- Allow using of the csproj properties defined above in the code itself -->
+	<Target Name="AddGeneratedConstantsFile" BeforeTargets="BeforeCompile;CoreCompile" Inputs="$(MSBuildAllProjects)" Outputs="$(IntermediateOutputPath)GeneratedConstantsFile.cs">
+		<PropertyGroup>
+			<GeneratedText>
+				<![CDATA[namespace $(RootNamespace) {
+    internal static class Constants {
+        public const string Version = "$(Version)"%3B
+        public const string Name = "$(Product)"%3B
+        public const string Description = "$(AssemblyTitle)"%3B
+        public const string Website = "$(Authors)"%3B
+        public const string Copyright = "$(Copyright)"%3B
+    }
+}]]>
+			</GeneratedText>
+			<GeneratedFilePath>$(IntermediateOutputPath)GeneratedConstantsFile.cs</GeneratedFilePath>
+		</PropertyGroup>
+		<ItemGroup>
+			<Compile Include="$(GeneratedFilePath)" />
+			<FileWrites Include="$(GeneratedFilePath)" />
+		</ItemGroup>
+		<WriteLinesToFile Lines="$(GeneratedText)" File="$(GeneratedFilePath)" WriteOnlyWhenDifferent="true" Overwrite="true" />
+	</Target>
+</Project>
