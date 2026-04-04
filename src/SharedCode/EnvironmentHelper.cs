@@ -740,9 +740,9 @@ namespace InitSetting
             }
         }
 
-        public static bool StartGame(string gameExeRelativePath)
+        public static bool StartGame(string gameExePath)
         {
-            var exePath = Path.GetFullPath(GameRootDirectory + gameExeRelativePath);
+            var exePath = Path.IsPathRooted(gameExePath) ? gameExePath : Path.GetFullPath(GameRootDirectory + gameExePath);
             if (IsIpa)
             {
                 if (File.Exists(exePath))

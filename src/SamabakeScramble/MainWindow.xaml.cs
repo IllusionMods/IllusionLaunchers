@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
+using Microsoft.Win32;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace InitSetting
@@ -12,21 +14,17 @@ namespace InitSetting
     public partial class MainWindow : Window
     {
         // Game-specific constants -------------------------------------------------------------------
-        private const string RegistryKeyGame = "Software\\ILLGAMES\\HoneyCome";
-        private const string RegistryKeyStudio = "Software\\ILLGAMES\\CreateStudio";
-        private string ExecutableGame = "HoneyCome.exe";
-        private const string ExecutableStudio = "CreateStudio.exe";
-        private const string ExecutableVR = "HoneyVR.exe";
+        private const string RegistryKeyGame = "Software\\ILLGAMES\\SamabakeScramble";
+        private const string RegistryKeyStudio = "Software\\ILLGAMES\\DigitalCraft";
+        private string ExecutableGame = "SamabakeScramble.exe";
+        private const string ExecutableVR = "AicomiVR\\AicomiVR.exe";
         private const string SupportDiscord = "https://discord.gg/hevygx6";
         // Languages built into the game itself
         private static readonly string[] _builtinLanguages = { "ja-JP", "en-US" };
 
         // Normal fields, don't fill in --------------------------------------------------------------
         private bool _suppressEvents;
-        private readonly bool _mainGameExists;
-        private readonly bool _studioExists;
-        private readonly bool _vrExists;
-        private readonly bool _userDataExists;
+        private readonly string _studioPath;
 
         public MainWindow()
         {
@@ -34,25 +32,27 @@ namespace InitSetting
             {
                 _suppressEvents = true;
 
-                if (!File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableGame))
-                    ExecutableGame = "HoneyComeccp.exe";
-
                 // Initialize code -------------------------------------
                 EnvironmentHelper.Initialize(_builtinLanguages);
 
-                _mainGameExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableGame);
-                _studioExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableStudio);
-                _vrExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableVR);
-                _userDataExists = Directory.Exists(EnvironmentHelper.GameRootDirectory + "UserData");
+                var mainGameExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableGame);
+                _studioPath = Registry.CurrentUser.OpenSubKey(RegistryKeyStudio)?.GetValue("INSTALLDIR")?.ToString() + "\\DigitalCraft\\DigitalCraft.exe";
+                var studioExists = File.Exists(_studioPath);
+                var vrExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableVR);
+                var userDataExists = Directory.Exists(EnvironmentHelper.GameRootDirectory + "UserData");
 
                 SettingManager.Initialize(new SettingManagerNew(configFilePath: Path.Combine(EnvironmentHelper.GameRootDirectory, "UserData/config.xml"),
                                                                 setupFilePath: Path.Combine(EnvironmentHelper.GameRootDirectory, "UserData/setup.xml"),
-                                                                registryConfigPaths: _studioExists ? new[] { RegistryKeyGame, RegistryKeyStudio } : new[] { RegistryKeyGame }));
+                                                                registryConfigPaths: studioExists ? new[] { RegistryKeyGame, RegistryKeyStudio } : new[] { RegistryKeyGame }));
 
                 // Initialize interface --------------------------------
                 InitializeComponent();
 
-                if (_mainGameExists && !_userDataExists)
+                if (!mainGameExists) buttonGameStart.Visibility = Visibility.Collapsed;
+                if (!studioExists) buttonStudioStart.Visibility = Visibility.Collapsed;
+                if (!vrExists) buttonVrStart.Visibility = Visibility.Collapsed;
+
+                if (mainGameExists && !userDataExists)
                 {
                     createUserData();
                 }
@@ -100,11 +100,11 @@ namespace InitSetting
                     dropDisplay.Items.Add(newItem);
                 }
 
-                if (!_vrExists)
+                if (!vrExists)
                 {
                     // TODO: Add VR hide
                 }
-                
+
                 PluginToggleManager.CreatePluginToggles(Toggleables);
 
                 _suppressEvents = false;
@@ -141,11 +141,11 @@ namespace InitSetting
             Directory.CreateDirectory(EnvironmentHelper.GameRootDirectory + "UserData\\ScreenEffect\\preset");
             Directory.CreateDirectory(EnvironmentHelper.GameRootDirectory + "UserData\\system");
 
-            if (_studioExists)
-            {
-                Directory.CreateDirectory(EnvironmentHelper.GameRootDirectory + "UserData\\Studio\\scene");
-                Directory.CreateDirectory(EnvironmentHelper.GameRootDirectory + "UserData\\Studio\\pose");
-            }
+            //if (_studioExists)
+            //{
+            //    Directory.CreateDirectory(EnvironmentHelper.GameRootDirectory + "UserData\\Studio\\scene");
+            //    Directory.CreateDirectory(EnvironmentHelper.GameRootDirectory + "UserData\\Studio\\pose");
+            //}
 
         }
         #endregion
@@ -237,7 +237,7 @@ namespace InitSetting
 
         private void buttonStartS_Click(object sender, RoutedEventArgs e)
         {
-            StartGame(ExecutableStudio);
+            StartGame(_studioPath);
         }
 
         private void buttonStartV_Click(object sender, RoutedEventArgs e)
@@ -247,17 +247,20 @@ namespace InitSetting
 
         private void buttonManual_Click(object sender, RoutedEventArgs e)
         {
-            EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\");
+            Process.Start("https://download.illgames.jp/product/SamabakeScramble/manual/en.php");
+            //EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\");
         }
 
         private void buttonManualS_Click(object sender, RoutedEventArgs e)
         {
-            EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_s\\");
+            Process.Start("https://download.illgames.jp/product/digitalcraft/manual/jp.php");
+            //EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_s\\");
         }
 
         private void buttonManualV_Click(object sender, RoutedEventArgs e)
         {
-            EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_v\\");
+            Process.Start("https://download.illgames.jp/product/Aicomi/manual_vr/");
+            //EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_v\\");
         }
 
         #endregion

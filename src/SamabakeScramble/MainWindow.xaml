@@ -69,57 +69,154 @@
             <ImageBrush x:Name="appBG" ImageSource="Images/Background.png" />
         </Grid.Background>
 
-        <Grid HorizontalAlignment="Left" Height="102" VerticalAlignment="Top" Width="898">
-            <Border HorizontalAlignment="Left" Height="34" Margin="356,25,0,0" VerticalAlignment="Top"
-                    Width="219.839" ClipToBounds="True" Background="Black">
-                <Border.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform />
-                        <SkewTransform AngleX="-40" />
-                        <RotateTransform />
-                        <TranslateTransform />
-                    </TransformGroup>
-                </Border.RenderTransform>
-                <Image x:Name="image" Source="Images/ButtonBG/startGame.png" RenderTransformOrigin="0.5,0.5"
-                       HorizontalAlignment="Right" Stretch="None">
-                    <Image.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform />
-                            <SkewTransform AngleX="40" />
-                            <RotateTransform />
-                            <TranslateTransform />
-                        </TransformGroup>
-                    </Image.RenderTransform>
-                </Image>
-            </Border>
+        <StackPanel Margin="0,0,0,294" VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Grid Height="102" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="buttonGameStart">
+                <Grid>
+                    <Border HorizontalAlignment="Left" Height="34" Margin="35,25,0,0" VerticalAlignment="Top" Width="219.839" ClipToBounds="True" Background="Black">
+                        <Border.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform />
+                                <SkewTransform AngleX="-40" />
+                                <RotateTransform />
+                                <TranslateTransform />
+                            </TransformGroup>
+                        </Border.RenderTransform>
+                        <Image Source="Images/ButtonBG/startGame.png" RenderTransformOrigin="0.5,0.5"
+                               HorizontalAlignment="Left" Stretch="None">
+                            <Image.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform />
+                                    <SkewTransform AngleX="40" />
+                                    <RotateTransform />
+                                    <TranslateTransform />
+                                </TransformGroup>
+                            </Image.RenderTransform>
+                        </Image>
+                    </Border>
 
-            <Label Style="{StaticResource GameButtonsLabel}" x:Name="labelStart"
-                   Content="{x:Static local:Localizable.StartGame}" HorizontalAlignment="Left"
-                   Margin="356,25,0,0" VerticalAlignment="Top" Width="190" Height="34" />
-            <Button Style="{StaticResource buttonHover}" x:Name="buttonStart" Content="" HorizontalAlignment="Left"
-                    Height="36" Margin="355,24,0,0" VerticalAlignment="Top" Width="223"
-                    Click="buttonStart_Click">
-                <Button.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform />
-                        <SkewTransform AngleX="-40" />
-                        <RotateTransform />
-                        <TranslateTransform />
-                    </TransformGroup>
-                </Button.RenderTransform>
-            </Button>
-            <Border HorizontalAlignment="Center" Height="20.333" Margin="0,66,0,0" VerticalAlignment="Top"
-                    Width="170.417" Background="Black">
-                <Image x:Name="idmssage2" Source="Images/ButtonBG/manual.png" RenderTransformOrigin="0.5,0.5"
-                       HorizontalAlignment="Right" />
-            </Border>
-            <Label x:Name="labelM" Foreground="White" VerticalContentAlignment="Center"
-                   Content="{x:Static local:Localizable.ManualGame}" HorizontalAlignment="Left"
-                   Margin="368,64,0,0" VerticalAlignment="Top" Height="24" Width="134" />
-            <Button Style="{StaticResource buttonHover}" x:Name="buttonManual" Content="" HorizontalAlignment="Center"
-                    Height="24" Margin="0,64,0,0" VerticalAlignment="Top" Width="174"
-                    Click="buttonManual_Click" />
-        </Grid>
+                    <Label Style="{StaticResource GameButtonsLabel}" Content="{x:Static local:Localizable.StartGame}"
+                           HorizontalAlignment="Left" Margin="35,25,0,0" VerticalAlignment="Top" Width="190"
+                           Height="34" />
+                    <Button Style="{StaticResource buttonHover}" Content="" HorizontalAlignment="Left" Height="36"
+                            Margin="34,24,0,0" VerticalAlignment="Top" Width="223" Click="buttonStart_Click">
+                        <Button.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform />
+                                <SkewTransform AngleX="-40" />
+                                <RotateTransform />
+                                <TranslateTransform />
+                            </TransformGroup>
+                        </Button.RenderTransform>
+                    </Button>
+                </Grid>
+
+                <Border x:Name="buttonGameManual" HorizontalAlignment="Left" Height="21" Margin="43,66,0,0" VerticalAlignment="Top" Width="170.417" Background="Black">
+                    <Grid>
+                        <Image Source="Images/ButtonBG/manual.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" />
+                        <Label Foreground="White" VerticalContentAlignment="Center" Content="{x:Static local:Localizable.ManualGame}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="134" Margin="0,-3,0,0" Padding="7,5,5,5" />
+                        <Button Style="{StaticResource buttonHover}" Content="" HorizontalAlignment="Left" Height="24"  VerticalAlignment="Top" Width="174" Click="buttonManual_Click" />
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Height="102" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="buttonStudioStart">
+                <Grid>
+                    <Border HorizontalAlignment="Left" Height="34" Margin="35,25,0,0" VerticalAlignment="Top" Width="219.839" ClipToBounds="True" Background="Black">
+                        <Border.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform />
+                                <SkewTransform AngleX="-40" />
+                                <RotateTransform />
+                                <TranslateTransform />
+                            </TransformGroup>
+                        </Border.RenderTransform>
+                        <Image Source="Images/ButtonBG/startStudio.png" RenderTransformOrigin="0.5,0.5"
+                               HorizontalAlignment="Left" Stretch="None">
+                            <Image.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform />
+                                    <SkewTransform AngleX="40" />
+                                    <RotateTransform />
+                                    <TranslateTransform />
+                                </TransformGroup>
+                            </Image.RenderTransform>
+                        </Image>
+                    </Border>
+
+                    <Label Style="{StaticResource GameButtonsLabel}" Content="{x:Static local:Localizable.StartStudio}"
+                           HorizontalAlignment="Left" Margin="35,25,0,0" VerticalAlignment="Top" Width="190"
+                           Height="34" />
+                    <Button Style="{StaticResource buttonHover}" Content="" HorizontalAlignment="Left" Height="36"
+                            Margin="34,24,0,0" VerticalAlignment="Top" Width="223" Click="buttonStartS_Click">
+                        <Button.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform />
+                                <SkewTransform AngleX="-40" />
+                                <RotateTransform />
+                                <TranslateTransform />
+                            </TransformGroup>
+                        </Button.RenderTransform>
+                    </Button>
+                </Grid>
+
+                <Border x:Name="buttonStudioManual" HorizontalAlignment="Left" Height="21" Margin="43,66,0,0" VerticalAlignment="Top" Width="170.417" Background="Black">
+                    <Grid>
+                        <Image Source="Images/ButtonBG/manual.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" />
+                        <Label Foreground="White" VerticalContentAlignment="Center" Content="{x:Static local:Localizable.ManualStudio}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="134" Margin="0,-3,0,0" Padding="7,5,5,5" />
+                        <Button Style="{StaticResource buttonHover}" Content="" HorizontalAlignment="Left" Height="24"  VerticalAlignment="Top" Width="174" Click="buttonManualS_Click" />
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Height="102" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="buttonVrStart">
+                <Grid>
+                    <Border HorizontalAlignment="Left" Height="34" Margin="35,25,0,0" VerticalAlignment="Top" Width="219.839" ClipToBounds="True" Background="Black">
+                        <Border.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform />
+                                <SkewTransform AngleX="-40" />
+                                <RotateTransform />
+                                <TranslateTransform />
+                            </TransformGroup>
+                        </Border.RenderTransform>
+                        <Image Source="Images/ButtonBG/startVR.png" RenderTransformOrigin="0.5,0.5"
+                               HorizontalAlignment="Left" Stretch="None">
+                            <Image.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform />
+                                    <SkewTransform AngleX="40" />
+                                    <RotateTransform />
+                                    <TranslateTransform />
+                                </TransformGroup>
+                            </Image.RenderTransform>
+                        </Image>
+                    </Border>
+
+                    <Label Style="{StaticResource GameButtonsLabel}" Content="{x:Static local:Localizable.StartVR}"
+                           HorizontalAlignment="Left" Margin="35,25,0,0" VerticalAlignment="Top" Width="190"
+                           Height="34" />
+                    <Button Style="{StaticResource buttonHover}" Content="" HorizontalAlignment="Left" Height="36"
+                            Margin="34,24,0,0" VerticalAlignment="Top" Width="223" Click="buttonStartV_Click">
+                        <Button.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform />
+                                <SkewTransform AngleX="-40" />
+                                <RotateTransform />
+                                <TranslateTransform />
+                            </TransformGroup>
+                        </Button.RenderTransform>
+                    </Button>
+                </Grid>
+
+                <Border x:Name="buttonVrManual" HorizontalAlignment="Left" Height="21" Margin="43,66,0,0" VerticalAlignment="Top" Width="170.417" Background="Black">
+                    <Grid>
+                        <Image Source="Images/ButtonBG/manual.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" />
+                        <Label Foreground="White" VerticalContentAlignment="Center" Content="{x:Static local:Localizable.ManualVR}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="134" Margin="0,-3,0,0" Padding="7,5,5,5" />
+                        <Button Style="{StaticResource buttonHover}" Content="" HorizontalAlignment="Left" Height="24"  VerticalAlignment="Top" Width="174" Click="buttonManualV_Click" />
+                    </Grid>
+                </Border>
+            </Grid>
+        </StackPanel>
 
         <Image x:Name="PackChara" HorizontalAlignment="Left" Height="378" Margin="322,220,0,0" VerticalAlignment="Top"
                Width="255" Source="Images/Chara.png" Grid.RowSpan="2" />
