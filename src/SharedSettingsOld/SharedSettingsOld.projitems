@@ -6,7 +6,7 @@
     <SharedGUID>5e403633-53dc-4e82-b906-29f022236a89</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>SharedSettingsOld</Import_RootNamespace>
+    <Import_RootNamespace>InitSetting</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)SettingManagerOld.cs" />

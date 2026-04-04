@@ -6,10 +6,9 @@
     <SharedGUID>8bf2798d-fd00-4483-95ee-dc37a599e6fd</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>SharedCode</Import_RootNamespace>
+    <Import_RootNamespace>InitSetting</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ComboBoxCustomItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Settings\DEVMODE.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Settings\DevmodeFields.cs" />
@@ -49,7 +48,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.resx">
-      <LastGenOutput>Localizable.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -62,5 +60,31 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Localizable.zh-Hant.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="$(MSBuildThisFileDirectory)images\ButtonBG\manual.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)images\ButtonBG\startStudio.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)images\ButtonBG\startVR.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)images\Chikarin.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)images\Discord.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)images\Flags\brazil.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)images\Flags\china.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)images\Flags\france.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)images\Flags\germany.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)images\Flags\japan.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)images\Flags\norway.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)images\Flags\Russia.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)images\Flags\south-korea.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)images\Flags\spain.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)images\Flags\taiwan.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)images\Flags\united-kingdom.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)images\ModernDiscord_small.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)images\ModernDL_small.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)images\ModernPatreon_small.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)images\Patreon.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)images\transBG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="$(MSBuildThisFileDirectory)images\ButtonBG\startGame.png" />
   </ItemGroup>
 </Project>

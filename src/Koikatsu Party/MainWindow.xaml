@@ -66,7 +66,7 @@
             <RowDefinition Height="101*" />
         </Grid.RowDefinitions>
         <Grid.Background>
-            <ImageBrush x:Name="appBG" ImageSource="Images/LauncherBG.png" />
+            <ImageBrush x:Name="appBG" ImageSource="Images/Background.png" />
         </Grid.Background>
 
         <Grid HorizontalAlignment="Left" Height="102" VerticalAlignment="Top" Width="898">
@@ -312,7 +312,7 @@
                     VerticalAlignment="Top" Width="129.517" Margin="164.358,299.71,0,0" Click="buttonMaleCard_Click" />
         </Grid>
         <Image x:Name="image2" HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="262"
-               Source="images/KKPLogo.png" Margin="318,102,318,0" />
+               Source="images/Logo.png" Margin="318,102,318,0" />
         <Button Style="{StaticResource buttonHover}" x:Name="buttonClose" Content="X" HorizontalAlignment="Left"
                 Margin="856,10,0,0" VerticalAlignment="Top" Width="32" Height="28" IsCancel="true" />
         <Grid x:Name="gridDiscord" HorizontalAlignment="Left" Height="36.333" Margin="-40.584,160.952,0,0"
