@@ -33,3 +33,13 @@ Create a folder in BepInEx named LauncherEN, and place a file named patreon.txt 
 Languages can be switched at any time in the launcher. The following languages are supported:
 
 English, Chinese, Korean, Spanish, Brazilian, French, German, Norwegian (Bokmål) and Russian
+
+# Translation credits
+- SmokeOfC & ScrewThisNoise: Translator communication/coordination and translation (English and Norwegian)
+- Earthship: Translation (Japanese)
+- Madevil & Earthship: Translation (Chinese)
+- Keris: Translation (Korean)
+- Heroine Nisa: Translation (Spanish)
+- Neptune: Translation (Brazilian)
+- Hyper: Translation (German)
+- TotalDecay78: Translation (French)
