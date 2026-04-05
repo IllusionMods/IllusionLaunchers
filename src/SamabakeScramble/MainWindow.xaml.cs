@@ -36,7 +36,7 @@ namespace InitSetting
                 EnvironmentHelper.Initialize(_builtinLanguages);
 
                 var mainGameExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableGame);
-                _studioPath = Registry.CurrentUser.OpenSubKey(RegistryKeyStudio)?.GetValue("INSTALLDIR")?.ToString() + "\\DigitalCraft\\DigitalCraft.exe";
+                _studioPath = Registry.CurrentUser.OpenSubKey(RegistryKeyStudio)?.GetValue("INSTALLDIR") + @"\DigitalCraft\DigitalCraft.exe";
                 var studioExists = File.Exists(_studioPath);
                 var vrExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableVR);
                 var userDataExists = Directory.Exists(EnvironmentHelper.GameRootDirectory + "UserData");

@@ -14,7 +14,7 @@ namespace InitSetting
     public partial class MainWindow : Window
     {
         // Game-specific constants -------------------------------------------------------------------
-        private const string RegistryKeyGame = "Software\\ILLGAMES\\Aiccomi";
+        private const string RegistryKeyGame = "Software\\ILLGAMES\\Aicomi";
         private const string RegistryKeyStudio = "Software\\ILLGAMES\\DigitalCraft";
         private string ExecutableGame = "Aicomi.exe";
         private const string ExecutableVR = "AicomiVR\\AicomiVR.exe";
@@ -36,7 +36,7 @@ namespace InitSetting
                 EnvironmentHelper.Initialize(_builtinLanguages);
 
                 var mainGameExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableGame);
-                _studioPath = Registry.CurrentUser.OpenSubKey(RegistryKeyStudio)?.GetValue("INSTALLDIR")?.ToString() + "\\DigitalCraft\\DigitalCraft.exe";
+                _studioPath = Registry.CurrentUser.OpenSubKey(RegistryKeyStudio)?.GetValue("INSTALLDIR") + @"\DigitalCraft\DigitalCraft.exe";
                 var studioExists = File.Exists(_studioPath);
                 var vrExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableVR);
                 var userDataExists = Directory.Exists(EnvironmentHelper.GameRootDirectory + "UserData");
