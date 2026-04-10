@@ -14,11 +14,19 @@ namespace InitSetting
             var installed = EnvironmentHelper.GameRootDirectory + StudioRelativePath;
             if (File.Exists(installed)) return installed;
 
-            var standalone = Registry.CurrentUser.OpenSubKey(RegistryKeyStudio)?.GetValue("INSTALLDIR") + StudioRelativePath;
-            if (File.Exists(standalone)) return standalone;
+            var regValue = Registry.CurrentUser.OpenSubKey(RegistryKeyStudio)?.GetValue("INSTALLDIR")?.ToString();
+            if (!string.IsNullOrEmpty(regValue))
+            {
+                var standalone = regValue + StudioRelativePath;
+                if (File.Exists(standalone)) return standalone;
+            }
 
-            var dolce = Registry.CurrentUser.OpenSubKey(RegistryKeyHoneyCome)?.GetValue("INSTALLDIR") + StudioRelativePath;
-            if (File.Exists(dolce)) return dolce;
+            regValue = Registry.CurrentUser.OpenSubKey(RegistryKeyHoneyCome)?.GetValue("INSTALLDIR")?.ToString();
+            if (!string.IsNullOrEmpty(regValue))
+            {
+                var dolce = regValue + StudioRelativePath;
+                if (File.Exists(dolce)) return dolce;
+            }
 
             return null;
         }
