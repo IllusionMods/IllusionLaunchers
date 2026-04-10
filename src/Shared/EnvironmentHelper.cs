@@ -628,8 +628,11 @@ namespace InitSetting
             Thread.CurrentThread.CurrentCulture = Language;
         }
 
-        public static void ShowManual(string manualRoot)
+        public static void ShowManual(string manualRoot, string fallbackUrl = null)
         {
+            if (manualRoot == null) throw new ArgumentNullException(nameof(manualRoot));
+            if (!Path.IsPathRooted(manualRoot)) manualRoot = GameRootDirectory + "\\" + manualRoot;
+
             var manualEn = manualRoot + "manual_en.html";
             var manualLang = manualRoot + $"manual_{Language}.html";
             var manualJa = manualRoot + "お読み下さい.html";
@@ -679,6 +682,16 @@ namespace InitSetting
                 }
             }
             catch (Exception e) { ex = e; }
+
+            if (!string.IsNullOrEmpty(fallbackUrl))
+            {
+                try
+                {
+                    Process.Start(fallbackUrl);
+                    return;
+                }
+                catch (Exception e) { ex = e; }
+            }
 
             MessageBox.Show(Localizable.WarningManual + (ex != null ? "\n\n" + ex.Message : ""), Localizable.TypeWarn);
         }

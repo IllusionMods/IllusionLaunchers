@@ -9,6 +9,9 @@
     <Import_RootNamespace>InitSetting</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ComboBoxCustomItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Settings\DEVMODE.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Settings\DevmodeFields.cs" />
@@ -86,5 +89,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="$(MSBuildThisFileDirectory)images\ButtonBG\startGame.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="$(MSBuildThisFileDirectory)App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
   </ItemGroup>
 </Project>

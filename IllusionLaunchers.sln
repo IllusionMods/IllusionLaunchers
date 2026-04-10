@@ -41,6 +41,7 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedIllgames", "src\Share
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution", "_Solution", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 	ProjectSection(SolutionItems) = preProject
+		src\app.config = src\app.config
 		src\Directory.Build.props = src\Directory.Build.props
 		README.md = README.md
 	EndProjectSection

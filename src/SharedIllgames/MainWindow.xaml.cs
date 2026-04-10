@@ -1,27 +1,16 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
-using Microsoft.Win32;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace InitSetting
 {
     public partial class MainWindow : Window
     {
-        // Game-specific constants -------------------------------------------------------------------
-        private const string RegistryKeyGame = "Software\\ILLGAMES\\SamabakeScramble";
-        private const string RegistryKeyStudio = "Software\\ILLGAMES\\DigitalCraft";
-        private string ExecutableGame = "SamabakeScramble.exe";
-        private const string ExecutableVR = "AicomiVR\\AicomiVR.exe";
-        private const string SupportDiscord = "https://discord.gg/hevygx6";
-        // Languages built into the game itself
-        private static readonly string[] _builtinLanguages = { "ja-JP", "en-US" };
-
         // Normal fields, don't fill in --------------------------------------------------------------
         private bool _suppressEvents;
         private readonly string _studioPath;
@@ -36,8 +25,8 @@ namespace InitSetting
                 EnvironmentHelper.Initialize(_builtinLanguages);
 
                 var mainGameExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableGame);
-                _studioPath = Registry.CurrentUser.OpenSubKey(RegistryKeyStudio)?.GetValue("INSTALLDIR") + @"\DigitalCraft\DigitalCraft.exe";
-                var studioExists = File.Exists(_studioPath);
+                _studioPath = Utils.FindDigitalCraftPath();
+                var studioExists = !string.IsNullOrEmpty(_studioPath);
                 var vrExists = File.Exists(EnvironmentHelper.GameRootDirectory + ExecutableVR);
                 var userDataExists = Directory.Exists(EnvironmentHelper.GameRootDirectory + "UserData");
 
@@ -47,7 +36,7 @@ namespace InitSetting
 
                 // Initialize interface --------------------------------
                 InitializeComponent();
-
+                
                 if (!mainGameExists) buttonGameStart.Visibility = Visibility.Collapsed;
                 if (!studioExists) buttonStudioStart.Visibility = Visibility.Collapsed;
                 if (!vrExists) buttonVrStart.Visibility = Visibility.Collapsed;
@@ -99,12 +88,7 @@ namespace InitSetting
                     var newItem = i == 0 ? primaryDisplay : $"{subDisplay} : " + i;
                     dropDisplay.Items.Add(newItem);
                 }
-
-                if (!vrExists)
-                {
-                    // TODO: Add VR hide
-                }
-
+                
                 PluginToggleManager.CreatePluginToggles(Toggleables);
 
                 _suppressEvents = false;
@@ -244,23 +228,20 @@ namespace InitSetting
         {
             StartGame(ExecutableVR);
         }
-
+        
         private void buttonManual_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://download.illgames.jp/product/SamabakeScramble/manual/en.php");
-            //EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual\\");
+            EnvironmentHelper.ShowManual("manual", ManualUrlGame);
         }
 
         private void buttonManualS_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://download.illgames.jp/product/digitalcraft/manual/jp.php");
-            //EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_s\\");
+            EnvironmentHelper.ShowManual("manual_s", ManualUrlStudio);
         }
 
         private void buttonManualV_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://download.illgames.jp/product/Aicomi/manual_vr/");
-            //EnvironmentHelper.ShowManual($"{EnvironmentHelper.GameRootDirectory}\\manual_v\\");
+            EnvironmentHelper.ShowManual("manual_v", ManualUrlVr);
         }
 
         #endregion
