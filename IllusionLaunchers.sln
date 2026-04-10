@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayHome", "src\PlayHome\Pl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Koikatsu", "src\Koikatsu\Koikatsu.csproj", "{687A6B4F-F433-40B0-B1F5-CC15F7437B14}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedCode", "src\SharedCode\SharedCode.shproj", "{8BF2798D-FD00-4483-95EE-DC37A599E6FD}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared", "src\Shared\Shared.shproj", "{8BF2798D-FD00-4483-95EE-DC37A599E6FD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Koikatsu-Steam", "src\Koikatsu Party\Koikatsu-Steam.csproj", "{719350AD-52F8-4752-8360-35C1EA196D42}"
 EndProject
@@ -35,14 +35,24 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoomGirl", "src\RoomGirl\Ro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoneyCome", "src\HoneyCome\HoneyCome.csproj", "{451C3F56-F7BD-4E96-BA26-09DAC4630B71}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedSettingsOld", "src\SharedSettingsOld\SharedSettingsOld.shproj", "{5E403633-53DC-4E82-B906-29F022236A89}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedIllusion", "src\SharedIllusion\SharedIllusion.shproj", "{5E403633-53DC-4E82-B906-29F022236A89}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedSettingsNew", "src\SharedSettingsNew\SharedSettingsNew.shproj", "{0CE6C5E0-4254-4D20-BF63-B89FC2167AC0}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedIllgames", "src\SharedIllgames\SharedIllgames.shproj", "{0CE6C5E0-4254-4D20-BF63-B89FC2167AC0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution", "_Solution", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 	ProjectSection(SolutionItems) = preProject
+		src\app.config = src\app.config
 		src\Directory.Build.props = src\Directory.Build.props
+		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aicomi", "src\Aicomi\Aicomi.csproj", "{D4712FB4-8D7C-F85B-7E6B-CE4ABB2590A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamabakeScramble", "src\SamabakeScramble\SamabakeScramble.csproj", "{13850BA0-2B33-010E-C25B-8C5F85E001F5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Illusion", "Illusion", "{35D716F8-82FC-4BA3-930A-E4920155C7E3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Illgames", "Illgames", "{954D1BB6-FC3B-4652-A773-40B520A5D972}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -110,46 +120,79 @@ Global
 		{451C3F56-F7BD-4E96-BA26-09DAC4630B71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{451C3F56-F7BD-4E96-BA26-09DAC4630B71}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{451C3F56-F7BD-4E96-BA26-09DAC4630B71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4712FB4-8D7C-F85B-7E6B-CE4ABB2590A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4712FB4-8D7C-F85B-7E6B-CE4ABB2590A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4712FB4-8D7C-F85B-7E6B-CE4ABB2590A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4712FB4-8D7C-F85B-7E6B-CE4ABB2590A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13850BA0-2B33-010E-C25B-8C5F85E001F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13850BA0-2B33-010E-C25B-8C5F85E001F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13850BA0-2B33-010E-C25B-8C5F85E001F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13850BA0-2B33-010E-C25B-8C5F85E001F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5AF75EC6-4B19-4507-AF25-742AFBCBF45D} = {35D716F8-82FC-4BA3-930A-E4920155C7E3}
+		{91F6B54E-6A85-486F-8BF3-5920D838F030} = {35D716F8-82FC-4BA3-930A-E4920155C7E3}
+		{6F62CF98-EB11-4FF2-8370-0B946CA337E5} = {35D716F8-82FC-4BA3-930A-E4920155C7E3}
+		{561F2722-A3EA-40ED-A5D0-982ED26118B9} = {35D716F8-82FC-4BA3-930A-E4920155C7E3}
+		{687A6B4F-F433-40B0-B1F5-CC15F7437B14} = {35D716F8-82FC-4BA3-930A-E4920155C7E3}
+		{719350AD-52F8-4752-8360-35C1EA196D42} = {35D716F8-82FC-4BA3-930A-E4920155C7E3}
+		{ED03C79C-7B7D-4DB5-B3A4-17586925F12D} = {35D716F8-82FC-4BA3-930A-E4920155C7E3}
+		{1D2166E2-4DA0-4FD6-A28D-7EBBEF40955B} = {35D716F8-82FC-4BA3-930A-E4920155C7E3}
+		{7C713600-69B2-48AE-B805-A7BBF3408D69} = {35D716F8-82FC-4BA3-930A-E4920155C7E3}
+		{47A3BE13-4CB4-4322-83F7-A4703CACEED9} = {35D716F8-82FC-4BA3-930A-E4920155C7E3}
+		{BB0A856A-6604-42DC-9248-D760F9D24ACA} = {35D716F8-82FC-4BA3-930A-E4920155C7E3}
+		{CE50D875-F13C-4820-BDC1-EE87350E6DB6} = {35D716F8-82FC-4BA3-930A-E4920155C7E3}
+		{0F194AF1-D54E-45F3-A66A-6AEE8E1C67D5} = {35D716F8-82FC-4BA3-930A-E4920155C7E3}
+		{E4335252-2B41-420F-BFF1-7085A6850DAF} = {35D716F8-82FC-4BA3-930A-E4920155C7E3}
+		{451C3F56-F7BD-4E96-BA26-09DAC4630B71} = {954D1BB6-FC3B-4652-A773-40B520A5D972}
+		{5E403633-53DC-4E82-B906-29F022236A89} = {35D716F8-82FC-4BA3-930A-E4920155C7E3}
+		{0CE6C5E0-4254-4D20-BF63-B89FC2167AC0} = {954D1BB6-FC3B-4652-A773-40B520A5D972}
+		{D4712FB4-8D7C-F85B-7E6B-CE4ABB2590A6} = {954D1BB6-FC3B-4652-A773-40B520A5D972}
+		{13850BA0-2B33-010E-C25B-8C5F85E001F5} = {954D1BB6-FC3B-4652-A773-40B520A5D972}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {053D8C5C-E4D8-40B5-8463-61C93DEB0517}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		src\SharedSettingsNew\SharedSettingsNew.projitems*{0ce6c5e0-4254-4d20-bf63-b89fc2167ac0}*SharedItemsImports = 13
-		src\SharedCode\SharedCode.projitems*{0f194af1-d54e-45f3-a66a-6aee8e1c67d5}*SharedItemsImports = 5
-		src\SharedSettingsOld\SharedSettingsOld.projitems*{0f194af1-d54e-45f3-a66a-6aee8e1c67d5}*SharedItemsImports = 5
-		src\SharedCode\SharedCode.projitems*{1d2166e2-4da0-4fd6-a28d-7ebbef40955b}*SharedItemsImports = 5
-		src\SharedSettingsOld\SharedSettingsOld.projitems*{1d2166e2-4da0-4fd6-a28d-7ebbef40955b}*SharedItemsImports = 5
-		src\SharedCode\SharedCode.projitems*{451c3f56-f7bd-4e96-ba26-09dac4630b71}*SharedItemsImports = 5
-		src\SharedSettingsNew\SharedSettingsNew.projitems*{451c3f56-f7bd-4e96-ba26-09dac4630b71}*SharedItemsImports = 5
-		src\SharedCode\SharedCode.projitems*{47a3be13-4cb4-4322-83f7-a4703caceed9}*SharedItemsImports = 5
-		src\SharedSettingsOld\SharedSettingsOld.projitems*{47a3be13-4cb4-4322-83f7-a4703caceed9}*SharedItemsImports = 5
-		src\SharedCode\SharedCode.projitems*{561f2722-a3ea-40ed-a5d0-982ed26118b9}*SharedItemsImports = 5
-		src\SharedSettingsOld\SharedSettingsOld.projitems*{561f2722-a3ea-40ed-a5d0-982ed26118b9}*SharedItemsImports = 5
-		src\SharedCode\SharedCode.projitems*{5af75ec6-4b19-4507-af25-742afbcbf45d}*SharedItemsImports = 5
-		src\SharedSettingsOld\SharedSettingsOld.projitems*{5af75ec6-4b19-4507-af25-742afbcbf45d}*SharedItemsImports = 5
-		src\SharedSettingsOld\SharedSettingsOld.projitems*{5e403633-53dc-4e82-b906-29f022236a89}*SharedItemsImports = 13
-		src\SharedCode\SharedCode.projitems*{687a6b4f-f433-40b0-b1f5-cc15f7437b14}*SharedItemsImports = 5
-		src\SharedSettingsOld\SharedSettingsOld.projitems*{687a6b4f-f433-40b0-b1f5-cc15f7437b14}*SharedItemsImports = 5
-		src\SharedCode\SharedCode.projitems*{6f62cf98-eb11-4ff2-8370-0b946ca337e5}*SharedItemsImports = 5
-		src\SharedSettingsOld\SharedSettingsOld.projitems*{6f62cf98-eb11-4ff2-8370-0b946ca337e5}*SharedItemsImports = 5
-		src\SharedCode\SharedCode.projitems*{719350ad-52f8-4752-8360-35c1ea196d42}*SharedItemsImports = 5
-		src\SharedSettingsOld\SharedSettingsOld.projitems*{719350ad-52f8-4752-8360-35c1ea196d42}*SharedItemsImports = 5
-		src\SharedCode\SharedCode.projitems*{7c713600-69b2-48ae-b805-a7bbf3408d69}*SharedItemsImports = 5
-		src\SharedSettingsOld\SharedSettingsOld.projitems*{7c713600-69b2-48ae-b805-a7bbf3408d69}*SharedItemsImports = 5
-		src\SharedCode\SharedCode.projitems*{8bf2798d-fd00-4483-95ee-dc37a599e6fd}*SharedItemsImports = 13
-		src\SharedCode\SharedCode.projitems*{91f6b54e-6a85-486f-8bf3-5920d838f030}*SharedItemsImports = 5
-		src\SharedSettingsOld\SharedSettingsOld.projitems*{91f6b54e-6a85-486f-8bf3-5920d838f030}*SharedItemsImports = 5
-		src\SharedCode\SharedCode.projitems*{bb0a856a-6604-42dc-9248-d760f9d24aca}*SharedItemsImports = 5
-		src\SharedSettingsOld\SharedSettingsOld.projitems*{bb0a856a-6604-42dc-9248-d760f9d24aca}*SharedItemsImports = 5
-		src\SharedCode\SharedCode.projitems*{ce50d875-f13c-4820-bdc1-ee87350e6db6}*SharedItemsImports = 5
-		src\SharedSettingsOld\SharedSettingsOld.projitems*{ce50d875-f13c-4820-bdc1-ee87350e6db6}*SharedItemsImports = 5
-		src\SharedCode\SharedCode.projitems*{e4335252-2b41-420f-bff1-7085a6850daf}*SharedItemsImports = 5
-		src\SharedSettingsOld\SharedSettingsOld.projitems*{e4335252-2b41-420f-bff1-7085a6850daf}*SharedItemsImports = 5
-		src\SharedCode\SharedCode.projitems*{ed03c79c-7b7d-4db5-b3a4-17586925f12d}*SharedItemsImports = 5
-		src\SharedSettingsOld\SharedSettingsOld.projitems*{ed03c79c-7b7d-4db5-b3a4-17586925f12d}*SharedItemsImports = 5
+		src\SharedIllgames\SharedIllgames.projitems*{0ce6c5e0-4254-4d20-bf63-b89fc2167ac0}*SharedItemsImports = 13
+		src\SharedIllusion\SharedIllusion.projitems*{0f194af1-d54e-45f3-a66a-6aee8e1c67d5}*SharedItemsImports = 5
+		src\Shared\Shared.projitems*{0f194af1-d54e-45f3-a66a-6aee8e1c67d5}*SharedItemsImports = 5
+		src\SharedIllgames\SharedIllgames.projitems*{13850ba0-2b33-010e-c25b-8c5f85e001f5}*SharedItemsImports = 5
+		src\Shared\Shared.projitems*{13850ba0-2b33-010e-c25b-8c5f85e001f5}*SharedItemsImports = 5
+		src\SharedIllusion\SharedIllusion.projitems*{1d2166e2-4da0-4fd6-a28d-7ebbef40955b}*SharedItemsImports = 5
+		src\Shared\Shared.projitems*{1d2166e2-4da0-4fd6-a28d-7ebbef40955b}*SharedItemsImports = 5
+		src\SharedIllgames\SharedIllgames.projitems*{451c3f56-f7bd-4e96-ba26-09dac4630b71}*SharedItemsImports = 5
+		src\Shared\Shared.projitems*{451c3f56-f7bd-4e96-ba26-09dac4630b71}*SharedItemsImports = 5
+		src\SharedIllusion\SharedIllusion.projitems*{47a3be13-4cb4-4322-83f7-a4703caceed9}*SharedItemsImports = 5
+		src\Shared\Shared.projitems*{47a3be13-4cb4-4322-83f7-a4703caceed9}*SharedItemsImports = 5
+		src\SharedIllusion\SharedIllusion.projitems*{561f2722-a3ea-40ed-a5d0-982ed26118b9}*SharedItemsImports = 5
+		src\Shared\Shared.projitems*{561f2722-a3ea-40ed-a5d0-982ed26118b9}*SharedItemsImports = 5
+		src\SharedIllusion\SharedIllusion.projitems*{5af75ec6-4b19-4507-af25-742afbcbf45d}*SharedItemsImports = 5
+		src\Shared\Shared.projitems*{5af75ec6-4b19-4507-af25-742afbcbf45d}*SharedItemsImports = 5
+		src\SharedIllusion\SharedIllusion.projitems*{5e403633-53dc-4e82-b906-29f022236a89}*SharedItemsImports = 13
+		src\SharedIllusion\SharedIllusion.projitems*{687a6b4f-f433-40b0-b1f5-cc15f7437b14}*SharedItemsImports = 5
+		src\Shared\Shared.projitems*{687a6b4f-f433-40b0-b1f5-cc15f7437b14}*SharedItemsImports = 5
+		src\SharedIllusion\SharedIllusion.projitems*{6f62cf98-eb11-4ff2-8370-0b946ca337e5}*SharedItemsImports = 5
+		src\Shared\Shared.projitems*{6f62cf98-eb11-4ff2-8370-0b946ca337e5}*SharedItemsImports = 5
+		src\SharedIllusion\SharedIllusion.projitems*{719350ad-52f8-4752-8360-35c1ea196d42}*SharedItemsImports = 5
+		src\Shared\Shared.projitems*{719350ad-52f8-4752-8360-35c1ea196d42}*SharedItemsImports = 5
+		src\SharedIllusion\SharedIllusion.projitems*{7c713600-69b2-48ae-b805-a7bbf3408d69}*SharedItemsImports = 5
+		src\Shared\Shared.projitems*{7c713600-69b2-48ae-b805-a7bbf3408d69}*SharedItemsImports = 5
+		src\Shared\Shared.projitems*{8bf2798d-fd00-4483-95ee-dc37a599e6fd}*SharedItemsImports = 13
+		src\SharedIllusion\SharedIllusion.projitems*{91f6b54e-6a85-486f-8bf3-5920d838f030}*SharedItemsImports = 5
+		src\Shared\Shared.projitems*{91f6b54e-6a85-486f-8bf3-5920d838f030}*SharedItemsImports = 5
+		src\SharedIllusion\SharedIllusion.projitems*{bb0a856a-6604-42dc-9248-d760f9d24aca}*SharedItemsImports = 5
+		src\Shared\Shared.projitems*{bb0a856a-6604-42dc-9248-d760f9d24aca}*SharedItemsImports = 5
+		src\SharedIllusion\SharedIllusion.projitems*{ce50d875-f13c-4820-bdc1-ee87350e6db6}*SharedItemsImports = 5
+		src\Shared\Shared.projitems*{ce50d875-f13c-4820-bdc1-ee87350e6db6}*SharedItemsImports = 5
+		src\SharedIllgames\SharedIllgames.projitems*{d4712fb4-8d7c-f85b-7e6b-ce4abb2590a6}*SharedItemsImports = 5
+		src\Shared\Shared.projitems*{d4712fb4-8d7c-f85b-7e6b-ce4abb2590a6}*SharedItemsImports = 5
+		src\SharedIllusion\SharedIllusion.projitems*{e4335252-2b41-420f-bff1-7085a6850daf}*SharedItemsImports = 5
+		src\Shared\Shared.projitems*{e4335252-2b41-420f-bff1-7085a6850daf}*SharedItemsImports = 5
+		src\SharedIllusion\SharedIllusion.projitems*{ed03c79c-7b7d-4db5-b3a4-17586925f12d}*SharedItemsImports = 5
+		src\Shared\Shared.projitems*{ed03c79c-7b7d-4db5-b3a4-17586925f12d}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

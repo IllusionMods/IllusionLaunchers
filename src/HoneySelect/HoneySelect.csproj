@@ -11,6 +11,6 @@
 		<Resource Include="images\LaunchBG\viveBTN.png" />
 	</ItemGroup>
 
-	<Import Project="..\SharedCode\SharedCode.projitems" Label="Shared" />
-	<Import Project="..\SharedSettingsOld\SharedSettingsOld.projitems" Label="Shared" />
+	<Import Project="..\Shared\Shared.projitems" Label="Shared" />
+	<Import Project="..\SharedIllusion\SharedIllusion.projitems" Label="Shared" />
 </Project>

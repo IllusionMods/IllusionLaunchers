@@ -41,6 +41,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Include="..\app.config" Link="app.config" Visible="false" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Reference Include="System.Management" />
 	</ItemGroup>
 
