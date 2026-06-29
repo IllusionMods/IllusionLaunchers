@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using Microsoft.Win32;
 using MessageBox = System.Windows.Forms.MessageBox;
+using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 
 namespace InitSetting
 {
@@ -36,7 +40,7 @@ namespace InitSetting
 
                 // Initialize interface --------------------------------
                 InitializeComponent();
-                
+
                 if (!mainGameExists) buttonGameStart.Visibility = Visibility.Collapsed;
                 if (!studioExists) buttonStudioStart.Visibility = Visibility.Collapsed;
                 if (!vrExists) buttonVrStart.Visibility = Visibility.Collapsed;
@@ -44,6 +48,13 @@ namespace InitSetting
                 if (mainGameExists && !userDataExists)
                 {
                     createUserData();
+                }
+
+                if (!mainGameExists && studioExists)
+                {
+                    appBG.ImageSource = new BitmapImage(new Uri("pack://application:,,,/InitSetting;component/Images/DC-Background.png", UriKind.Absolute));
+                    Image_Logo.Source = new BitmapImage(new Uri("Images/DC-Logo.png", UriKind.RelativeOrAbsolute));
+                    Image_PackChara.Source = null;
                 }
 
                 WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -69,7 +80,7 @@ namespace InitSetting
                     warningText.Text = EnvironmentHelper.WarningString;
 
                 if (EnvironmentHelper.CustomCharacterImage != null)
-                    PackChara.Source = EnvironmentHelper.CustomCharacterImage;
+                    Image_PackChara.Source = EnvironmentHelper.CustomCharacterImage;
                 if (EnvironmentHelper.CustomBgImage != null)
                     appBG.ImageSource = EnvironmentHelper.CustomBgImage;
 
@@ -88,8 +99,10 @@ namespace InitSetting
                     var newItem = i == 0 ? primaryDisplay : $"{subDisplay} : " + i;
                     dropDisplay.Items.Add(newItem);
                 }
-                
+
                 PluginToggleManager.CreatePluginToggles(Toggleables);
+
+                CheckAndHideStudioWarnings();
 
                 _suppressEvents = false;
 
@@ -132,6 +145,7 @@ namespace InitSetting
             //}
 
         }
+
         #endregion
 
         #region Display settings
@@ -228,7 +242,7 @@ namespace InitSetting
         {
             StartGame(ExecutableVR);
         }
-        
+
         private void buttonManual_Click(object sender, RoutedEventArgs e)
         {
             EnvironmentHelper.ShowManual("manual", ManualUrlGame);
@@ -267,6 +281,142 @@ namespace InitSetting
         {
             EnvironmentHelper.StartManager();
         }
+
+        #endregion
+
+        #region Studio warnings
+
+        private void CheckAndHideStudioWarnings()
+        {
+            studioWarn_no_HC.Visibility = Visibility.Visible;
+            studioWarn_no_SVS.Visibility = Visibility.Visible;
+            studioWarn_no_AC.Visibility = Visibility.Visible;
+
+            studioWarn_outd_HC.Visibility = Visibility.Collapsed;
+            studioWarn_outd_SVS.Visibility = Visibility.Collapsed;
+            studioWarn_outd_AC.Visibility = Visibility.Collapsed;
+
+            studioWarn_outdated.Visibility = CheckVersion(_studioPath + "/../../DefaultData/craft/version.dat", new Version(3, 1, 0)) ? Visibility.Collapsed : Visibility.Visible;
+
+            using (var hcRegistryKey = Registry.CurrentUser.OpenSubKey(@"Software\ILLGAMES\HoneyCome"))
+            {
+                var hcInstallDir = hcRegistryKey?.GetValue("INSTALLDIR")?.ToString();
+                if (!string.IsNullOrEmpty(hcInstallDir) && File.Exists(hcInstallDir + "/abdata/add010_00"))
+                {
+                    studioWarn_no_HC.Visibility = Visibility.Collapsed;
+                    if (!CheckVersion(hcInstallDir + "/DefaultData/system/version.dat", new Version(2, 0, 7)))
+                        studioWarn_outd_HC.Visibility = Visibility.Visible;
+                }
+            }
+
+            using (var svsRegistryKey = Registry.CurrentUser.OpenSubKey(@"Software\ILLGAMES\SamabakeScramble"))
+            {
+                var svsInstallDir = svsRegistryKey?.GetValue("INSTALLDIR")?.ToString();
+                if (!string.IsNullOrEmpty(svsInstallDir) && Directory.Exists(svsInstallDir))
+                {
+                    studioWarn_no_SVS.Visibility = Visibility.Collapsed;
+                    if (!CheckVersion(svsInstallDir + "/DefaultData/system/version.dat", new Version(1, 1, 6)))
+                        studioWarn_outd_SVS.Visibility = Visibility.Visible;
+                }
+            }
+
+            using (var acRegistryKey = Registry.CurrentUser.OpenSubKey(@"Software\ILLGAMES\Aicomi"))
+            {
+                var acInstallDir = acRegistryKey?.GetValue("INSTALLDIR")?.ToString();
+                if (!string.IsNullOrEmpty(acInstallDir) && Directory.Exists(acInstallDir))
+                {
+                    studioWarn_no_AC.Visibility = Visibility.Collapsed;
+                    if (!CheckVersion(acInstallDir + "/DefaultData/system/version.dat", new Version(2, 0, 5)))
+                        studioWarn_outd_AC.Visibility = Visibility.Visible;
+                }
+            }
+        }
+
+        private static bool CheckVersion(string versionFilePath, Version minVersion)
+        {
+            try
+            {
+                if (File.Exists(versionFilePath))
+                {
+                    var versionText = File.ReadAllText(versionFilePath).Trim();
+                    var version = new Version(versionText);
+
+                    if (version >= minVersion)
+                        return true;
+                }
+            }
+            catch
+            {
+                // If version parsing fails, keep the warning visible
+            }
+
+            return false;
+        }
+
+        private void ShowRegKeyMissingMessage(string gameName, string filter, string regKey)
+        {
+            try
+            {
+                if (MessageBox.Show($"{gameName}'s registry key is missing and because of that will not be detected by DigitalCraft. Do you want to fix this by selecting the game's executable?",
+                                    "Registry Key Missing", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    using (var openFileDialog = new OpenFileDialog())
+                    {
+                        openFileDialog.Filter = filter;
+                        openFileDialog.Title = $"Select {gameName}'s executable";
+
+                        if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        {
+                            var exePath = openFileDialog.FileName;
+                            var installDir = Path.GetDirectoryName(exePath) ?? throw new ArgumentException(exePath + " is invalid");
+
+                            using (var registryKey = Registry.CurrentUser.CreateSubKey(regKey))
+                            {
+                                if (registryKey != null)
+                                {
+                                    registryKey.SetValue("INSTALLDIR", installDir);
+                                    MessageBox.Show("Registry key successfully created. DigitalCraft should now detect this game.\n\nWarning: You may still need to update the game before it is detected! You can see if DigitalCraft detected the game on DC's title screen in top right corner, all of the detected games and expansions are listed there.",
+                                                    "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    CheckAndHideStudioWarnings();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Failed to set registry key: " + exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void buttonWarn_HC_Click(object sender, RoutedEventArgs e) =>
+            ShowRegKeyMissingMessage("HoneyCome Dolce", "HoneyCome Executable|HoneyCome.exe;HoneyComeccp.exe", @"Software\ILLGAMES\HoneyCome");
+        private void buttonWarn_SVS_Click(object sender, RoutedEventArgs e) =>
+            ShowRegKeyMissingMessage("SamabakeScramble", "SamabakeScramble Executable|SamabakeScramble.exe", @"Software\ILLGAMES\SamabakeScramble");
+        private void buttonWarn_AC_Click(object sender, RoutedEventArgs e) =>
+            ShowRegKeyMissingMessage("Aicomi", "Aicomi Executable|Aicomi.exe", @"Software\ILLGAMES\Aicomi");
+
+        private static void ShowOutdatedMessage(string message, string url)
+        {
+            try
+            {
+                if (MessageBox.Show(message + "\n\nDo you want to go to the official website to look for an update?",
+                                    "DigitalCraft warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == System.Windows.Forms.DialogResult.Yes)
+                    Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
+        }
+        private void buttonWarn_outdated_Click(object sender, RoutedEventArgs e) =>
+            ShowOutdatedMessage("Content from some of the games might not appear in DigitalCraft because DigitalCraft is outdated.", "https://www.illgames.jp/product/digitalcraft_plain/");
+        private void buttonWarn_HCout_Click(object sender, RoutedEventArgs e) =>
+            ShowOutdatedMessage("Content from HoneyCome Dolce might not appear in DigitalCraft because HoneyCome Dolce is outdated.", "https://www.illgames.jp/product/honeycome_dolce/download.php");
+        private void buttonWarn_SVSout_Click(object sender, RoutedEventArgs e) =>
+            ShowOutdatedMessage("Content from SamabakeScramble might not appear in DigitalCraft because SamabakeScramble is outdated.", "https://www.illgames.jp/product/svs/download-add/");
+        private void buttonWarn_ACout_Click(object sender, RoutedEventArgs e) =>
+            ShowOutdatedMessage("Content from Aicomi might not appear in DigitalCraft because Aicomi is outdated.", "https://www.illgames.jp/product/aicomi/download.php");
 
         #endregion
 

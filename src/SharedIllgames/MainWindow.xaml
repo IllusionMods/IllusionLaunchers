@@ -69,8 +69,8 @@
             <ImageBrush x:Name="appBG" ImageSource="Images/Background.png" />
         </Grid.Background>
 
-        <StackPanel Margin="0,0,0,294" VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Grid Height="102" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="buttonGameStart">
+        <StackPanel VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Center" Height="303">
+            <Grid HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="buttonGameStart">
                 <Grid>
                     <Border HorizontalAlignment="Left" Height="34" Margin="35,25,0,0" VerticalAlignment="Top" Width="219.839" ClipToBounds="True" Background="Black">
                         <Border.RenderTransform>
@@ -110,16 +110,16 @@
                     </Button>
                 </Grid>
 
-                <Border x:Name="buttonGameManual" HorizontalAlignment="Left" Height="21" Margin="43,66,0,0" VerticalAlignment="Top" Width="170.417" Background="Black">
+                <Border x:Name="buttonGameManual" HorizontalAlignment="Left" Height="19" Margin="45,68,2,5" VerticalAlignment="Top" Width="170.417" Background="Black">
                     <Grid>
                         <Image Source="Images/ButtonBG/manual.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" />
                         <Label Foreground="White" VerticalContentAlignment="Center" Content="{x:Static local:Localizable.ManualGame}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="134" Margin="0,-3,0,0" Padding="7,5,5,5" />
-                        <Button Style="{StaticResource buttonHover}" Content="" HorizontalAlignment="Left" Height="24"  VerticalAlignment="Top" Width="174" Click="buttonManual_Click" />
+                        <Button Style="{StaticResource buttonHover}" Content="" Margin="-2" VerticalAlignment="Top" Click="buttonManual_Click" />
                     </Grid>
                 </Border>
             </Grid>
 
-            <Grid Height="102" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="buttonStudioStart">
+            <Grid Height="298" VerticalAlignment="Top" x:Name="buttonStudioStart">
                 <Grid>
                     <Border HorizontalAlignment="Left" Height="34" Margin="35,25,0,0" VerticalAlignment="Top" Width="219.839" ClipToBounds="True" Background="Black">
                         <Border.RenderTransform>
@@ -159,16 +159,60 @@
                     </Button>
                 </Grid>
 
-                <Border x:Name="buttonStudioManual" HorizontalAlignment="Left" Height="21" Margin="43,66,0,0" VerticalAlignment="Top" Width="170.417" Background="Black">
-                    <Grid>
-                        <Image Source="Images/ButtonBG/manual.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" />
-                        <Label Foreground="White" VerticalContentAlignment="Center" Content="{x:Static local:Localizable.ManualStudio}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="134" Margin="0,-3,0,0" Padding="7,5,5,5" />
-                        <Button Style="{StaticResource buttonHover}" Content="" HorizontalAlignment="Left" Height="24"  VerticalAlignment="Top" Width="174" Click="buttonManualS_Click" />
-                    </Grid>
-                </Border>
+                <StackPanel Margin="43,66,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="170.417">
+                    <Border x:Name="buttonStudioManual" Height="19" Margin="2,2,2,5" Background="Black">
+                        <Grid>
+                            <Image Source="Images/ButtonBG/manual.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" />
+                            <Label Foreground="White" VerticalContentAlignment="Center" Content="{x:Static local:Localizable.ManualStudio}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="134" Margin="0,-3,0,0" Padding="7,5,5,5" />
+                            <Button Style="{StaticResource buttonHover}" Content="" Margin="-2" VerticalAlignment="Top" Click="buttonManualS_Click" />
+                        </Grid>
+                    </Border>
+                    <Border x:Name="studioWarn_no_HC" Height="19" Margin="2,2,2,5" Background="Yellow">
+                        <Grid>
+                            <Label Foreground="Black" VerticalContentAlignment="Center" Content="HoneyCome Dolce is missing" HorizontalAlignment="Center" VerticalAlignment="Top" Height="26"  Margin="0,-3,0,0" Padding="0,5,0,5" />
+                            <Button Style="{StaticResource buttonHover}" Content="" Margin="-2" VerticalAlignment="Top"  Click="buttonWarn_HC_Click" />
+                        </Grid>
+                    </Border>
+                    <Border x:Name="studioWarn_no_SVS" Height="19" Margin="2,2,2,5" Background="Yellow">
+                        <Grid>
+                            <Label Foreground="Black" VerticalContentAlignment="Center" Content="SamabakeScramble is missing" HorizontalAlignment="Center" VerticalAlignment="Top" Height="26"  Margin="0,-3,0,0" Padding="0,5,0,5" />
+                            <Button Style="{StaticResource buttonHover}" Content="" Margin="-2" VerticalAlignment="Top" Click="buttonWarn_SVS_Click" />
+                        </Grid>
+                    </Border>
+                    <Border x:Name="studioWarn_no_AC" Height="19" Margin="2,2,2,5" Background="Yellow">
+                        <Grid>
+                            <Label Foreground="Black" VerticalContentAlignment="Center" Content="Aicomi is missing" HorizontalAlignment="Center" VerticalAlignment="Top" Height="26"  Margin="0,-3,0,0" Padding="0,5,0,5" />
+                            <Button Style="{StaticResource buttonHover}" Content="" Margin="-2" VerticalAlignment="Top"  Click="buttonWarn_AC_Click" />
+                        </Grid>
+                    </Border>
+                    <Border x:Name="studioWarn_outdated" Height="19" Margin="2,2,2,5" Background="Yellow">
+                        <Grid>
+                            <Label Foreground="Black" VerticalContentAlignment="Center" Content="DigitalCraft is outdated" HorizontalAlignment="Center" VerticalAlignment="Top" Height="26"  Margin="0,-3,0,0" Padding="0,5,0,5" />
+                            <Button Style="{StaticResource buttonHover}" Content="" Margin="-2" VerticalAlignment="Top" Click="buttonWarn_outdated_Click" />
+                        </Grid>
+                    </Border>
+                    <Border x:Name="studioWarn_outd_HC" Height="19" Margin="2,2,2,5" Background="Yellow">
+                        <Grid>
+                            <Label Foreground="Black" VerticalContentAlignment="Center" Content="HoneyCome Dolce is outdated" HorizontalAlignment="Center" VerticalAlignment="Top" Height="26"  Margin="0,-3,0,0" Padding="0,5,0,5" />
+                            <Button Style="{StaticResource buttonHover}" Content="" Margin="-2" VerticalAlignment="Top"  Click="buttonWarn_HCout_Click" />
+                        </Grid>
+                    </Border>
+                    <Border x:Name="studioWarn_outd_SVS" Height="19" Margin="2,2,2,5" Background="Yellow">
+                        <Grid>
+                            <Label Foreground="Black" VerticalContentAlignment="Center" Content="SamabakeScramble is outdated" HorizontalAlignment="Center" VerticalAlignment="Top" Height="26"  Margin="0,-3,0,0" Padding="0,5,0,5" />
+                            <Button Style="{StaticResource buttonHover}" Content="" Margin="-2" VerticalAlignment="Top" Click="buttonWarn_SVSout_Click" />
+                        </Grid>
+                    </Border>
+                    <Border x:Name="studioWarn_outd_AC" Height="19" Margin="2,2,2,5" Background="Yellow">
+                        <Grid>
+                            <Label Foreground="Black" VerticalContentAlignment="Center" Content="Aicomi is outdated" HorizontalAlignment="Center" VerticalAlignment="Top" Height="26"  Margin="0,-3,0,0" Padding="0,5,0,5" />
+                            <Button Style="{StaticResource buttonHover}" Content="" Margin="-2" VerticalAlignment="Top"  Click="buttonWarn_ACout_Click" />
+                        </Grid>
+                    </Border>
+                </StackPanel>
             </Grid>
 
-            <Grid Height="102" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="buttonVrStart">
+            <Grid HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="buttonVrStart">
                 <Grid>
                     <Border HorizontalAlignment="Left" Height="34" Margin="35,25,0,0" VerticalAlignment="Top" Width="219.839" ClipToBounds="True" Background="Black">
                         <Border.RenderTransform>
@@ -208,18 +252,18 @@
                     </Button>
                 </Grid>
 
-                <Border x:Name="buttonVrManual" HorizontalAlignment="Left" Height="21" Margin="43,66,0,0" VerticalAlignment="Top" Width="170.417" Background="Black">
+                <Border x:Name="buttonVrManual" HorizontalAlignment="Left" Height="19" Margin="45,68,2,5" VerticalAlignment="Top" Width="170.417" Background="Black">
                     <Grid>
                         <Image Source="Images/ButtonBG/manual.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" />
                         <Label Foreground="White" VerticalContentAlignment="Center" Content="{x:Static local:Localizable.ManualVR}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="134" Margin="0,-3,0,0" Padding="7,5,5,5" />
-                        <Button Style="{StaticResource buttonHover}" Content="" HorizontalAlignment="Left" Height="24"  VerticalAlignment="Top" Width="174" Click="buttonManualV_Click" />
+                        <Button Style="{StaticResource buttonHover}" Content="" Margin="-2" VerticalAlignment="Top" Click="buttonManualV_Click" />
                     </Grid>
                 </Border>
             </Grid>
         </StackPanel>
 
-        <Image x:Name="PackChara" HorizontalAlignment="Left" Height="378" Margin="322,220,0,0" VerticalAlignment="Top"
-               Width="255" Source="Images/Chara.png" Grid.RowSpan="2" />
+        <Image x:Name="Image_PackChara" HorizontalAlignment="Left" Height="378" Margin="322,220,0,0" VerticalAlignment="Top"
+               Width="255" Source="Images/Chara.png" Grid.RowSpan="2" Panel.ZIndex="-1" />
 
         <Border BorderBrush="#FF366EBF" Background="#CC000000" BorderThickness="2" HorizontalAlignment="Left"
                 Height="332.286" Margin="-41,137,0,0" VerticalAlignment="Top" Width="84" CornerRadius="3" Grid.RowSpan="2" />
@@ -318,8 +362,8 @@
                     Content="{x:Static local:Localizable.FolderUserData}" HorizontalAlignment="Left" Height="24"
                     VerticalAlignment="Top" Width="265.25" Margin="28.625,328.71,0,0" Click="buttonUserData_Click" />
         </Grid>
-        <Image x:Name="image2" HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="262"
-               Source="images/Logo.png" Margin="318,102,318,0" />
+        <Image x:Name="Image_Logo" HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="262"
+               Source="images/Logo.png" Margin="0,102,0,0" Panel.ZIndex="-1" />
         <Button Style="{StaticResource buttonHover}" x:Name="buttonClose" Content="X" HorizontalAlignment="Left"
                 Margin="856,10,0,0" VerticalAlignment="Top" Width="32" Height="28" IsCancel="true" />
         <Grid x:Name="gridDiscord" HorizontalAlignment="Left" Height="36.333" Margin="-40.584,160.952,0,0"
